@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>West Sussex C19 summary - mobile version</title>
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+<link rel="stylesheet" type="text/css" href="style.css" media="screen, handheld" />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<nav>
+<div class = 'top_nav_title'>
+<h4>COVID-19 in West Sussex</h4>
+</div>
+
+<ul class = 'nav-links' id = 'nav-links'>
+  <li><a href = '#'>Latest cases</a></li>
+  <li><a href = '#'>Cases by age</a></li>
+  <li><a href = '#'>Restrictions</a></li>
+  <li><a href = '#'>NHS pathway contacts</a></li>
+  <li><a href = '#'>Deaths</a></li>
+</ul>
+<div class = "menu_line" onclick="navSlide()">
+  <div class="line_1"></div>
+  <div class="line_2"></div>
+  <div class="line_3"></div>
+</div>
+</nav>
+
+<div class="main">
+<h2 style = "padding-left: 25px;">West Sussex COVID-19 data summary - mobile friendly site</h2>
+
+<p>This is the mobile/tablet friendly data summary of what we know about COVID-19 in West Sussex.</p>
+
+<p>You can view a quick summary in the tiles below for new cases, restrictions, contacts to NHS services, and mortality. Click on the buttons to find out more.</p>
+
+<p>A more in-depth look at the data, which is better viewed on a laptop or desktop screen is available <a href ='https://wsx-c19-weekly-supplement.netlify.app'>here<a>.</p>
+<div class="parent_flex">
+ <div class="child_1"></div>
+ <div class="child_2"></div>
+ <div class="child_3"></div>
+ <div class="child_4"></div>
+ <div class="child_5"></div>
+</div>
+
+<div class="content">
+</div>
+
+</div>
+
+<footer><p class = 'warn'>Although this page has been made by a member of staff in the Public Health and Social Research Unit to support their work, it is not a West Sussex County Council website.</p></footer>
+
+<script src= 'data.js'></script>
+
+</body>
+</html>

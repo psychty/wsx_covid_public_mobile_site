@@ -1,0 +1,177 @@
+/* global style */
+*{
+margin: 0px;
+padding: 0px;
+box-sizing: border-box;
+font-family: 'Open Sans', sans-serif;
+}
+
+p{
+margin: 25px;
+}
+
+/* navigation */
+nav{
+ display: flex;
+ justify-content: space-around;
+ align-items: center;
+ min-height: 10vh; /* this is % height*/
+ height: 20px;
+ background-color: #ffffff;
+ position: fixed;
+ width: 100%;
+}
+
+.main{
+padding-top: 30px;
+padding-bottom: 30px;
+}
+
+.top_nav_title{
+  color: #003366;
+  font-size: 16px;
+}
+
+.nav-links{
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+  background-color: #ffffff;
+ }
+
+.nav-links li{
+ list-style: none;
+}
+
+.nav-links a{
+ text-decoration: none;
+ color: #003366;
+ font-weight: bold;
+ font-size: 14px;
+ padding-right: 5px;
+}
+
+.menu_line {
+ display: none;
+}
+
+.menu_line div{
+ width: 25px;
+ height: 3px;
+ background-color: #0066b2;
+ margin: 5px;
+}
+
+/* content */
+.content {
+float: none;
+height: 60vh;
+}
+
+
+/* sections */
+.parent_flex{
+  margin: 20px;
+  height: 30vh;
+  /* border: 5px solid #cc9900; */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-flow: row wrap;
+}
+
+.child_1{
+  width: 300px;
+  height: 200px;
+  background-color: #008080;
+}
+
+.child_2{
+  width: 300px;
+  height: 200px;
+  background-color: #006666;
+}
+
+.child_3{
+  width: 300px;
+  height: 200px;
+  background-color: #ff9c1d;
+}
+
+.child_4{
+  width: 300px;
+  height: 200px;
+  background-color: #f6639b;
+}
+
+.child_5{
+  width: 300px;
+  height: 200px;
+  background-color: #db525a;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* media query */
+@media screen and (max-width: 1024px){
+.nav-links{
+  width: 50%;
+}
+}
+
+
+@media screen and (max-width: 768px){
+
+body{
+overflow-x: hidden;
+}
+
+.nav-links{
+ position: absolute;
+ right: 0px;
+ height: 90vh;
+ top: 8vh;
+ display: flex;
+ width: 50%;
+ flex-direction: column;
+ align-items: center;
+ transform: translateX(100%);
+ transition: transform 0.5s ease-in;
+}
+
+.nav-links li{
+opacity: 0;
+}
+
+.menu_line{
+display: block;
+cursor: pointer;
+}
+
+.nav-active{
+transform: translateX(0%);
+}
+
+@keyframes navLinkFader {
+
+from{
+opacity: 0;
+transform: translateX(50px);
+}
+to{
+opacity: 1;
+transform: translateX(0px);
+}
+
+}
+
+}
