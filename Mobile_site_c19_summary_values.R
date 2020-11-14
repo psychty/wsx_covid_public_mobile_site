@@ -148,4 +148,21 @@ trust_admissions <- trust_admissions_4 %>%
   left_join(trust_admissions_2, by = c('Name', 'Date')) %>% 
   left_join(trust_admissions_3, by = c('Name', 'Date'))
 
+trust_admissions_metadata <- read_excel( paste0(github_repo_dir,'/Source_files/trust_admissions.xlsx'),
+                                  sheet = 'All beds COVID',
+                                  skip = 2, 
+                                  col_names = FALSE, 
+                                  n_max = 5) %>% 
+  rename(Item = ...1,
+         Description = ...2) %>%
+  mutate(Description = ifelse(Item == 'Published:', as.character(format(as.Date(as.numeric(Description), origin = "1899-12-30"), '%d-%b-%Y')), Description))
 
+trust_admission_date <- read_excel( paste0(github_repo_dir,'/Source_files/trust_admissions.xlsx'),
+                                    sheet = 'All beds COVID',
+                                    skip = 2, 
+                                    col_names = FALSE, 
+                                    n_max = 5) %>% 
+  rename(Item = ...1,
+         Description = ...2) %>%
+  filter(Item == 'Published:') %>% 
+  mutate(Description  = as.Date(as.numeric(Description), origin = "1899-12-30"))
