@@ -1,8 +1,6 @@
-
-
 library(easypackages)
 
-libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "png", "tidyverse", "reshape2", "scales", 'zoo', 'stats',"rgdal", 'rgeos', "tmaptools", 'sp', 'sf', 'maptools', 'leaflet', 'leaflet.extras', 'fingertipsR', 'spdplyr', 'geojsonio', 'rmapshaper', 'jsonlite', 'grid', 'aweek', 'xml2', 'rvest', 'officer', 'flextable', 'viridis'))
+libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "png", "tidyverse", "reshape2", "scales", 'zoo', 'stats',"rgdal", 'rgeos', "tmaptools", 'sp', 'sf', 'maptools', 'leaflet', 'leaflet.extras', 'fingertipsR', 'spdplyr', 'geojsonio', 'rmapshaper', 'jsonlite', 'grid', 'aweek', 'xml2', 'rvest', 'officer', 'flextable', 'viridis', 'epitools'))
 
 capwords = function(s, strict = FALSE) {
   cap = function(s) paste(toupper(substring(s, 1, 1)),
@@ -39,10 +37,290 @@ github_repo_dir <- "~/Documents/Repositories/wsx_covid_public_mobile_site"
 output_directory_x <- paste0(github_repo_dir, '/Outputs')
 areas_to_loop <- c('West Sussex', 'Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing')
 
+# 2019 MYE
+
+mye_total <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.csv?geography=1816133633...1816133848,1820327937...1820328318,2092957697...2092957703,2013265921...2013265932&date=latest&gender=0&c_age=200&measures=20100&select=date_name,geography_name,geography_type,geography_code,obs_value') %>% 
+  rename(Population = OBS_VALUE,
+         Code = GEOGRAPHY_CODE,
+         Name = GEOGRAPHY_NAME,
+         Type = GEOGRAPHY_TYPE) %>% 
+  select(-DATE_NAME) %>% 
+  unique() %>% 
+  group_by(Name, Code) %>% 
+  mutate(Count = n()) %>% 
+  mutate(Type = ifelse(Count == 2, 'Unitary Authority', ifelse(Type == 'local authorities: county / unitary (as of April 2019)', 'Upper Tier Local Authority', ifelse(Type == 'local authorities: district / unitary (as of April 2019)', 'Lower Tier Local Authority', ifelse(Type == 'regions', 'Region', ifelse(Type == 'countries', 'Country', Type)))))) %>% 
+  ungroup() %>% 
+  select(-Count) %>% 
+  unique()
+
+mye_total %>% 
+  write.csv(., '/Users/richtyler/Documents/Repositories/wsx_covid_datapack_public/Source files/mye2019_ltla.csv', row.names = FALSE)
+
+if(exists('mye_total') == FALSE) {
+  mye_total <- read_csv('/Users/richtyler/Documents/Repositories/wsx_covid_datapack_public/Source files/mye2019_ltla.csv') %>%
+    rename(Population = `All ages`,
+           Type = Geography1)
+}
+
+area_code_names <- mye_total %>% 
+  select(Code, Name)
+
+mye_total <- mye_total %>%
+  select(-Name)
+
+# Cases ####
+
+daily_cases <- read_csv('https://coronavirus.data.gov.uk/downloads/csv/coronavirus-cases_latest.csv') %>%   
+  rename(Name = `Area name`) %>% 
+  rename(Code = `Area code`) %>% 
+  rename(Date = `Specimen date`) %>% 
+  rename(New_cases = `Daily lab-confirmed cases`) %>% 
+  rename(Cumulative_cases = `Cumulative lab-confirmed cases`) %>% 
+  arrange(Name, Date) %>% 
+  select(Name, Code, `Area type`, Date, New_cases, Cumulative_cases) %>% 
+  group_by(Name, Code, Date) %>% 
+  mutate(Count = n()) %>% 
+  filter(!(`Area type` == 'ltla' & Count == 2)) %>% 
+  select(-c(`Area type`, Count)) %>% 
+  left_join(mye_total, by = 'Code') %>% 
+  ungroup()
+
+# If no specimens are taken on a day, there is no row for it, and it would be missing data. Indeed, the only zeros are on the latest day. We need to therefore backfill and say if no date exists where it should, then add it, with the cumulative total and zero for new cases.
+
+# One way to do this is to create a new dataframe with a row for each area and date, and left join the daily_cases data to it.
+first_date <- min(daily_cases$Date)
+last_case_date <- max(daily_cases$Date)
+
+# remotes::install_github("publichealthengland/coronavirus-dashboard-api-R-sdk")
+# install.packages("ukcovid19")
+library(ukcovid19)
+
+query_filters <- c(
+  # "areaType=utla"
+  'areaName=West Sussex'
+)
+
+query_structure <- list(
+  date = "date", 
+  name = "areaName", 
+  code = "areaCode", 
+  daily = "newCasesBySpecimenDate",
+  cumulative = "cumCasesBySpecimenDate"
+)
+
+last_date <- as.Date(last_update(filters = query_filters, structure = query_structure))
+# daily_cases <- get_data(filters = query_filters, structure = query_structure)
+# last_date <- as.Date('2020-08-26')
+
+Areas = daily_cases %>% 
+  select(Name, Code, Type) %>% 
+  unique()
+
+Dates = seq.Date(first_date, last_case_date, by = '1 day')
+
+daily_cases_reworked <- data.frame(Name = rep(Areas$Name, length(Dates)), Code = rep(Areas$Code, length(Dates)), Type = rep(Areas$Type, length(Dates)), check.names = FALSE) %>% 
+  arrange(Name) %>% 
+  group_by(Name) %>% 
+  mutate(Date = seq.Date(first_date, last_case_date, by = '1 day')) %>% 
+  left_join(daily_cases, by = c('Name', 'Code', 'Type', 'Date')) %>% 
+  mutate(New_cases = ifelse(is.na(New_cases), 0, New_cases)) %>% 
+  mutate(New_cumulative = cumsum(New_cases)) %>% 
+  filter(!is.na(Cumulative_cases)) %>% 
+  mutate(Calculated_same_as_original = ifelse(Cumulative_cases == New_cumulative, 'Yaas', 'Negative'))
+
+# PHE say the last four data points are incomplete (perhaps they should not publish them). Instead, we need to make sure we account for this so that it is not misinterpreted.
+complete_date <- last_date - 5
+# Case results are generally published in the afternoon and represent cases reported up to 9am of the reporting day. However, cases are assigned to the date of which the specimen was taken rather than when it was reported. This means it will be very unlikely that a specimen would be taken and results returned by 9am of the day of publication. As such, we consider the last five days (four days plus the day of reporting) as incomplete.
+
+p12_test_df <- data.frame(Name = rep(Areas$Name, length(Dates)), Code = rep(Areas$Code, length(Dates)), Type = rep(Areas$Type, length(Dates)), check.names = FALSE) %>% 
+  arrange(Name) %>% 
+  group_by(Name) %>% 
+  mutate(Date = seq.Date(first_date, last_case_date, by = '1 day')) %>% 
+  mutate(Data_completeness = ifelse(Date > complete_date, 'Considered incomplete', 'Complete')) %>% 
+  left_join(daily_cases, by = c('Name', 'Code', 'Type', 'Date')) %>% 
+  mutate(New_cases = ifelse(is.na(New_cases), 0, New_cases)) %>% 
+  rename(Original_cumulative = Cumulative_cases) %>% # We should keep the original cumulative cases for reference
+  mutate(Cumulative_cases = cumsum(New_cases)) %>% # These are based on the new cases data being accurate
+  group_by(Name) %>% 
+  mutate(Period = format(Date, '%d %B')) %>%
+  select(-Population) %>% 
+  left_join(mye_total[c('Code', 'Population')], by = 'Code') %>% 
+  mutate(Cumulative_per_100000 = (Cumulative_cases / Population) * 100000) %>% 
+  mutate(New_cases_per_100000 = (New_cases / Population) * 100000) %>% 
+  ungroup() %>% 
+  mutate(Name = ifelse(Name == 'South East', 'South East region', Name))  %>% 
+  group_by(Name) %>% 
+  mutate(Rolling_7_day_new_cases = rollapply(New_cases, 7, sum, align = 'right', fill = NA)) %>% 
+  mutate(Rolling_7_day_new_cases_per_100000 = ifelse(is.na(Rolling_7_day_new_cases), NA, (Rolling_7_day_new_cases / Population) * 100000)) %>% 
+  mutate(Perc_change_on_rolling_7_days_actual = round((Rolling_7_day_new_cases - lag(Rolling_7_day_new_cases, 7))/ lag(Rolling_7_day_new_cases, 7), 2))  %>% 
+  mutate(Perc_change_on_rolling_7_days_actual = ifelse(Perc_change_on_rolling_7_days_actual == Inf, 1, Perc_change_on_rolling_7_days_actual)) %>% 
+  mutate(Perc_change_on_rolling_7_days_actual = replace_na(Perc_change_on_rolling_7_days_actual, 0)) %>% 
+  ungroup() 
+
+rm(daily_cases, Areas, Dates, first_date, mye_total, area_code_names, daily_cases_reworked, query_structure)
+
+p12_test_summary_1 <- p12_test_df %>% 
+  filter(Name %in% c(areas_to_loop, 'England', 'South East region')) %>% 
+  filter(Date == last_case_date) %>% 
+  select(Name, Cumulative_cases, Cumulative_per_100000)
+
+p12_test_summary_2 <- p12_test_df %>% 
+  filter(Name %in% c(areas_to_loop, 'England', 'South East region')) %>% 
+  filter(Date %in% c(complete_date)) %>% 
+  select(Name, New_cases, New_cases_per_100000, Rolling_7_day_new_cases, Rolling_7_day_new_cases_per_100000, Perc_change_on_rolling_7_days_actual) %>% 
+  mutate(Change_direction = ifelse(Perc_change_on_rolling_7_days_actual <0, 'Down', ifelse(Perc_change_on_rolling_7_days_actual == 0, 'Same', ifelse(Perc_change_on_rolling_7_days_actual > 0, 'Up', NA))))
+
+p12_test_summary <- p12_test_summary_1 %>% 
+  left_join(p12_test_summary_2, by = 'Name')
+
+# Cumulative to most recent case date, new cases and rolling 7 day incidence up to complete date only.
+
+rm(p12_test_summary_1, p12_test_summary_2)
+
+# Age specific cases ####
+
+mye_ages <- read_csv('https://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.csv?geography=2092957699,2013265921...2013265932,1816133633...1816133848,1820327937...1820328318&date=latest&gender=0&c_age=1,3...18,210&measures=20100&select=geography_name,geography_code,c_age_name,obs_value,geography_type') %>% 
+  rename(Population = OBS_VALUE,
+         Code = GEOGRAPHY_CODE,
+         Name = GEOGRAPHY_NAME,
+         Type = GEOGRAPHY_TYPE,
+         Age = C_AGE_NAME) %>% 
+  group_by(Code, Name, Age) %>% 
+  mutate(Count = n()) %>% 
+  unique() %>% 
+  mutate(Type = ifelse(Count == 2, 'Unitary Authoritory', ifelse(Type == 'local authorities: county / unitary (as of April 2019)', 'Upper Tier Local Authority', ifelse(Type == 'local authorities: district / unitary (as of April 2019)', 'Lower Tier Local Authority', ifelse(Type == 'regions', 'Region', ifelse(Type == 'countries', 'Country', Type)))))) %>% 
+  group_by(Name, Code) %>% 
+  ungroup() %>% 
+  select(-Count) %>% 
+  unique() %>% 
+  mutate(Age = gsub('Aged ', '', Age)) %>% 
+  mutate(Age = gsub('Age', '', Age)) %>% 
+  mutate(Age = gsub(' 0 - ', '0-', Age)) %>% 
+  mutate(Age = paste0(Age, ' years')) %>% 
+  mutate(Age = ifelse(Age %in% c('80-84 years', '85+ years'), '80+ years', Age)) %>% 
+  group_by(Name, Code, Age, Type) %>% 
+  summarise(Population = sum(Population, na.rm = TRUE)) %>% 
+  ungroup()
+
+age_spec <- read_csv('https://coronavirus.data.gov.uk/downloads/demographic/cases/specimenDate_ageDemographic-unstacked.csv') %>% 
+  filter(areaName %in% c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex', 'South East', 'England')) %>% 
+  select(areaCode, areaName, areaType, date, `newCasesBySpecimenDate-0_4`,`newCasesBySpecimenDate-5_9`,`newCasesBySpecimenDate-10_14`,`newCasesBySpecimenDate-15_19`,`newCasesBySpecimenDate-20_24`,`newCasesBySpecimenDate-25_29`,`newCasesBySpecimenDate-30_34`,`newCasesBySpecimenDate-35_39`,`newCasesBySpecimenDate-40_44`,`newCasesBySpecimenDate-45_49`,`newCasesBySpecimenDate-50_54`,`newCasesBySpecimenDate-55_59`,`newCasesBySpecimenDate-60_64`,`newCasesBySpecimenDate-65_69`,`newCasesBySpecimenDate-70_74`,`newCasesBySpecimenDate-75_79`,`newCasesBySpecimenDate-80_84`,`newCasesBySpecimenDate-85_89`,`newCasesBySpecimenDate-90+`,`newCasesBySpecimenDate-unassigned`) %>%
+  pivot_longer(cols = c(`newCasesBySpecimenDate-0_4`,`newCasesBySpecimenDate-5_9`,`newCasesBySpecimenDate-10_14`,`newCasesBySpecimenDate-15_19`,`newCasesBySpecimenDate-20_24`,`newCasesBySpecimenDate-25_29`,`newCasesBySpecimenDate-30_34`,`newCasesBySpecimenDate-35_39`,`newCasesBySpecimenDate-40_44`,`newCasesBySpecimenDate-45_49`,`newCasesBySpecimenDate-50_54`,`newCasesBySpecimenDate-55_59`,`newCasesBySpecimenDate-60_64`,`newCasesBySpecimenDate-65_69`,`newCasesBySpecimenDate-70_74`,`newCasesBySpecimenDate-75_79`,`newCasesBySpecimenDate-80_84`,`newCasesBySpecimenDate-85_89`,`newCasesBySpecimenDate-90+`,`newCasesBySpecimenDate-unassigned`),
+               names_to = 'Age') %>% 
+  mutate(Age = gsub('newCasesBySpecimenDate-', '', Age)) %>% 
+  mutate(Age = ifelse(Age == 'unassigned', 'Unknown', paste0(Age, ' years'))) %>% 
+  mutate(Age = gsub('_', '-', Age)) %>% 
+  mutate(Age = ifelse(Age %in% c('80-84 years', '85-89 years', '90+ years'), '80+ years', Age)) %>%
+  filter(areaType != 'overview') %>% 
+  mutate(areaType = ifelse(areaType == 'ltla', 'Lower Tier Local Authority', ifelse(areaType == 'utla', 'Upper Tier Local Authority', ifelse(areaType == 'region', 'Region', ifelse(areaType == 'nation' , 'Nation', NA))))) %>% 
+  rename(Name = areaName,
+         Code = areaCode,
+         Type = areaType,
+         Cases = value,
+         Date = date) %>% 
+  group_by(Name, Age, Date) %>% 
+  summarise(Cases = sum(Cases, na.rm = TRUE)) 
+
+Areas <- c('Adur', 'Arun', 'Chichester','Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex', 'South East', 'England')
+Ages <- data.frame(Age = c('0-4 years', '5-9 years', '10-14 years', '15-19 years', '20-24 years' , '25-29 years', '30-34 years', '35-39 years', '40-44 years', '45-49 years', '50-54 years' ,'55-59 years', '60-64 years' , '65-69 years', '70-74 years', '75-79 years', '80+ years'))
+Dates <- seq.Date(min(age_spec$Date), max(age_spec$Date), by = '1 day')
+
+age_df_daily_combined <- data.frame(Name = character(), Age = character(), Date = character())
+
+for(i in 1:length(Areas)){
+  
+  area_x = Areas[i]
+  
+  df_x <- data.frame(Age = rep(Ages$Age, length(Dates))) %>%
+    arrange(Age) %>%
+    group_by(Age) %>%
+    mutate(Date = seq.Date(min(age_spec$Date), max(age_spec$Date), by = '1 day')) %>%
+    mutate(Name = area_x) %>%
+    mutate(Date = as.character(Date)) %>%
+    ungroup()
+  
+  age_df_daily_combined <- age_df_daily_combined %>%
+    bind_rows(df_x)
+  
+}
+
+case_age_df_daily <- age_df_daily_combined %>%
+  mutate(Date = as.Date(Date)) %>%
+  left_join(age_spec, by = c('Name', 'Date', 'Age')) %>%
+  mutate(Cases = replace_na(Cases, 0)) %>%
+  group_by(Name, Age) %>%
+  arrange(Name, Age, Date) %>%
+  ungroup() %>% 
+  left_join(mye_ages, by = c('Name', 'Age')) %>% 
+  group_by(Name, Age) %>% 
+  arrange(Name, Age, Date) %>% 
+  mutate(Cumulative_cases = cumsum(Cases)) %>% 
+  mutate(Rolling_7_day_new_cases = rollapply(Cases, 7, sum, align = 'right', fill = NA, partial = TRUE)) %>%
+  mutate(Rolling_7_day_new_cases = replace_na(Rolling_7_day_new_cases, 0)) %>% 
+  mutate(Perc_change_on_rolling_7_days_actual = round((Rolling_7_day_new_cases - lag(Rolling_7_day_new_cases, 7))/ lag(Rolling_7_day_new_cases, 7), 2)) %>% 
+  mutate(Perc_change_on_rolling_7_days_actual = ifelse(Perc_change_on_rolling_7_days_actual == Inf, 1, Perc_change_on_rolling_7_days_actual)) %>% 
+ mutate(Perc_change_on_rolling_7_days_actual = replace_na(Perc_change_on_rolling_7_days_actual, 0)) %>% 
+  ungroup() %>% 
+  mutate(ASR = pois.exact(Rolling_7_day_new_cases, Population)[[3]]*100000)
+
+age_spec_10 <- case_age_df_daily %>% 
+  mutate(Age = ifelse(Age %in% c('0-4 years', '5-9 years'), '0-9 years', ifelse(Age %in% c('10-14 years', '15-19 years'), '10-19 years',ifelse(Age %in% c('20-24 years', '25-29 years'), '20-29 years',ifelse(Age %in% c('30-34 years', '35-39 years'), '30-39 years',ifelse(Age %in% c('40-44 years', '45-49 years'), '40-49 years',ifelse(Age %in% c('50-54 years', '55-59 years'), '50-59 years',ifelse(Age %in% c('60-64 years', '65-69 years'), '60-69 years',ifelse(Age %in% c('70-74 years', '75-79 years'), '70-79 years', '80+ years'))))))))) %>% 
+  group_by(Name, Age, Date) %>% 
+  summarise(Cases = sum(Cases, na.rm = TRUE),
+            Population = sum(Population, na.rm = TRUE)) %>% 
+  group_by(Name, Age) %>% 
+  arrange(Name, Age, Date) %>% 
+  mutate(Cumulative_cases = cumsum(Cases)) %>% 
+  mutate(Rolling_7_day_new_cases = rollapply(Cases, 7, sum, align = 'right', fill = NA, partial = TRUE)) %>%
+  mutate(Rolling_7_day_new_cases = replace_na(Rolling_7_day_new_cases, 0)) %>% 
+  mutate(Perc_change_on_rolling_7_days_actual = round((Rolling_7_day_new_cases - lag(Rolling_7_day_new_cases, 7))/ lag(Rolling_7_day_new_cases, 7), 2)) %>% 
+  mutate(Perc_change_on_rolling_7_days_actual = ifelse(Perc_change_on_rolling_7_days_actual == Inf, 1, Perc_change_on_rolling_7_days_actual)) %>% 
+  mutate(Perc_change_on_rolling_7_days_actual = replace_na(Perc_change_on_rolling_7_days_actual, 0)) %>% 
+  ungroup() %>% 
+  mutate(ASR = pois.exact(Rolling_7_day_new_cases, Population)[[3]]*100000) %>% 
+  arrange(Date) %>% 
+  select(Name, Age, Date, Cases, Cumulative_cases, Rolling_7_day_new_cases, ASR, Perc_change_on_rolling_7_days_actual, Population)  
+
+age_spec_10_summary_1 <- age_spec_10 %>% 
+  filter(Date == complete_date) %>% 
+  mutate(New_cases_per_100000 = pois.exact(Cases, Population)[[3]]*100000) %>% 
+  mutate(Cumulative_per_100000 = pois.exact(Cumulative_cases, Population)[[3]]*100000) %>% 
+  rename(New_cases = Cases) %>% 
+  select(Name, Age, Cumulative_cases, Cumulative_per_100000, New_cases, New_cases_per_100000, Rolling_7_day_new_cases, ASR, Perc_change_on_rolling_7_days_actual) %>% 
+  rename(Rolling_7_day_new_cases_per_100000 = ASR) %>% 
+  mutate(Change_direction = ifelse(Perc_change_on_rolling_7_days_actual < 0, 'Down', ifelse(Perc_change_on_rolling_7_days_actual == 0, 'Same', ifelse(Perc_change_on_rolling_7_days_actual > 0, 'Up', NA))))
+
+age_spec_over_60 <- case_age_df_daily %>% 
+  filter(Age %in% c('60-64 years', '65-69 years', '70-74 years', '75-79 years', '80+ years')) %>% 
+  mutate(Age = '60+ years') %>% 
+  group_by(Name, Age, Date) %>% 
+  summarise(Cases = sum(Cases, na.rm = TRUE),
+            Population = sum(Population, na.rm = TRUE)) %>% 
+  group_by(Name) %>% 
+  arrange(Name, Age, Date) %>% 
+  mutate(Cumulative_cases = cumsum(Cases)) %>% 
+  mutate(Rolling_7_day_new_cases = rollapply(Cases, 7, sum, align = 'right', fill = NA, partial = TRUE)) %>%
+  mutate(Rolling_7_day_new_cases = replace_na(Rolling_7_day_new_cases, 0)) %>% 
+  mutate(Perc_change_on_rolling_7_days_actual = round((Rolling_7_day_new_cases - lag(Rolling_7_day_new_cases, 7))/ lag(Rolling_7_day_new_cases, 7), 2)) %>% 
+  mutate(Perc_change_on_rolling_7_days_actual = ifelse(Perc_change_on_rolling_7_days_actual == Inf, 1, Perc_change_on_rolling_7_days_actual)) %>% 
+  mutate(Perc_change_on_rolling_7_days_actual = replace_na(Perc_change_on_rolling_7_days_actual, 0)) %>% 
+  ungroup() %>% 
+  mutate(ASR = pois.exact(Rolling_7_day_new_cases, Population)[[3]]*100000) 
+
+age_spec_60_summary_1 <- age_spec_over_60 %>% 
+  filter(Date == complete_date) %>% 
+  mutate(New_cases_per_100000 = pois.exact(Cases, Population)[[3]]*100000) %>% 
+  mutate(Cumulative_per_100000 = pois.exact(Cumulative_cases, Population)[[3]]*100000) %>% 
+  rename(New_cases = Cases) %>% 
+  select(Name, Age, Cumulative_cases, Cumulative_per_100000, New_cases, New_cases_per_100000, Rolling_7_day_new_cases, ASR, Perc_change_on_rolling_7_days_actual) %>% 
+  rename(Rolling_7_day_new_cases_per_100000 = ASR) %>% 
+  mutate(Change_direction = ifelse(Perc_change_on_rolling_7_days_actual < 0, 'Down', ifelse(Perc_change_on_rolling_7_days_actual == 0, 'Same', ifelse(Perc_change_on_rolling_7_days_actual > 0, 'Up', NA))))
+
+rm(age_df_daily_combined, age_spec, Ages, df_x, mye_ages)
 
 # Hospital admissions ####
 
-# Hospital provider trusts do not have geographically defined boundaries for their population nor do they have complete lists of registered patients. However, modelled estimates of the catchment populations for hospital provider trusts in England are provided by Public Health England (PHE). These experimental statistics estimates the number of people who are using each hospital trust or have the potential to do so. Individual acute trusts sometimes use varying methods to define the population they serve, such as patient flow, CCG derived or travel time based estimates. PHE published modelled estimates use the patient flow method.
+# Hospital provider trusts do not have geographically defined boundaries for their population nor do they have complete lists of registered patients. However, modeled estimates of the catchment populations for hospital provider trusts in England are provided by Public Health England (PHE). These experimental statistics estimates the number of people who are using each hospital trust or have the potential to do so. Individual acute trusts sometimes use varying methods to define the population they serve, such as patient flow, CCG derived or travel time based estimates. PHE published modelled estimates use the patient flow method.
 
 # Note: interpretation of the figures should take into account the fact that totals by date of death, particularly for recent prior days, are likely to be updated in future releases. For example as deaths are confirmed as testing positive for Covid-19, as more post-mortem tests are processed and data from them are validated. Any changes are made clear in the daily files.					
 if(!file.exists(paste0(github_repo_dir, '/Source_files/etr.csv'))){
@@ -166,3 +444,144 @@ trust_admission_date <- read_excel( paste0(github_repo_dir,'/Source_files/trust_
          Description = ...2) %>%
   filter(Item == 'Published:') %>% 
   mutate(Description  = as.Date(as.numeric(Description), origin = "1899-12-30"))
+
+
+rm(trust_admissions_1, trust_admissions_2, trust_admissions_3, trust_admissions_4, trust_admissions_5)
+
+trust_summary_1_beds <- trust_admissions %>% 
+  group_by(Name) %>% 
+  arrange(Name, Date) %>% 
+  mutate(Previous_COVID_confirmed_positive_patients_occupying_beds = lag(COVID_confirmed_positive_patients_occupying_beds, 7)) %>% 
+  mutate(Perc_change_on_beds_occupied = round((COVID_confirmed_positive_patients_occupying_beds - lag(COVID_confirmed_positive_patients_occupying_beds, 7))/ lag(COVID_confirmed_positive_patients_occupying_beds, 7), 2)) %>% 
+  mutate(Perc_change_on_beds_occupied = ifelse(Perc_change_on_beds_occupied == Inf, 1, Perc_change_on_beds_occupied)) %>% 
+  mutate(Perc_change_on_beds_occupied = replace_na(Perc_change_on_beds_occupied, 0)) %>% 
+  mutate(Date_pr = lag(Date, 7)) %>% 
+  filter(Date %in% c(max(Date), max(Date) - 7)) %>% 
+  select(Name, Date, COVID_confirmed_positive_patients_occupying_beds, Previous_COVID_confirmed_positive_patients_occupying_beds, Perc_change_on_beds_occupied) %>% 
+ mutate(Change_direction = ifelse(Perc_change_on_beds_occupied <0, 'Down', ifelse(Perc_change_on_beds_occupied == 0, 'Same', ifelse(Perc_change_on_beds_occupied > 0, 'Up', NA))))
+
+trust_summary_2_beds <- trust_admissions %>% 
+  group_by(Name) %>% 
+  arrange(Name, Date) %>% 
+  mutate(Previous_COVID_confirmed_positive_patients_occupying_mv_beds = lag(COVID_confirmed_positive_patients_occupying_mechanical_ventilation_beds, 7)) %>% 
+  mutate(Perc_change_on_mv_beds_occupied = round((COVID_confirmed_positive_patients_occupying_mechanical_ventilation_beds - lag(COVID_confirmed_positive_patients_occupying_mechanical_ventilation_beds, 7))/ lag(COVID_confirmed_positive_patients_occupying_mechanical_ventilation_beds, 7), 2)) %>% 
+  mutate(Perc_change_on_mv_beds_occupied = ifelse(Perc_change_on_mv_beds_occupied == Inf, 1)) %>% 
+  mutate(Perc_change_on_mv_beds_occupied = replace_na(Perc_change_on_mv_beds_occupied, 0))
+  mutate(Date_pr = lag(Date, 7)) %>% 
+  filter(Date %in% c(max(Date), max(Date) - 7)) %>% 
+  select(Name, Date, COVID_confirmed_positive_patients_occupying_mechanical_ventilation_beds, Previous_COVID_confirmed_positive_patients_occupying_mv_beds, Perc_change_on_mv_beds_occupied) %>% 
+  mutate(Change_direction = ifelse(Perc_change_on_mv_beds_occupied <0, 'Down', ifelse(Perc_change_on_mv_beds_occupied == 0, 'Same', ifelse(Perc_change_on_mv_beds_occupied > 0, 'Up', NA))))
+
+
+# Mortality ####
+
+set_week_start('Friday')
+
+week_ending <- data.frame(Week_ending = get_date(week = 1:52, year = 2020)) %>% 
+  mutate(Week_number = row_number())
+
+download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek',substr(as.character(as.aweek(Sys.Date()-11)), 7,8), '.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
+
+# # if the downlaod does fail, it wipes out the old one, which we can use to our advantage
+if(!file.exists(paste0(github_repo_dir, '/Source files/ons_mortality.xlsx'))){
+  download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek',substr(as.character(as.aweek(Sys.Date()-12)), 7,8), '.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
+}
+
+Occurrences_ltla <- read_excel(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>% 
+  rename(Name = `Area name`,
+         Cause = `Cause of death`,
+         Week_number = `Week number`,
+         Place_of_death = `Place of death`,
+         Deaths = `Number of deaths`) %>% 
+  filter(Name %in% c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing')) %>% 
+  select(Name, Week_number, Cause, Place_of_death, Deaths) %>% 
+  left_join(week_ending, by = 'Week_number') %>% 
+  ungroup()
+
+# Occurrences data is produced at ltla level and we would probably find it useful to aggregate to utla and region for our analysis
+Occurrences_wsx <- Occurrences_ltla %>% 
+  group_by(Cause, Week_number, Place_of_death) %>% 
+  summarise(Deaths = sum(Deaths, na.rm = TRUE)) %>% 
+  mutate(Name = 'West Sussex') %>% 
+  select(Name, Week_number, Cause, Place_of_death, Deaths) %>% 
+  left_join(week_ending, by = 'Week_number') %>% 
+  ungroup()
+
+Occurrences<- Occurrences_ltla %>% 
+  bind_rows(Occurrences_wsx)
+
+rm(Occurrences_ltla, Occurrences_wsx)
+
+deaths_labels <- Occurrences %>% 
+  arrange(Week_number) %>% 
+  select(Week_ending) %>% 
+  unique() %>% 
+  mutate(deaths_label = paste0('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, ' %b')))
+
+weekly_all_place_all_deaths <- Occurrences %>% 
+  filter(Cause == 'All causes') %>% 
+  arrange(Week_number) %>% 
+  group_by(Name, Week_ending) %>% 
+  summarise(Deaths = sum(Deaths, na.rm = TRUE)) %>% 
+  select(Name, Week_ending, Deaths) %>% 
+  mutate(Week_ending = factor(paste0('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, ' %b')), levels = deaths_labels$deaths_label)) %>% 
+  rename(All_deaths = Deaths)
+
+All_settings_occurrences <- Occurrences %>% 
+  group_by(Name, Week_number, Week_ending, Cause) %>% 
+  summarise(Deaths = sum(Deaths, na.rm = TRUE)) %>% 
+  group_by(Name, Cause) %>% 
+  arrange(Cause, Week_number) %>% 
+  mutate(Cumulative_deaths = cumsum(Deaths))  %>% 
+  ungroup()
+
+weekly_all_place_deaths <- All_settings_occurrences %>% 
+  filter(Name %in% areas_to_loop) %>%
+  arrange(Week_number) %>% 
+  select(Name, Cause, Week_ending, Deaths) %>% 
+  mutate(Week_ending = factor(paste0('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, ' %b')), levels = deaths_labels$deaths_label)) %>% 
+  pivot_wider(id_cols = c(Name, Week_ending),
+              names_from = Cause,
+              values_from = Deaths) %>% 
+  mutate(`Non-Covid` = `All causes` - `COVID 19`) %>%
+  select(-`All causes`) %>% 
+  gather(key = 'Cause', value = 'Deaths', `COVID 19`:`Non-Covid`) %>% 
+  mutate(Cause = factor(Cause, levels = rev(c('Non-Covid', 'COVID 19')))) %>% 
+  mutate(lab_posit = ifelse(Cause == 'Non-Covid', 1.5, -1)) %>% 
+  left_join(weekly_all_place_all_deaths, by = c('Name', 'Week_ending'))
+
+
+deaths_summary_1 <- All_settings_occurrences %>% 
+  filter(Week_number == max(Week_number)) %>% 
+  select(Name, Week_number, Week_ending, Cause, Deaths) %>% 
+  mutate(Cause = paste0(Cause, ' deaths this week')) %>% 
+  pivot_wider(names_from = Cause, values_from = Deaths)
+  
+deaths_summary_2 <- All_settings_occurrences %>% 
+  filter(Week_number == max(Week_number)) %>% 
+  select(Name, Week_number, Cause, Cumulative_deaths) %>% 
+  mutate(Cause = paste0(Cause, ' deaths so far')) %>% 
+  pivot_wider(names_from = Cause, values_from = Cumulative_deaths)
+
+deaths_summary <- deaths_summary_1 %>% 
+  left_join(deaths_summary_2, by = c('Name', 'Week_number'))
+
+rm(deaths_summary_1, deaths_summary_2)
+
+# Care home deaths
+
+carehome_deaths_summary <- Occurrences %>%
+  filter(Place_of_death %in% 'Care home') %>% 
+  arrange(Week_number) %>% 
+  select(Name, Cause, Week_ending, Week_number, Deaths) %>% 
+  mutate(Week_ending = factor(paste0('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, ' %b')), levels = deaths_labels$deaths_label)) %>% 
+  mutate(Cause = paste0(Cause, ' deaths this week')) %>% 
+  pivot_wider(id_cols = c(Name, Week_ending, Week_number),
+                names_from = Cause,
+                values_from = Deaths) %>% 
+  group_by(Name) %>% 
+  arrange(Name, Week_number) %>% 
+  mutate(`All causes deaths so far` = cumsum(`All causes deaths this week`),
+         `COVID 19 deaths so far` = cumsum(`COVID 19 deaths this week`))  %>% 
+  ungroup() %>% 
+  filter(Week_number == max(Week_number))
