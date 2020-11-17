@@ -162,16 +162,18 @@ rm(daily_cases, Areas, Dates, first_date, mye_total, area_code_names, daily_case
 p12_test_summary_1 <- p12_test_df %>% 
   filter(Name %in% c(areas_to_loop, 'England', 'South East region')) %>% 
   filter(Date == last_case_date) %>% 
-  select(Name, Cumulative_cases, Cumulative_per_100000)
+  select(Name, Date, Cumulative_cases, Cumulative_per_100000) %>% 
+  rename(Cumulative_date = Date)
 
 p12_test_summary_2 <- p12_test_df %>% 
   filter(Name %in% c(areas_to_loop, 'England', 'South East region')) %>% 
   filter(Date %in% c(complete_date)) %>% 
-  select(Name, New_cases, New_cases_per_100000, Rolling_7_day_new_cases, Rolling_7_day_new_cases_per_100000, Perc_change_on_rolling_7_days_actual) %>% 
-  mutate(Change_direction = ifelse(Perc_change_on_rolling_7_days_actual <0, 'Down', ifelse(Perc_change_on_rolling_7_days_actual == 0, 'Same', ifelse(Perc_change_on_rolling_7_days_actual > 0, 'Up', NA))))
+  select(Name, Date, New_cases, New_cases_per_100000, Rolling_7_day_new_cases, Rolling_7_day_new_cases_per_100000, Perc_change_on_rolling_7_days_actual) %>% 
+  mutate(Change_direction = ifelse(Perc_change_on_rolling_7_days_actual <0, 'Down', ifelse(Perc_change_on_rolling_7_days_actual == 0, 'Same', ifelse(Perc_change_on_rolling_7_days_actual > 0, 'Up', NA)))) %>% 
+  rename(Rate_date = Date)
 
 p12_test_summary <- p12_test_summary_1 %>% 
-  left_join(p12_test_summary_2, by = 'Name')
+  left_join(p12_test_summary_2, by = 'Name') 
 
 # Cumulative to most recent case date, new cases and rolling 7 day incidence up to complete date only.
 
@@ -286,9 +288,11 @@ age_spec_10_summary_1 <- age_spec_10 %>%
   mutate(New_cases_per_100000 = pois.exact(Cases, Population)[[3]]*100000) %>% 
   mutate(Cumulative_per_100000 = pois.exact(Cumulative_cases, Population)[[3]]*100000) %>% 
   rename(New_cases = Cases) %>% 
-  select(Name, Age, Cumulative_cases, Cumulative_per_100000, New_cases, New_cases_per_100000, Rolling_7_day_new_cases, ASR, Perc_change_on_rolling_7_days_actual) %>% 
+  select(Name, Date, Age, Cumulative_cases, Cumulative_per_100000, New_cases, New_cases_per_100000, Rolling_7_day_new_cases, ASR, Perc_change_on_rolling_7_days_actual) %>% 
   rename(Rolling_7_day_new_cases_per_100000 = ASR) %>% 
-  mutate(Change_direction = ifelse(Perc_change_on_rolling_7_days_actual < 0, 'Down', ifelse(Perc_change_on_rolling_7_days_actual == 0, 'Same', ifelse(Perc_change_on_rolling_7_days_actual > 0, 'Up', NA))))
+  mutate(Change_direction = ifelse(Perc_change_on_rolling_7_days_actual < 0, 'Down', ifelse(Perc_change_on_rolling_7_days_actual == 0, 'Same', ifelse(Perc_change_on_rolling_7_days_actual > 0, 'Up', NA)))) %>% 
+  rename(Rate_date = Date) %>% 
+  mutate(Cumulative_date = Rate_date)
 
 age_spec_over_60 <- case_age_df_daily %>% 
   filter(Age %in% c('60-64 years', '65-69 years', '70-74 years', '75-79 years', '80+ years')) %>% 
@@ -312,11 +316,20 @@ age_spec_60_summary_1 <- age_spec_over_60 %>%
   mutate(New_cases_per_100000 = pois.exact(Cases, Population)[[3]]*100000) %>% 
   mutate(Cumulative_per_100000 = pois.exact(Cumulative_cases, Population)[[3]]*100000) %>% 
   rename(New_cases = Cases) %>% 
-  select(Name, Age, Cumulative_cases, Cumulative_per_100000, New_cases, New_cases_per_100000, Rolling_7_day_new_cases, ASR, Perc_change_on_rolling_7_days_actual) %>% 
+  select(Name, Date, Age, Cumulative_cases, Cumulative_per_100000, New_cases, New_cases_per_100000, Rolling_7_day_new_cases, ASR, Perc_change_on_rolling_7_days_actual) %>% 
   rename(Rolling_7_day_new_cases_per_100000 = ASR) %>% 
-  mutate(Change_direction = ifelse(Perc_change_on_rolling_7_days_actual < 0, 'Down', ifelse(Perc_change_on_rolling_7_days_actual == 0, 'Same', ifelse(Perc_change_on_rolling_7_days_actual > 0, 'Up', NA))))
+  mutate(Change_direction = ifelse(Perc_change_on_rolling_7_days_actual < 0, 'Down', ifelse(Perc_change_on_rolling_7_days_actual == 0, 'Same', ifelse(Perc_change_on_rolling_7_days_actual > 0, 'Up', NA)))) %>% 
+rename(Rate_date = Date) %>% 
+  mutate(Cumulative_date = Rate_date)
 
 rm(age_df_daily_combined, age_spec, Ages, df_x, mye_ages)
+
+p12_test_summary <- p12_test_summary %>% 
+  mutate(Age = 'All ages')
+
+case_summary <- p12_test_summary %>% 
+  bind_rows(age_spec_10_summary_1) %>% 
+  bind_rows(age_spec_60_summary_1)
 
 # Hospital admissions ####
 
@@ -456,7 +469,7 @@ trust_summary_1_beds <- trust_admissions %>%
   mutate(Perc_change_on_beds_occupied = ifelse(Perc_change_on_beds_occupied == Inf, 1, Perc_change_on_beds_occupied)) %>% 
   mutate(Perc_change_on_beds_occupied = replace_na(Perc_change_on_beds_occupied, 0)) %>% 
   mutate(Date_pr = lag(Date, 7)) %>% 
-  filter(Date %in% c(max(Date), max(Date) - 7)) %>% 
+  filter(Date %in% max(Date)) %>% 
   select(Name, Date, COVID_confirmed_positive_patients_occupying_beds, Previous_COVID_confirmed_positive_patients_occupying_beds, Perc_change_on_beds_occupied) %>% 
  mutate(Change_direction = ifelse(Perc_change_on_beds_occupied <0, 'Down', ifelse(Perc_change_on_beds_occupied == 0, 'Same', ifelse(Perc_change_on_beds_occupied > 0, 'Up', NA))))
 
@@ -468,7 +481,7 @@ trust_summary_2_beds <- trust_admissions %>%
   mutate(Perc_change_on_mv_beds_occupied = ifelse(Perc_change_on_mv_beds_occupied == Inf, 1)) %>% 
   mutate(Perc_change_on_mv_beds_occupied = replace_na(Perc_change_on_mv_beds_occupied, 0))
   mutate(Date_pr = lag(Date, 7)) %>% 
-  filter(Date %in% c(max(Date), max(Date) - 7)) %>% 
+  filter(Date %in% c(max(Date))) %>% 
   select(Name, Date, COVID_confirmed_positive_patients_occupying_mechanical_ventilation_beds, Previous_COVID_confirmed_positive_patients_occupying_mv_beds, Perc_change_on_mv_beds_occupied) %>% 
   mutate(Change_direction = ifelse(Perc_change_on_mv_beds_occupied <0, 'Down', ifelse(Perc_change_on_mv_beds_occupied == 0, 'Same', ifelse(Perc_change_on_mv_beds_occupied > 0, 'Up', NA))))
 
@@ -585,3 +598,18 @@ carehome_deaths_summary <- Occurrences %>%
          `COVID 19 deaths so far` = cumsum(`COVID 19 deaths this week`))  %>% 
   ungroup() %>% 
   filter(Week_number == max(Week_number))
+
+
+# MSOA map ####
+
+msoa_lookup <- read_csv('https://coronavirus.data.gov.uk/downloads/supplements/lookup_table.csv') %>% 
+  filter(UTLA_areaName == 'West Sussex')
+
+# Weekly rolling sums and population-based rates of new cases by specimen date time series data are available to download for English MSOAs via the following links. The data are updated each day, and show the latest 7 days for which near-complete data — release date minus 5 days — are available, and historic non-overlapping 7-day blocks. Dates are the final day in the relevant 7-day block, and counts between 0 and 2 are blank in the CSV or NULL in the other formats.
+
+msoa_cases <- read_csv('https://coronavirus.data.gov.uk/downloads/msoa_data/MSOAs_latest.csv') %>% 
+  filter(date == max(date)) %>% 
+  filter(areaCode %in% msoa_lookup$MSOA) %>% 
+  mutate(Case_key = ifelse(is.na(newCasesBySpecimenDateRollingSum), '0-2 cases', ifelse(newCasesBySpecimenDateRollingSum <= 5, '3-5 cases', ifelse(newCasesBySpecimenDateRollingSum <= 10, '6-10 cases', ifelse(newCasesBySpecimenDateRollingSum <= 15, '11-15 cases', 'More than 15 cases')))))
+
+#t Link to postcode lookup gov.uk ####
