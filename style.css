@@ -10,20 +10,20 @@ p{
 margin: 25px;
 }
 
+h4{
+margin-left: 25px;
+margin-top: 5px;
+}
+
 /* navigation */
 nav{
  display: flex;
  justify-content: space-around;
  align-items: center;
- min-height: 10vh; /* this is % height*/
- height: 20px;
+ min-height: 20px;
  background-color: #ffffff;
  position: fixed;
  width: 100%;
-}
-
-.main_content{
-padding-top: 30px;
 }
 
 .footer {
@@ -41,9 +41,17 @@ font-size: .8em;
 color: #000000
 }
 
+.main_content{
+display: inline-block;
+margin-top: 20px;
+/* padding-top: 30px; */
+}
+
 .top_nav_title{
   color: #003366;
   font-size: 16px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .nav-links{
@@ -77,9 +85,11 @@ color: #000000
 }
 
 /* content */
-.content {
-float: none;
-height: 60vh;
+.body_content {
+margin 25px;
+display: inline-block;
+/* float: none; */
+/* height: 60vh; */
 }
 
 .class_1{
@@ -108,8 +118,6 @@ margin-left: 20px;
 /* sections */
 .parent_flex{
   margin: 20px;
-  height: 30vh;
-  /* border: 5px solid #cc9900; */
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -177,12 +185,10 @@ width: 100%;
 width: 100%;
 }
 
-
-
 .nav-links{
  position: absolute;
  right: 0px;
- height: 60vh;
+ height: 50vh;
  top: 8vh;
  display: flex;
  width: 50%;
