@@ -53,21 +53,30 @@ d3.select("#what_am_i_showing")
     return 'Showing data for ' + chosen_summary_area.replace('West Sussex',' the whole county')
   });
 
-d3.select('#latest_seven_days_all_ages')
+d3.select('#latest_seven_days_all_ages_1')
   .data(chosen_case_data)
   .html(function(d) {
-    return d3.format(',.0f')(d.Rolling_7_day_new_cases) + ' cases in the seven days to ' + d.Rate_date + '.<br>' + direction_func(d.Change_direction)})
+    return d3.format(',.0f')(d.Rolling_7_day_new_cases) + ' cases in the seven days to ' + d.Rate_date + '. This is ' + d3.format(',.0f')(d.Rolling_7_day_new_cases_per_100000) + ' per 100,000 population.'})
 
+d3.select('#latest_seven_days_all_ages_2')
+  .data(chosen_case_data)
+  .html(function(d) {
+    return direction_func(d.Change_direction)})
 
 chosen_case_data_60 = case_data.filter(function(d) {
   return d.Name == chosen_summary_area &&
          d.Age == '60+ years'
 })
 
-d3.select('#latest_seven_days_60_plus')
+d3.select('#latest_seven_days_60_plus_1')
   .data(chosen_case_data_60)
   .html(function(d) {
     return d3.format(',.0f')(d.New_cases) + ' cases in last seven days.<br>This is a rate of ' + d3.format(',.0f')(d.Rolling_7_day_new_cases_per_100000) + ' per 100,000 population.'})
+
+d3.select('#latest_seven_days_60_plus_2')
+  .data(chosen_case_data_60)
+  .html(function(d) {
+  return direction_func(d.Change_direction)})
 
 
 }

@@ -84,15 +84,25 @@ height: 60vh;
 
 .class_1{
 color: #ffffff;
-font-size: 1.6em;
+font-size: 1.3em;
 font-weight: bold;
+margin: 20px;
 }
 
 .class_2{
 color: #ffffff;
 font-size: 1em;
-font-weight:
-padding: 5px;
+font-weight: lighter;
+margin-top: 15px;
+margin-left: 20px;
+}
+
+.class_3{
+color: #c9c9c9;
+font-size: .8em;
+font-weight: lighter;
+margin-top: 15px;
+margin-left: 20px;
 }
 
 /* sections */
@@ -112,8 +122,6 @@ padding: 5px;
   background-color: #008080;
 }
 
-
-
 .child_2{
   width: 300px;
   height: 250px;
@@ -123,7 +131,7 @@ padding: 5px;
 .child_3{
   width: 300px;
   height: 250px;
-  background-color: #ff9c1d;
+  background-color: #014133;
 }
 
 .child_4{
