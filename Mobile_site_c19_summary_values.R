@@ -329,7 +329,13 @@ p12_test_summary <- p12_test_summary %>%
 
 case_summary <- p12_test_summary %>% 
   bind_rows(age_spec_10_summary_1) %>% 
-  bind_rows(age_spec_60_summary_1)
+  bind_rows(age_spec_60_summary_1) %>% 
+  mutate(Rate_date = format(Rate_date, '%a %d %B')) %>% 
+  mutate(Cumulative_date = format(Cumulative_date, '%a %d %B')) 
+
+case_summary %>% 
+  toJSON() %>% 
+  write_lines(paste0(output_directory_x,'/case_summary.json'))
 
 # Hospital admissions ####
 
@@ -433,11 +439,10 @@ trust_admissions_5 <- read_excel( paste0(github_repo_dir,'/Source_files/trust_ad
   filter(Name %in% c('England', 'South East', 'Western Sussex Hospitals NHS Foundation Trust', 'Surrey and Sussex Healthcare NHS Trust', 'Sussex Community NHS Foundation Trust', 'Brighton and Sussex University Hospitals NHS Trust')) %>% 
   select(!c('Type 1 Acute?', 'NHS England Region', 'Code'))
 
-trust_admissions <- trust_admissions_4 %>% 
-  left_join(trust_admissions_5, by = c('Name', 'Date')) %>% 
-  left_join(trust_admissions_1, by = c('Name', 'Date')) %>% 
-  left_join(trust_admissions_2, by = c('Name', 'Date')) %>% 
-  left_join(trust_admissions_3, by = c('Name', 'Date'))
+# %>% 
+#   left_join(trust_admissions_1, by = c('Name', 'Date')) %>% 
+#   left_join(trust_admissions_2, by = c('Name', 'Date')) %>% 
+#   left_join(trust_admissions_3, by = c('Name', 'Date'))
 
 trust_admissions_metadata <- read_excel( paste0(github_repo_dir,'/Source_files/trust_admissions.xlsx'),
                                   sheet = 'All beds COVID',
@@ -458,10 +463,9 @@ trust_admission_date <- read_excel( paste0(github_repo_dir,'/Source_files/trust_
   filter(Item == 'Published:') %>% 
   mutate(Description  = as.Date(as.numeric(Description), origin = "1899-12-30"))
 
+# rm(trust_admissions_1, trust_admissions_2, trust_admissions_3, trust_admissions_4, trust_admissions_5)
 
-rm(trust_admissions_1, trust_admissions_2, trust_admissions_3, trust_admissions_4, trust_admissions_5)
-
-trust_summary_1_beds <- trust_admissions %>% 
+trust_summary_1_beds <- trust_admissions_4 %>% 
   group_by(Name) %>% 
   arrange(Name, Date) %>% 
   mutate(Previous_COVID_confirmed_positive_patients_occupying_beds = lag(COVID_confirmed_positive_patients_occupying_beds, 7)) %>% 
@@ -471,20 +475,78 @@ trust_summary_1_beds <- trust_admissions %>%
   mutate(Date_pr = lag(Date, 7)) %>% 
   filter(Date %in% max(Date)) %>% 
   select(Name, Date, COVID_confirmed_positive_patients_occupying_beds, Previous_COVID_confirmed_positive_patients_occupying_beds, Perc_change_on_beds_occupied) %>% 
- mutate(Change_direction = ifelse(Perc_change_on_beds_occupied <0, 'Down', ifelse(Perc_change_on_beds_occupied == 0, 'Same', ifelse(Perc_change_on_beds_occupied > 0, 'Up', NA))))
+ mutate(Change_direction = ifelse(Perc_change_on_beds_occupied <0, 'Down', ifelse(Perc_change_on_beds_occupied == 0, 'Same', ifelse(Perc_change_on_beds_occupied > 0, 'Up', NA)))) %>% 
+  rename(Beds_date = Date)
 
-trust_summary_2_beds <- trust_admissions %>% 
+trust_summary_2_beds <- trust_admissions_5 %>% 
   group_by(Name) %>% 
   arrange(Name, Date) %>% 
   mutate(Previous_COVID_confirmed_positive_patients_occupying_mv_beds = lag(COVID_confirmed_positive_patients_occupying_mechanical_ventilation_beds, 7)) %>% 
   mutate(Perc_change_on_mv_beds_occupied = round((COVID_confirmed_positive_patients_occupying_mechanical_ventilation_beds - lag(COVID_confirmed_positive_patients_occupying_mechanical_ventilation_beds, 7))/ lag(COVID_confirmed_positive_patients_occupying_mechanical_ventilation_beds, 7), 2)) %>% 
-  mutate(Perc_change_on_mv_beds_occupied = ifelse(Perc_change_on_mv_beds_occupied == Inf, 1)) %>% 
-  mutate(Perc_change_on_mv_beds_occupied = replace_na(Perc_change_on_mv_beds_occupied, 0))
+  mutate(Perc_change_on_mv_beds_occupied = ifelse(Perc_change_on_mv_beds_occupied == Inf, 1,Perc_change_on_mv_beds_occupied)) %>% 
+  mutate(Perc_change_on_mv_beds_occupied = replace_na(Perc_change_on_mv_beds_occupied, 0)) %>% 
   mutate(Date_pr = lag(Date, 7)) %>% 
   filter(Date %in% c(max(Date))) %>% 
   select(Name, Date, COVID_confirmed_positive_patients_occupying_mechanical_ventilation_beds, Previous_COVID_confirmed_positive_patients_occupying_mv_beds, Perc_change_on_mv_beds_occupied) %>% 
-  mutate(Change_direction = ifelse(Perc_change_on_mv_beds_occupied <0, 'Down', ifelse(Perc_change_on_mv_beds_occupied == 0, 'Same', ifelse(Perc_change_on_mv_beds_occupied > 0, 'Up', NA))))
+  mutate(Change_direction = ifelse(Perc_change_on_mv_beds_occupied <0, 'Down', ifelse(Perc_change_on_mv_beds_occupied == 0, 'Same', ifelse(Perc_change_on_mv_beds_occupied > 0, 'Up', NA)))) %>% 
+  rename(Mechanical_bed_date = Date)
 
+trust_summary_3 <- trust_admissions_1 %>% 
+  select(Name, Date, Admissions_or_new_cases_in_last_24hrs) %>% 
+  group_by(Name) %>% 
+  arrange(Name, Date) %>% 
+  mutate(Previous_Admissions_or_new_cases_in_last_24hrs = lag(Admissions_or_new_cases_in_last_24hrs, 7)) %>% 
+  mutate(Perc_change_on_new_cases_24hrs = round((Admissions_or_new_cases_in_last_24hrs - lag(Admissions_or_new_cases_in_last_24hrs, 7))/ lag(Admissions_or_new_cases_in_last_24hrs, 7), 2)) %>% 
+  mutate(Perc_change_on_new_cases_24hrs = ifelse(Perc_change_on_new_cases_24hrs == Inf, 1,Perc_change_on_new_cases_24hrs)) %>% 
+  mutate(Perc_change_on_new_cases_24hrs = replace_na(Perc_change_on_new_cases_24hrs, 0)) %>% 
+  mutate(Date_pr = lag(Date, 7)) %>% 
+  filter(Date %in% c(max(Date))) %>% 
+  select(Name, Date, Admissions_or_new_cases_in_last_24hrs, Previous_Admissions_or_new_cases_in_last_24hrs, Perc_change_on_new_cases_24hrs) %>% 
+  mutate(Change_direction = ifelse(Perc_change_on_new_cases_24hrs <0, 'Down', ifelse(Perc_change_on_new_cases_24hrs == 0, 'Same', ifelse(Perc_change_on_new_cases_24hrs > 0, 'Up', NA)))) %>% 
+  rename(Admissions_date = Date)
+
+
+trust_summary_3 <- trust_admissions_1 %>% 
+  select(Name, Date, Admissions_or_new_cases_in_last_24hrs) %>% 
+  group_by(Name) %>% 
+  arrange(Name, Date) %>% 
+  mutate(Previous_Admissions_or_new_cases_in_last_24hrs = lag(Admissions_or_new_cases_in_last_24hrs, 7)) %>% 
+  mutate(Perc_change_on_new_cases_24hrs = round((Admissions_or_new_cases_in_last_24hrs - lag(Admissions_or_new_cases_in_last_24hrs, 7))/ lag(Admissions_or_new_cases_in_last_24hrs, 7), 2)) %>% 
+  mutate(Perc_change_on_new_cases_24hrs = ifelse(Perc_change_on_new_cases_24hrs == Inf, 1,Perc_change_on_new_cases_24hrs)) %>% 
+  mutate(Perc_change_on_new_cases_24hrs = replace_na(Perc_change_on_new_cases_24hrs, 0)) %>% 
+  mutate(Date_pr = lag(Date, 7)) %>% 
+  filter(Date %in% c(max(Date))) %>% 
+  select(Name, Date, Admissions_or_new_cases_in_last_24hrs, Previous_Admissions_or_new_cases_in_last_24hrs, Perc_change_on_new_cases_24hrs) %>% 
+  mutate(Change_direction = ifelse(Perc_change_on_new_cases_24hrs <0, 'Down', ifelse(Perc_change_on_new_cases_24hrs == 0, 'Same', ifelse(Perc_change_on_new_cases_24hrs > 0, 'Up', NA)))) %>% 
+  rename(Admissions_date = Date)
+
+trust_summary_4 <- trust_admissions_2 %>% 
+  select(Name, Date, Patients_admitted_for_first_time_with_covid_or_new_cases_in_last_24hrs) %>% 
+  group_by(Name) %>% 
+  arrange(Name, Date) %>% 
+  mutate(Previous_Patients_admitted_for_first_time_with_covid_or_new_cases_in_last_24hrs = lag(Patients_admitted_for_first_time_with_covid_or_new_cases_in_last_24hrs, 7)) %>% 
+  mutate(Perc_change_on_patients_admitted_for_first_time = round((Patients_admitted_for_first_time_with_covid_or_new_cases_in_last_24hrs - lag(Patients_admitted_for_first_time_with_covid_or_new_cases_in_last_24hrs, 7))/ lag(Patients_admitted_for_first_time_with_covid_or_new_cases_in_last_24hrs, 7), 2)) %>% 
+  mutate(Perc_change_on_patients_admitted_for_first_time = ifelse(Perc_change_on_patients_admitted_for_first_time == Inf, 1,Perc_change_on_patients_admitted_for_first_time)) %>% 
+  mutate(Perc_change_on_patients_admitted_for_first_time = replace_na(Perc_change_on_patients_admitted_for_first_time, 0)) %>% 
+  mutate(Date_pr = lag(Date, 7)) %>% 
+  filter(Date %in% c(max(Date))) %>% 
+  select(Name, Date, Patients_admitted_for_first_time_with_covid_or_new_cases_in_last_24hrs, Previous_Patients_admitted_for_first_time_with_covid_or_new_cases_in_last_24hrs, Perc_change_on_patients_admitted_for_first_time) %>% 
+  mutate(Change_direction = ifelse(Perc_change_on_patients_admitted_for_first_time <0, 'Down', ifelse(Perc_change_on_patients_admitted_for_first_time == 0, 'Same', ifelse(Perc_change_on_patients_admitted_for_first_time > 0, 'Up', NA)))) %>% 
+  rename(First_time_admissions_date = Date)
+
+trust_summary_5 <- trust_admissions_3 %>% 
+  select(Name, Date, Patients_admitted_for_first_time_with_covid_or_new_cases_in_last_24hrs_for_patients_admitted_in_last_seven_days) %>% 
+  group_by(Name) %>% 
+  arrange(Name, Date) %>% 
+  mutate(Previous_Patients_admitted_for_first_time_with_covid_or_new_cases_in_last_24hrs_for_patients_admitted_in_last_seven_days = lag(Patients_admitted_for_first_time_with_covid_or_new_cases_in_last_24hrs_for_patients_admitted_in_last_seven_days, 7)) %>% 
+  mutate(Perc_change_on_patients_admitted_for_first_time_admissions_7_days = round((Patients_admitted_for_first_time_with_covid_or_new_cases_in_last_24hrs_for_patients_admitted_in_last_seven_days - lag(Patients_admitted_for_first_time_with_covid_or_new_cases_in_last_24hrs_for_patients_admitted_in_last_seven_days, 7))/ lag(Patients_admitted_for_first_time_with_covid_or_new_cases_in_last_24hrs_for_patients_admitted_in_last_seven_days, 7), 2)) %>% 
+  mutate(Perc_change_on_patients_admitted_for_first_time_admissions_7_days = ifelse(Perc_change_on_patients_admitted_for_first_time_admissions_7_days == Inf, 1,Perc_change_on_patients_admitted_for_first_time_admissions_7_days)) %>% 
+  mutate(Perc_change_on_patients_admitted_for_first_time_admissions_7_days = replace_na(Perc_change_on_patients_admitted_for_first_time_admissions_7_days, 0)) %>% 
+  mutate(Date_pr = lag(Date, 7)) %>% 
+  filter(Date %in% c(max(Date))) %>% 
+  select(Name, Date, Patients_admitted_for_first_time_with_covid_or_new_cases_in_last_24hrs_for_patients_admitted_in_last_seven_days, Previous_Patients_admitted_for_first_time_with_covid_or_new_cases_in_last_24hrs_for_patients_admitted_in_last_seven_days, Perc_change_on_patients_admitted_for_first_time_admissions_7_days) %>% 
+  mutate(Change_direction = ifelse(Perc_change_on_patients_admitted_for_first_time_admissions_7_days <0, 'Down', ifelse(Perc_change_on_patients_admitted_for_first_time_admissions_7_days == 0, 'Same', ifelse(Perc_change_on_patients_admitted_for_first_time_admissions_7_days > 0, 'Up', NA)))) %>% 
+  rename(First_time_admissions_7_days_date = Date)
 
 # Mortality ####
 
