@@ -11,96 +11,116 @@
    crossorigin=""/>
 <link rel="stylesheet" type="text/css" href="style.css" media="screen, handheld" />
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-
 </head>
 
 <body>
 
-<nav>
-<div class = 'top_nav_title'>
-<h4>COVID-19 in West Sussex</h4>
-<h5 id = 'what_am_i_showing'></h5>
-<select id='select_summary_area_button'></select>
-</div>
+  <header>
+    <nav>
+      <div class = 'top_nav_title'>
+        <h4 id = 'what_am_i_showing'></h4>
+        <select class = 'a_bit_of_space' id='select_summary_area_button'></select>
+      </div>
 
-<ul class = 'nav-links' id = 'nav-links'>
-  <li><a href = '#latest_case_section'>Latest cases</a></li>
-  <li><a href = '#asr_section'>Cases by age</a></li>
-  <li><a href = '#restriction_section'>Restrictions</a></li>
-  <li><a href = '#hosp_section'>Hospital admissions</a></li>
-  <li><a href = '#mortality_section'>Deaths</a></li>
-</ul>
-<div class = "menu_line" onclick="navSlide()">
-  <div class="line_1"></div>
-  <div class="line_2"></div>
-  <div class="line_3"></div>
-</div>
-</nav>
+      <ul class = 'nav-links' id = 'nav-links'>
+        <li><a href = "#home">Home</a></li>
+        <li><a href = '#latest_case_section'>Latest cases</a></li>
+        <li><a href = '#asr_section'>Cases by age</a></li>
+        <li><a href = '#restriction_section'>Restrictions</a></li>
+        <li><a href = '#hosp_section'>Hospital admissions</a></li>
+        <li><a href = '#mortality_section'>Deaths</a></li>
+      </ul>
+  
+      <div class = "menu_line" onclick="navSlide()">
+        <div class="line_1"></div>
+        <div class="line_2"></div>
+        <div class="line_3"></div>
+      </div>
+     </nav>
+  </header>
 
-<div class= "main_content">
-<h2 style = "padding-left: 25px;">West Sussex COVID-19 data summary - mobile friendly site</h2>
+<section class= "home" id = 'home'>
+  <div class="content">
+    <h4 class = 'content_top'>West Sussex COVID-19 - mobile friendly site</h4>
+    <p>This is the mobile/tablet friendly data summary of what we know about COVID-19 in West Sussex.</p>
+    <p>You can view a quick summary in the tiles below for new cases, restrictions, contacts to NHS services, and mortality. You can also use the menu at the top of the page to jump to a section and find out more.</p>
+    <p>A more in-depth look at the data, which is better viewed on a laptop or desktop screen is available <a href ='https://wsx-c19-weekly-supplement.netlify.app'>here<a>.</p>
+      <div class="parent_flex">
+        <div class="child_1">
+          <p class = 'class_1'>Number of cases</p>
+          <p class = 'class_2' id = 'latest_seven_days_all_ages_1'></p>
+          <p class = 'class_3' id = 'latest_seven_days_all_ages_2'></p>
+          <p class = 'class_4' id = 'latest_seven_days_all_ages_3'></p>
+        </div>
+        <div class="child_2">
+          <p class = 'class_1'>Cases among those aged 60+</p>
+          <p class = 'class_2' id = 'latest_seven_days_60_plus_1'></p>
+          <p class = 'class_3' id = 'latest_seven_days_60_plus_2'></p>
+          <p class = 'class_4' id = 'latest_seven_days_60_plus_3'></p>
+        </div>
+        <div class="child_3">
+          <p class = 'class_1'>Restrictions</p>
+          <p class = 'class_2' style = 'text-align: center'>England is currently subject to a national lockdown from 5th November to 2nd December.</p>
+          <p class = 'class_2' style = 'text-align: center'>As soon as information on local tiers becomes available it will be presented here.</p>
+          <p class = 'class_4'>This was updated on Tuesday 24 November</p>
+        </div>
+        <div class="child_4">
+          <p class = 'class_1'>Hospital care across the region</p>
+          <p class = 'class_2' id = 'latest_covid_beds_1'></p>
+          <p class = 'class_3' id = 'latest_covid_beds_2'></p>
+          <p class = 'class_4' id = 'latest_covid_beds_3'></p>
+        </div>
+        <div class="child_5">
+          <p class = 'class_1'>Deaths</p>
+          <p class = 'class_2' id = 'latest_covid_deaths_1'></p>
+          <p class = 'class_3' id = 'latest_covid_deaths_2'></p>
+          <p class = 'class_4' id = 'latest_covid_deaths_3'></p>
+        </div>
+      </div>
+  </div>
+</section>
 
-<p>This is the mobile/tablet friendly data summary of what we know about COVID-19 in West Sussex.</p>
+<section class="latest_case_section" id = 'latest_case_section'>
+  <div class="content">
+    <h4 class = 'content_top'>Daily confirmed COVID-19 cases</h4>
+    <p id = 'daily_bars_text_1'></p>
+    <div id = 'daily_case_bars'></div>
+    <p>Figure</p>
+    <p>Viewing the cases per 100,000 allows you to compare across areas as if they had the same population size.</p>
+  </div>
+</section>
 
-<p>You can view a quick summary in the tiles below for new cases, restrictions, contacts to NHS services, and mortality. Click on the buttons to find out more.</p>
+<section class="asr_section" id = 'asr_section'>
+  <div class="content">
+    <h4  class = 'content_top'>COVID-19 in different age groups</h4>
+  </div>
+</section>
 
-<p>A more in-depth look at the data, which is better viewed on a laptop or desktop screen is available <a href ='https://wsx-c19-weekly-supplement.netlify.app'>here<a>.</p>
-</div>
-<div class="parent_flex">
-<div class="child_1">
-<p class = 'class_1'>Number of cases</p>
-<p class = 'class_2' id = 'latest_seven_days_all_ages_1'></p>
-<p class = 'class_3' id = 'latest_seven_days_all_ages_2'></p>
-</div>
-<div class="child_2">
-<p class = 'class_1'>Cases among those aged 60+</p>
-<p class = 'class_2' id = 'latest_seven_days_60_plus_1'></p>
-<p class = 'class_3' id = 'latest_seven_days_60_plus_2'></p>
-</div>
-<div class="child_3">
-<p class = 'class_1'>Restrictions</p>
-<p class = 'class_2'>West Sussex is currently subject to a national lockdown from 5th November to 2nd December.</p>
-</div>
-<div class="child_4">
-<p class = 'class_1'>Hospital care</p>
-</div>
-<div class="child_5">
-<p class = 'class_1'>Deaths</p>
-</div>
-</div>
+<section class="restriction_section" id = 'restriction_section'>
+  <div class="content">
+    <h4 class = 'content_top'>Local restrictions</h4>
+    <p>The UK Government announced a national lockdown for the whole of England between 5th November 2020 to 2nd November 2020.</p>
+  </div>
+</section>
 
-<div class="body_content" id = 'latest_case_section'>
-<h4>Daily confirmed COVID-19 cases</h4>
-<p>The figure below shows the daily confirmed cases of Covid-19 over time in XXX. The black line represents the rolling average number of new cases confirmed in the previous seven days.</p>
-<p>It can take several days for results to be reported and we consider the last four days as incomplete as more cases may be added to the totals for these days.</p>
+<section class="hosp_section" id = 'hosp_section'>
+  <div class="content">
+    <h4 class = 'content_top'>Hospital activity</h4>
+    <p>This section includes what we know about the number of people being admitted to hospital with COVID-19 or catching the virus whilst in hospital as well as the number of COVID-19 positive patients currently occupying beds</p>
+    <p>Note, this data relates to the hospital trusts providiing care and does not necessarily reflect the residents of a particular area.</p>
+  </div>
+</section>
 
-<p>Figure</p>
-<p>Viewing the cases per 100,000 allows you to compare across areas as if they had the same population size.</p>
-
-</div>
-
-<div class="body_content" id = 'asr_section'>
-</div>
-
-<div class="body_content" id = 'restriction_section'>
-<h4>Restrictions map</h4>
-</div>
-
-<div class="body_content" id = 'hosp_section'>
-<h4>Hospital activity</h4>
-<p>This section includes what we know about the number of people being admitted to hospital with COVID-19 or catching the virus whilst in hospital as well as the number of COVID-19 positive patients currently occupying beds</p>
-<p>Note, this data relates to the hospital trusts providiing care and does not necessarily reflect the residents of a particular area.</p>
-</div>
-
-<div class="body_content" id = 'mortality_section'>
-<h4>Deaths</h4>
-<p>The Office for National Statistics published weekly data on the number of deaths occurring each week in 2020 and whether or not COVID-19 was mentioned as an underlying or contributing factor to the death.</p>
-<p>Note, this is not the same as mortality reporting on the government website which includes any deaths within 28 days of a positive test result.</p>
-</div>
-
+<section class="mortality_section" id = 'mortality_section'>
+  <div class="content">
+    <h4 class = 'content_top'>Deaths</h4>
+    <p>The Office for National Statistics published weekly data on the number of deaths occurring each week in 2020 and whether or not COVID-19 was mentioned as an underlying or contributing factor to the death.</p>
+    <p>Note, this is not the same as mortality reporting on the government website which includes any deaths within 28 days of a positive test result.</p>
+  </div>
+</section>
 
 <div class = 'footer'>
-<p>Although this page has been made by a member of staff in the Public Health and Social Research Unit to support their work, it is not a West Sussex County Council website.</p>
+  <p>Although this page has been made by a member of staff in the Public Health and Social Research Unit to support their work, it is not a West Sussex County Council website.</p>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

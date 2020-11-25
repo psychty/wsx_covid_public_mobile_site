@@ -1,11 +1,6 @@
 library(easypackages)
 
-libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "png", "tidyverse", "reshape2", "scales", 'zoo', 'stats',"rgdal", 'rgeos', "tmaptools", 'sp', 'sf', 'maptools', 'leaflet', 'leaflet.extras', 'fingertipsR', 'spdplyr', 'geojsonio', 'rmapshaper', 'jsonlite', 'grid', 'aweek', 'xml2', 'rvest', 'officer', 'flextable', 'viridis', 'epitools'))
-
-capwords = function(s, strict = FALSE) {
-  cap = function(s) paste(toupper(substring(s, 1, 1)),
-                          {s = substring(s, 2); if(strict) tolower(s) else s},sep = "", collapse = " " )
-  sapply(strsplit(s, split = " "), cap, USE.NAMES = !is.null(names(s)))}
+libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "png", "tidyverse", "reshape2", "scales", 'zoo', 'stats',"rgdal", 'rgeos', "tmaptools", 'sp', 'sf', 'maptools', 'leaflet', 'leaflet.extras', 'fingertipsR', 'spdplyr', 'geojsonio', 'rmapshaper', 'jsonlite', 'grid', 'aweek', 'xml2', 'rvest', 'officer', 'flextable', 'viridis', 'epitools', 'ukcovid19'))
 
 options(scipen = 999)
 
@@ -33,9 +28,8 @@ ph_theme = function(){
   ) 
 }
 
-github_repo_dir <- "~/Documents/Repositories/wsx_covid_public_mobile_site"
+github_repo_dir <- "~/GitHub/wsx_covid_public_mobile_site"
 output_directory_x <- paste0(github_repo_dir, '/Outputs')
-areas_to_loop <- c('West Sussex', 'Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing')
 
 # 2019 MYE
 
@@ -54,10 +48,10 @@ mye_total <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.
   unique()
 
 mye_total %>% 
-  write.csv(., '/Users/richtyler/Documents/Repositories/wsx_covid_datapack_public/Source files/mye2019_ltla.csv', row.names = FALSE)
+  write.csv(., paste0(github_repo_dir,'/Source_files/mye2019_ltla.csv'), row.names = FALSE)
 
 if(exists('mye_total') == FALSE) {
-  mye_total <- read_csv('/Users/richtyler/Documents/Repositories/wsx_covid_datapack_public/Source files/mye2019_ltla.csv') %>%
+  mye_total <- read_csv(paste0(github_repo_dir,'/Source_files/mye2019_ltla.csv')) %>%
     rename(Population = `All ages`,
            Type = Geography1)
 }
@@ -90,10 +84,6 @@ daily_cases <- read_csv('https://coronavirus.data.gov.uk/downloads/csv/coronavir
 # One way to do this is to create a new dataframe with a row for each area and date, and left join the daily_cases data to it.
 first_date <- min(daily_cases$Date)
 last_case_date <- max(daily_cases$Date)
-
-# remotes::install_github("publichealthengland/coronavirus-dashboard-api-R-sdk")
-# install.packages("ukcovid19")
-library(ukcovid19)
 
 query_filters <- c(
   # "areaType=utla"
@@ -154,19 +144,20 @@ p12_test_df <- data.frame(Name = rep(Areas$Name, length(Dates)), Code = rep(Area
   mutate(Rolling_7_day_new_cases_per_100000 = ifelse(is.na(Rolling_7_day_new_cases), NA, (Rolling_7_day_new_cases / Population) * 100000)) %>% 
   mutate(Perc_change_on_rolling_7_days_actual = round((Rolling_7_day_new_cases - lag(Rolling_7_day_new_cases, 7))/ lag(Rolling_7_day_new_cases, 7), 2))  %>% 
   mutate(Perc_change_on_rolling_7_days_actual = ifelse(Perc_change_on_rolling_7_days_actual == Inf, 1, Perc_change_on_rolling_7_days_actual)) %>% 
-  mutate(Perc_change_on_rolling_7_days_actual = replace_na(Perc_change_on_rolling_7_days_actual, 0)) %>% 
-  ungroup() 
+  mutate(Perc_change_on_rolling_7_days_actual = replace_na(Perc_change_on_rolling_7_days_actual, 0)) %>%   ungroup() 
 
 rm(daily_cases, Areas, Dates, first_date, mye_total, area_code_names, daily_cases_reworked, query_structure)
 
+Areas <- c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex', 'South East region', 'England')
+
 p12_test_summary_1 <- p12_test_df %>% 
-  filter(Name %in% c(areas_to_loop, 'England', 'South East region')) %>% 
+  filter(Name %in% Areas) %>% 
   filter(Date == last_case_date) %>% 
   select(Name, Date, Cumulative_cases, Cumulative_per_100000) %>% 
   rename(Cumulative_date = Date)
 
 p12_test_summary_2 <- p12_test_df %>% 
-  filter(Name %in% c(areas_to_loop, 'England', 'South East region')) %>% 
+  filter(Name %in% Areas) %>% 
   filter(Date %in% c(complete_date)) %>% 
   select(Name, Date, New_cases, New_cases_per_100000, Rolling_7_day_new_cases, Rolling_7_day_new_cases_per_100000, Perc_change_on_rolling_7_days_actual) %>% 
   mutate(Change_direction = ifelse(Perc_change_on_rolling_7_days_actual <0, 'Down', ifelse(Perc_change_on_rolling_7_days_actual == 0, 'Same', ifelse(Perc_change_on_rolling_7_days_actual > 0, 'Up', NA)))) %>% 
@@ -206,6 +197,7 @@ mye_ages <- read_csv('https://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.
 
 age_spec <- read_csv('https://coronavirus.data.gov.uk/downloads/demographic/cases/specimenDate_ageDemographic-unstacked.csv') %>% 
   filter(areaName %in% c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex', 'South East', 'England')) %>% 
+  mutate(areaName = ifelse(areaName == 'South East', 'South East region', areaName)) %>% 
   select(areaCode, areaName, areaType, date, `newCasesBySpecimenDate-0_4`,`newCasesBySpecimenDate-5_9`,`newCasesBySpecimenDate-10_14`,`newCasesBySpecimenDate-15_19`,`newCasesBySpecimenDate-20_24`,`newCasesBySpecimenDate-25_29`,`newCasesBySpecimenDate-30_34`,`newCasesBySpecimenDate-35_39`,`newCasesBySpecimenDate-40_44`,`newCasesBySpecimenDate-45_49`,`newCasesBySpecimenDate-50_54`,`newCasesBySpecimenDate-55_59`,`newCasesBySpecimenDate-60_64`,`newCasesBySpecimenDate-65_69`,`newCasesBySpecimenDate-70_74`,`newCasesBySpecimenDate-75_79`,`newCasesBySpecimenDate-80_84`,`newCasesBySpecimenDate-85_89`,`newCasesBySpecimenDate-90+`,`newCasesBySpecimenDate-unassigned`) %>%
   pivot_longer(cols = c(`newCasesBySpecimenDate-0_4`,`newCasesBySpecimenDate-5_9`,`newCasesBySpecimenDate-10_14`,`newCasesBySpecimenDate-15_19`,`newCasesBySpecimenDate-20_24`,`newCasesBySpecimenDate-25_29`,`newCasesBySpecimenDate-30_34`,`newCasesBySpecimenDate-35_39`,`newCasesBySpecimenDate-40_44`,`newCasesBySpecimenDate-45_49`,`newCasesBySpecimenDate-50_54`,`newCasesBySpecimenDate-55_59`,`newCasesBySpecimenDate-60_64`,`newCasesBySpecimenDate-65_69`,`newCasesBySpecimenDate-70_74`,`newCasesBySpecimenDate-75_79`,`newCasesBySpecimenDate-80_84`,`newCasesBySpecimenDate-85_89`,`newCasesBySpecimenDate-90+`,`newCasesBySpecimenDate-unassigned`),
                names_to = 'Age') %>% 
@@ -223,7 +215,6 @@ age_spec <- read_csv('https://coronavirus.data.gov.uk/downloads/demographic/case
   group_by(Name, Age, Date) %>% 
   summarise(Cases = sum(Cases, na.rm = TRUE)) 
 
-Areas <- c('Adur', 'Arun', 'Chichester','Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex', 'South East', 'England')
 Ages <- data.frame(Age = c('0-4 years', '5-9 years', '10-14 years', '15-19 years', '20-24 years' , '25-29 years', '30-34 years', '35-39 years', '40-44 years', '45-49 years', '50-54 years' ,'55-59 years', '60-64 years' , '65-69 years', '70-74 years', '75-79 years', '80+ years'))
 Dates <- seq.Date(min(age_spec$Date), max(age_spec$Date), by = '1 day')
 
@@ -330,12 +321,26 @@ p12_test_summary <- p12_test_summary %>%
 case_summary <- p12_test_summary %>% 
   bind_rows(age_spec_10_summary_1) %>% 
   bind_rows(age_spec_60_summary_1) %>% 
-  mutate(Rate_date = format(Rate_date, '%a %d %B')) %>% 
-  mutate(Cumulative_date = format(Cumulative_date, '%a %d %B')) 
+  mutate(Rate_date = format(Rate_date, '%A %d %B')) %>% 
+  mutate(Cumulative_date = format(Cumulative_date, '%A %d %B')) 
 
 case_summary %>% 
   toJSON() %>% 
   write_lines(paste0(output_directory_x,'/case_summary.json'))
+
+daily_cases_df <- p12_test_df %>% 
+  filter(Name %in% Areas) %>% 
+  mutate(Age = 'All ages') %>% 
+  select(Name, Age, Date, Period, Cumulative_cases, New_cases, New_cases_per_100000, Rolling_7_day_new_cases, Perc_change_on_rolling_7_days_actual, Rolling_7_day_new_cases_per_100000) %>% 
+  rename(Cases = New_cases,
+         ASR = Rolling_7_day_new_cases_per_100000) %>% 
+  bind_rows(age_spec_over_60) %>% 
+  rename(Rolling_7_day_new_cases_per_100000 = ASR) %>% 
+  select(!Population)
+
+daily_cases_df %>% 
+  toJSON() %>% 
+  write_lines(paste0(output_directory_x, '/daily_cases.json'))
 
 # Hospital admissions ####
 
@@ -420,7 +425,7 @@ trust_admissions_4 <- read_excel( paste0(github_repo_dir,'/Source_files/trust_ad
   mutate(Name = gsub(' And ', ' and ', Name)) %>% 
   mutate(Name = gsub('Cic', 'CIC', Name)) %>% 
   mutate(Name = gsub('C.i.c', 'C.I.C', Name)) %>% 
-  pivot_longer(names_to = 'Date', values_to = 'COVID_confirmed_positive_patients_occupying_beds', cols = 5:ncol(.)) %>% 
+  pivot_longer(names_to = 'Date', values_to = 'Patients_occupying_beds', cols = 5:ncol(.)) %>% 
   mutate(Date = as.Date(as.numeric(Date), origin = "1899-12-30"))  %>% 
   filter(Name %in% c('England', 'South East', 'Western Sussex Hospitals NHS Foundation Trust', 'Surrey and Sussex Healthcare NHS Trust', 'Sussex Community NHS Foundation Trust', 'Brighton and Sussex University Hospitals NHS Trust')) %>% 
   select(!c('Type 1 Acute?', 'NHS England Region', 'Code'))
@@ -434,15 +439,10 @@ trust_admissions_5 <- read_excel( paste0(github_repo_dir,'/Source_files/trust_ad
   mutate(Name = gsub(' And ', ' and ', Name)) %>% 
   mutate(Name = gsub('Cic', 'CIC', Name)) %>% 
   mutate(Name = gsub('C.i.c', 'C.I.C', Name)) %>% 
-  pivot_longer(names_to = 'Date', values_to = 'COVID_confirmed_positive_patients_occupying_mechanical_ventilation_beds', cols = 5:ncol(.)) %>% 
+  pivot_longer(names_to = 'Date', values_to = 'Patients_occupying_beds', cols = 5:ncol(.)) %>% 
   mutate(Date = as.Date(as.numeric(Date), origin = "1899-12-30")) %>% 
   filter(Name %in% c('England', 'South East', 'Western Sussex Hospitals NHS Foundation Trust', 'Surrey and Sussex Healthcare NHS Trust', 'Sussex Community NHS Foundation Trust', 'Brighton and Sussex University Hospitals NHS Trust')) %>% 
   select(!c('Type 1 Acute?', 'NHS England Region', 'Code'))
-
-# %>% 
-#   left_join(trust_admissions_1, by = c('Name', 'Date')) %>% 
-#   left_join(trust_admissions_2, by = c('Name', 'Date')) %>% 
-#   left_join(trust_admissions_3, by = c('Name', 'Date'))
 
 trust_admissions_metadata <- read_excel( paste0(github_repo_dir,'/Source_files/trust_admissions.xlsx'),
                                   sheet = 'All beds COVID',
@@ -468,30 +468,41 @@ trust_admission_date <- read_excel( paste0(github_repo_dir,'/Source_files/trust_
 trust_summary_1_beds <- trust_admissions_4 %>% 
   group_by(Name) %>% 
   arrange(Name, Date) %>% 
-  mutate(Previous_COVID_confirmed_positive_patients_occupying_beds = lag(COVID_confirmed_positive_patients_occupying_beds, 7)) %>% 
-  mutate(Perc_change_on_beds_occupied = round((COVID_confirmed_positive_patients_occupying_beds - lag(COVID_confirmed_positive_patients_occupying_beds, 7))/ lag(COVID_confirmed_positive_patients_occupying_beds, 7), 2)) %>% 
+  mutate(Previous_occupying_beds = lag(Patients_occupying_beds, 7)) %>% 
+  mutate(Perc_change_on_beds_occupied = round((Patients_occupying_beds - lag(Patients_occupying_beds, 7))/ lag(Patients_occupying_beds, 7), 2)) %>% 
   mutate(Perc_change_on_beds_occupied = ifelse(Perc_change_on_beds_occupied == Inf, 1, Perc_change_on_beds_occupied)) %>% 
   mutate(Perc_change_on_beds_occupied = replace_na(Perc_change_on_beds_occupied, 0)) %>% 
   mutate(Date_pr = lag(Date, 7)) %>% 
   filter(Date %in% max(Date)) %>% 
-  select(Name, Date, COVID_confirmed_positive_patients_occupying_beds, Previous_COVID_confirmed_positive_patients_occupying_beds, Perc_change_on_beds_occupied) %>% 
- mutate(Change_direction = ifelse(Perc_change_on_beds_occupied <0, 'Down', ifelse(Perc_change_on_beds_occupied == 0, 'Same', ifelse(Perc_change_on_beds_occupied > 0, 'Up', NA)))) %>% 
-  rename(Beds_date = Date)
+  select(Name, Date, Patients_occupying_beds, Previous_occupying_beds, Perc_change_on_beds_occupied) %>% 
+ mutate(Change_direction = ifelse(Perc_change_on_beds_occupied <0, 'decreased', ifelse(Perc_change_on_beds_occupied == 0, 'stayed the same', ifelse(Perc_change_on_beds_occupied > 0, 'increased', NA)))) %>% 
+  rename(Beds_date = Date) %>% 
+  mutate(Bed_type = 'All beds')
 
 trust_summary_2_beds <- trust_admissions_5 %>% 
   group_by(Name) %>% 
   arrange(Name, Date) %>% 
-  mutate(Previous_COVID_confirmed_positive_patients_occupying_mv_beds = lag(COVID_confirmed_positive_patients_occupying_mechanical_ventilation_beds, 7)) %>% 
-  mutate(Perc_change_on_mv_beds_occupied = round((COVID_confirmed_positive_patients_occupying_mechanical_ventilation_beds - lag(COVID_confirmed_positive_patients_occupying_mechanical_ventilation_beds, 7))/ lag(COVID_confirmed_positive_patients_occupying_mechanical_ventilation_beds, 7), 2)) %>% 
-  mutate(Perc_change_on_mv_beds_occupied = ifelse(Perc_change_on_mv_beds_occupied == Inf, 1,Perc_change_on_mv_beds_occupied)) %>% 
-  mutate(Perc_change_on_mv_beds_occupied = replace_na(Perc_change_on_mv_beds_occupied, 0)) %>% 
+  mutate(Previous_occupying_beds = lag(Patients_occupying_beds, 7)) %>% 
+  mutate(Perc_change_on_beds_occupied = round((Patients_occupying_beds - lag(Patients_occupying_beds, 7))/ lag(Patients_occupying_beds, 7), 2)) %>% 
+  mutate(Perc_change_on_beds_occupied = ifelse(Perc_change_on_beds_occupied == Inf, 1, Perc_change_on_beds_occupied)) %>% 
+  mutate(Perc_change_on_beds_occupied = replace_na(Perc_change_on_beds_occupied, 0)) %>% 
   mutate(Date_pr = lag(Date, 7)) %>% 
-  filter(Date %in% c(max(Date))) %>% 
-  select(Name, Date, COVID_confirmed_positive_patients_occupying_mechanical_ventilation_beds, Previous_COVID_confirmed_positive_patients_occupying_mv_beds, Perc_change_on_mv_beds_occupied) %>% 
-  mutate(Change_direction = ifelse(Perc_change_on_mv_beds_occupied <0, 'Down', ifelse(Perc_change_on_mv_beds_occupied == 0, 'Same', ifelse(Perc_change_on_mv_beds_occupied > 0, 'Up', NA)))) %>% 
-  rename(Mechanical_bed_date = Date)
+  filter(Date %in% max(Date)) %>% 
+  select(Name, Date, Patients_occupying_beds, Previous_occupying_beds, Perc_change_on_beds_occupied) %>% 
+  mutate(Change_direction = ifelse(Perc_change_on_beds_occupied <0, 'Down', ifelse(Perc_change_on_beds_occupied == 0, 'Same', ifelse(Perc_change_on_beds_occupied > 0, 'Up', NA)))) %>% 
+  rename(Beds_date = Date) %>% 
+  mutate(Bed_type = 'Mechanical Ventilation')
 
-trust_summary_3 <- trust_admissions_1 %>% 
+trust_summary_2_beds %>% 
+  rename(Patients_occupying_mv_beds = Patients_occupying_beds) %>% 
+  select(Name, Patients_occupying_mv_beds) %>% 
+  left_join(trust_summary_1_beds, by = 'Name') %>% 
+  mutate(Beds_date = format(Beds_date, '%A %d %B')) %>%
+  select(Name, Patients_occupying_beds, Previous_occupying_beds, Change_direction, Perc_change_on_beds_occupied , Patients_occupying_mv_beds) %>% 
+  toJSON() %>% 
+  write_lines(paste0(output_directory_x,'/trust_bed_summary.json'))
+
+trust_admissions_summary <- trust_admissions_1 %>% 
   select(Name, Date, Admissions_or_new_cases_in_last_24hrs) %>% 
   group_by(Name) %>% 
   arrange(Name, Date) %>% 
@@ -505,20 +516,9 @@ trust_summary_3 <- trust_admissions_1 %>%
   mutate(Change_direction = ifelse(Perc_change_on_new_cases_24hrs <0, 'Down', ifelse(Perc_change_on_new_cases_24hrs == 0, 'Same', ifelse(Perc_change_on_new_cases_24hrs > 0, 'Up', NA)))) %>% 
   rename(Admissions_date = Date)
 
-
-trust_summary_3 <- trust_admissions_1 %>% 
-  select(Name, Date, Admissions_or_new_cases_in_last_24hrs) %>% 
-  group_by(Name) %>% 
-  arrange(Name, Date) %>% 
-  mutate(Previous_Admissions_or_new_cases_in_last_24hrs = lag(Admissions_or_new_cases_in_last_24hrs, 7)) %>% 
-  mutate(Perc_change_on_new_cases_24hrs = round((Admissions_or_new_cases_in_last_24hrs - lag(Admissions_or_new_cases_in_last_24hrs, 7))/ lag(Admissions_or_new_cases_in_last_24hrs, 7), 2)) %>% 
-  mutate(Perc_change_on_new_cases_24hrs = ifelse(Perc_change_on_new_cases_24hrs == Inf, 1,Perc_change_on_new_cases_24hrs)) %>% 
-  mutate(Perc_change_on_new_cases_24hrs = replace_na(Perc_change_on_new_cases_24hrs, 0)) %>% 
-  mutate(Date_pr = lag(Date, 7)) %>% 
-  filter(Date %in% c(max(Date))) %>% 
-  select(Name, Date, Admissions_or_new_cases_in_last_24hrs, Previous_Admissions_or_new_cases_in_last_24hrs, Perc_change_on_new_cases_24hrs) %>% 
-  mutate(Change_direction = ifelse(Perc_change_on_new_cases_24hrs <0, 'Down', ifelse(Perc_change_on_new_cases_24hrs == 0, 'Same', ifelse(Perc_change_on_new_cases_24hrs > 0, 'Up', NA)))) %>% 
-  rename(Admissions_date = Date)
+trust_admissions_summary %>% 
+  toJSON() %>% 
+  write_lines(paste0(output_directory_x,'/trust_admission_summary.json'))
 
 trust_summary_4 <- trust_admissions_2 %>% 
   select(Name, Date, Patients_admitted_for_first_time_with_covid_or_new_cases_in_last_24hrs) %>% 
@@ -548,7 +548,51 @@ trust_summary_5 <- trust_admissions_3 %>%
   mutate(Change_direction = ifelse(Perc_change_on_patients_admitted_for_first_time_admissions_7_days <0, 'Down', ifelse(Perc_change_on_patients_admitted_for_first_time_admissions_7_days == 0, 'Same', ifelse(Perc_change_on_patients_admitted_for_first_time_admissions_7_days > 0, 'Up', NA)))) %>% 
   rename(First_time_admissions_7_days_date = Date)
 
+trust_admission_date %>% 
+  mutate(Date_published = format(Description, '%A %d %B')) %>% 
+  select(Date_published) %>% 
+  toJSON() %>% 
+  write_lines(paste0(output_directory_x,'/trust_meta.json'))
+
 # Mortality ####
+
+# Area lookup
+
+mye_total_raw <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.csv?geography=1816133633...1816133848,1820327937...1820328318,2092957697...2092957703,2013265921...2013265932&date=latest&gender=0&c_age=200,209&measures=20100&select=date_name,geography_name,geography_code,geography_type,c_age_name,obs_value') %>%  
+  rename(Population = OBS_VALUE,
+         Area_code = GEOGRAPHY_CODE,
+         Name = GEOGRAPHY_NAME,
+         Year = DATE_NAME,
+         Age = C_AGE_NAME,
+         Type = GEOGRAPHY_TYPE) %>% 
+  unique() %>%
+  group_by(Name, Area_code) %>% 
+  mutate(Count = n()) %>% 
+  mutate(Type = ifelse(Count == 4, 'Unitary Authority', ifelse(Type == 'local authorities: county / unitary (as of April 2019)', 'Upper Tier Local Authority', ifelse(Type == 'local authorities: district / unitary (as of April 2019)', 'Lower Tier Local Authority', ifelse(Type == 'regions', 'Region', ifelse(Type == 'countries', 'Country', Type)))))) %>% 
+  ungroup() %>% 
+  select(-Count) %>% 
+  unique()
+
+area_code_names <- mye_total_raw %>% 
+  select(Area_code, Name) %>% 
+  rename(Code = Area_code) %>% 
+  unique() 
+
+mye_total <- mye_total_raw %>%
+  select(-Name) %>% 
+  spread(Age, Population) %>% 
+  rename(All_ages = `All Ages`,
+         Age_65_plus = `Aged 65+`)
+
+lookup <- read_csv(url("https://opendata.arcgis.com/datasets/3e4f4af826d343349c13fb7f0aa2a307_0.csv")) %>% 
+  select(-c(FID,LTLA19NM)) %>% 
+    left_join(read_csv(url('https://opendata.arcgis.com/datasets/3ba3daf9278f47daba0f561889c3521a_0.csv')), by = c('LTLA19CD' = 'LAD19CD')) %>% 
+    select(-c(FID, LAD19NM)) %>% 
+    add_row(LTLA19CD ='E06000060', UTLA19CD = 'E06000060', UTLA19NM = 'Buckinghamshire', RGN19CD = 'E12000008', RGN19NM = 'South East') %>% 
+  filter(RGN19NM == 'South East')
+
+mye_total <- mye_total %>% 
+  mutate(Area_code = ifelse(Area_code == 'E10000002', 'E06000060', Area_code))
 
 set_week_start('Friday')
 
@@ -557,8 +601,8 @@ week_ending <- data.frame(Week_ending = get_date(week = 1:52, year = 2020)) %>%
 
 download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek',substr(as.character(as.aweek(Sys.Date()-11)), 7,8), '.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
 
-# # if the downlaod does fail, it wipes out the old one, which we can use to our advantage
-if(!file.exists(paste0(github_repo_dir, '/Source files/ons_mortality.xlsx'))){
+# # if the download does fail, it wipes out the old one, which we can use to our advantage
+if(!file.exists(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'))){
   download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek',substr(as.character(as.aweek(Sys.Date()-12)), 7,8), '.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
 }
 
@@ -582,10 +626,52 @@ Occurrences_wsx <- Occurrences_ltla %>%
   left_join(week_ending, by = 'Week_number') %>% 
   ungroup()
 
-Occurrences<- Occurrences_ltla %>% 
-  bind_rows(Occurrences_wsx)
+Occurrences_england <- read_excel(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>% 
+  rename(Name = `Area name`,
+         Cause = `Cause of death`,
+         Week_number = `Week number`,
+         Place_of_death = `Place of death`,
+         Deaths = `Number of deaths`) %>% 
+  filter(substr(`Area code`, 1,1) == 'E') %>% 
+  group_by(Cause, Week_number, Place_of_death) %>% 
+  summarise(Deaths = sum(Deaths, na.rm = TRUE)) %>% 
+  mutate(Name = 'England') %>% 
+  select(Name, Week_number, Cause, Place_of_death, Deaths) %>% 
+  left_join(week_ending, by = 'Week_number') %>% 
+  ungroup()
 
-rm(Occurrences_ltla, Occurrences_wsx)
+Occurrences_southeast <- read_excel(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>% 
+  rename(Name = `Area name`,
+         Cause = `Cause of death`,
+         Week_number = `Week number`,
+         Place_of_death = `Place of death`,
+         Deaths = `Number of deaths`) %>%  
+  filter(`Area code` %in% lookup$LTLA19CD) %>% 
+  group_by(Cause, Week_number, Place_of_death) %>% 
+  summarise(Deaths = sum(Deaths, na.rm = TRUE)) %>% 
+  mutate(Name = 'South East region') %>% 
+  select(Name, Week_number, Cause, Place_of_death, Deaths) %>% 
+  left_join(week_ending, by = 'Week_number') %>% 
+  ungroup()
+
+Occurrences_southeast_check <- read_excel(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>% 
+  rename(Name = `Area name`,
+         Cause = `Cause of death`,
+         Week_number = `Week number`,
+         Place_of_death = `Place of death`,
+         Deaths = `Number of deaths`) %>%  
+  filter(`Area code` %in% lookup$LTLA19CD)
+
+Occurrences_southeast_check %>% 
+  select(Name) %>% 
+  unique()
+
+Occurrences<- Occurrences_ltla %>% 
+  bind_rows(Occurrences_wsx) %>% 
+  bind_rows(Occurrences_england) %>% 
+  bind_rows(Occurrences_southeast)
+
+rm(Occurrences_ltla, Occurrences_wsx, Occurrences_southeast, Occurrences_england)
 
 deaths_labels <- Occurrences %>% 
   arrange(Week_number) %>% 
@@ -611,7 +697,7 @@ All_settings_occurrences <- Occurrences %>%
   ungroup()
 
 weekly_all_place_deaths <- All_settings_occurrences %>% 
-  filter(Name %in% areas_to_loop) %>%
+  filter(Name %in% Areas) %>%
   arrange(Week_number) %>% 
   select(Name, Cause, Week_ending, Deaths) %>% 
   mutate(Week_ending = factor(paste0('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, ' %b')), levels = deaths_labels$deaths_label)) %>% 
@@ -625,7 +711,6 @@ weekly_all_place_deaths <- All_settings_occurrences %>%
   mutate(lab_posit = ifelse(Cause == 'Non-Covid', 1.5, -1)) %>% 
   left_join(weekly_all_place_all_deaths, by = c('Name', 'Week_ending'))
 
-
 deaths_summary_1 <- All_settings_occurrences %>% 
   filter(Week_number == max(Week_number)) %>% 
   select(Name, Week_number, Week_ending, Cause, Deaths) %>% 
@@ -638,18 +723,13 @@ deaths_summary_2 <- All_settings_occurrences %>%
   mutate(Cause = paste0(Cause, ' deaths so far')) %>% 
   pivot_wider(names_from = Cause, values_from = Cumulative_deaths)
 
-deaths_summary <- deaths_summary_1 %>% 
-  left_join(deaths_summary_2, by = c('Name', 'Week_number'))
-
-rm(deaths_summary_1, deaths_summary_2)
 
 # Care home deaths
-
 carehome_deaths_summary <- Occurrences %>%
   filter(Place_of_death %in% 'Care home') %>% 
   arrange(Week_number) %>% 
   select(Name, Cause, Week_ending, Week_number, Deaths) %>% 
-  mutate(Week_ending = factor(paste0('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, ' %b')), levels = deaths_labels$deaths_label)) %>% 
+  # mutate(Week_ending = factor(paste0('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, ' %b')), levels = deaths_labels$deaths_label)) %>% 
   mutate(Cause = paste0(Cause, ' deaths this week')) %>% 
   pivot_wider(id_cols = c(Name, Week_ending, Week_number),
                 names_from = Cause,
@@ -659,19 +739,24 @@ carehome_deaths_summary <- Occurrences %>%
   mutate(`All causes deaths so far` = cumsum(`All causes deaths this week`),
          `COVID 19 deaths so far` = cumsum(`COVID 19 deaths this week`))  %>% 
   ungroup() %>% 
-  filter(Week_number == max(Week_number))
+  filter(Week_number == max(Week_number)) %>% 
+  mutate(Type = 'Care homes')
+
+deaths_summary <- deaths_summary_1 %>% 
+  left_join(deaths_summary_2, by = c('Name', 'Week_number')) %>% 
+  mutate(Type = 'All places') %>% 
+  bind_rows(carehome_deaths_summary) %>%
+  mutate(Label = paste0('Week ', Week_number, ' (', format(Week_ending - 6, '%d-%B'), ' to ', format(Week_ending, '%d-%B'), ')')) %>% 
+  rename(COVID_deaths_in_week = `COVID 19 deaths this week`,
+         COVID_deaths_cumulative = `COVID 19 deaths so far`,
+         All_cause_deaths_in_week = `All causes deaths this week`,
+         All_case_cumulative = `All causes deaths so far`) %>% 
+  select(!c('Week_number', 'Week_ending')) 
+
+deaths_summary %>% 
+  toJSON() %>% 
+  write_lines(paste0(output_directory_x, '/mortality_summary.json'))
+
+rm(deaths_summary_1, deaths_summary_2)
 
 
-# MSOA map ####
-
-msoa_lookup <- read_csv('https://coronavirus.data.gov.uk/downloads/supplements/lookup_table.csv') %>% 
-  filter(UTLA_areaName == 'West Sussex')
-
-# Weekly rolling sums and population-based rates of new cases by specimen date time series data are available to download for English MSOAs via the following links. The data are updated each day, and show the latest 7 days for which near-complete data — release date minus 5 days — are available, and historic non-overlapping 7-day blocks. Dates are the final day in the relevant 7-day block, and counts between 0 and 2 are blank in the CSV or NULL in the other formats.
-
-msoa_cases <- read_csv('https://coronavirus.data.gov.uk/downloads/msoa_data/MSOAs_latest.csv') %>% 
-  filter(date == max(date)) %>% 
-  filter(areaCode %in% msoa_lookup$MSOA) %>% 
-  mutate(Case_key = ifelse(is.na(newCasesBySpecimenDateRollingSum), '0-2 cases', ifelse(newCasesBySpecimenDateRollingSum <= 5, '3-5 cases', ifelse(newCasesBySpecimenDateRollingSum <= 10, '6-10 cases', ifelse(newCasesBySpecimenDateRollingSum <= 15, '11-15 cases', 'More than 15 cases')))))
-
-#t Link to postcode lookup gov.uk ####
