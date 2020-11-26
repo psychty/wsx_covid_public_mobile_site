@@ -373,7 +373,7 @@ function update_summary() {
         "</b> cases in the seven days to " +
         d.Rate_date +
         ". This is <b class = 'highlight'>" +
-        d3.format(",.0f")(d.Rolling_7_day_new_cases_per_100000) +
+        d3.format(",.1f")(d.Rolling_7_day_new_cases_per_100000) +
         " </b>per 100,000 population."
       );
     });
@@ -399,7 +399,7 @@ function update_summary() {
         "</b> cases in the seven days to " +
         d.Rate_date +
         ". This is a rate of <b class = 'highlight'>" +
-        d3.format(",.0f")(d.Rolling_7_day_new_cases_per_100000) +
+        d3.format(",.1f")(d.Rolling_7_day_new_cases_per_100000) +
         "</b> per 100,000 population."
       );
     });
