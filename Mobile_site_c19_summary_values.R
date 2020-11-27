@@ -511,7 +511,7 @@ trust_summary_2_beds %>%
   select(Name, Patients_occupying_mv_beds) %>% 
   left_join(trust_summary_1_beds, by = 'Name') %>% 
   mutate(Beds_date = format(Beds_date, '%A %d %B')) %>%
-  select(Name, Patients_occupying_beds, Previous_occupying_beds, Change_direction, Perc_change_on_beds_occupied , Patients_occupying_mv_beds) %>% 
+  select(Name, Patients_occupying_beds, Beds_date, Previous_occupying_beds, Change_direction, Perc_change_on_beds_occupied , Patients_occupying_mv_beds) %>% 
   toJSON() %>% 
   write_lines(paste0(output_directory_x,'/trust_bed_summary.json'))
 

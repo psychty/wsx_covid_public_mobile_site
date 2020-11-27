@@ -36,9 +36,9 @@ var direction_func = d3
   .scaleOrdinal()
   .domain(["Up", "Down", "Same"])
   .range([
-    "Cases are rising compared to the previous week",
-    "Cases are falling compared to the previous week",
-    "The case numbers are the same as the previous week",
+    "However, cases are rising compared to the previous week",
+    "However, cases are falling compared to the previous week",
+    "The case numbers are the same as in the previous week",
   ]);
 
 // ! Get date label data
@@ -333,15 +333,18 @@ function update_summary() {
     .data(chosen_case_summary_data)
     .html(function (d) {
       return (
-        "The latest data indicates there have been <b>" +
-        d3.format(",.0f")(d.Cumulative_cases) +
-        " </b>cases so far in " +
+        "In the seven days to " +
+        d.Rate_date +
+        " there were <b>" +
+        d3.format(",.0f")(d.Rolling_7_day_new_cases) +
+        " new cases (" +
+        d3.format(",.0f")(d.Rolling_7_day_new_cases_per_100000) +
+        " per 100,000 population)</b>. This means on average " +
+        d3.format(",.0f")(d.Rolling_7_day_average_new_cases) +
+        " people are testing positive for COVID-19 each day in " +
         chosen_summary_area +
-        " as at " +
-        d.Cumulative_date +
-        ". This is " +
-        d3.format(",.0f")(d.Cumulative_per_100000) +
-        " cases per 100,000 population."
+        "." +
+        direction_func(d.Change_direction)
       );
     });
 
@@ -349,16 +352,15 @@ function update_summary() {
     .data(chosen_case_summary_data)
     .html(function (d) {
       return (
-        "In the seven days to " +
-        d.Rate_date +
-        " there were <b>" +
-        d3.format(",.0f")(d.Rolling_7_day_new_cases) +
-        " </b>new cases confirmed in " +
+        "The latest data indicates there have been <b>" +
+        d3.format(",.0f")(d.Cumulative_cases) +
+        " cases so far </b>in " +
         chosen_summary_area +
+        " as at " +
+        data_refreshed_date +
         ". This is " +
-        d3.format(",.0f")(d.Rolling_7_day_new_cases_per_100000) +
-        " </b>per 100,000 population." +
-        direction_func(d.Change_direction)
+        d3.format(",.0f")(d.Cumulative_per_100000) +
+        " cases per 100,000 population."
       );
     });
 
@@ -415,8 +417,6 @@ function update_summary() {
     .html(function (d) {
       return "This is for the 7 days to " + d.Rate_date;
     });
-
-  console.log(se_bed_all);
 
   d3.select("#latest_covid_beds_1")
     .data(se_bed_all)

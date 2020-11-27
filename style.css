@@ -63,13 +63,13 @@ nav {
   position: fixed;
   bottom: 0;
   width: 100%;
-  min-height: 20px; /* Height of the footer */
+  min-height: 5vh; /* Height of the footer */
   background-color: rgb(124, 124, 124);
 }
 
 .footer p {
   margin: 15px;
-  font-size: 0.8em;
+  font-size: 0.7em;
   color: #fff;
 }
 
