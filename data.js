@@ -4,7 +4,7 @@ var height = document.getElementById("daily_case_bars").offsetHeight;
 if (width > 900) {
   var width = 900;
 }
-var width_margin = width * 0.1;
+var width_margin = width * 0.12;
 
 var complete_colour_func = d3
   .scaleOrdinal()
@@ -155,7 +155,7 @@ var x_daily_cases = d3
       return d.Period;
     })
   )
-  .range([0, width - width_margin * 2]);
+  .range([0, width - width_margin]);
 
 var xAxis_daily_cases = svg_daily_case_bars
   .append("g")
