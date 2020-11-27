@@ -476,17 +476,12 @@ d3.select("#select_summary_area_button").on("change", function (d) {
 
 // zoom fix
 
-//the mousedown event seems to be the one that does the trick, versus 'focus', because focus fires after the zoom already happens.
-$("select").mousedown(function () {
-  $("meta[name=viewport]").remove();
-  $("head").append(
-    '<meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=0">'
-  );
-});
-
-$("select").focusout(function () {
-  $("meta[name=viewport]").remove();
-  $("head").append(
-    '<meta name="viewport" content="width=device-width, initial-scale=yes">'
-  );
+document.addEventListener("DOMContentLoaded", (event) => {
+  if (/iPhone/.test(navigator.userAgent) && !window.MSStream) {
+    const metaViewportTag = document.head.querySelector(
+      'meta[name="viewport"]'
+    );
+    metaViewportTag.content =
+      "width=device-width, initial-scale=1, maximum-scale=1";
+  }
 });
