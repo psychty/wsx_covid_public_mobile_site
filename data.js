@@ -473,15 +473,3 @@ d3.select("#select_summary_area_button").on("change", function (d) {
     .property("value");
   update_summary();
 });
-
-// zoom fix
-
-document.addEventListener("DOMContentLoaded", (event) => {
-  if (/iPhone/.test(navigator.userAgent) && !window.MSStream) {
-    const metaViewportTag = document.head.querySelector(
-      'meta[name="viewport"]'
-    );
-    metaViewportTag.content =
-      "width=device-width, initial-scale=1, maximum-scale=1";
-  }
-});
