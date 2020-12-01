@@ -67,6 +67,19 @@ var last_case_period = case_dates_df.filter(function (d) {
   return d.Item === "last_case_period";
 })[0]["Label"];
 
+var previous_week_period = case_dates_df.filter(function (d) {
+  return d.Item === "previous_week_period";
+})[0]["Label"];
+
+var request = new XMLHttpRequest();
+request.open("GET", "./Outputs/mortality_dates.json", false);
+request.send(null);
+var mortality_dates_df = JSON.parse(request.responseText);
+
+var deaths_published_period = mortality_dates_df.filter(function (d) {
+  return d.Item === "published_on";
+})[0]["Label"];
+
 // Update text based on selected area
 d3.select("#update_date").html(function (d) {
   return (
@@ -321,40 +334,37 @@ function update_summary() {
 
   // ! Text for daily bars
 
-  d3.select("#daily_bars_text_1").html(function (d) {
-    return (
-      "The figure below shows the daily confirmed cases of Covid-19 over time in " +
-      chosen_summary_area +
-      ". The black line represents the rolling average number of new cases confirmed in the previous seven days. The black line ends on the day we believe to be the latest complete date."
-    );
+  d3.select("#daily_confirmed_title").html(function (d) {
+    return "Daily confirmed COVID-19 cases in " + chosen_summary_area;
   });
 
-  d3.select("#daily_bars_text_2")
+  d3.select("#daily_bars_text_1")
     .data(chosen_case_summary_data)
     .html(function (d) {
       return (
         "In the seven days to " +
         d.Rate_date +
-        " there were <b>" +
+        " there were <b class = 'case_latest'>" +
         d3.format(",.0f")(d.Rolling_7_day_new_cases) +
-        " new cases (" +
+        " </b> new cases (<b>" +
         d3.format(",.0f")(d.Rolling_7_day_new_cases_per_100000) +
-        " per 100,000 population)</b>. This means on average " +
+        " per 100,000 population</b>). This means on average " +
         d3.format(",.0f")(d.Rolling_7_day_average_new_cases) +
         " people are testing positive for COVID-19 each day in " +
         chosen_summary_area +
-        "." +
-        direction_func(d.Change_direction)
+        ". <b>" +
+        direction_func(d.Change_direction) +
+        "</b>"
       );
     });
 
-  d3.select("#daily_bars_text_3")
+  d3.select("#daily_bars_text_2")
     .data(chosen_case_summary_data)
     .html(function (d) {
       return (
-        "The latest data indicates there have been <b>" +
+        "The latest data indicates there have been <b class = 'case_latest'>" +
         d3.format(",.0f")(d.Cumulative_cases) +
-        " cases so far </b>in " +
+        "</b> cases so far in " +
         chosen_summary_area +
         " as at " +
         data_refreshed_date +
@@ -364,7 +374,19 @@ function update_summary() {
       );
     });
 
+  d3.select("#daily_bars_text_3").html(function (d) {
+    return (
+      "This figure shows the daily confirmed cases of Covid-19 over time in " +
+      chosen_summary_area +
+      ". The black line shows the rolling average number of new cases confirmed in the previous seven days and ends on the day we believe to be the latest complete date. The last four days may be an underestimate of the true number of cases due to delays in reporting results (these are coloured orange)."
+    );
+  });
+
   // ! Summary tile text
+
+  d3.select("#area_seven_days_title").html(function (d) {
+    return "Number of cases in " + chosen_summary_area;
+  });
 
   d3.select("#latest_seven_days_all_ages_1")
     .data(chosen_case_summary_data)
@@ -391,6 +413,10 @@ function update_summary() {
     .html(function (d) {
       return "This is for the 7 days to " + d.Rate_date;
     });
+
+  d3.select("#area_over_60_title").html(function (d) {
+    return "Cases among those aged 60+ in " + chosen_summary_area;
+  });
 
   d3.select("#latest_seven_days_60_plus_1")
     .data(chosen_case_summary_data_60)
@@ -426,7 +452,7 @@ function update_summary() {
         d3.format(",.0f")(d.Patients_occupying_beds) +
         "</b> COVID-19 positive patients in hospital beds across the South East of England on " +
         d.Beds_date +
-        ". Of these, <b class = 'highlight'>" +
+        ".<br>Of these, <b class = 'highlight'>" +
         d3.format(",.0f")(d.Patients_occupying_mv_beds) +
         "</b> were occupying beds capable of mechanical ventilation."
       );
@@ -456,13 +482,17 @@ function update_summary() {
         d3.format(",.0f")(d.COVID_deaths_in_week) +
         "</b> COVID-19 deaths in " +
         d.Label +
-        ". There have been <b class = 'highlight'>" +
+        ".<br>There have been <b class = 'highlight'>" +
         d3.format(",.0f")(d.COVID_deaths_cumulative) +
         " </b> deaths where COVID-19 was mentioned on death certificate in " +
         chosen_summary_area +
         " since the start of the pandemic."
       );
     });
+
+  d3.select("#latest_covid_deaths_2").html(function (d) {
+    return "This was updated on " + deaths_published_period;
+  });
 }
 
 update_summary();
@@ -473,3 +503,258 @@ d3.select("#select_summary_area_button").on("change", function (d) {
     .property("value");
   update_summary();
 });
+
+// ! Postcode lookup and msoa map
+
+// var case_key_msoa = [
+//   "0-2 cases",
+//   "3-5 cases",
+//   "6-10 cases",
+//   "11-15 cases",
+//   "More than 15 cases",
+// ];
+// var case_key_msoa_colours = [
+//   "#f1eef6",
+//   "#d7b5d8",
+//   "#df65b0",
+//   "#dd1c77",
+//   "#980043",
+// ];
+
+// var msoa_case_colour_func = d3
+//   .scaleOrdinal()
+//   .domain(case_key_msoa)
+//   .range(case_key_msoa_colours);
+
+var request = new XMLHttpRequest();
+request.open("GET", "./Outputs/msoa_summary.json", false);
+request.send(null);
+var msoa_summary_data = JSON.parse(request.responseText); // parse the fetched json data into a variable
+
+var request = new XMLHttpRequest();
+request.open("GET", "./Outputs/utla_summary.json", false);
+request.send(null);
+var utla_summary_data = JSON.parse(request.responseText); // parse the fetched json data into a variable
+
+// // Add AJAX request for data
+// var msoa_map_data = $.ajax({
+//   url: "./Outputs/msoa_covid_rate_latest.geojson",
+//   dataType: "json",
+//   success: console.log("MSOA boundary for cases successfully loaded."),
+//   error: function (xhr) {
+//     alert(xhr.statusText);
+//   },
+// });
+
+// var tileUrl = "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png";
+// var attribution =
+//   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a><br> Contains Ordnance Survey data © Crown copyright and database right 2020.<br>Contains Parliamentary information licensed under the Open Parliament Licence v3.0.<br>Zoom in/out using your mouse wheel or the plus (+) and minus (-) buttons. Click on an area to find out more.';
+
+// function msoa_case_colour(d) {
+//   return d === case_key_msoa[0]
+//     ? case_key_msoa_colours[0]
+//     : d === case_key_msoa[1]
+//     ? case_key_msoa_colours[1]
+//     : d === case_key_msoa[2]
+//     ? case_key_msoa_colours[2]
+//     : d === case_key_msoa[3]
+//     ? case_key_msoa_colours[3]
+//     : d === case_key_msoa[4]
+//     ? case_key_msoa_colours[4]
+//     : "#feebe2";
+// }
+
+// function style_msoa_cases(feature) {
+//   return {
+//     fillColor: msoa_case_colour(feature.properties.Case_key),
+//     weight: 1,
+//     opacity: 0.6,
+//     color: "white",
+//     dashArray: "3",
+//     fillOpacity: 0.7,
+//   };
+// }
+
+// $.when(msoa_map_data).done(function () {
+//   var msoa_map = L.map("msoa_map_place");
+
+//   var msoa_basemap = L.tileLayer(tileUrl, {
+//     attribution,
+//     minZoom: 8,
+//   }).addTo(msoa_map);
+
+//   var msoa_map_hcl = L.geoJSON(msoa_map_data.responseJSON, {
+//     style: style_msoa_cases,
+//   })
+//     .addTo(msoa_map)
+//     .bindPopup(function (layer) {
+//       return (
+//         "<p style = 'font-size: .8rem'>" +
+//         layer.feature.properties.Label +
+//         "</p>"
+//       );
+//     });
+
+//   msoa_map.fitBounds(msoa_map_hcl.getBounds());
+
+//   var marker_chosen = L.marker([0, 0]).addTo(msoa_map_hcl);
+
+//search event
+$(document).on("click", "#btnPostcode", function () {
+  var input = $("#txtPostcode").val();
+  var url = "https://api.postcodes.io/postcodes/" + input;
+
+  post(url).done(function (postcode) {
+    var chosen_msoa = postcode["result"]["msoa"];
+    var chosen_lat = postcode["result"]["latitude"];
+    var chosen_long = postcode["result"]["longitude"];
+
+    // marker_chosen.setLatLng([chosen_lat, chosen_long]);
+    // msoa_map.setView([chosen_lat, chosen_long], 11);
+
+    var msoa_summary_data_chosen = msoa_summary_data.filter(function (d) {
+      return d.MSOA11NM == chosen_msoa;
+    });
+
+    chosen_utla = msoa_summary_data_chosen[0]["UTLA19NM"];
+
+    var utla_summary_data_chosen = utla_summary_data.filter(function (d) {
+      return d.Name == chosen_utla;
+    });
+
+    d3.select("#local_case_summary_1")
+      .data(msoa_summary_data_chosen)
+      .html(function (d) {
+        return d.MSOA11NM + " (" + d.msoa11hclnm + ")";
+      });
+
+    if (msoa_summary_data_chosen[0]["Latest_rate"] == "No rate available") {
+      d3.select("#local_case_summary_2")
+        .data(msoa_summary_data_chosen)
+        .html(function (d) {
+          return (
+            "<b class = 'case_latest'>" +
+            d.This_week +
+            "</b> cases in the seven days to " +
+            complete_date
+          );
+        });
+    }
+
+    if (msoa_summary_data_chosen[0]["Latest_rate"] != "No rate available") {
+      d3.select("#local_case_summary_2")
+        .data(msoa_summary_data_chosen)
+        .html(function (d) {
+          return (
+            "<b class = 'case_latest'>" +
+            d.This_week +
+            "</b> cases in the seven days to " +
+            complete_date +
+            ". This is <b>" +
+            d.Latest_rate +
+            " cases per 100,000 population</b>."
+          );
+        });
+    }
+
+    d3.select("#local_case_summary_3")
+      .data(msoa_summary_data_chosen)
+      .html(function (d) {
+        return d.Change_label;
+      });
+
+    d3.select("#local_case_summary_4")
+      .data(utla_summary_data_chosen)
+      .html(function (d) {
+        return (
+          "This local area is within <b>" +
+          chosen_utla +
+          "</b> which is currently in <b class = 'tier'>" +
+          d.Tier +
+          "</b>."
+        );
+      });
+
+    d3.select("#local_case_summary_5")
+      .data(utla_summary_data_chosen)
+      .html(function (d) {
+        return (
+          "In <b>" +
+          chosen_utla +
+          " overall</b>, in the seven days to " +
+          complete_date +
+          " there have been " +
+          d.Rolling_7_day_new_cases +
+          " cases (" +
+          d3.format(",.1f")(d.Rolling_7_day_new_cases_per_100000) +
+          " cases per 100,000).<b> " +
+          direction_func(d.Change_direction) +
+          ".</b> In the seven days to " +
+          previous_week_period +
+          ", there were " +
+          d3.format(",.0f")(d.Previous_7_days_sum) +
+          " cases and so cases have " +
+          d.Change_label
+        );
+      });
+  });
+});
+
+//enter event - search
+$("#txtPostcode").keypress(function (e) {
+  if (e.which === 13) {
+    $("#btnPostcode").click();
+  }
+});
+
+//ajax call
+function post(url) {
+  return $.ajax({
+    url: url,
+    success: function () {
+      //woop
+    },
+    error: function (desc, err) {
+      $("#result_text").html("Details: " + desc.responseText);
+
+      d3.select("#local_case_summary_1").html(function (d) {
+        return "The postcode you entered does not seem to be valid, please check and try again.";
+      });
+      d3.select("#local_case_summary_2").html(function (d) {
+        return "This could be because there is a problem with the postcode look up tool we are using.";
+      });
+      d3.select("#local_case_summary_3").html(function (d) {
+        return "";
+      });
+    },
+  });
+}
+// });
+
+// function key_msoa_cases() {
+//   case_key_msoa.forEach(function (item, index) {
+//     var list = document.createElement("li");
+//     list.innerHTML = item + " in 7 days to " + complete_date;
+//     list.className = "key_list_msoa_cases";
+//     list.style.borderColor = msoa_case_colour_func(index);
+//     var tt = document.createElement("div");
+//     tt.className = "side_tt";
+//     tt.style.borderColor = msoa_case_colour_func(index);
+//     var tt_h3_1 = document.createElement("h3");
+//     tt_h3_1.innerHTML = item.Case_key;
+
+//     tt.appendChild(tt_h3_1);
+//     var div = document.getElementById("msoa_case_key");
+//     div.appendChild(list);
+//   });
+// }
+
+// key_msoa_cases();
+
+// d3.select("#local_case_map_title").html(function (d) {
+//   return (
+//     "Number of confirmed COVID-19 cases in the seven days to " +
+//     complete_date +
+//     "; South East England MSOAs"
+//   );
+// });

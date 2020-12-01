@@ -23,12 +23,13 @@
       </div>
 
       <ul class = 'nav-links' id = 'nav-links'>
-        <li><a href = "#home">Home</a></li>
+        <li><a href = "#home">Summary</a></li>
         <li><a href = '#latest_case_section'>Latest cases</a></li>
+        <li><a href = '#local_section'>Your local area</a></li>
         <!-- <li><a href = '#asr_section'>Cases by age</a></li> -->
-        <!-- <li><a href = '#restriction_section'>Restrictions</a></li> -->
+        <li><a href = '#restriction_section'>Restrictions</a></li>
         <!-- <li><a href = '#hosp_section'>Hospital admissions</a></li> -->
-        <!-- <li><a href = '#mortality_section'>Deaths</a></li> -->
+        <li><a href = '#mortality_section'>Deaths</a></li>
       </ul>
   
       <div class = "menu_line" onclick="navSlide()">
@@ -43,19 +44,19 @@
   <div class="content">
     <h4 class = 'content_top'>West Sussex COVID-19 - mobile friendly site</h4>
     <p>This is the mobile/tablet friendly data summary of what we know about COVID-19 in West Sussex. A more in-depth look at the data, which is better viewed on a laptop or desktop screen is available <a href ='https://wsx-c19-weekly-supplement.netlify.app'>here<a>.</p>
-    <p>We are working as fast as possible to bring you elements from the desktop site to this mobile friendly page. If you have any comments or questions, please email us at <a href="mailto:publichealth@westsussex.gov.uk?subject=COVID-19 datapack">publichealth@westsussex.gov.uk</a></p>
+    <p>We are working as fast as possible to bring you elements from the desktop site to this mobile friendly page. If you have any comments or questions, please email us at <a href="mailto:publichealth@westsussex.gov.uk?subject=COVID-19 datapack">publichealth@westsussex.gov.uk</a>. This will be updated each day, Monday to Friday.</p>
     <p>Use the menu at the top of the page to jump to a section and find out more.</p>
     <p id = 'update_date'></p>
 
       <div class="parent_flex">
         <div class="child_1">
-          <p class = 'class_1'>Number of cases</p>
+          <p class = 'class_1' id = 'area_seven_days_title'></p>
           <p class = 'class_2' id = 'latest_seven_days_all_ages_1'></p>
           <p class = 'class_3' id = 'latest_seven_days_all_ages_2'></p>
           <p class = 'class_4' id = 'latest_seven_days_all_ages_3'></p>
         </div>
         <div class="child_2">
-          <p class = 'class_1'>Cases among those aged 60+</p>
+          <p class = 'class_1' id = 'area_over_60_title'></p>
           <p class = 'class_2' id = 'latest_seven_days_60_plus_1'></p>
           <p class = 'class_3' id = 'latest_seven_days_60_plus_2'></p>
           <p class = 'class_4' id = 'latest_seven_days_60_plus_3'></p>
@@ -67,7 +68,7 @@
           <p class = 'class_4'>This was updated on Tuesday 24 November</p>
         </div>
         <div class="child_4">
-          <p class = 'class_1'>Health care in the region</p>
+          <p class = 'class_1'>Health care in the South East</p>
           <p class = 'class_2' id = 'latest_covid_beds_1'></p>
           <p class = 'class_3' id = 'latest_covid_beds_2'></p>
           <p class = 'class_4' id = 'latest_covid_beds_3'></p>
@@ -75,8 +76,8 @@
         <div class="child_5">
           <p class = 'class_1'>Deaths</p>
           <p class = 'class_2' id = 'latest_covid_deaths_1'></p>
-          <p class = 'class_3' id = 'latest_covid_deaths_2'></p>
-          <p class = 'class_4' id = 'latest_covid_deaths_3'></p>
+          <p class = 'class_3'></p>
+          <p class = 'class_4' id = 'latest_covid_deaths_2'></p>
         </div>
       </div>
   </div>
@@ -84,20 +85,64 @@
 
 <section class="latest_case_section" id = 'latest_case_section'>
   <div class="content">
-    <h4 class = 'content_top'>Daily confirmed COVID-19 cases</h4>
+    <h4 class = 'content_top' id = 'daily_confirmed_title'></h4>
     <p id = 'daily_bars_text_1'></p>
     <p id = 'daily_bars_text_2'></p>
-    <p id = 'daily_bars_text_3'></p>
+    <p>Remember, you can change the area by using the menu at the top of this page.</p>
+   
     <div class = 'figure_style' id = 'daily_case_bars'></div>
-    <p>The last four days may be an underestimate of the true number of cases due to delays in reporting results (these are coloured orange).</p>
+    <p>Data source: <a class = 'highlight_dl_link' href = 'https://coronavirus-staging.data.gov.uk' >https://coronavirus-staging.data.gov.uk</a></p>
+    <p id = 'daily_bars_text_3'></p>
   </div>
 </section>
-<!-- 
-<section class="asr_section" id = 'asr_section'>
+
+<section class = 'local_section' id = 'local_section'>
+  <div class="content">
+    <h4 class = 'content_top'>Cases in your local area</h4>
+    <p>The number of new confirmed cases is now available at a very localised area (called Middle-layer Super Output Areas or MSOAs for short) covering communities of on average 7,000 people. This is useful as it means you can see what cases are like where you live or where your friends and family live. We do not get the same detail from the data published at this level compared to wider areas and when there are fewer than three cases in a seven day period in the MSOA, these are supressed.</p>
+    <p>You can search for any postcode in England in the box below and more detail about cases in that local area will appear.</p>
+    
+    <div class='inputHolder'>
+      <input placeholder='Postcode' type='text' id='txtPostcode'/>
+      <input type='button' value='Search' id='btnPostcode'/>
+      <h4 id = 'local_case_summary_1'></h4>
+    </div>
+
+  <div class = 'local_summary_tile'>
+
+      <div class="local_tiles">
+      <p class = 'local_child' id = 'local_case_summary_2'></p>
+      <p class = 'local_child' id = 'local_case_summary_3'></p>
+      <p class = 'local_child' id = 'local_case_summary_4'></p>
+      <p class = 'local_child' id = 'local_case_summary_5'></p>
+      </div>
+  </div>
+
+    <!-- <p>MSOAs vary in the size of the geographical areas covered, but they are designed to cover roughly the same number of people (about 7,000 people).</p> -->
+    <p>As some data are suppressed, where there have been very few cases in a 7 day period, it is not possible to calculate how many cases there have been in total in a local area. See <a  class = 'highlight_dl_link' href = 'https://www.gov.uk/government/publications/office-for-national-statistics-recommendation-for-publishing-data-at-small-geographies-for-nhs-test-and-trace/disclosure-risk-assessment-for-nhs-test-and-trace-counts-at-small-geographies'>Department of Health & Social care guidance</a> on supressing small counts.</p>
+
+  </div>
+</section>
+     <!-- <h4 id = 'local_case_map_title'></h4> -->
+     <!-- <div id = 'msoa_map_place'></div> -->
+     <!-- <p>Data source: <a class = 'highlight_dl_link' href = 'https://coronavirus-staging.data.gov.uk' >https://coronavirus-staging.data.gov.uk</a></p> -->
+ 
+      <!-- <h4>Cases in the latest 7 days</h4> -->
+      <!-- <div id = 'msoa_case_key'></div> -->
+
+  
+  </div>
+
+
+
+
+</section>
+
+<!-- <section class="asr_section" id = 'asr_section'>
   <div class="content">
     <h4  class = 'content_top'>COVID-19 in different age groups</h4>
   </div>
-</section>
+</section> -->
 
 <section class="restriction_section" id = 'restriction_section'>
   <div class="content">
@@ -106,13 +151,13 @@
   </div>
 </section>
 
-<section class="hosp_section" id = 'hosp_section'>
+<!-- <section class="hosp_section" id = 'hosp_section'>
   <div class="content">
     <h4 class = 'content_top'>Hospital activity</h4>
     <p>This section includes what we know about the number of people being admitted to hospital with COVID-19 or catching the virus whilst in hospital as well as the number of COVID-19 positive patients currently occupying beds</p>
     <p>Note, this data relates to the hospital trusts providiing care and does not necessarily reflect the residents of a particular area.</p>
   </div>
-</section>
+</section> -->
 
 <section class="mortality_section" id = 'mortality_section'>
   <div class="content">
@@ -120,7 +165,7 @@
     <p>The Office for National Statistics published weekly data on the number of deaths occurring each week in 2020 and whether or not COVID-19 was mentioned as an underlying or contributing factor to the death.</p>
     <p>Note, this is not the same as mortality reporting on the government website which includes any deaths within 28 days of a positive test result.</p>
   </div>
-</section> -->
+</section> 
 
 
 <p class="small_screen_adapt">
