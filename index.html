@@ -43,17 +43,19 @@
 <section class= "home" id = 'home'>
   <div class="content">
     <h4 class = 'content_top'>West Sussex COVID-19 Data Dashboard</h4>
-    <p>This is the mobile/tablet friendly data summary of what we know about COVID-19 in West Sussex.</p>
+    <p>The following information is produced by the West Sussex Public Health and Social Research Unit and is the mobile/tablet friendly data summary of what we know about COVID-19 in West Sussex. For more in-depth analyses, visit our  <a href ='https://wsx-c19-weekly-supplement.netlify.app'>desktop-only version</a>.</p>
     <p>We are working as fast as possible to bring you elements from the desktop site to this mobile friendly page. If you have any comments or questions, please email us at <a href="mailto:publichealth@westsussex.gov.uk?subject=COVID-19 datapack">publichealth@westsussex.gov.uk</a>. This will be updated each day, Monday to Friday.</p>
     <p>Use the menu at the top of the page to jump to a section and find out more.</p>
     <p id = 'update_date'></p>
+  
 
       <div class="parent_flex">
         <div class="child_1">
           <p class = 'class_1' id = 'area_seven_days_title'></p>
           <p class = 'class_2' id = 'latest_seven_days_all_ages_1'></p>
-          <p class = 'class_3' id = 'latest_seven_days_all_ages_2'></p>
-          <p class = 'class_4' id = 'latest_seven_days_all_ages_3'></p>
+          <p class = 'class_2' id = 'latest_seven_days_all_ages_2'></p>
+          <p class = 'class_3' id = 'latest_seven_days_all_ages_3'></p>
+          <p class = 'class_4' id = 'latest_seven_days_all_ages_4'></p>
         </div>
         <div class="child_2">
           <p class = 'class_1' id = 'area_over_60_title'></p>
@@ -63,21 +65,24 @@
         </div>
         <div class="child_3">
           <p class = 'class_1'>Local restrictions</p>
-          <p class = 'class_2'>England is currently subject to a national lockdown from 5th November to 2nd December.</p>
-          <p class = 'class_2'>As soon as information on local tiers becomes available it will be presented here.</p>
-          <p class = 'class_4'>This was updated on Tuesday 24 November</p>
+          <p class = 'class_2'>From 2nd December, West Sussex has been placed in Tier 2 (high alert).</p>
+          <p class = 'class_2'>This is for area with a higher or rapidly rising level of infections.</p>
+          <p class = 'class_2'>A full breakdown of the Tier 2 restrictions can be found on the <a href = 'https://www.gov.uk/guidance/local-restriction-tiers-what-you-need-to-know#high-alert'>GOV.UK website</a>.</p>
+          <p class = 'class_4'>This was updated on Wednesday 02 December</p>
         </div>
         <div class="child_4">
           <p class = 'class_1'>Health care in the South East</p>
           <p class = 'class_2' id = 'latest_covid_beds_1'></p>
-          <p class = 'class_3' id = 'latest_covid_beds_2'></p>
-          <p class = 'class_4' id = 'latest_covid_beds_3'></p>
+          <p class = 'class_2' id = 'latest_covid_beds_2'></p>
+          <p class = 'class_3' id = 'latest_covid_beds_3'></p>
+          <p class = 'class_4' id = 'latest_covid_beds_4'></p>
+
         </div>
         <div class="child_5">
           <p class = 'class_1'>Deaths</p>
           <p class = 'class_2' id = 'latest_covid_deaths_1'></p>
-          <p class = 'class_3'></p>
-          <p class = 'class_4' id = 'latest_covid_deaths_2'></p>
+          <p class = 'class_2' id = 'latest_covid_deaths_2'></p>
+          <p class = 'class_4' id = 'latest_covid_deaths_4'></p>
         </div>
       </div>
   </div>
@@ -88,11 +93,10 @@
     <h4 class = 'content_top' id = 'daily_confirmed_title'></h4>
     <p id = 'daily_bars_text_1'></p>
     <p id = 'daily_bars_text_2'></p>
-    <p>Remember, you can change the area by using the menu at the top of this page.</p>
+    <p id = 'daily_bars_text_3'></p>
    
     <div class = 'figure_style' id = 'daily_case_bars'></div>
-    <p>Data source: <a class = 'highlight_dl_link' href = 'https://coronavirus-staging.data.gov.uk' >https://coronavirus-staging.data.gov.uk</a></p>
-    <p id = 'daily_bars_text_3'></p>
+    <p>Each bar represents the number of cases swabbed on that date (the specimen date), and the black line shows the rolling 7-day average number of new cases. The last four days may be an underestimate of the true number of cases due to delays in reporting results (these are coloured orange).</p>
   </div>
 </section>
 
@@ -104,28 +108,25 @@
     
     <div class='inputHolder'>
       <input placeholder='Postcode' type='text' id='txtPostcode'/>
-      <input type='button' value='Search' id='btnPostcode'/>
-      <h4 id = 'local_case_summary_1'></h4>
+      <input class = 'inputHolder_button' type='button' value='Search' id='btnPostcode'/>
     </div>
 
-  <div class = 'local_summary_tile'>
-
-      <div class="local_tiles">
+    <h4 class = 'local_case_summary_1' id = 'local_case_summary_1'></h4>
+    
+      <div id = local_tiles>
       <p class = 'local_child' id = 'local_case_summary_2'></p>
       <p class = 'local_child' id = 'local_case_summary_3'></p>
       <p class = 'local_child' id = 'local_case_summary_4'></p>
       <p class = 'local_child' id = 'local_case_summary_5'></p>
       </div>
-  </div>
 
-    <!-- <p>MSOAs vary in the size of the geographical areas covered, but they are designed to cover roughly the same number of people (about 7,000 people).</p> -->
-    <p>As some data are suppressed, where there have been very few cases in a 7 day period, it is not possible to calculate how many cases there have been in total in a local area. See <a  class = 'highlight_dl_link' href = 'https://www.gov.uk/government/publications/office-for-national-statistics-recommendation-for-publishing-data-at-small-geographies-for-nhs-test-and-trace/disclosure-risk-assessment-for-nhs-test-and-trace-counts-at-small-geographies'>Department of Health & Social care guidance</a> on supressing small counts.</p>
+    <p>As some data are suppressed, where there have been very few cases in a 7 day period, it is not possible to calculate how many cases there have been in total in a local area. See <a href = 'https://www.gov.uk/government/publications/office-for-national-statistics-recommendation-for-publishing-data-at-small-geographies-for-nhs-test-and-trace/disclosure-risk-assessment-for-nhs-test-and-trace-counts-at-small-geographies'>Department of Health & Social care guidance</a> on supressing small counts.</p>
 
   </div>
 </section>
      <!-- <h4 id = 'local_case_map_title'></h4> -->
      <!-- <div id = 'msoa_map_place'></div> -->
-     <!-- <p>Data source: <a class = 'highlight_dl_link' href = 'https://coronavirus-staging.data.gov.uk' >https://coronavirus-staging.data.gov.uk</a></p> -->
+     <!-- <p>Data source: <a href = 'https://coronavirus-staging.data.gov.uk' >https://coronavirus-staging.data.gov.uk</a></p> -->
  
       <!-- <h4>Cases in the latest 7 days</h4> -->
       <!-- <div id = 'msoa_case_key'></div> -->
@@ -146,8 +147,12 @@
 
 <section class="restriction_section" id = 'restriction_section'>
   <div class="content">
-    <h4 class = 'content_top'>Local restrictions</h4>
-    <p>The UK Government announced a national lockdown for the whole of England between 5th November 2020 to 2nd November 2020.</p>
+    <h4 class = 'content_top'>COVID-19 restrictions</h4>
+    <p>The UK Government announced a national lockdown for the whole of England between 5th November 2020 to 2nd December 2020 followed by a return to a tiered system allocating each upper tier local authority across the country to one of three tiers with a review of each areas placement every 14 days.</p>
+    <p>West Sussex has been placed in the <b>High Alert tier</b> (Tier 2). A full breakdown of the Tier 2 restrictions can be found on the <a href = 'https://www.gov.uk/guidance/local-restriction-tiers-what-you-need-to-know#high-alert'>GOV.UK website</a>.</p>
+    <p>The map below shows how restrictions vary across England. Tier 1 areas are shaded yellow, whilst Tier 2 areas are purple and the highest tier (Tier 3) is dark blue.</p>
+    <div id = 'utla_restrictions_map'></div>
+    <p>The map covers restrictions outlined by the UK government for England. Local authorities also have statutory powers to issue "directions" which impose prohibitions or restrictions on premises, events and public spaces.</p> 
   </div>
 </section>
 
@@ -167,21 +172,38 @@
   </div>
 </section> 
 
-
-<p class="small_screen_adapt">
-  Infographic images designed by Freepik from Flaticon
-</p>
-<div class = 'footer'>
-  <p>View a more in-depth version on a <a href ='https://wsx-c19-weekly-supplement.netlify.app'>laptop or desktop<a>.</p>
-  <p>Although this page has been made by a member of staff in the Public Health and Social Research Unit to support their work, it is not a West Sussex County Council website.</p>
+<section id = 'attribution_section'>
+  <div class = 'content'>
+    <h4 class = 'content_top'>Attributions</h4>
+    <p>The data used in this analyses primarily come from <a href = 'https://coronavirus-staging.data.gov.uk' >UK Government</a> for new case data, <a href = 'https://digital.nhs.uk/dashboards/nhs-pathways#dashboard' >NHS Digital</a> for NHS pathway contacts, and <a href = 'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard'>Office for National Statistics</a> for data on mortality.</p>
+    <p>Data used in this analyses are supplied under Open Government Licence and a number of supporting products such as geographical boundaries and postcode lookups have also been used.</p>
+    <p>The following copyright notices are applicable:</p>
+    <ul class = 'attributions'>
+      <li>Contains Public Health England data © Crown copyright and database right 2020</li>
+      <li>Office for National Statistics licensed under the Open Government Licence v.3.0</li>
+      <li>Contains Ordnance Survey data © Crown copyright and database right 2020</li>
+      <li>Contains Royal Mail data © Royal Mail copyright and database right 2020</li>
+      <li>Contains MSOA names © Open Parliament copyright and database right 2020</li>
+    </ul>
+  </div>
 </div>
+</section>
+
+
+<!-- <p class="small_screen_adapt"> -->
+  <!-- Infographic images designed by Freepik from Flaticon -->
+<!-- </p> -->
+<!-- <div class = 'footer'>
+  <p>View a more in-depth version of this analysis on a <a href ='https://wsx-c19-weekly-supplement.netlify.app'>laptop or desktop computer<a>.</p>
+  <p>Although this page has been made by a member of staff in the Public Health and Social Research Unit to support their work, it is not a West Sussex County Council website.</p>
+</div> -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.min.js"></script>
 <script src="https://d3js.org/d3-format.v1.min.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-<!-- <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script> -->
-<!-- <script src= "https://unpkg.com/shpjs@latest/dist/shp.js"></script> -->
+<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+<script src= "https://unpkg.com/shpjs@latest/dist/shp.js"></script>
 <script src= 'data.js'></script>
 
 </body>

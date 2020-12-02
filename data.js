@@ -28,17 +28,28 @@ function navSlide() {
   nav_selected.classList.toggle("nav-active");
 
   navLinks.forEach((link, i) => {
-    link.style.animation = `navLinkFader 0.5s ease forwards ${i / 7 + 1}s`;
+    if (link.style.animation) {
+      link.style.animation = "";
+    } else {
+      link.style.animation = `navLinkFader 0.5s ease forwards ${i / 7 + 0.5}s`;
+    }
   });
 }
+
+window.onclick = function (event) {
+  var nav_selected = document.getElementById("nav-links");
+  if (event.target == nav_selected) {
+    navSlide();
+  }
+};
 
 var direction_func = d3
   .scaleOrdinal()
   .domain(["Up", "Down", "Same"])
   .range([
-    "However, cases are rising compared to the previous week",
-    "However, cases are falling compared to the previous week",
-    "The case numbers are the same as in the previous week",
+    "However, cases are rising compared to the previous week.",
+    "However, cases are falling compared to the previous week.",
+    "The case numbers are the same as in the previous week.",
   ]);
 
 // ! Get date label data
@@ -273,6 +284,10 @@ function update_summary() {
     return d.Name == chosen_summary_area && d.Type == "All places";
   });
 
+  chosen_death_data_ch = mortality_data.filter(function (d) {
+    return d.Name == chosen_summary_area && d.Type == "Care homes";
+  });
+
   // * Update text based on selected area
   d3.select("#what_am_i_showing").html(function (d) {
     return `Showing COVID-19 data for ${chosen_summary_area.replace(
@@ -368,9 +383,9 @@ function update_summary() {
         chosen_summary_area +
         " as at " +
         data_refreshed_date +
-        ". This is " +
+        ". This is <b>" +
         d3.format(",.0f")(d.Cumulative_per_100000) +
-        " cases per 100,000 population."
+        " cases per 100,000 population</b>."
       );
     });
 
@@ -378,7 +393,7 @@ function update_summary() {
     return (
       "This figure shows the daily confirmed cases of Covid-19 over time in " +
       chosen_summary_area +
-      ". The black line shows the rolling average number of new cases confirmed in the previous seven days and ends on the day we believe to be the latest complete date. The last four days may be an underestimate of the true number of cases due to delays in reporting results (these are coloured orange)."
+      ". Remember, you can change the area by using the menu at the top of this page."
     );
   });
 
@@ -396,19 +411,27 @@ function update_summary() {
         d3.format(",.0f")(d.Rolling_7_day_new_cases) +
         "</b> cases in the seven days to " +
         d.Rate_date +
-        ". This is <b class = 'highlight'>" +
-        d3.format(",.1f")(d.Rolling_7_day_new_cases_per_100000) +
-        " </b>per 100,000 population."
+        "."
       );
     });
 
   d3.select("#latest_seven_days_all_ages_2")
     .data(chosen_case_summary_data)
     .html(function (d) {
-      return direction_func(d.Change_direction);
+      return (
+        "This is <b class = 'highlight'>" +
+        d3.format(",.1f")(d.Rolling_7_day_new_cases_per_100000) +
+        " </b>per 100,000 population."
+      );
     });
 
   d3.select("#latest_seven_days_all_ages_3")
+    .data(chosen_case_summary_data)
+    .html(function (d) {
+      return direction_func(d.Change_direction);
+    });
+
+  d3.select("#latest_seven_days_all_ages_4")
     .data(chosen_case_summary_data)
     .html(function (d) {
       return "This is for the 7 days to " + d.Rate_date;
@@ -451,14 +474,21 @@ function update_summary() {
         "<b class = 'highlight'>" +
         d3.format(",.0f")(d.Patients_occupying_beds) +
         "</b> COVID-19 positive patients in hospital beds across the South East of England on " +
-        d.Beds_date +
-        ".<br>Of these, <b class = 'highlight'>" +
+        d.Beds_date
+      );
+    });
+
+  d3.select("#latest_covid_beds_2")
+    .data(se_bed_all)
+    .html(function (d) {
+      return (
+        "Of these, <b class = 'highlight'>" +
         d3.format(",.0f")(d.Patients_occupying_mv_beds) +
         "</b> were occupying beds capable of mechanical ventilation."
       );
     });
 
-  d3.select("#latest_covid_beds_2")
+  d3.select("#latest_covid_beds_3")
     .data(se_bed_all)
     .html(function (d) {
       return (
@@ -470,7 +500,7 @@ function update_summary() {
       );
     });
 
-  d3.select("#latest_covid_beds_3").html(function (d) {
+  d3.select("#latest_covid_beds_4").html(function (d) {
     return "This was updated on " + bed_data_publish_date;
   });
 
@@ -480,17 +510,29 @@ function update_summary() {
       return (
         "<b class = 'highlight'>" +
         d3.format(",.0f")(d.COVID_deaths_in_week) +
-        "</b> COVID-19 deaths in " +
+        "</b> COVID-19 deaths (where COVID-19 was mentioned on death certificate) in " +
         d.Label +
         ".<br>There have been <b class = 'highlight'>" +
         d3.format(",.0f")(d.COVID_deaths_cumulative) +
-        " </b> deaths where COVID-19 was mentioned on death certificate in " +
+        " </b> COVID-19 deaths in " +
         chosen_summary_area +
         " since the start of the pandemic."
       );
     });
 
-  d3.select("#latest_covid_deaths_2").html(function (d) {
+  d3.select("#latest_covid_deaths_2")
+    .data(chosen_death_data_ch)
+    .html(function (d) {
+      return (
+        "There were <b class = 'highlight'>" +
+        d3.format(",.0f")(d.COVID_deaths_in_week) +
+        "</b> COVID-19 deaths in care homes this week with <b class = 'highlight'>" +
+        d3.format(",.0f")(d.COVID_deaths_cumulative) +
+        " </b> care home deaths since the start of the pandemic."
+      );
+    });
+
+  d3.select("#latest_covid_deaths_4").html(function (d) {
     return "This was updated on " + deaths_published_period;
   });
 }
@@ -609,6 +651,8 @@ $(document).on("click", "#btnPostcode", function () {
     var chosen_lat = postcode["result"]["latitude"];
     var chosen_long = postcode["result"]["longitude"];
 
+    document.getElementById("local_tiles").classList.add("local_tiles"); // give the div the class of 'local_tiles' when the search button is clicked (otherwise the psuedo empty div takes up too much space).
+
     // marker_chosen.setLatLng([chosen_lat, chosen_long]);
     // msoa_map.setView([chosen_lat, chosen_long], 11);
 
@@ -689,7 +733,7 @@ $(document).on("click", "#btnPostcode", function () {
           d3.format(",.1f")(d.Rolling_7_day_new_cases_per_100000) +
           " cases per 100,000).<b> " +
           direction_func(d.Change_direction) +
-          ".</b> In the seven days to " +
+          "</b> In the seven days to " +
           previous_week_period +
           ", there were " +
           d3.format(",.0f")(d.Previous_7_days_sum) +
@@ -758,3 +802,76 @@ function post(url) {
 //     "; South East England MSOAs"
 //   );
 // });
+
+// ! utla restrictions
+
+var restriction_type = [
+  "Tier 1 (medium)",
+  "Tier 2 (high)",
+  "Tier 3 (very high)",
+];
+var restriction_colours = ["#ffb400", "#9762a2", "#374776"];
+
+var restriction_colour_func = d3
+  .scaleOrdinal()
+  .domain(restriction_type)
+  .range(restriction_colours);
+
+// Add AJAX request for data
+var utla_restrictions = $.ajax({
+  url: "./Outputs/utla_covid_latest.geojson",
+  dataType: "json",
+  success: console.log("UTLA boundary for restrictions successfully loaded."),
+  error: function (xhr) {
+    alert(xhr.statusText);
+  },
+});
+
+var tileUrl = "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png";
+var attribution =
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a><br>Click on an area to find out more.';
+
+function restriction_utla_colour(d) {
+  return d === restriction_type[0]
+    ? restriction_colours[0]
+    : d === restriction_type[1]
+    ? restriction_colours[1]
+    : d === restriction_type[2]
+    ? restriction_colours[2]
+    : "#feebe2";
+}
+
+function style_restriction(feature) {
+  return {
+    fillColor: restriction_utla_colour(feature.properties.Tier),
+    weight: 1,
+    opacity: 0.6,
+    color: "white",
+    dashArray: "3",
+    fillOpacity: 1,
+  };
+}
+
+$.when(utla_restrictions).done(function () {
+  var utla_map_restrictions = L.map("utla_restrictions_map");
+
+  var basemap_restriction = L.tileLayer(tileUrl, {
+    attribution,
+    minZoom: 5,
+  }).addTo(utla_map_restrictions);
+
+  var utla_restrictions_hcl = L.geoJSON(utla_restrictions.responseJSON, {
+    style: style_restriction,
+  })
+    .addTo(utla_map_restrictions)
+    .bindPopup(function (layer) {
+      return (
+        "<b>" +
+        layer.feature.properties.ctyua19nm +
+        "</b><br>" +
+        layer.feature.properties.Tier
+      );
+    });
+
+  utla_map_restrictions.fitBounds(utla_restrictions_hcl.getBounds());
+});

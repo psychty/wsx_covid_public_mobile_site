@@ -103,9 +103,9 @@ last_date <- as.Date(last_update(filters = query_filters, structure = query_stru
 # PHE say the last four data points are incomplete (perhaps they should not publish them). Instead, we need to make sure we account for this so that it is not misinterpreted.
 complete_date <- last_date - 5
 
-data.frame(Item = 'latest_daily_case', Label = format(last_case_date, '%A %d %b %Y')) %>% 
-  add_row(Item = 'daily_case_update_date', Label = format(last_date, '%A %d %B %Y')) %>% 
-  add_row(Item = 'complete_date', Label = format(complete_date, '%A %d %B %Y')) %>% 
+data.frame(Item = 'latest_daily_case', Label = paste0(format(last_case_date, '%A '), ordinal(as.numeric(format(last_case_date, '%d'))), format(last_case_date, ' %B %Y'))) %>% 
+  add_row(Item = 'daily_case_update_date',Label = paste0(format(last_date, '%A '), ordinal(as.numeric(format(last_date, '%d'))), format(last_date, ' %B %Y'))) %>% 
+  add_row(Item = 'complete_date', Label = paste0(format(complete_date, '%A '), ordinal(as.numeric(format(complete_date, '%d'))), format(complete_date, ' %B %Y')))%>% 
   add_row(Item = 'first_case_period', Label =  format(first_date, '%d %B')) %>% 
   add_row(Item = 'last_case_period', Label =  format(last_case_date, '%d %B')) %>% 
   add_row(Item = 'previous_week_period', Label =  format(complete_date -7, '%A %d %B %Y')) %>% 
@@ -906,6 +906,18 @@ utla_summary <- utla_summary_1 %>%
 utla_summary %>% 
   toJSON() %>% 
   write_lines(paste0(output_directory_x,'/utla_summary.json'))
+
+
+utla_restrictions_geojson <-geojson_read("https://opendata.arcgis.com/datasets/b216b4c8a4e74f6fb692a1785255d777_0.geojson",  what = "sp") %>% 
+  filter(substr(ctyua19cd, 1,1 ) == 'E') %>% 
+  mutate(ctyua19nm = ifelse(ctyua19nm %in% c('Cornwall', 'Isles of Scilly'), 'Cornwall and Isles of Scilly', ifelse(ctyua19nm %in% c('City of London', 'Hackney'), 'Hackney and City of London', ctyua19nm))) %>% 
+  mutate(ctyua19cd = ifelse(ctyua19cd %in% c('E06000053', 'E06000052'), 'E06000052', ifelse(ctyua19cd %in% c('E09000001', 'E09000012'), 'E09000012', ctyua19cd))) %>% 
+  group_by(ctyua19cd, ctyua19nm) %>% 
+  summarise() %>% 
+  arrange(ctyua19cd) %>% 
+  left_join(utla_summary, by = c('ctyua19nm' = 'Name')) 
+
+geojson_write(geojson_json(utla_restrictions_geojson), file = paste0(output_directory_x, '/utla_covid_latest.geojson'))
 
 # daily_cases_df %>% 
 #   filter(Name == 'West Sussex') %>% 
