@@ -810,7 +810,9 @@ var restriction_type = [
   "Tier 2 (high)",
   "Tier 3 (very high)",
 ];
-var restriction_colours = ["#ffb400", "#9762a2", "#374776"];
+// var restriction_colours = ["#ffb400", "#9762a2", "#374776"];
+// var restriction_colours = ["#B9DDF1", "#6A9BC3", "#2A5783"];
+var restriction_colours = ["#ffb400", "#6A9BC3", "#2A5783"];
 
 var restriction_colour_func = d3
   .scaleOrdinal()

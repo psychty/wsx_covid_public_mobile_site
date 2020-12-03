@@ -5,6 +5,11 @@
   box-sizing: border-box;
   font-family: "Myriad W01 Regular", Helvetica, Arial, "Lucida Grande",
     sans-serif;
+  font-size: 1rem;
+}
+
+body {
+  -webkit-text-size-adjust: none;
 }
 
 p {
