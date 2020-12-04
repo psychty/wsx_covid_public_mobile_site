@@ -82,27 +82,60 @@ nav {
   z-index: 9999;
   padding-bottom: 3px;
 }
-/* 
-.footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  min-height: 5vh;
-  background-color: rgb(124, 124, 124);
-  color: #fff;
+
+table {
+  border-collapse: collapse;
+  width: auto;
+  margin: 25px;
 }
 
-.footer p {
-  margin-left: 25px;
-  margin-right: 25px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  font-size: 0.7rem;
+th {
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+  margin-top: 15px;
+  padding: 5px;
+  vertical-align: top;
 }
 
-.footer a {
-  font-size: 0.7rem;
-} */
+td,
+th:nth-child(2) {
+  width: 250px;
+  text-align: right;
+}
+
+td,
+th:nth-child(3) {
+  width: 150px;
+  text-align: right;
+}
+
+tbody {
+  border-bottom: 1px solid #333;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+tr:nth-child(8) {
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
+
+th:first-child {
+  text-align: left;
+}
+
+td:first-child {
+  text-align: left;
+  width: 150px;
+}
+
+td {
+  color: #444;
+  text-align: right;
+  padding: 2px;
+}
 
 .top_nav_title {
   display: flex;
@@ -276,6 +309,14 @@ nav {
 @media screen and (max-width: 768px) {
   body {
     overflow-x: hidden;
+  }
+
+  td {
+    font-size: 0.8rem;
+  }
+
+  th {
+    font-size: 0.8rem;
   }
 
   .class_1 {

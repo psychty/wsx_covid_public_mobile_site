@@ -104,6 +104,10 @@ d3.select("#update_date").html(function (d) {
   );
 });
 
+d3.select("#case_date_heading").html(function (d) {
+  return "Number of cases in the 7 days to " + complete_date;
+});
+
 // ! Get data
 var request = new XMLHttpRequest();
 request.open("GET", "./Outputs/case_summary.json", false);
@@ -130,6 +134,11 @@ request.open("GET", "./Outputs/mortality_summary.json", false);
 request.send(null);
 var mortality_data = JSON.parse(request.responseText);
 
+var request = new XMLHttpRequest();
+request.open("GET", "./Outputs/table_summary.json", false);
+request.send(null);
+var at_a_glance = JSON.parse(request.responseText);
+
 // * Which area to show
 var areas_summary = [
   "West Sussex",
@@ -143,6 +152,12 @@ var areas_summary = [
   "South East region",
   "England",
 ];
+
+// at_a_glance.sort(function (a, b) {
+//   return +a.index - +b.index;
+// });
+
+console.log(at_a_glance);
 
 // We need to create a dropdown button for the user to choose which area to be displayed on the figure.
 d3.select("#select_summary_area_button")
@@ -161,6 +176,27 @@ d3.select("#select_summary_area_button")
 var se_bed_all = bed_data.filter(function (d) {
   return d.Name == "South East";
 });
+
+// ! At a glance table
+
+window.onload = () => {
+  loadTable(at_a_glance);
+};
+
+function loadTable(at_a_glance) {
+  const tableBody = document.getElementById("at_glance_table");
+  var dataHTML = "";
+
+  for (let item of at_a_glance) {
+    dataHTML += `<tr><td>${item.Name}</td><td>${d3.format(",.0f")(
+      item.Rolling_7_day_new_cases
+    )}</td><td>${d3.format(",.1f")(
+      item.Rolling_7_day_new_cases_per_100000
+    )}</td></tr>`;
+  }
+
+  tableBody.innerHTML = dataHTML;
+}
 
 // ! Daily cases bar chart
 
@@ -294,107 +330,6 @@ function update_summary() {
       "West Sussex",
       " the whole county"
     )}`;
-  });
-
-  var bars_daily_cases_chosen = case_data.filter(function (d) {
-    return d.Name === chosen_summary_area && d.Age === "All ages";
-  });
-
-  max_limit_y_1 = d3.max(bars_daily_cases_chosen, function (d) {
-    return +d.Cases;
-  });
-
-  y_daily_cases.domain([0, max_limit_y_1]).nice();
-
-  // Redraw axis
-  yAxis_daily_cases
-    .transition()
-    .duration(1000)
-    .call(d3.axisLeft(y_daily_cases));
-
-  daily_new_case_bars
-    .data(bars_daily_cases_chosen)
-    .transition()
-    .duration(1000)
-    .attr("x", function (d) {
-      return x_daily_cases(d.Period);
-    })
-    .attr("y", function (d) {
-      return y_daily_cases(d.Cases);
-    })
-    .attr("height", function (d) {
-      return height - 40 - y_daily_cases(d.Cases);
-    })
-    .attr("fill", function (d) {
-      return complete_colour_func(d.Data_completeness);
-    })
-    .style("opacity", 0.75);
-
-  daily_average_case_bars
-    .datum(bars_daily_cases_chosen)
-    .transition()
-    .duration(1000)
-    .attr(
-      "d",
-      d3
-        .line()
-        .defined((d) => !isNaN(d.Rolling_7_day_average_new_cases))
-        .x(function (d) {
-          return x_daily_cases(d.Period) + x_daily_cases.bandwidth() / 2;
-        })
-        .y(function (d) {
-          return y_daily_cases(d.Rolling_7_day_average_new_cases);
-        })
-    );
-
-  // ! Text for daily bars
-
-  d3.select("#daily_confirmed_title").html(function (d) {
-    return "Daily confirmed COVID-19 cases in " + chosen_summary_area;
-  });
-
-  d3.select("#daily_bars_text_1")
-    .data(chosen_case_summary_data)
-    .html(function (d) {
-      return (
-        "In the seven days to " +
-        d.Rate_date +
-        " there were <b class = 'case_latest'>" +
-        d3.format(",.0f")(d.Rolling_7_day_new_cases) +
-        " </b> new cases (<b>" +
-        d3.format(",.0f")(d.Rolling_7_day_new_cases_per_100000) +
-        " per 100,000 population</b>). This means on average " +
-        d3.format(",.0f")(d.Rolling_7_day_average_new_cases) +
-        " people are testing positive for COVID-19 each day in " +
-        chosen_summary_area +
-        ". <b>" +
-        direction_func(d.Change_direction) +
-        "</b>"
-      );
-    });
-
-  d3.select("#daily_bars_text_2")
-    .data(chosen_case_summary_data)
-    .html(function (d) {
-      return (
-        "The latest data indicates there have been <b class = 'case_latest'>" +
-        d3.format(",.0f")(d.Cumulative_cases) +
-        "</b> cases so far in " +
-        chosen_summary_area +
-        " as at " +
-        data_refreshed_date +
-        ". This is <b>" +
-        d3.format(",.0f")(d.Cumulative_per_100000) +
-        " cases per 100,000 population</b>."
-      );
-    });
-
-  d3.select("#daily_bars_text_3").html(function (d) {
-    return (
-      "This figure shows the daily confirmed cases of Covid-19 over time in " +
-      chosen_summary_area +
-      ". Remember, you can change the area by using the menu at the top of this page."
-    );
   });
 
   // ! Summary tile text
@@ -534,6 +469,109 @@ function update_summary() {
 
   d3.select("#latest_covid_deaths_4").html(function (d) {
     return "This was updated on " + deaths_published_period;
+  });
+
+  // ! Daily confirmed COVID-19 cases in chosen area
+
+  var bars_daily_cases_chosen = case_data.filter(function (d) {
+    return d.Name === chosen_summary_area && d.Age === "All ages";
+  });
+
+  max_limit_y_1 = d3.max(bars_daily_cases_chosen, function (d) {
+    return +d.Cases;
+  });
+
+  y_daily_cases.domain([0, max_limit_y_1]).nice();
+
+  // Redraw axis
+  yAxis_daily_cases
+    .transition()
+    .duration(1000)
+    .call(d3.axisLeft(y_daily_cases));
+
+  daily_new_case_bars
+    .data(bars_daily_cases_chosen)
+    .transition()
+    .duration(1000)
+    .attr("x", function (d) {
+      return x_daily_cases(d.Period);
+    })
+    .attr("y", function (d) {
+      return y_daily_cases(d.Cases);
+    })
+    .attr("height", function (d) {
+      return height - 40 - y_daily_cases(d.Cases);
+    })
+    .attr("fill", function (d) {
+      return complete_colour_func(d.Data_completeness);
+    })
+    .style("opacity", 0.75);
+
+  daily_average_case_bars
+    .datum(bars_daily_cases_chosen)
+    .transition()
+    .duration(1000)
+    .attr(
+      "d",
+      d3
+        .line()
+        .defined((d) => !isNaN(d.Rolling_7_day_average_new_cases))
+        .x(function (d) {
+          return x_daily_cases(d.Period) + x_daily_cases.bandwidth() / 2;
+        })
+        .y(function (d) {
+          return y_daily_cases(d.Rolling_7_day_average_new_cases);
+        })
+    );
+
+  // ! Text for daily bars
+
+  d3.select("#daily_confirmed_title").html(function (d) {
+    return "Daily confirmed COVID-19 cases in " + chosen_summary_area;
+  });
+
+  d3.select("#daily_bars_text_1")
+    .data(chosen_case_summary_data)
+    .html(function (d) {
+      return (
+        "In the seven days to " +
+        d.Rate_date +
+        " there were <b class = 'case_latest'>" +
+        d3.format(",.0f")(d.Rolling_7_day_new_cases) +
+        " </b> new cases (<b>" +
+        d3.format(",.0f")(d.Rolling_7_day_new_cases_per_100000) +
+        " per 100,000 population</b>). This means on average " +
+        d3.format(",.0f")(d.Rolling_7_day_average_new_cases) +
+        " people are testing positive for COVID-19 each day in " +
+        chosen_summary_area +
+        ". <b>" +
+        direction_func(d.Change_direction) +
+        "</b>"
+      );
+    });
+
+  d3.select("#daily_bars_text_2")
+    .data(chosen_case_summary_data)
+    .html(function (d) {
+      return (
+        "The latest data indicates there have been <b class = 'case_latest'>" +
+        d3.format(",.0f")(d.Cumulative_cases) +
+        "</b> cases so far in " +
+        chosen_summary_area +
+        " as at " +
+        data_refreshed_date +
+        ". This is <b>" +
+        d3.format(",.0f")(d.Cumulative_per_100000) +
+        " cases per 100,000 population</b>."
+      );
+    });
+
+  d3.select("#daily_bars_text_3").html(function (d) {
+    return (
+      "This figure shows the daily confirmed cases of Covid-19 over time in " +
+      chosen_summary_area +
+      ". Remember, you can change the area by using the menu at the top of this page."
+    );
   });
 }
 

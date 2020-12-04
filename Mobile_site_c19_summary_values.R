@@ -341,6 +341,17 @@ case_summary %>%
   toJSON() %>% 
   write_lines(paste0(output_directory_x,'/case_summary.json'))
 
+at_a_glance_1 <- case_summary %>% 
+  filter(Age == 'All ages') %>% 
+  select(Name, Rolling_7_day_new_cases, Rolling_7_day_new_cases_per_100000)
+
+at_a_glance_1 %>% 
+  mutate(Name = factor(Name, levels = c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex','South East region', 'England'))) %>% 
+  arrange(Name) %>% 
+  # mutate(index = row_number()) %>% 
+  toJSON() %>% 
+  write_lines(paste0(output_directory_x,'/table_summary.json'))
+
 daily_cases_df <- p12_test_df %>% 
   filter(Name %in% Areas) %>% 
   mutate(Age = 'All ages') %>% 
