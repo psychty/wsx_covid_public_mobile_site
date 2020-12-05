@@ -28,7 +28,7 @@ ph_theme = function(){
   ) 
 }
 
-github_repo_dir <- "~/GitHub/wsx_covid_public_mobile_site"
+github_repo_dir <- "~/Documents/GitHub/wsx_covid_public_mobile_site"
 output_directory_x <- paste0(github_repo_dir, '/Outputs')
 
 # 2019 MYE

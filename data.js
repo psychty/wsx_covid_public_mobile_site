@@ -229,7 +229,8 @@ var xAxis_daily_cases = svg_daily_case_bars
 // This will give the first tick start and the second one end text anchor points
 xAxis_daily_cases.selectAll("text").style("text-anchor", function (d, i) {
   return i % 2 ? "end" : "start";
-});
+})
+.style("font-size", ".8rem");
 
 // We need to create the first figure scale
 var chosen_summary_area = d3
@@ -253,6 +254,9 @@ var y_daily_cases = d3
 var yAxis_daily_cases = svg_daily_case_bars
   .append("g")
   .call(d3.axisLeft(y_daily_cases));
+
+  yAxis_daily_cases.selectAll("text")
+  .style("font-size", ".8rem");
 
 // ! daily case bars
 var daily_new_case_bars = svg_daily_case_bars
@@ -488,6 +492,9 @@ function update_summary() {
     .transition()
     .duration(1000)
     .call(d3.axisLeft(y_daily_cases));
+
+    yAxis_daily_cases.selectAll("text")
+    .style("font-size", ".8rem");
 
   daily_new_case_bars
     .data(bars_daily_cases_chosen)
