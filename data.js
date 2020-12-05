@@ -4,7 +4,7 @@ var height = document.getElementById("daily_case_bars").offsetHeight;
 if (width > 900) {
   var width = 900;
 }
-var width_margin = width * 0.12;
+var width_margin = width * 0.15;
 
 var complete_colour_func = d3
   .scaleOrdinal()
