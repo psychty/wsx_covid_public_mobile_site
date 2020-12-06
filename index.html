@@ -89,7 +89,7 @@
 </section>
 
 <section class = 'quick_fire_table' id = 'quick_fire_table'>
- <div class="content">
+ <i class="content">
    <h4 class = 'content_top'>Latest rates at a glance</h4>
    <table>
      <thead>
@@ -97,16 +97,13 @@
          <th>Area</th>
          <th id = 'case_date_heading'></th>
          <th>Rate per 100,000 population</th>
-         <th>Are cases going up or down?</th>
+         <th>Are cases going up or down?*</th>
        </tr>
       </thead>
 
       <tbody id = 'at_glance_table'></tbody>
     </table>
- </div>
-
-
-
+  <p id = 'arrow_explainer'></p>
 </section>
 
 <section class="latest_case_section" id = 'latest_case_section'>
@@ -118,6 +115,9 @@
    
     <div class = 'figure_style' id = 'daily_case_bars'></div>
     <p>Each bar represents the number of cases swabbed on that date (the specimen date), and the black line shows the rolling 7-day average number of new cases. The last four days may be an underestimate of the true number of cases due to delays in reporting results (these are coloured orange).</p>
+
+    <!-- <h4 class= "content_top" id = 'growth_title'></h4> -->
+    <!-- <div class = 'figure_style' id = 'growth_scatter'></div> -->
   </div>
 </section>
 

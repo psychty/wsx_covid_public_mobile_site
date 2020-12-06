@@ -483,5 +483,6 @@ td {
 
 .icons_yo {
   z-index: 100;
-  visibility: visible;
+  /* visibility: visible; */
+  width: 0.8rem;
 }

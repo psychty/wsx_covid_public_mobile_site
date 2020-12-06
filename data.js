@@ -153,12 +153,6 @@ var areas_summary = [
   "England",
 ];
 
-// at_a_glance.sort(function (a, b) {
-//   return +a.index - +b.index;
-// });
-
-console.log(at_a_glance);
-
 // We need to create a dropdown button for the user to choose which area to be displayed on the figure.
 d3.select("#select_summary_area_button")
   .selectAll("myOptions")
@@ -192,11 +186,23 @@ function loadTable(at_a_glance) {
       item.Rolling_7_day_new_cases
     )}</td><td>${d3.format(",.1f")(
       item.Rolling_7_day_new_cases_per_100000
-    )}</td><td>${item.Change_direction}</td></tr>`;
+    )}</td><td><img src ='${
+      item.icon_path
+    }' class = "icons_yo"><img></td></tr>`;
   }
 
   tableBody.innerHTML = dataHTML;
 }
+
+d3.select("#arrow_explainer").html(function (d) {
+  return (
+    "*The arrows denote whether cases are increasing (red arrows pointing up) or decreasing (green arrows point down) in the seven days to " +
+    complete_date +
+    " compared to the previous week (the seven days to " +
+    previous_week_period +
+    "). A blue equals symbol denotes cases have remained the same across the two weeks."
+  );
+});
 
 // ! Daily cases bar chart
 
@@ -298,6 +304,31 @@ var daily_average_case_bars = svg_daily_case_bars
         return y_daily_cases(d.Rolling_7_day_average_new_cases);
       })
   );
+
+// ! Growth chart
+
+// var request = new XMLHttpRequest();
+// request.open("GET", "./Outputs/ltla_growth_complete_date.json", false);
+// request.send(null);
+// var ltla_growth_latest_data = JSON.parse(request.responseText);
+
+// var svg_growth_scatter = d3
+//   .select("#growth_scatter")
+//   .append("svg")
+//   .attr("width", width) // This compensates for the 25px margin styling
+//   .attr("height", height)
+//   .append("g")
+//   .attr("transform", "translate(" + width_margin + "," + 0 + ")");
+
+// d3.select("#growth_title").html(function (d) {
+//     return (
+//       "Confirmed COVID-19 cases per 100,000 population (all ages) in the seven days to " +
+//      complete_date +
+//       " by week on week change in number of cases; Lower Tier Local Authorities;"
+//     );
+//   });
+
+// ! On area change
 
 function update_summary() {
   var width = document.getElementById("daily_case_bars").offsetWidth;
@@ -930,23 +961,3 @@ if (width < 1300) {
 if (width > 1300) {
   var scaled_icon_size = 50;
 }
-
-// var svg = d3.select('.container')
-//     .appendHTML('<svg xmlns="http://www.w3.org/2000/svg"><g><circle class="circle1" cx="50" cy="50" r="50"></circle></g></svg>')
-//     .select('g');
-
-// // Icons
-// svg_ut_walkthrough.selectAll('icons_yo')
-//   .data(selected_ut_area_df)
-//   .enter()
-//   .append("svg:image")
-//   .attr("x", function(d) { return x_pos(d.x) - scaled_icon_size/2; })
-//   .attr('y', function(d) { return y_pos(d.y) - scaled_icon_size/2; })
-//   .attr('width', scaled_icon_size)
-//   .attr('height', scaled_icon_size)
-//   .on("mousemove", showTooltip_ut)
-//   .on('mouseout', mouseleave_ut)
-//   .on('click', choose_an_indicator)
-//   .attr('class', 'icons_yo')
-//   .attr("xlink:href", function(d) {return d.img_path; })
-//   .attr('id', 'ut_indicator_icon_images');

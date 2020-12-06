@@ -347,7 +347,8 @@ case_summary %>%
 
 at_a_glance_1 <- case_summary %>% 
   filter(Age == 'All ages') %>% 
-  select(Name, Rolling_7_day_new_cases, Rolling_7_day_new_cases_per_100000)
+  select(Name, Rolling_7_day_new_cases, Rolling_7_day_new_cases_per_100000, Change_direction) %>% 
+  mutate(icon_path = ifelse(Change_direction == 'Down', 'https://raw.githubusercontent.com/psychty/wsx_covid_public_mobile_site/main/images/down-double-arrow-green.svg', ifelse(Change_direction == 'Up', 'https://raw.githubusercontent.com/psychty/wsx_covid_public_mobile_site/main/images/up-double-arrow-red.svg', 'https://raw.githubusercontent.com/psychty/wsx_covid_public_mobile_site/main/images/same-blue.svg')))
 
 at_a_glance_1 %>% 
   mutate(Name = factor(Name, levels = c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex','South East region', 'England'))) %>% 
@@ -990,3 +991,38 @@ geojson_write(geojson_json(utla_restrictions_geojson), file = paste0(output_dire
 #   # filter(Date <= '2020-11-05') %>% 
 #   arrange(-Rolling_7_day_new_cases_per_100000) %>% 
 #   View()
+
+# Growth Rates ####
+
+growth_rate <- p12_test_df %>% 
+  filter(Data_completeness == 'Complete') %>% 
+  filter(Date >= complete_date -10) %>% 
+  select(Name, Code, Type, Date, Rolling_7_day_new_cases, Perc_change_on_rolling_7_days_actual, Population) %>%
+  mutate(Rolling_7_day_new_cases = replace_na(Rolling_7_day_new_cases, 0)) %>% 
+  mutate(Rolling_7_day_rate = pois.exact(Rolling_7_day_new_cases, Population)[[3]]*100000) %>% 
+  mutate(Rolling_rate_lcl = pois.exact(Rolling_7_day_new_cases, Population)[[4]]*100000) %>% 
+  mutate(Rolling_rate_ucl = pois.exact(Rolling_7_day_new_cases, Population)[[5]]*100000) %>% 
+  arrange(Name, Date) %>% 
+  group_by(Name) %>% 
+  mutate(Last_week_incidence_rate = lag(Rolling_7_day_rate, 7),
+         Last_week_date = lag(Date, 7)) %>% 
+  ungroup() %>% 
+  filter(Date == complete_date) %>% 
+  rename(Change_actual_by_week = Perc_change_on_rolling_7_days_actual)
+
+growth_rate_england <- growth_rate %>% 
+  filter(Name == 'England') %>% 
+  rename(Eng_rate = Rolling_7_day_rate,
+         Eng_lcl = Rolling_rate_lcl,
+         Eng_ucl = Rolling_rate_ucl) 
+
+growth_rate_ltla <- growth_rate %>%
+  left_join(growth_rate_england[c('Date', 'Eng_rate', 'Eng_lcl', 'Eng_ucl')], by = 'Date') %>%
+   filter(Type %in% c('Lower Tier Local Authority', 'Unitary Authority') | Name == 'England')
+
+growth_rate_ltla %>%
+  mutate(Name = factor(Name, levels = c(setdiff(unique(growth_rate_ltla$Name), c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex','Worthing', 'England')), c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex','Worthing', 'England')))) %>% 
+  arrange(Name) %>% 
+  select(Name, Date, Rolling_7_day_rate, Change_actual_by_week) %>% 
+  toJSON() %>%
+  write_lines(paste0(output_directory_x,'/ltla_growth_complete_date.json'))
