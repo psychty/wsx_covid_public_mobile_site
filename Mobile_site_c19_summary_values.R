@@ -28,7 +28,8 @@ ph_theme = function(){
   ) 
 }
 
-github_repo_dir <- "~/Documents/GitHub/wsx_covid_public_mobile_site"
+# github_repo_dir <- "~/Documents/GitHub/wsx_covid_public_mobile_site"
+github_repo_dir <- "~/GitHub/wsx_covid_public_mobile_site"
 output_directory_x <- paste0(github_repo_dir, '/Outputs')
 
 # 2019 MYE
@@ -49,6 +50,9 @@ mye_total <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.
 
 mye_total %>% 
   write.csv(., paste0(github_repo_dir,'/Source_files/mye2019_ltla.csv'), row.names = FALSE)
+
+
+
 
 if(exists('mye_total') == FALSE) {
   mye_total <- read_csv(paste0(github_repo_dir,'/Source_files/mye2019_ltla.csv')) %>%
@@ -580,7 +584,14 @@ trust_admission_date %>%
   toJSON() %>% 
   write_lines(paste0(output_directory_x,'/trust_meta.json'))
 
-# Mortality ####
+# alert level ####
+
+
+# alert_level <- read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=', area_level, '&metric=alertLevel&format=csv')) 
+
+# capacity <- read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=', area_level, '&metric=capacityPillarFour&metric=capacityPillarOne&metric=capacityPillarOneTwo&metric=capacityPillarThree&format=csv'))
+
+# mortality ####
 
 # Area lookup
 
@@ -796,6 +807,50 @@ deaths_summary %>%
   write_lines(paste0(output_directory_x, '/mortality_summary.json'))
 
 rm(deaths_summary_1, deaths_summary_2)
+
+# PHE deaths any cause among COVID-19 + patients
+area_level <- 'ltla'
+
+phe_mortality_new_deaths <- read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=', area_level,'&metric=newDeathsByDeathDate&metric=newDeaths28DaysByDeathDate&metric=newDeaths28DaysByDeathDateRollingSum&metric=newDeaths28DaysByDeathDateRollingRate&metric=newDeaths60DaysByDeathDate&format=csv')) %>% 
+  bind_rows(read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=nation&areaCode=E92000001&metric=newDeathsByDeathDate&metric=newDeaths28DaysByDeathDate&metric=newDeaths28DaysByDeathDateRollingSum&metric=newDeaths28DaysByDeathDateRollingRate&metric=newDeaths60DaysByDeathDate&format=csv'))) %>% 
+  bind_rows(read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=region&areaCode=E12000008&metric=newDeathsByDeathDate&metric=newDeaths28DaysByDeathDate&metric=newDeaths28DaysByDeathDateRollingSum&metric=newDeaths28DaysByDeathDateRollingRate&metric=newDeaths60DaysByDeathDate&format=csv'))) %>% 
+  bind_rows(read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=utla&areaCode=E10000032&metric=newDeathsByDeathDate&metric=newDeaths28DaysByDeathDate&metric=newDeaths28DaysByDeathDateRollingSum&metric=newDeaths28DaysByDeathDateRollingRate&metric=newDeaths60DaysByDeathDate&format=csv'))) %>% 
+  mutate(areaName = ifelse(areaName == 'South East', 'South East region', areaName)) %>% 
+  filter(areaName %in% Areas) %>% 
+  filter(date != last_date)
+
+phe_mortality_cumdeaths <- read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=', area_level,'&metric=cumDeathsByDeathDate&metric=cumDeaths28DaysByDeathDate&metric&metric=cumDeaths60DaysByDeathDate&format=csv')) %>% 
+  bind_rows(read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=nation&areaCode=E92000001&metric=cumDeathsByDeathDate&metric=cumDeaths28DaysByDeathDate&metric&metric=cumDeaths60DaysByDeathDate&format=csv'))) %>% 
+  bind_rows(read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=region&areaCode=E12000008&metric=cumDeathsByDeathDate&metric=cumDeaths28DaysByDeathDate&metric&metric=cumDeaths60DaysByDeathDate&format=csv'))) %>% 
+  bind_rows(read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=utla&areaCode=E10000032&metric=cumDeathsByDeathDate&metric=cumDeaths28DaysByDeathDate&metric&metric=cumDeaths60DaysByDeathDate&format=csv'))) %>% 
+  mutate(areaName = ifelse(areaName == 'South East', 'South East region', areaName)) %>% 
+  filter(areaName %in% Areas) %>% 
+  filter(date == last_case_date) 
+
+phe_mortality_new_deaths %>% 
+  mutate(Period = format(date, '%d %B')) %>% 
+  rename(Date = date, 
+         Name = areaName,
+         Deaths = newDeathsByDeathDate,
+         Deaths_within28 = newDeaths28DaysByDeathDate,
+         Deaths_within28_rolling = newDeaths28DaysByDeathDateRollingSum,
+         Deaths_within28_rolling_rate = newDeaths28DaysByDeathDateRollingRate,
+         Deaths_within60 = newDeaths60DaysByDeathDate) %>% 
+  select(Name, Date, Period, Deaths, Deaths_within28, Deaths_within28_rolling, Deaths_within28_rolling_rate, Deaths_within60) %>% 
+  toJSON() %>% 
+  write_lines(paste0(output_directory_x, '/covid_positive_deaths_all_cause.json'))
+
+phe_mortality_cumdeaths %>%
+  mutate(Period = format(date, '%d %B')) %>% 
+  rename(Date = date, 
+         Name = areaName,
+         Cumulative_deaths = cumDeathsByDeathDate,
+         Cumulative_deaths_28 = cumDeaths28DaysByDeathDate,
+         Cumulative_deaths_60 = cumDeaths60DaysByDeathDate) %>% 
+  select(Name, Date, Period, Cumulative_deaths, Cumulative_deaths_28, Cumulative_deaths_60) %>% 
+  toJSON() %>% 
+  write_lines(paste0(output_directory_x, '/covid_positive_cumdeaths_all_cause.json'))
+
 
 # MSOA map ####
 if(!file.exists(paste0(github_repo_dir, '/Source_files/msoa_lookup_local.csv'))) {

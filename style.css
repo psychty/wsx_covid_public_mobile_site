@@ -109,6 +109,12 @@ th:nth-child(3) {
   text-align: right;
 }
 
+td,
+th:nth-child(4) {
+  width: 150px;
+  text-align: right;
+}
+
 tbody {
   border-bottom: 1px solid #333;
 }
@@ -473,4 +479,9 @@ td {
   font-size: 1.4rem;
   font-weight: bold;
   color: #4f6177;
+}
+
+.icons_yo {
+  z-index: 100;
+  visibility: visible;
 }

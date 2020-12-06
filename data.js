@@ -192,7 +192,7 @@ function loadTable(at_a_glance) {
       item.Rolling_7_day_new_cases
     )}</td><td>${d3.format(",.1f")(
       item.Rolling_7_day_new_cases_per_100000
-    )}</td></tr>`;
+    )}</td><td>${item.Change_direction}</td></tr>`;
   }
 
   tableBody.innerHTML = dataHTML;
@@ -227,10 +227,12 @@ var xAxis_daily_cases = svg_daily_case_bars
   );
 
 // This will give the first tick start and the second one end text anchor points
-xAxis_daily_cases.selectAll("text").style("text-anchor", function (d, i) {
-  return i % 2 ? "end" : "start";
-})
-.style("font-size", ".8rem");
+xAxis_daily_cases
+  .selectAll("text")
+  .style("text-anchor", function (d, i) {
+    return i % 2 ? "end" : "start";
+  })
+  .style("font-size", ".8rem");
 
 // We need to create the first figure scale
 var chosen_summary_area = d3
@@ -255,8 +257,7 @@ var yAxis_daily_cases = svg_daily_case_bars
   .append("g")
   .call(d3.axisLeft(y_daily_cases));
 
-  yAxis_daily_cases.selectAll("text")
-  .style("font-size", ".8rem");
+yAxis_daily_cases.selectAll("text").style("font-size", ".8rem");
 
 // ! daily case bars
 var daily_new_case_bars = svg_daily_case_bars
@@ -493,8 +494,7 @@ function update_summary() {
     .duration(1000)
     .call(d3.axisLeft(y_daily_cases));
 
-    yAxis_daily_cases.selectAll("text")
-    .style("font-size", ".8rem");
+  yAxis_daily_cases.selectAll("text").style("font-size", ".8rem");
 
   daily_new_case_bars
     .data(bars_daily_cases_chosen)
@@ -922,3 +922,31 @@ $.when(utla_restrictions).done(function () {
 
   utla_map_restrictions.fitBounds(utla_restrictions_hcl.getBounds());
 });
+
+if (width < 1300) {
+  var scaled_icon_size = 30;
+}
+
+if (width > 1300) {
+  var scaled_icon_size = 50;
+}
+
+// var svg = d3.select('.container')
+//     .appendHTML('<svg xmlns="http://www.w3.org/2000/svg"><g><circle class="circle1" cx="50" cy="50" r="50"></circle></g></svg>')
+//     .select('g');
+
+// // Icons
+// svg_ut_walkthrough.selectAll('icons_yo')
+//   .data(selected_ut_area_df)
+//   .enter()
+//   .append("svg:image")
+//   .attr("x", function(d) { return x_pos(d.x) - scaled_icon_size/2; })
+//   .attr('y', function(d) { return y_pos(d.y) - scaled_icon_size/2; })
+//   .attr('width', scaled_icon_size)
+//   .attr('height', scaled_icon_size)
+//   .on("mousemove", showTooltip_ut)
+//   .on('mouseout', mouseleave_ut)
+//   .on('click', choose_an_indicator)
+//   .attr('class', 'icons_yo')
+//   .attr("xlink:href", function(d) {return d.img_path; })
+//   .attr('id', 'ut_indicator_icon_images');
