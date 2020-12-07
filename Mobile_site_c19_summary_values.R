@@ -113,6 +113,7 @@ data.frame(Item = 'latest_daily_case', Label = paste0(format(last_case_date, '%A
   add_row(Item = 'first_case_period', Label =  format(first_date, '%d %B')) %>% 
   add_row(Item = 'last_case_period', Label =  format(last_case_date, '%d %B')) %>% 
   add_row(Item = 'previous_week_period', Label =  format(complete_date -7, '%A %d %B %Y')) %>% 
+  add_row(Item = 'complete_date_actual', Label = format(complete_date, '%d/%m/%y')) %>% 
   toJSON() %>% 
   write_lines(paste0(output_directory_x, '/case_dates.json'))
 

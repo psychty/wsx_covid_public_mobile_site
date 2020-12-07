@@ -70,6 +70,10 @@ var complete_date = case_dates_df.filter(function (d) {
   return d.Item === "complete_date";
 })[0]["Label"];
 
+var complete_date_actual = case_dates_df.filter(function (d) {
+  return d.Item === "complete_date_actual";
+})[0]["Label"];
+
 var first_case_period = case_dates_df.filter(function (d) {
   return d.Item === "first_case_period";
 })[0]["Label"];
@@ -105,7 +109,7 @@ d3.select("#update_date").html(function (d) {
 });
 
 d3.select("#case_date_heading").html(function (d) {
-  return "Number of cases in the 7 days to " + complete_date;
+  return "New cases in the 7 days to " + complete_date_actual;
 });
 
 // ! Get data
@@ -371,7 +375,7 @@ function update_summary() {
   // ! Summary tile text
 
   d3.select("#area_seven_days_title").html(function (d) {
-    return "Number of cases in " + chosen_summary_area;
+    return "Number of new cases in " + chosen_summary_area;
   });
 
   d3.select("#latest_seven_days_all_ages_1")
@@ -380,7 +384,7 @@ function update_summary() {
       return (
         "<b class = 'highlight'>" +
         d3.format(",.0f")(d.Rolling_7_day_new_cases) +
-        "</b> cases in the seven days to " +
+        "</b> new confirmed cases in the seven days to " +
         d.Rate_date +
         "."
       );
@@ -392,7 +396,7 @@ function update_summary() {
       return (
         "This is <b class = 'highlight'>" +
         d3.format(",.1f")(d.Rolling_7_day_new_cases_per_100000) +
-        " </b>per 100,000 population."
+        " </b>per 100,000 population (all ages)."
       );
     });
 
@@ -409,7 +413,7 @@ function update_summary() {
     });
 
   d3.select("#area_over_60_title").html(function (d) {
-    return "Cases among those aged 60+ in " + chosen_summary_area;
+    return "New cases among those aged 60+ in " + chosen_summary_area;
   });
 
   d3.select("#latest_seven_days_60_plus_1")
@@ -418,11 +422,11 @@ function update_summary() {
       return (
         "<b class = 'highlight'>" +
         d3.format(",.0f")(d.Rolling_7_day_new_cases) +
-        "</b> cases in the seven days to " +
+        "</b> new cases in the seven days to " +
         d.Rate_date +
         ". This is a rate of <b class = 'highlight'>" +
         d3.format(",.1f")(d.Rolling_7_day_new_cases_per_100000) +
-        "</b> per 100,000 population."
+        "</b> per 100,000 population aged 60 and over."
       );
     });
 
