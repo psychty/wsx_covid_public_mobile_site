@@ -11,6 +11,11 @@ var complete_colour_func = d3
   .domain(["Complete", "Considered incomplete"])
   .range(["#071b7c", "#ff5f07"]);
 
+var complete_colour_60_func = d3
+  .scaleOrdinal()
+  .domain(["Complete", "Considered incomplete"])
+  .range(["#ff0770", "#ff5f07"]);
+
 // This function listens to if there is a window size change
 var globalResizeTimer_ut = null;
 
@@ -306,6 +311,102 @@ var daily_average_case_bars = svg_daily_case_bars
       })
       .y(function (d) {
         return y_daily_cases(d.Rolling_7_day_average_new_cases);
+      })
+  );
+
+// ! Over 60s bars
+
+var bars_daily_cases_60_chosen = case_data.filter(function (d) {
+  return d.Name === chosen_summary_area && d.Age === "60+ years";
+});
+
+// console.log(bars_daily_cases_60_chosen);
+var svg_daily_case_60_bars = d3
+  .select("#daily_case_60_bars")
+  .append("svg")
+  .attr("width", width) // This compensates for the 25px margin styling
+  .attr("height", height)
+  .append("g")
+  .attr("transform", "translate(" + width_margin + "," + 0 + ")");
+
+var x_daily_cases_60 = d3
+  .scaleBand()
+  .domain(
+    case_data.map(function (d) {
+      return d.Period;
+    })
+  )
+  .range([0, width - width_margin]);
+
+var xAxis_daily_cases_60 = svg_daily_case_60_bars
+  .append("g")
+  .attr("transform", "translate(0," + (height - 40) + ")")
+  .call(
+    d3
+      .axisBottom(x_daily_cases_60)
+      .tickValues([first_case_period, last_case_period])
+  );
+
+// This will give the first tick start and the second one end text anchor points
+xAxis_daily_cases_60
+  .selectAll("text")
+  .style("text-anchor", function (d, i) {
+    return i % 2 ? "end" : "start";
+  })
+  .style("font-size", ".8rem");
+
+max_limit_y_2 = d3.max(bars_daily_cases_60_chosen, function (d) {
+  return +d.Cases;
+});
+
+var y_daily_cases_60 = d3
+  .scaleLinear()
+  .domain([0, max_limit_y_2])
+  .range([height - 40, 10])
+  .nice();
+
+var yAxis_daily_cases_60 = svg_daily_case_60_bars
+  .append("g")
+  .call(d3.axisLeft(y_daily_cases_60));
+
+yAxis_daily_cases_60.selectAll("text").style("font-size", ".8rem");
+
+var daily_new_case_60_bars = svg_daily_case_60_bars
+  .selectAll("mybar")
+  .data(bars_daily_cases_60_chosen)
+  .enter()
+  .append("rect")
+  .attr("x", function (d) {
+    return x_daily_cases_60(d.Period);
+  })
+  .attr("y", function (d) {
+    return y_daily_cases_60(d.Cases);
+  })
+  .attr("width", x_daily_cases_60.bandwidth())
+  .attr("height", function (d) {
+    return height - 40 - y_daily_cases_60(d.Cases);
+  })
+  .attr("fill", function (d) {
+    return complete_colour_60_func(d.Data_completeness);
+  })
+  .style("opacity", 0.75);
+
+var daily_average_case_60_bars = svg_daily_case_60_bars
+  .append("path")
+  .datum(bars_daily_cases_60_chosen)
+  .attr("fill", "none")
+  .attr("stroke", "#000000")
+  .attr("stroke-width", 2)
+  .attr(
+    "d",
+    d3
+      .line()
+      .defined((d) => !isNaN(d.Rolling_7_day_average_new_cases))
+      .x(function (d) {
+        return x_daily_cases_60(d.Period) + x_daily_cases.bandwidth() / 2;
+      })
+      .y(function (d) {
+        return y_daily_cases_60(d.Rolling_7_day_average_new_cases);
       })
   );
 
@@ -615,8 +716,106 @@ function update_summary() {
       ". Remember, you can change the area by using the menu at the top of this page."
     );
   });
-}
 
+  // ! Daily confirmed COVID-19 cases in chosen area among 60+
+
+  var bars_daily_cases_60_chosen = case_data.filter(function (d) {
+    return d.Name === chosen_summary_area && d.Age === "60+ years";
+  });
+
+  max_limit_y_2 = d3.max(bars_daily_cases_60_chosen, function (d) {
+    return +d.Cases;
+  });
+
+  y_daily_cases_60.domain([0, max_limit_y_2]).nice();
+
+  // Redraw axis
+  yAxis_daily_cases_60
+    .transition()
+    .duration(1000)
+    .call(d3.axisLeft(y_daily_cases_60));
+
+  yAxis_daily_cases_60.selectAll("text").style("font-size", ".8rem");
+
+  daily_new_case_60_bars
+    .data(bars_daily_cases_60_chosen)
+    .transition()
+    .duration(1000)
+    .attr("x", function (d) {
+      return x_daily_cases_60(d.Period);
+    })
+    .attr("y", function (d) {
+      return y_daily_cases_60(d.Cases);
+    })
+    .attr("height", function (d) {
+      return height - 40 - y_daily_cases_60(d.Cases);
+    })
+    .attr("fill", function (d) {
+      return complete_colour_60_func(d.Data_completeness);
+    })
+    .style("opacity", 0.75);
+
+  daily_average_case_60_bars
+    .datum(bars_daily_cases_60_chosen)
+    .transition()
+    .duration(1000)
+    .attr(
+      "d",
+      d3
+        .line()
+        .defined((d) => !isNaN(d.Rolling_7_day_average_new_cases))
+        .x(function (d) {
+          return x_daily_cases_60(d.Period) + x_daily_cases.bandwidth() / 2;
+        })
+        .y(function (d) {
+          return y_daily_cases_60(d.Rolling_7_day_average_new_cases);
+        })
+    );
+
+  d3.select("#daily_bars_60_text_1")
+    .data(chosen_case_summary_data_60)
+    .html(function (d) {
+      return (
+        "In the seven days to " +
+        d.Rate_date +
+        " there were <b class = 'case_latest'>" +
+        d3.format(",.0f")(d.Rolling_7_day_new_cases) +
+        " </b> new cases among those aged 60 and over (<b>" +
+        d3.format(",.0f")(d.Rolling_7_day_new_cases_per_100000) +
+        " per 100,000 population aged 60+</b>). This means on average " +
+        d3.format(",.0f")(d.Rolling_7_day_average_new_cases) +
+        " people in this age group are testing positive for COVID-19 each day in " +
+        chosen_summary_area +
+        ". <b>" +
+        direction_func(d.Change_direction) +
+        "</b>"
+      );
+    });
+
+  d3.select("#daily_bars_60_text_2")
+    .data(chosen_case_summary_data_60)
+    .html(function (d) {
+      return (
+        "The latest data indicates there have been <b class = 'case_latest'>" +
+        d3.format(",.0f")(d.Cumulative_cases) +
+        "</b> cases so far in " +
+        chosen_summary_area +
+        " as at " +
+        data_refreshed_date +
+        " among those aged 60 and over. This is <b>" +
+        d3.format(",.0f")(d.Cumulative_per_100000) +
+        " cases per 100,000 population aged 60+</b>."
+      );
+    });
+
+  d3.select("#daily_bars_60_text_3").html(function (d) {
+    return (
+      "This figure shows the daily confirmed cases of Covid-19 over time in " +
+      chosen_summary_area +
+      " for those aged 60 and over. <b>Note the scale of this chart on the left hand axis (the y axis) is much smaller than the scale for the chart above</b>."
+    );
+  });
+}
 update_summary();
 
 d3.select("#select_summary_area_button").on("change", function (d) {
