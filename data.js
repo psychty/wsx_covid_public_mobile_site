@@ -96,8 +96,24 @@ request.open("GET", "./Outputs/mortality_dates.json", false);
 request.send(null);
 var mortality_dates_df = JSON.parse(request.responseText);
 
+var deaths_occurring_period = mortality_dates_df.filter(function (d) {
+  return d.Item === "Week_ending";
+})[0]["Label"];
+
 var deaths_published_period = mortality_dates_df.filter(function (d) {
   return d.Item === "published_on";
+})[0]["Label"];
+
+var deaths_registered_period = mortality_dates_df.filter(function (d) {
+  return d.Item === "registered_by";
+})[0]["Label"];
+
+var deaths_start_week = mortality_dates_df.filter(function (d) {
+  return d.Item === "First_week";
+})[0]["Label"];
+
+var deaths_latest_week = mortality_dates_df.filter(function (d) {
+  return d.Item === "Last_week";
 })[0]["Label"];
 
 // Update text based on selected area
@@ -147,6 +163,16 @@ var request = new XMLHttpRequest();
 request.open("GET", "./Outputs/table_summary.json", false);
 request.send(null);
 var at_a_glance = JSON.parse(request.responseText);
+
+var request = new XMLHttpRequest();
+request.open("GET", "./Outputs/deaths_all_settings.json", false);
+request.send(null);
+var mortality_data_all = JSON.parse(request.responseText);
+
+var request = new XMLHttpRequest();
+request.open("GET", "./Outputs/deaths_carehomes.json", false);
+request.send(null);
+var mortality_data_ch = JSON.parse(request.responseText);
 
 // * Which area to show
 var areas_summary = [
@@ -409,6 +435,48 @@ var daily_average_case_60_bars = svg_daily_case_60_bars
         return y_daily_cases_60(d.Rolling_7_day_average_new_cases);
       })
   );
+
+// ! Mortality
+
+d3.select("#ons_deaths_date").html(function () {
+  return (
+    "As such, the data include deaths that occurred up to Friday " +
+    deaths_occurring_period +
+    " but were registered up to " +
+    deaths_registered_period +
+    "."
+  );
+});
+
+var covid_causes = ["Not attributed to Covid-19", "Covid-19"];
+
+var attribute_label = d3
+  .scaleOrdinal()
+  .domain(["Not attributed to Covid-19", "Covid-19"])
+  .range([
+    "not attributed to Covid-19",
+    "where Covid-19 was mentioned as an underlying or contributing factor",
+  ]);
+
+var colour_covid_non_covid_all_settings = d3
+  .scaleOrdinal()
+  .domain(covid_causes)
+  .range(["#BDD7EE", "#2F5597"]);
+
+var colour_covid_non_covid_carehomes = d3
+  .scaleOrdinal()
+  .domain(covid_causes)
+  .range(["#FFD966", "#ED7D31"]);
+
+var weekly_deaths_all_place_chosen = mortality_data_all.filter(function (d) {
+  return d.Name === chosen_summary_area;
+});
+
+var weekly_deaths_care_home_chosen = mortality_data_ch.filter(function (d) {
+  return d.Name === chosen_summary_area;
+});
+
+console.log(weekly_deaths_all_place_chosen, weekly_deaths_care_home_chosen);
 
 // ! Growth chart
 
