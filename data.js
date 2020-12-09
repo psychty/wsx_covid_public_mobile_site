@@ -472,11 +472,120 @@ var weekly_deaths_all_place_chosen = mortality_data_all.filter(function (d) {
   return d.Name === chosen_summary_area;
 });
 
+var stackedData_m1 = d3.stack().keys(covid_causes)(
+  weekly_deaths_all_place_chosen
+);
+
+weeks = weekly_deaths_all_place_chosen.map(function (d) {
+  return d.Date_label;
+});
+
 var weekly_deaths_care_home_chosen = mortality_data_ch.filter(function (d) {
   return d.Name === chosen_summary_area;
 });
 
-console.log(weekly_deaths_all_place_chosen, weekly_deaths_care_home_chosen);
+var request = new XMLHttpRequest();
+request.open("GET", "./Outputs/deaths_limits_by_area.json", false);
+request.send(null);
+var deaths_limits_by_area = JSON.parse(request.responseText);
+
+var chosen_limits = deaths_limits_by_area.filter(function (d) {
+  return d.Name === chosen_summary_area;
+});
+
+console.log(
+  weekly_deaths_all_place_chosen,
+  weekly_deaths_care_home_chosen,
+  chosen_limits
+);
+
+var svg_all_place_mortality_bars = d3
+  .select("#covid_non_covid_mortality_all_settings")
+  .append("svg")
+  .attr("width", width)
+  .attr("height", height)
+  .append("g")
+  .attr("transform", "translate(" + width_margin + "," + 0 + ")");
+
+var x_m1 = d3
+  .scaleBand()
+  .domain(weeks)
+  .range([0, width - width_margin]) // this is the 50 that was pushed over from the left plus another 10 so that the chart does not get cut off
+  .padding([0.2]);
+
+var xAxis_mortality_1 = svg_all_place_mortality_bars
+  .append("g")
+  .attr("transform", "translate(0," + (height - 40) + ")")
+  .call(
+    d3.axisBottom(x_m1).tickValues([deaths_start_week, deaths_latest_week])
+  );
+
+// This will give the first tick start and the second one end text anchor points
+xAxis_mortality_1
+  .selectAll("text")
+  .style("text-anchor", function (d, i) {
+    return i % 2 ? "end" : "start";
+  })
+  .style("font-size", ".8rem");
+
+var y_m1_ts = d3
+  .scaleLinear()
+  .domain([0, chosen_limits[0].Limit])
+  .range([height - 40, 10])
+  .nice();
+
+var y_m1_ts_axis = svg_all_place_mortality_bars
+  .append("g")
+  .attr("transform", "translate(0,0)")
+  .call(d3.axisLeft(y_m1_ts).tickFormat(d3.format(",.0f")));
+
+y_m1_ts_axis.selectAll("text").style("font-size", ".8rem");
+
+var bars_m1 = svg_all_place_mortality_bars
+  .append("g")
+  .selectAll("g")
+  .data(stackedData_m1)
+  .enter()
+  .append("g")
+  .attr("fill", function (d) {
+    return colour_covid_non_covid_all_settings(d.key);
+  })
+  .selectAll("rect")
+  .data(function (d) {
+    return d;
+  })
+  .enter()
+  .append("rect")
+  .attr("id", "bars1")
+  .attr("x", function (d) {
+    return x_m1(d.data.Date_label);
+  })
+  .attr("y", function (d) {
+    return y_m1_ts(d[1]);
+  })
+  .attr("height", function (d) {
+    return y_m1_ts(d[0]) - y_m1_ts(d[1]);
+  })
+  .attr("width", x_m1.bandwidth());
+
+d3.select("#selected_m1_title").html(function (d) {
+  return (
+    "Weekly deaths (all ages, all settings); " +
+    chosen_summary_area +
+    "; " +
+    deaths_start_week +
+    " - " +
+    deaths_latest_week
+  );
+});
+
+// var svg_care_home_mortality_bars = d3
+//   .select("#covid_non_covid_mortality_carehomes")
+//   .append("svg")
+//   .attr("width", width) // This compensates for the 25px margin styling
+//   .attr("height", height)
+//   .append("g")
+//   .attr("transform", "translate(" + width_margin + "," + 0 + ")");
 
 // ! Growth chart
 
@@ -883,6 +992,76 @@ function update_summary() {
       " for those aged 60 and over. <b>Note the scale of this chart on the left hand axis (the y axis) is much smaller than the scale for the chart above</b>."
     );
   });
+
+  // ! Mortality change
+
+  var weekly_deaths_all_place_chosen = mortality_data_all.filter(function (d) {
+    return d.Name === chosen_summary_area;
+  });
+
+  var stackedData_m1 = d3.stack().keys(covid_causes)(
+    weekly_deaths_all_place_chosen
+  );
+
+  var chosen_limits = deaths_limits_by_area.filter(function (d) {
+    return d.Name === chosen_summary_area;
+  });
+
+  d3.select("#selected_m1_title").html(function (d) {
+    return (
+      "Weekly deaths (all ages, all settings); " +
+      chosen_summary_area +
+      "; " +
+      deaths_start_week +
+      " - " +
+      deaths_latest_week
+    );
+  });
+
+  var stackedData_m1 = d3.stack().keys(covid_causes)(
+    weekly_deaths_all_place_chosen
+  );
+
+  y_m1_ts
+    .domain([0, chosen_limits[0].Limit])
+    .range([height - 40, 10])
+    .nice();
+
+  y_m1_ts_axis
+    .transition()
+    .duration(1000)
+    .call(d3.axisLeft(y_m1_ts).tickFormat(d3.format(",.0f")));
+
+  y_m1_ts_axis.selectAll("text").style("font-size", ".8rem");
+
+  svg_all_place_mortality_bars.selectAll("#bars1").remove();
+
+  var bars_m1 = svg_all_place_mortality_bars
+    .append("g")
+    .selectAll("g")
+    .data(stackedData_m1)
+    .enter()
+    .append("g")
+    .attr("fill", function (d) {
+      return colour_covid_non_covid_all_settings(d.key);
+    })
+    .selectAll("rect")
+    .data(function (d) {
+      return d;
+    })
+    .enter()
+    .append("rect")
+    .attr("id", "bars1")
+    .attr("x", function (d) {
+      return x_m1(d.data.Date_label);
+    })
+    .attr("y", function (d) {
+      return y_m1_ts(d[1]);
+    })
+    .attr("height", function (d) {
+      return y_m1_ts(d[0]) - y_m1_ts(d[1]);
+    })
+    .attr("width", x_m1.bandwidth());
 }
 update_summary();
 

@@ -196,13 +196,15 @@
     <h4 class = 'content_top'>Deaths</h4>
     <p>The Office for National Statistics publish weekly data on the number of deaths occurring each week in 2020 and whether or not COVID-19 was mentioned as an underlying or contributing factor to the death. These data are published weekly by the ONS and there is a lag of 11 days because the data are based on death registrations.</p>
     <p id = 'ons_deaths_date'></p>
-    <!-- <h4 id = 'selected_m1_title'></h4> -->
-    <!-- <p id = 'selected_m1_subtitle'></p> -->
-    <div id = 'covid_non_covid_mortality_all_settings'></div>
-    <!-- <h4 id = 'selected_m2_title'></h4>
-    <p id = 'selected_m2_subtitle'></p>
-    <div id = 'covid_non_covid_mortality_carehomes'></div> -->
 
+    <div class = 'mortality_together'>
+      <h4 id = 'selected_m1_title' style = 'margin-left: 25px'></h4>
+      <div id = 'covid_non_covid_mortality_all_settings'></div>
+      <p>The lighter blue bars denote the number of deaths occurring in that week which did not mention COVID-19 and the dark blue bars on top are for deaths where COVID-19 was mentioned as an underlying or contributing factor.</p>
+      <!-- <h4 id = 'selected_m2_title'></h4> -->
+      <!-- <p id = 'selected_m2_subtitle'></p> -->
+      <div id = 'covid_non_covid_mortality_carehomes'></div> 
+    </div>
     <p>There is an alternative measure of COVID-19 mortality reported which is the number of deaths for people who have a positive COVID-19 test result. Whilst this is more up to date than the ONS data, it is not broken down by place of death and any death is included in the measure regardless of cause if it is within a certain number of days of a positive test result.</p>
   </div>
 </section> 

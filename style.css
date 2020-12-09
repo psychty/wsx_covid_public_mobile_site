@@ -162,6 +162,13 @@ td {
   width: 100%;
   background-color: #ffffff;
 }
+/* 
+.mortality_together {
+  display: flex;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  align-items: center;
+} */
 
 .attributions {
   color: #333;
