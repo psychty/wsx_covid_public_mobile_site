@@ -569,14 +569,7 @@ var bars_m1 = svg_all_place_mortality_bars
   .attr("width", x_m1.bandwidth());
 
 d3.select("#selected_m1_title").html(function (d) {
-  return (
-    "Weekly deaths (all ages, all settings); " +
-    chosen_summary_area +
-    "; " +
-    deaths_start_week +
-    " - " +
-    deaths_latest_week
-  );
+  return "Weekly deaths in " + chosen_summary_area;
 });
 
 // var svg_care_home_mortality_bars = d3
@@ -1008,14 +1001,7 @@ function update_summary() {
   });
 
   d3.select("#selected_m1_title").html(function (d) {
-    return (
-      "Weekly deaths (all ages, all settings); " +
-      chosen_summary_area +
-      "; " +
-      deaths_start_week +
-      " - " +
-      deaths_latest_week
-    );
+    return "Weekly deaths in " + chosen_summary_area;
   });
 
   var stackedData_m1 = d3.stack().keys(covid_causes)(
