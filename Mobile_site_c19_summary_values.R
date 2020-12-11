@@ -347,8 +347,8 @@ case_summary %>%
   write_lines(paste0(output_directory_x,'/case_summary.json'))
 
 at_a_glance_1 <- case_summary %>% 
-  filter(Age == 'All ages') %>% 
-  select(Name, Rolling_7_day_new_cases, Rolling_7_day_new_cases_per_100000, Change_direction) %>% 
+  filter(Age %in% c('All ages', '60+ years')) %>% 
+  select(Age, Name, Rolling_7_day_new_cases, Rolling_7_day_new_cases_per_100000, Change_direction) %>% 
   mutate(icon_path = ifelse(Change_direction == 'Down', 'https://raw.githubusercontent.com/psychty/wsx_covid_public_mobile_site/main/images/down-double-arrow-green.svg', ifelse(Change_direction == 'Up', 'https://raw.githubusercontent.com/psychty/wsx_covid_public_mobile_site/main/images/up-double-arrow-red.svg', 'https://raw.githubusercontent.com/psychty/wsx_covid_public_mobile_site/main/images/same-blue.svg')))
 
 at_a_glance_1 %>% 
