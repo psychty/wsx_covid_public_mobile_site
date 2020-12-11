@@ -133,6 +133,10 @@ d3.select("#case_date_heading").html(function (d) {
   return "New cases in the 7 days to " + complete_date_actual;
 });
 
+d3.select("#case_date_heading_2").html(function (d) {
+  return "New cases among 60+ in the 7 days to " + complete_date_actual;
+});
+
 // ! Get data
 var request = new XMLHttpRequest();
 request.open("GET", "./Outputs/case_summary.json", false);
@@ -208,15 +212,24 @@ var se_bed_all = bed_data.filter(function (d) {
 
 // ! At a glance table
 
+var at_a_glance_all_ages = at_a_glance.filter(function (d) {
+  return d.Age == "All ages";
+});
+
+var at_a_glance_60_plus = at_a_glance.filter(function (d) {
+  return d.Age == "60+ years";
+});
+
 window.onload = () => {
-  loadTable(at_a_glance);
+  loadTable_all(at_a_glance_all_ages);
+  loadTable_60(at_a_glance_60_plus);
 };
 
-function loadTable(at_a_glance) {
-  const tableBody = document.getElementById("at_glance_table");
+function loadTable_all(at_a_glance_all_ages) {
+  const tableBody = document.getElementById("at_glance_table_1");
   var dataHTML = "";
 
-  for (let item of at_a_glance) {
+  for (let item of at_a_glance_all_ages) {
     dataHTML += `<tr><td>${item.Name}</td><td>${d3.format(",.0f")(
       item.Rolling_7_day_new_cases
     )}</td><td>${d3.format(",.1f")(
@@ -229,9 +242,36 @@ function loadTable(at_a_glance) {
   tableBody.innerHTML = dataHTML;
 }
 
+function loadTable_60(at_a_glance_60_plus) {
+  const tableBody_2 = document.getElementById("at_glance_table_2");
+  var dataHTML_2 = "";
+
+  for (let item of at_a_glance_60_plus) {
+    dataHTML_2 += `<tr><td>${item.Name}</td><td>${d3.format(",.0f")(
+      item.Rolling_7_day_new_cases
+    )}</td><td>${d3.format(",.1f")(
+      item.Rolling_7_day_new_cases_per_100000
+    )}</td><td><img src ='${
+      item.icon_path
+    }' class = "icons_yo"><img></td></tr>`;
+  }
+
+  tableBody_2.innerHTML = dataHTML_2;
+}
+
 d3.select("#arrow_explainer").html(function (d) {
   return (
     "*The arrows denote whether cases are increasing (red arrows pointing up) or decreasing (green arrows point down) in the seven days to " +
+    complete_date +
+    " compared to the previous week (the seven days to " +
+    previous_week_period +
+    "). A blue equals symbol denotes cases have remained the same across the two weeks."
+  );
+});
+
+d3.select("#arrow_explainer_2").html(function (d) {
+  return (
+    "*The arrows denote whether cases among over 60s are increasing (red arrows pointing up) or decreasing (green arrows point down) in the seven days to " +
     complete_date +
     " compared to the previous week (the seven days to " +
     previous_week_period +
