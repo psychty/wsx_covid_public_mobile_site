@@ -1134,9 +1134,9 @@ request.send(null);
 var msoa_summary_data = JSON.parse(request.responseText); // parse the fetched json data into a variable
 
 var request = new XMLHttpRequest();
-request.open("GET", "./Outputs/utla_summary.json", false);
+request.open("GET", "./Outputs/ltla_summary.json", false);
 request.send(null);
-var utla_summary_data = JSON.parse(request.responseText); // parse the fetched json data into a variable
+var ltla_summary_data = JSON.parse(request.responseText); // parse the fetched json data into a variable
 
 // // Add AJAX request for data
 // var msoa_map_data = $.ajax({
@@ -1220,10 +1220,10 @@ $(document).on("click", "#btnPostcode", function () {
       return d.MSOA11NM == chosen_msoa;
     });
 
-    chosen_utla = msoa_summary_data_chosen[0]["UTLA19NM"];
+    chosen_ltla = msoa_summary_data_chosen[0]["LTLA19NM"];
 
-    var utla_summary_data_chosen = utla_summary_data.filter(function (d) {
-      return d.Name == chosen_utla;
+    var ltla_summary_data_chosen = ltla_summary_data.filter(function (d) {
+      return d.Name == chosen_ltla;
     });
 
     d3.select("#local_case_summary_1")
@@ -1268,11 +1268,11 @@ $(document).on("click", "#btnPostcode", function () {
       });
 
     d3.select("#local_case_summary_4")
-      .data(utla_summary_data_chosen)
+      .data(ltla_summary_data_chosen)
       .html(function (d) {
         return (
           "This local area is within <b>" +
-          chosen_utla +
+          chosen_ltla +
           "</b> which is currently in <b class = 'tier'>" +
           d.Tier +
           "</b>."
@@ -1280,11 +1280,11 @@ $(document).on("click", "#btnPostcode", function () {
       });
 
     d3.select("#local_case_summary_5")
-      .data(utla_summary_data_chosen)
+      .data(ltla_summary_data_chosen)
       .html(function (d) {
         return (
           "In <b>" +
-          chosen_utla +
+          chosen_ltla +
           " overall</b>, in the seven days to " +
           complete_date +
           " there have been " +
@@ -1363,7 +1363,7 @@ function post(url) {
 //   );
 // });
 
-// ! utla restrictions
+// ! ltla restrictions
 
 var restriction_type = [
   "Tier 1 (medium)",
@@ -1380,10 +1380,10 @@ var restriction_colour_func = d3
   .range(restriction_colours);
 
 // Add AJAX request for data
-var utla_restrictions = $.ajax({
-  url: "./Outputs/utla_covid_latest.geojson",
+var ltla_restrictions = $.ajax({
+  url: "./Outputs/ltla_covid_latest.geojson",
   dataType: "json",
-  success: console.log("UTLA boundary for restrictions successfully loaded."),
+  success: console.log("LTLA boundary for restrictions successfully loaded."),
   error: function (xhr) {
     alert(xhr.statusText);
   },
@@ -1393,7 +1393,7 @@ var tileUrl = "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png";
 var attribution =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a><br>Click on an area to find out more.';
 
-function restriction_utla_colour(d) {
+function restriction_ltla_colour(d) {
   return d === restriction_type[0]
     ? restriction_colours[0]
     : d === restriction_type[1]
@@ -1405,7 +1405,7 @@ function restriction_utla_colour(d) {
 
 function style_restriction(feature) {
   return {
-    fillColor: restriction_utla_colour(feature.properties.Tier),
+    fillColor: restriction_ltla_colour(feature.properties.Tier),
     weight: 1,
     opacity: 0.6,
     color: "white",
@@ -1414,28 +1414,28 @@ function style_restriction(feature) {
   };
 }
 
-$.when(utla_restrictions).done(function () {
-  var utla_map_restrictions = L.map("utla_restrictions_map");
+$.when(ltla_restrictions).done(function () {
+  var ltla_map_restrictions = L.map("ltla_restrictions_map");
 
   var basemap_restriction = L.tileLayer(tileUrl, {
     attribution,
     minZoom: 5,
-  }).addTo(utla_map_restrictions);
+  }).addTo(ltla_map_restrictions);
 
-  var utla_restrictions_hcl = L.geoJSON(utla_restrictions.responseJSON, {
+  var ltla_restrictions_hcl = L.geoJSON(ltla_restrictions.responseJSON, {
     style: style_restriction,
   })
-    .addTo(utla_map_restrictions)
+    .addTo(ltla_map_restrictions)
     .bindPopup(function (layer) {
       return (
         "<b>" +
-        layer.feature.properties.ctyua19nm +
+        layer.feature.properties.Name +
         "</b><br>" +
         layer.feature.properties.Tier
       );
     });
 
-  utla_map_restrictions.fitBounds(utla_restrictions_hcl.getBounds());
+  ltla_map_restrictions.fitBounds(ltla_restrictions_hcl.getBounds());
 });
 
 if (width < 1300) {

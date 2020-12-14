@@ -305,7 +305,7 @@ td {
   font-size: 1.6rem;
 }
 
-#utla_restrictions_map {
+#ltla_restrictions_map {
   height: 50vh;
   width: 600px;
   margin: auto;
@@ -419,7 +419,7 @@ td {
     }
   }
 
-  #utla_restrictions_map {
+  #ltla_restrictions_map {
     height: 40vh;
     width: auto;
     margin-left: 25px;
