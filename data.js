@@ -123,9 +123,9 @@ d3.select("#update_date").html(function (d) {
     data_refreshed_date +
     " with cases confirmed up to " +
     latest_date +
-    ". However, as it can take a few days for test results to be confirmed, we look at the 7 days up to " +
+    ". However, as it can take a few days for test results to be confirmed, the last four days of data may be an underestimate of the true number of cases and so we look at the 7 days up to " +
     complete_date +
-    "."
+    " for calculating whether cases are going up or down."
   );
 });
 
@@ -720,7 +720,11 @@ function update_summary() {
   d3.select("#latest_seven_days_all_ages_4")
     .data(chosen_case_summary_data)
     .html(function (d) {
-      return "This is for the 7 days to " + d.Rate_date;
+      return (
+        "This is for the 7 days to " +
+        d.Rate_date +
+        " as the data for more recent days are considered incomplete"
+      );
     });
 
   d3.select("#area_over_60_title").html(function (d) {
@@ -750,7 +754,11 @@ function update_summary() {
   d3.select("#latest_seven_days_60_plus_3")
     .data(chosen_case_summary_data_60)
     .html(function (d) {
-      return "This is for the 7 days to " + d.Rate_date;
+      return (
+        "This is for the 7 days to " +
+        d.Rate_date +
+        " as the data for more recent days are considered incomplete"
+      );
     });
 
   d3.select("#latest_covid_beds_1")
