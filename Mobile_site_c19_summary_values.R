@@ -51,13 +51,8 @@ mye_total <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.
 mye_total %>% 
   write.csv(., paste0(github_repo_dir,'/Source_files/mye2019_ltla.csv'), row.names = FALSE)
 
-
-
-
 if(exists('mye_total') == FALSE) {
-  mye_total <- read_csv(paste0(github_repo_dir,'/Source_files/mye2019_ltla.csv')) %>%
-    rename(Population = `All ages`,
-           Type = Geography1)
+  mye_total <- read_csv(paste0(github_repo_dir,'/Source_files/mye2019_ltla.csv'))
 }
 
 area_code_names <- mye_total %>% 
@@ -211,6 +206,13 @@ mye_ages <- read_csv('https://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.
   summarise(Population = sum(Population, na.rm = TRUE)) %>% 
   ungroup() %>% 
   mutate(Name = ifelse(Name == 'South East', 'South East region', Name))
+
+mye_ages %>% 
+  write.csv(., paste0(github_repo_dir,'/Source_files/mye_ages.csv'), row.names = FALSE)
+
+if(exists('mye_ages') == FALSE) {
+  mye_ages <- read_csv(paste0(github_repo_dir,'/Source_files/mye_ages.csv'))
+}
 
 age_spec <- read_csv('https://coronavirus.data.gov.uk/downloads/demographic/cases/specimenDate_ageDemographic-unstacked.csv') %>% 
   filter(areaName %in% c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex', 'South East', 'England')) %>% 
@@ -613,6 +615,13 @@ mye_total_raw <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.d
   select(-Count) %>% 
   unique()
 
+mye_total_raw %>% 
+  write.csv(., paste0(github_repo_dir,'/Source_files/mye_ages.csv'), row.names = FALSE)
+
+if(exists('mye_total_raw') == FALSE) {
+  mye_total_raw <- read_csv(paste0(github_repo_dir,'/Source_files/mye_total_raw.csv'))
+}
+            
 area_code_names <- mye_total_raw %>% 
   select(Area_code, Name) %>% 
   rename(Code = Area_code) %>% 
