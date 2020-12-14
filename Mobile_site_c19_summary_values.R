@@ -589,11 +589,6 @@ trust_admission_date %>%
   toJSON() %>% 
   write_lines(paste0(output_directory_x,'/trust_meta.json'))
 
-# alert level ####
-
-
-# alert_level <- read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=', area_level, '&metric=alertLevel&format=csv')) 
-
 # capacity <- read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=', area_level, '&metric=capacityPillarFour&metric=capacityPillarOne&metric=capacityPillarOneTwo&metric=capacityPillarThree&format=csv'))
 
 # mortality ####
@@ -649,7 +644,6 @@ week_ending <- data.frame(Week_ending = get_date(week = 1:52, year = 2020)) %>%
   mutate(Week_number = row_number())
 
 download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek',substr(as.character(as.aweek(Sys.Date()-11)), 7,8), '1.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
-
 
 # # if the download does fail, it wipes out the old one, which we can use to our advantage
 if(!file.exists(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'))){
@@ -844,7 +838,6 @@ all_deaths_json_export <- All_settings_occurrences %>%
   mutate(Cumulative_deaths_label = paste0('As at ', format(Week_ending, '%d %B %Y'), ' in ', Name, ' the total cumulative number of deaths for 2020 was<b> ', format(Cumulative_deaths_all_cause, big.mark = ',', trim = TRUE), '</b>. The cumulative number of deaths where Covid-19 is recorded as a cause by this date was ', format(Cumulative_covid_deaths, big.mark = ',', trim = TRUE), '. This is ', round((Cumulative_covid_deaths/Cumulative_deaths_all_cause) * 100, 1), '% of deaths occuring by this week.')) %>%
   mutate(Date_label = factor(paste0('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, ' %b')), levels = deaths_labels$deaths_label))
 
-
 all_deaths_json_export %>% 
   select(Name, Date_label, Week_number, `Covid-19`, `Not attributed to Covid-19`, Cumulative_covid_deaths, Cumulative_deaths_all_cause) %>%
   toJSON() %>%
@@ -883,7 +876,6 @@ carehome_deaths_json_export %>%
   select(Name, Week_number, Date_label, `Covid-19`, `Not attributed to Covid-19`, Cumulative_covid_deaths, Cumulative_deaths_all_cause) %>%
   toJSON() %>%
   write_lines(paste0(output_directory_x, '/deaths_carehomes.json'))
-
 
 # PHE deaths any cause among COVID-19 + patients
 area_level <- 'ltla'
@@ -972,7 +964,12 @@ wsx_msoas <- msoa_lookup %>%
 
 # Weekly rolling sums and population-based rates of new cases by specimen date time series data are available to download for English MSOAs via the following links. The data are updated each day, and show the latest 7 days for which near-complete data release date minus 5 days are available, and historic non-overlapping 7-day blocks. Dates are the final day in the relevant 7-day block, and counts between 0 and 2 are blank in the CSV or NULL in the other formats.
 
-msoa_cases_1 <- read_csv('https://coronavirus.data.gov.uk/downloads/msoa_data/MSOAs_latest.csv') %>% 
+# This stopped on the 28th November!!!
+legacy_msoa_case_df <- read_csv('https://coronavirus.data.gov.uk/downloads/msoa_data/MSOAs_latest.csv')
+
+msoa_cases_1 <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=msoa&metric=newCasesBySpecimenDateRollingSum&metric=newCasesBySpecimenDateRollingRate&format=csv')
+
+msoa_cases_1 <- read_csv('https://coronavirus.data.gov.uk/downloads/msoa_data/MSOAs_latest.csv')# %>% 
   # filter(areaCode %in% msoa_lookup$MSOA11CD) %>% 
   filter(date %in% c(max(date))) %>% 
   select(areaCode, date, newCasesBySpecimenDateRollingRate) %>% 
@@ -994,6 +991,9 @@ msoa_cases_raw <- as.data.frame(read_csv('https://coronavirus.data.gov.uk/downlo
                                   left_join(msoa_lookup, by = c('areaCode' = 'MSOA11CD')) %>% 
                                   mutate(Label = paste0('<b>', MSOA11NM,' (', msoa11hclnm,')</b><br><br>In the seven days to ', format(date, '%A %d %B'), ' there were ', ifelse(is.na(This_week), ' less than three new cases.', paste0(format(This_week, big.mark = ',', trim = TRUE), ' new cases, this is a rate of ', round(Latest_rate, 1), ' cases per 100,000 population.')), '<br><br>', ifelse(is.na(Last_week) & is.na(This_week), 'Cases have been below 3 in the last two 7 day periods.', ifelse(is.na(Last_week), paste0('Cases were below 3 in the previous 7 days (up to ', format(max(date)-7, '%A %d %B') ,') but have risen this week.'), ifelse(is.na(This_week), paste0('Cases are now below 3 in the latest 7 days but have fallen since the previous 7 day period (up to ', format(max(date)-7, '%A %d %B') ,').'), ifelse(Change_actual == 0, 'There is no change in case numbers over the last two weeks', ifelse(Change_actual < 0, paste0('Cases have fallen in the last 7 days compared to the previous 7 days (up to ', format(max(date)-7, '%A %d %B') ,').'), ifelse(Change_actual >0, paste0('Cases have risen in the last 7 days compared to the previous 7 days (up to ', format(max(date)-7, '%A %d %B') ,').'), NA)))))))) %>%
                                   ungroup()) 
+
+msoa_cases_raw %>% 
+  View()
 
 msoa_cases <- msoa_cases_raw %>% 
   select(MSOA11NM, Case_key, Latest_rate_key, Change_label, Label) %>% 
@@ -1020,7 +1020,7 @@ msoa_boundaries_json <- SpatialPolygonsDataFrame(msoa_boundaries_json, msoa_case
 geojson_write(ms_simplify(geojson_json(msoa_boundaries_json), keep = 0.2), file = paste0(output_directory_x, '/msoa_covid_rate_latest.geojson'))
 
 msoa_cases_raw %>% 
-  select(MSOA11NM, msoa11hclnm, Latest_rate, UTLA19NM, This_week, Last_week, Change_label, date, Change_actual) %>% 
+  select(MSOA11NM, msoa11hclnm, Latest_rate, LAD11NM, This_week, Last_week, Change_label, date, Change_actual) %>% 
   mutate(Change_label = paste0(ifelse(is.na(Last_week) & is.na(This_week), 'Cases have been below 3 in the last two 7 day periods.', ifelse(is.na(Last_week), paste0('Cases were below 3 in the previous 7 days (up to ', format(max(date)-7, '%A %d %B') ,') but have risen this week.'), ifelse(is.na(This_week), paste0('Cases are now below 3 in the latest 7 days but have fallen since the previous 7 day period (up to ', format(max(date)-7, '%A %d %B') ,').'), ifelse(Change_actual == 0, 'There is no change in case numbers over the last two weeks', ifelse(Change_actual < 0, paste0('<b class = "cases_go_down">', Change_actual, '</b> cases compared to the previous 7 days (', Last_week,  ' cases in the 7 days to ', format(max(date)-7, '%A %d %B') ,').'), ifelse(Change_actual >0, paste0('<b class = "cases_go_up">+', Change_actual, '</b> cases compared to the previous 7 days (', Last_week, ' cases in the 7 days to ', format(max(date)-7, '%A %d %B') ,').'), NA)))))))) %>% 
   mutate(This_week = ifelse(is.na(This_week), '0-2', format(This_week, big.mark = ',', trim = TRUE)),
          Last_week = ifelse(is.na(Last_week), '0-2', format(Last_week, big.mark = ',', trim = TRUE)),
@@ -1029,38 +1029,65 @@ msoa_cases_raw %>%
   toJSON() %>% 
   write_lines(paste0(output_directory_x,'/msoa_summary.json'))
 
-utla_summary_1 <- p12_test_df %>% 
-  filter(Type %in% c('Unitary Authority', 'Upper Tier Local Authority')) %>% 
+ltla_summary_1 <- p12_test_df %>% 
+  filter(Type %in% c('Unitary Authority', 'Lower Tier Local Authority')) %>% 
   filter(Date == last_case_date) %>% 
   select(Name, Date, Cumulative_cases, Cumulative_per_100000) %>% 
   rename(Cumulative_date = Date)
 
-utla_summary_2 <- p12_test_df %>% 
+ltla_summary_2 <- p12_test_df %>% 
   filter(Date %in% c(complete_date)) %>% 
   select(Name, Date, New_cases, New_cases_per_100000, Rolling_7_day_new_cases, Rolling_7_day_new_cases_per_100000, Rolling_7_day_average_new_cases, Perc_change_on_rolling_7_days_actual, Previous_7_days_sum) %>% 
-  mutate(Change_direction = ifelse(Perc_change_on_rolling_7_days_actual <0, 'Down', ifelse(Perc_change_on_rolling_7_days_actual == 0, 'Same', ifelse(Perc_change_on_rolling_7_days_actual > 0, 'Up', NA)))) %>% 
-  rename(Rate_date = Date)
+  mutate(Change_direction = ifelse(Perc_change_on_rolling_7_days_actual <0, 'Down', ifelse(Perc_change_on_rolling_7_days_actual == 0, 'Same', ifelse(Perc_change_on_rolling_7_days_actual > 0, 'Up', NA)))) %>%   rename(Rate_date = Date)
 
-utla_summary <- utla_summary_1 %>% 
-  left_join(utla_summary_2, by = 'Name') %>% 
-  left_join(read_csv(paste0(github_repo_dir, '/Source_files/utla_tiers.csv')), by = 'Name') %>% 
+ltla_summary <- ltla_summary_1 %>% 
+  left_join(ltla_summary_2, by = 'Name') %>% 
+  left_join(read_csv(paste0(github_repo_dir, '/Source_files/ltla_tiers.csv'))[c('Area code', 'Name', 'Tier')], by = 'Name') %>% 
   mutate(Change_label = ifelse(Change_direction == 'Down', paste0('decreased by ', format(abs(Previous_7_days_sum - Rolling_7_day_new_cases), big.mark = ',', trim = TRUE), ' cases (', round(abs(Perc_change_on_rolling_7_days_actual) * 100,1), '%)'),ifelse(Change_direction == 'Up', paste0('increased by ',   format(abs(Previous_7_days_sum - Rolling_7_day_new_cases), big.mark = ',', trim = TRUE), ' cases (', round(abs(Perc_change_on_rolling_7_days_actual) * 100,1), '%)'), 'stayed the same.')))
 
-utla_summary %>% 
+ltla_summary %>% 
   toJSON() %>% 
-  write_lines(paste0(output_directory_x,'/utla_summary.json'))
+  write_lines(paste0(output_directory_x,'/ltla_summary.json'))
 
+ltla_boundaries <- geojson_read('https://opendata.arcgis.com/datasets/3a4fa2ce68f642e399b4de07643eeed3_0.geojson',  what = "sp") 
 
-utla_restrictions_geojson <-geojson_read("https://opendata.arcgis.com/datasets/b216b4c8a4e74f6fb692a1785255d777_0.geojson",  what = "sp") %>% 
-  filter(substr(ctyua19cd, 1,1 ) == 'E') %>% 
-  mutate(ctyua19nm = ifelse(ctyua19nm %in% c('Cornwall', 'Isles of Scilly'), 'Cornwall and Isles of Scilly', ifelse(ctyua19nm %in% c('City of London', 'Hackney'), 'Hackney and City of London', ctyua19nm))) %>% 
-  mutate(ctyua19cd = ifelse(ctyua19cd %in% c('E06000053', 'E06000052'), 'E06000052', ifelse(ctyua19cd %in% c('E09000001', 'E09000012'), 'E09000012', ctyua19cd))) %>% 
-  group_by(ctyua19cd, ctyua19nm) %>% 
-  summarise() %>% 
-  arrange(ctyua19cd) %>% 
-  left_join(utla_summary, by = c('ctyua19nm' = 'Name')) 
+#download.file('https://opendata.arcgis.com/datasets/3a4fa2ce68f642e399b4de07643eeed3_0.geojson', paste0(github_repo_dir, '/Source_files/failsafe_ltla_boundary.geojson'), mode = 'wb')
 
-geojson_write(geojson_json(utla_restrictions_geojson), file = paste0(output_directory_x, '/utla_covid_latest.geojson'))
+if(exists('ltla_boundaries') == FALSE) {
+  ltla_boundaries <- geojson_read(paste0(github_repo_dir, '/Source_files/failsafe_ltla_boundary.geojson'),  what = "sp") 
+}
+
+# utla_restrictions_geojson <-geojson_read("https://opendata.arcgis.com/datasets/b216b4c8a4e74f6fb692a1785255d777_0.geojson",  what = "sp") %>% 
+#   filter(substr(ctyua19cd, 1,1 ) == 'E') %>% 
+#   mutate(ctyua19nm = ifelse(ctyua19nm %in% c('Cornwall', 'Isles of Scilly'), 'Cornwall and Isles of Scilly', ifelse(ctyua19nm %in% c('City of London', 'Hackney'), 'Hackney and City of London', ctyua19nm))) %>% 
+#   mutate(ctyua19cd = ifelse(ctyua19cd %in% c('E06000053', 'E06000052'), 'E06000052', ifelse(ctyua19cd %in% c('E09000001', 'E09000012'), 'E09000012', ctyua19cd))) %>% 
+#   group_by(ctyua19cd, ctyua19nm) %>% 
+#   summarise() %>% 
+#   arrange(ctyua19cd) %>% 
+#   left_join(utla_summary, by = c('ctyua19nm' = 'Name')) 
+
+# geojson_write(geojson_json(utla_restrictions_geojson), file = paste0(output_directory_x, '/utla_covid_latest.geojson'))
+
+ltla_restrictions_geojson <- ltla_boundaries %>% 
+  filter(lad19cd %in% ltla_summary$`Area code`) %>% 
+  arrange(lad19nm)
+
+ltla_summary <- ltla_summary %>% 
+  arrange(Name)
+  #left_join(ltla_summary, by = c('lad19nm' = 'Name')) 
+
+df <- data.frame(ID = character())
+
+# Get the IDs of spatial polygon
+for (i in ltla_restrictions_geojson@polygons ) { df <- rbind(df, data.frame(ID = i@ID, stringsAsFactors = FALSE))  }
+
+# and set rowname = ID
+row.names(ltla_summary) <- df$ID
+
+# Then use df as the second argument to the spatial dataframe conversion function:
+ltla_restrictions_geojson <- SpatialPolygonsDataFrame(ltla_restrictions_geojson, ltla_summary)  
+
+geojson_write(geojson_json(ltla_restrictions_geojson), file = paste0(output_directory_x, '/ltla_covid_latest.geojson'))
 
 # daily_cases_df %>% 
 #   filter(Name == 'West Sussex') %>% 
@@ -1102,3 +1129,4 @@ growth_rate_ltla %>%
   select(Name, Date, Rolling_7_day_rate, Change_actual_by_week) %>% 
   toJSON() %>%
   write_lines(paste0(output_directory_x,'/ltla_growth_complete_date.json'))
+

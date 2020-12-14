@@ -1220,7 +1220,7 @@ $(document).on("click", "#btnPostcode", function () {
       return d.MSOA11NM == chosen_msoa;
     });
 
-    chosen_ltla = msoa_summary_data_chosen[0]["LTLA19NM"];
+    chosen_ltla = msoa_summary_data_chosen[0]["LAD11NM"];
 
     var ltla_summary_data_chosen = ltla_summary_data.filter(function (d) {
       return d.Name == chosen_ltla;
