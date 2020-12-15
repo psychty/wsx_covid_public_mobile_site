@@ -965,18 +965,18 @@ wsx_msoas <- msoa_lookup %>%
 # Weekly rolling sums and population-based rates of new cases by specimen date time series data are available to download for English MSOAs via the following links. The data are updated each day, and show the latest 7 days for which near-complete data release date minus 5 days are available, and historic non-overlapping 7-day blocks. Dates are the final day in the relevant 7-day block, and counts between 0 and 2 are blank in the CSV or NULL in the other formats.
 
 # This stopped on the 28th November!!!
-legacy_msoa_case_df <- read_csv('https://coronavirus.data.gov.uk/downloads/msoa_data/MSOAs_latest.csv')
+# legacy_msoa_case_df <- read_csv('https://coronavirus.data.gov.uk/downloads/msoa_data/MSOAs_latest.csv')
 
-msoa_cases_1 <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=msoa&metric=newCasesBySpecimenDateRollingSum&metric=newCasesBySpecimenDateRollingRate&format=csv')
-
-msoa_cases_1 <- read_csv('https://coronavirus.data.gov.uk/downloads/msoa_data/MSOAs_latest.csv')# %>% 
+msoa_cases_1 <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=msoa&metric=newCasesBySpecimenDateRollingSum&metric=newCasesBySpecimenDateRollingRate&format=csv') %>% 
+  select(areaCode, areaName, date, newCasesBySpecimenDateRollingSum, newCasesBySpecimenDateRollingRate) %>% 
   # filter(areaCode %in% msoa_lookup$MSOA11CD) %>% 
   filter(date %in% c(max(date))) %>% 
   select(areaCode, date, newCasesBySpecimenDateRollingRate) %>% 
   rename(Latest_rate = newCasesBySpecimenDateRollingRate) %>% 
   mutate(Latest_rate_key = factor(ifelse(is.na(Latest_rate), 'Less than 3 cases', ifelse(Latest_rate <= 50, 'Up to 50 per 100,000', ifelse(Latest_rate <= 100, '51-100 cases per 100,000', ifelse(Latest_rate <= 150, '101-150 cases per 100,000', ifelse(Latest_rate <= 200, '151-200 cases per 100,000', 'More than 200 cases per 100,000'))))), levels = c('Less than 3 cases', 'Up to 50 cases per 100,000', '51-100 cases per 100,000', '101-150 cases per 100,000', '151-200 cases per 100,000', 'More than 200 cases per 100,000')))
 
-msoa_cases_raw <- as.data.frame(read_csv('https://coronavirus.data.gov.uk/downloads/msoa_data/MSOAs_latest.csv') %>% 
+msoa_cases_raw <- as.data.frame(read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=msoa&metric=newCasesBySpecimenDateRollingSum&metric=newCasesBySpecimenDateRollingRate&format=csv') %>% 
+                                  select(areaCode, areaName, date, newCasesBySpecimenDateRollingSum, newCasesBySpecimenDateRollingRate) %>%  
                                   # filter(areaCode %in% msoa_lookup$MSOA11CD) %>% 
                                   group_by(areaCode, areaName) %>% 
                                   arrange(areaCode, areaName, date) %>% 
@@ -991,9 +991,6 @@ msoa_cases_raw <- as.data.frame(read_csv('https://coronavirus.data.gov.uk/downlo
                                   left_join(msoa_lookup, by = c('areaCode' = 'MSOA11CD')) %>% 
                                   mutate(Label = paste0('<b>', MSOA11NM,' (', msoa11hclnm,')</b><br><br>In the seven days to ', format(date, '%A %d %B'), ' there were ', ifelse(is.na(This_week), ' less than three new cases.', paste0(format(This_week, big.mark = ',', trim = TRUE), ' new cases, this is a rate of ', round(Latest_rate, 1), ' cases per 100,000 population.')), '<br><br>', ifelse(is.na(Last_week) & is.na(This_week), 'Cases have been below 3 in the last two 7 day periods.', ifelse(is.na(Last_week), paste0('Cases were below 3 in the previous 7 days (up to ', format(max(date)-7, '%A %d %B') ,') but have risen this week.'), ifelse(is.na(This_week), paste0('Cases are now below 3 in the latest 7 days but have fallen since the previous 7 day period (up to ', format(max(date)-7, '%A %d %B') ,').'), ifelse(Change_actual == 0, 'There is no change in case numbers over the last two weeks', ifelse(Change_actual < 0, paste0('Cases have fallen in the last 7 days compared to the previous 7 days (up to ', format(max(date)-7, '%A %d %B') ,').'), ifelse(Change_actual >0, paste0('Cases have risen in the last 7 days compared to the previous 7 days (up to ', format(max(date)-7, '%A %d %B') ,').'), NA)))))))) %>%
                                   ungroup()) 
-
-msoa_cases_raw %>% 
-  View()
 
 msoa_cases <- msoa_cases_raw %>% 
   select(MSOA11NM, Case_key, Latest_rate_key, Change_label, Label) %>% 
