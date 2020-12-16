@@ -61,28 +61,7 @@ area_code_names <- mye_total %>%
 mye_total <- mye_total %>%
   select(-Name)
 
-# Cases ####
-
-daily_cases <- read_csv('https://coronavirus.data.gov.uk/downloads/csv/coronavirus-cases_latest.csv') %>%   
-  rename(Name = `Area name`) %>% 
-  rename(Code = `Area code`) %>% 
-  rename(Date = `Specimen date`) %>% 
-  rename(New_cases = `Daily lab-confirmed cases`) %>% 
-  rename(Cumulative_cases = `Cumulative lab-confirmed cases`) %>% 
-  arrange(Name, Date) %>% 
-  select(Name, Code, `Area type`, Date, New_cases, Cumulative_cases) %>% 
-  group_by(Name, Code, Date) %>% 
-  mutate(Count = n()) %>% 
-  filter(!(`Area type` == 'ltla' & Count == 2)) %>% 
-  select(-c(`Area type`, Count)) %>% 
-  left_join(mye_total, by = 'Code') %>% 
-  ungroup()
-
-# If no specimens are taken on a day, there is no row for it, and it would be missing data. Indeed, the only zeros are on the latest day. We need to therefore backfill and say if no date exists where it should, then add it, with the cumulative total and zero for new cases.
-
-# One way to do this is to create a new dataframe with a row for each area and date, and left join the daily_cases data to it.
-first_date <- min(daily_cases$Date)
-last_case_date <- max(daily_cases$Date)
+# Preliminary dates####
 
 query_filters <- c(
   # "areaType=utla"
@@ -102,6 +81,105 @@ last_date <- as.Date(last_update(filters = query_filters, structure = query_stru
 # PHE say the last four data points are incomplete (perhaps they should not publish them). Instead, we need to make sure we account for this so that it is not misinterpreted.
 complete_date <- last_date - 5
 
+# Cases ####
+# 
+# daily_cases <- read_csv('https://coronavirus.data.gov.uk/downloads/csv/coronavirus-cases_latest.csv') %>%
+#   rename(Name = `Area name`) %>%
+#   rename(Code = `Area code`) %>%
+#   rename(Date = `Specimen date`) %>%
+#   rename(New_cases = `Daily lab-confirmed cases`) %>%
+#   rename(Cumulative_cases = `Cumulative lab-confirmed cases`) %>%
+#   arrange(Name, Date) %>%
+#   select(Name, Code, `Area type`, Date, New_cases, Cumulative_cases) %>%
+#   group_by(Name, Code, Date) %>%
+#   mutate(Count = n()) %>%
+#   filter(!(`Area type` == 'ltla' & Count == 2)) %>%
+#   select(-c(`Area type`, Count)) %>%
+#   left_join(mye_total, by = 'Code') %>%
+#   ungroup()
+
+daily_cases_ltla <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=ltla&metric=newCasesBySpecimenDate&format=csv') %>% 
+  filter(substr(areaCode, 1,1) == 'E') %>%
+  select(-areaType) %>% 
+  rename(Name = areaName,
+         Code = areaCode,
+         Date = date,
+         New_cases = newCasesBySpecimenDate) %>% 
+  left_join(mye_total, by = 'Code') %>% 
+  mutate(New_cases = replace_na(New_cases, 0)) %>% 
+  group_by(Name) %>% 
+  arrange(Name, Date) %>% 
+  mutate(Cumulative_cases = cumsum(New_cases))
+
+daily_cases_utla <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=utla&metric=newCasesBySpecimenDate&format=csv') %>% 
+  filter(substr(areaCode, 1,1) == 'E') %>%
+  select(-areaType) %>% 
+  rename(Name = areaName,
+         Code = areaCode,
+         Date = date,
+         New_cases = newCasesBySpecimenDate) %>% 
+  left_join(mye_total, by = 'Code') %>% 
+  mutate(New_cases = replace_na(New_cases, 0)) %>% 
+  group_by(Name) %>% 
+  arrange(Name, Date) %>% 
+  mutate(Cumulative_cases = cumsum(New_cases))
+
+daily_cases_nation <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=nation&metric=newCasesBySpecimenDate&format=csv') %>% 
+  filter(substr(areaCode, 1,1) == 'E') %>%
+  select(-areaType) %>% 
+  rename(Name = areaName,
+         Code = areaCode,
+         Date = date,
+         New_cases = newCasesBySpecimenDate) %>% 
+  left_join(mye_total, by = 'Code') %>% 
+  mutate(New_cases = replace_na(New_cases, 0)) %>% 
+  group_by(Name) %>% 
+  arrange(Name, Date) %>% 
+  mutate(Cumulative_cases = cumsum(New_cases))
+
+daily_cases_region <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=region&metric=newCasesBySpecimenDate&format=csv') %>% 
+  filter(substr(areaCode, 1,1) == 'E') %>%
+  select(-areaType) %>% 
+  rename(Name = areaName,
+         Code = areaCode,
+         Date = date,
+         New_cases = newCasesBySpecimenDate) %>% 
+  left_join(mye_total, by = 'Code') %>% 
+  mutate(New_cases = replace_na(New_cases, 0)) %>% 
+  group_by(Name) %>% 
+  arrange(Name, Date) %>% 
+  mutate(Cumulative_cases = cumsum(New_cases))
+
+p12_test_df <- daily_cases_ltla %>% 
+  bind_rows(daily_cases_utla) %>% 
+  bind_rows(daily_cases_region) %>% 
+  bind_rows(daily_cases_nation) %>% 
+  unique() %>% 
+  mutate(Period = format(Date, '%d %B')) %>%
+  mutate(Data_completeness = ifelse(Date > complete_date, 'Considered incomplete', 'Complete')) %>% 
+  mutate(Cumulative_per_100000 = (Cumulative_cases / Population) * 100000) %>% 
+  mutate(New_cases_per_100000 = (New_cases / Population) * 100000) %>% 
+  ungroup() %>% 
+  mutate(Name = ifelse(Name == 'South East', 'South East region', Name))  %>% 
+  group_by(Name) %>% 
+  arrange(Name, Date) %>% 
+  mutate(Rolling_7_day_new_cases = rollapply(New_cases, 7, sum, align = 'right', fill = NA)) %>% 
+  mutate(Rolling_7_day_new_cases_per_100000 = ifelse(is.na(Rolling_7_day_new_cases), NA, (Rolling_7_day_new_cases / Population) * 100000)) %>% 
+  mutate(Perc_change_on_rolling_7_days_actual = round((Rolling_7_day_new_cases - lag(Rolling_7_day_new_cases, 7))/ lag(Rolling_7_day_new_cases, 7), 2))  %>% 
+  mutate(Perc_change_on_rolling_7_days_actual = ifelse(Perc_change_on_rolling_7_days_actual == Inf, 1, Perc_change_on_rolling_7_days_actual)) %>% 
+  mutate(Perc_change_on_rolling_7_days_actual = replace_na(Perc_change_on_rolling_7_days_actual, 0)) %>%
+  mutate(Rolling_7_day_average_new_cases = rollapply(New_cases, 7, mean, align = 'right', fill = NA)) %>%
+  mutate(Previous_7_days_sum = lag(Rolling_7_day_new_cases, 7)) %>% 
+  ungroup() 
+
+# One way to do this is to create a new dataframe with a row for each area and date, and left join the daily_cases data to it.
+
+first_date <- min(p12_test_df$Date)
+last_case_date <- p12_test_df %>% 
+  filter(New_cases != 0)
+
+last_case_date <- max(last_case_date$Date)
+
 data.frame(Item = 'latest_daily_case', Label = paste0(format(last_case_date, '%A '), ordinal(as.numeric(format(last_case_date, '%d'))), format(last_case_date, ' %B %Y'))) %>% 
   add_row(Item = 'daily_case_update_date',Label = paste0(format(last_date, '%A '), ordinal(as.numeric(format(last_date, '%d'))), format(last_date, ' %B %Y'))) %>% 
   add_row(Item = 'complete_date', Label = paste0(format(complete_date, '%A '), ordinal(as.numeric(format(complete_date, '%d'))), format(complete_date, ' %B %Y')))%>% 
@@ -112,52 +190,52 @@ data.frame(Item = 'latest_daily_case', Label = paste0(format(last_case_date, '%A
   toJSON() %>% 
   write_lines(paste0(output_directory_x, '/case_dates.json'))
 
-Areas = daily_cases %>% 
-  select(Name, Code, Type) %>% 
-  unique()
-
-Dates = seq.Date(first_date, last_case_date, by = '1 day')
-
-daily_cases_reworked <- data.frame(Name = rep(Areas$Name, length(Dates)), Code = rep(Areas$Code, length(Dates)), Type = rep(Areas$Type, length(Dates)), check.names = FALSE) %>% 
-  arrange(Name) %>% 
-  group_by(Name) %>% 
-  mutate(Date = seq.Date(first_date, last_case_date, by = '1 day')) %>% 
-  left_join(daily_cases, by = c('Name', 'Code', 'Type', 'Date')) %>% 
-  mutate(New_cases = ifelse(is.na(New_cases), 0, New_cases)) %>% 
-  mutate(New_cumulative = cumsum(New_cases)) %>% 
-  filter(!is.na(Cumulative_cases)) %>% 
-  mutate(Calculated_same_as_original = ifelse(Cumulative_cases == New_cumulative, 'Yaas', 'Negative'))
+# Areas = daily_cases %>% 
+#   select(Name, Code, Type) %>% 
+#   unique()
+# 
+# Dates = seq.Date(first_date, last_case_date, by = '1 day')
+# 
+# daily_cases_reworked <- data.frame(Name = rep(Areas$Name, length(Dates)), Code = rep(Areas$Code, length(Dates)), Type = rep(Areas$Type, length(Dates)), check.names = FALSE) %>% 
+#   arrange(Name) %>% 
+#   group_by(Name) %>% 
+#   mutate(Date = seq.Date(first_date, last_case_date, by = '1 day')) %>% 
+#   left_join(daily_cases, by = c('Name', 'Code', 'Type', 'Date')) %>% 
+#   mutate(New_cases = ifelse(is.na(New_cases), 0, New_cases)) %>% 
+#   mutate(New_cumulative = cumsum(New_cases)) %>% 
+#   filter(!is.na(Cumulative_cases)) %>% 
+#   mutate(Calculated_same_as_original = ifelse(Cumulative_cases == New_cumulative, 'Yaas', 'Negative'))
 
 # Case results are generally published in the afternoon and represent cases reported up to 9am of the reporting day. However, cases are assigned to the date of which the specimen was taken rather than when it was reported. This means it will be very unlikely that a specimen would be taken and results returned by 9am of the day of publication. As such, we consider the last five days (four days plus the day of reporting) as incomplete.
-
-p12_test_df <- data.frame(Name = rep(Areas$Name, length(Dates)), Code = rep(Areas$Code, length(Dates)), Type = rep(Areas$Type, length(Dates)), check.names = FALSE) %>% 
-  arrange(Name) %>% 
-  group_by(Name) %>% 
-  mutate(Date = seq.Date(first_date, last_case_date, by = '1 day')) %>% 
-  mutate(Data_completeness = ifelse(Date > complete_date, 'Considered incomplete', 'Complete')) %>% 
-  left_join(daily_cases, by = c('Name', 'Code', 'Type', 'Date')) %>% 
-  mutate(New_cases = ifelse(is.na(New_cases), 0, New_cases)) %>% 
-  rename(Original_cumulative = Cumulative_cases) %>% # We should keep the original cumulative cases for reference
-  mutate(Cumulative_cases = cumsum(New_cases)) %>% # These are based on the new cases data being accurate
-  group_by(Name) %>% 
-  mutate(Period = format(Date, '%d %B')) %>%
-  select(-Population) %>% 
-  left_join(mye_total[c('Code', 'Population')], by = 'Code') %>% 
-  mutate(Cumulative_per_100000 = (Cumulative_cases / Population) * 100000) %>% 
-  mutate(New_cases_per_100000 = (New_cases / Population) * 100000) %>% 
-  ungroup() %>% 
-  mutate(Name = ifelse(Name == 'South East', 'South East region', Name))  %>% 
-  group_by(Name) %>% 
-  mutate(Rolling_7_day_new_cases = rollapply(New_cases, 7, sum, align = 'right', fill = NA)) %>% 
-  mutate(Rolling_7_day_new_cases_per_100000 = ifelse(is.na(Rolling_7_day_new_cases), NA, (Rolling_7_day_new_cases / Population) * 100000)) %>% 
-  mutate(Perc_change_on_rolling_7_days_actual = round((Rolling_7_day_new_cases - lag(Rolling_7_day_new_cases, 7))/ lag(Rolling_7_day_new_cases, 7), 2))  %>% 
-  mutate(Perc_change_on_rolling_7_days_actual = ifelse(Perc_change_on_rolling_7_days_actual == Inf, 1, Perc_change_on_rolling_7_days_actual)) %>% 
-  mutate(Perc_change_on_rolling_7_days_actual = replace_na(Perc_change_on_rolling_7_days_actual, 0)) %>%
-  mutate(Rolling_7_day_average_new_cases = rollapply(New_cases, 7, mean, align = 'right', fill = NA)) %>%
-  mutate(Previous_7_days_sum = lag(Rolling_7_day_new_cases, 7)) %>% 
-  ungroup() 
-
-rm(daily_cases, Areas, Dates, first_date, mye_total, area_code_names, daily_cases_reworked, query_structure)
+# 
+# p12_test_df <- data.frame(Name = rep(Areas$Name, length(Dates)), Code = rep(Areas$Code, length(Dates)), Type = rep(Areas$Type, length(Dates)), check.names = FALSE) %>% 
+#   arrange(Name) %>% 
+#   group_by(Name) %>% 
+#   mutate(Date = seq.Date(first_date, last_case_date, by = '1 day')) %>% 
+#   mutate(Data_completeness = ifelse(Date > complete_date, 'Considered incomplete', 'Complete')) %>% 
+#   left_join(daily_cases, by = c('Name', 'Code', 'Type', 'Date')) %>% 
+#   mutate(New_cases = ifelse(is.na(New_cases), 0, New_cases)) %>% 
+#   rename(Original_cumulative = Cumulative_cases) %>% # We should keep the original cumulative cases for reference
+#   mutate(Cumulative_cases = cumsum(New_cases)) %>% # These are based on the new cases data being accurate
+#   group_by(Name) %>% 
+#   mutate(Period = format(Date, '%d %B')) %>%
+#   select(-Population) %>% 
+#   left_join(mye_total[c('Code', 'Population')], by = 'Code') %>% 
+#   mutate(Cumulative_per_100000 = (Cumulative_cases / Population) * 100000) %>% 
+#   mutate(New_cases_per_100000 = (New_cases / Population) * 100000) %>% 
+#   ungroup() %>% 
+#   mutate(Name = ifelse(Name == 'South East', 'South East region', Name))  %>% 
+#   group_by(Name) %>% 
+#   mutate(Rolling_7_day_new_cases = rollapply(New_cases, 7, sum, align = 'right', fill = NA)) %>% 
+#   mutate(Rolling_7_day_new_cases_per_100000 = ifelse(is.na(Rolling_7_day_new_cases), NA, (Rolling_7_day_new_cases / Population) * 100000)) %>% 
+#   mutate(Perc_change_on_rolling_7_days_actual = round((Rolling_7_day_new_cases - lag(Rolling_7_day_new_cases, 7))/ lag(Rolling_7_day_new_cases, 7), 2))  %>% 
+#   mutate(Perc_change_on_rolling_7_days_actual = ifelse(Perc_change_on_rolling_7_days_actual == Inf, 1, Perc_change_on_rolling_7_days_actual)) %>% 
+#   mutate(Perc_change_on_rolling_7_days_actual = replace_na(Perc_change_on_rolling_7_days_actual, 0)) %>%
+#   mutate(Rolling_7_day_average_new_cases = rollapply(New_cases, 7, mean, align = 'right', fill = NA)) %>%
+#   mutate(Previous_7_days_sum = lag(Rolling_7_day_new_cases, 7)) %>% 
+#   ungroup() 
+# 
+# rm(daily_cases, Areas, Dates, first_date, mye_total, area_code_names, daily_cases_reworked, query_structure)
 
 Areas <- c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex', 'South East region', 'England')
 
@@ -171,8 +249,7 @@ p12_test_summary_2 <- p12_test_df %>%
   filter(Name %in% Areas) %>% 
   filter(Date %in% c(complete_date)) %>% 
   select(Name, Date, New_cases, New_cases_per_100000, Rolling_7_day_new_cases, Rolling_7_day_new_cases_per_100000, Rolling_7_day_average_new_cases, Perc_change_on_rolling_7_days_actual) %>% 
-  mutate(Change_direction = ifelse(Perc_change_on_rolling_7_days_actual <0, 'Down', ifelse(Perc_change_on_rolling_7_days_actual == 0, 'Same', ifelse(Perc_change_on_rolling_7_days_actual > 0, 'Up', NA)))) %>% 
-  rename(Rate_date = Date)
+  mutate(Change_direction = ifelse(Perc_change_on_rolling_7_days_actual <0, 'Down', ifelse(Perc_change_on_rolling_7_days_actual == 0, 'Same', ifelse(Perc_change_on_rolling_7_days_actual > 0, 'Up', NA)))) %>%   rename(Rate_date = Date)
 
 p12_test_summary <- p12_test_summary_1 %>% 
   left_join(p12_test_summary_2, by = 'Name') 
@@ -878,48 +955,47 @@ carehome_deaths_json_export %>%
   write_lines(paste0(output_directory_x, '/deaths_carehomes.json'))
 
 # PHE deaths any cause among COVID-19 + patients
-area_level <- 'ltla'
-
-phe_mortality_new_deaths <- read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=', area_level,'&metric=newDeathsByDeathDate&metric=newDeaths28DaysByDeathDate&metric=newDeaths28DaysByDeathDateRollingSum&metric=newDeaths28DaysByDeathDateRollingRate&metric=newDeaths60DaysByDeathDate&format=csv')) %>% 
-  bind_rows(read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=nation&areaCode=E92000001&metric=newDeathsByDeathDate&metric=newDeaths28DaysByDeathDate&metric=newDeaths28DaysByDeathDateRollingSum&metric=newDeaths28DaysByDeathDateRollingRate&metric=newDeaths60DaysByDeathDate&format=csv'))) %>% 
-  bind_rows(read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=region&areaCode=E12000008&metric=newDeathsByDeathDate&metric=newDeaths28DaysByDeathDate&metric=newDeaths28DaysByDeathDateRollingSum&metric=newDeaths28DaysByDeathDateRollingRate&metric=newDeaths60DaysByDeathDate&format=csv'))) %>% 
-  bind_rows(read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=utla&areaCode=E10000032&metric=newDeathsByDeathDate&metric=newDeaths28DaysByDeathDate&metric=newDeaths28DaysByDeathDateRollingSum&metric=newDeaths28DaysByDeathDateRollingRate&metric=newDeaths60DaysByDeathDate&format=csv'))) %>% 
-  mutate(areaName = ifelse(areaName == 'South East', 'South East region', areaName)) %>% 
-  filter(areaName %in% Areas) %>% 
-  filter(date != last_date)
-
-phe_mortality_cumdeaths <- read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=', area_level,'&metric=cumDeathsByDeathDate&metric=cumDeaths28DaysByDeathDate&metric&metric=cumDeaths60DaysByDeathDate&format=csv')) %>% 
-  bind_rows(read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=nation&areaCode=E92000001&metric=cumDeathsByDeathDate&metric=cumDeaths28DaysByDeathDate&metric&metric=cumDeaths60DaysByDeathDate&format=csv'))) %>% 
-  bind_rows(read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=region&areaCode=E12000008&metric=cumDeathsByDeathDate&metric=cumDeaths28DaysByDeathDate&metric&metric=cumDeaths60DaysByDeathDate&format=csv'))) %>% 
-  bind_rows(read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=utla&areaCode=E10000032&metric=cumDeathsByDeathDate&metric=cumDeaths28DaysByDeathDate&metric&metric=cumDeaths60DaysByDeathDate&format=csv'))) %>% 
-  mutate(areaName = ifelse(areaName == 'South East', 'South East region', areaName)) %>% 
-  filter(areaName %in% Areas) %>% 
-  filter(date == last_case_date) 
-
-phe_mortality_new_deaths %>% 
-  mutate(Period = format(date, '%d %B')) %>% 
-  rename(Date = date, 
-         Name = areaName,
-         Deaths = newDeathsByDeathDate,
-         Deaths_within28 = newDeaths28DaysByDeathDate,
-         Deaths_within28_rolling = newDeaths28DaysByDeathDateRollingSum,
-         Deaths_within28_rolling_rate = newDeaths28DaysByDeathDateRollingRate,
-         Deaths_within60 = newDeaths60DaysByDeathDate) %>% 
-  select(Name, Date, Period, Deaths, Deaths_within28, Deaths_within28_rolling, Deaths_within28_rolling_rate, Deaths_within60) %>% 
-  toJSON() %>% 
-  write_lines(paste0(output_directory_x, '/covid_positive_deaths_all_cause.json'))
-
-phe_mortality_cumdeaths %>%
-  mutate(Period = format(date, '%d %B')) %>% 
-  rename(Date = date, 
-         Name = areaName,
-         Cumulative_deaths = cumDeathsByDeathDate,
-         Cumulative_deaths_28 = cumDeaths28DaysByDeathDate,
-         Cumulative_deaths_60 = cumDeaths60DaysByDeathDate) %>% 
-  select(Name, Date, Period, Cumulative_deaths, Cumulative_deaths_28, Cumulative_deaths_60) %>% 
-  toJSON() %>% 
-  write_lines(paste0(output_directory_x, '/covid_positive_cumdeaths_all_cause.json'))
-
+# area_level <- 'ltla'
+# 
+# phe_mortality_new_deaths <- read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=', area_level,'&metric=newDeathsByDeathDate&metric=newDeaths28DaysByDeathDate&metric=newDeaths28DaysByDeathDateRollingSum&metric=newDeaths28DaysByDeathDateRollingRate&metric=newDeaths60DaysByDeathDate&format=csv')) %>% 
+#   bind_rows(read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=nation&areaCode=E92000001&metric=newDeathsByDeathDate&metric=newDeaths28DaysByDeathDate&metric=newDeaths28DaysByDeathDateRollingSum&metric=newDeaths28DaysByDeathDateRollingRate&metric=newDeaths60DaysByDeathDate&format=csv'))) %>% 
+#   bind_rows(read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=region&areaCode=E12000008&metric=newDeathsByDeathDate&metric=newDeaths28DaysByDeathDate&metric=newDeaths28DaysByDeathDateRollingSum&metric=newDeaths28DaysByDeathDateRollingRate&metric=newDeaths60DaysByDeathDate&format=csv'))) %>% 
+#   bind_rows(read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=utla&areaCode=E10000032&metric=newDeathsByDeathDate&metric=newDeaths28DaysByDeathDate&metric=newDeaths28DaysByDeathDateRollingSum&metric=newDeaths28DaysByDeathDateRollingRate&metric=newDeaths60DaysByDeathDate&format=csv'))) %>% 
+#   mutate(areaName = ifelse(areaName == 'South East', 'South East region', areaName)) %>% 
+#   filter(areaName %in% Areas) %>% 
+#   filter(date != last_date)
+# 
+# phe_mortality_cumdeaths <- read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=', area_level,'&metric=cumDeathsByDeathDate&metric=cumDeaths28DaysByDeathDate&metric&metric=cumDeaths60DaysByDeathDate&format=csv')) %>% 
+#   bind_rows(read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=nation&areaCode=E92000001&metric=cumDeathsByDeathDate&metric=cumDeaths28DaysByDeathDate&metric&metric=cumDeaths60DaysByDeathDate&format=csv'))) %>% 
+#   bind_rows(read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=region&areaCode=E12000008&metric=cumDeathsByDeathDate&metric=cumDeaths28DaysByDeathDate&metric&metric=cumDeaths60DaysByDeathDate&format=csv'))) %>% 
+#   bind_rows(read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=utla&areaCode=E10000032&metric=cumDeathsByDeathDate&metric=cumDeaths28DaysByDeathDate&metric&metric=cumDeaths60DaysByDeathDate&format=csv'))) %>% 
+#   mutate(areaName = ifelse(areaName == 'South East', 'South East region', areaName)) %>% 
+#   filter(areaName %in% Areas) %>% 
+#   filter(date == last_case_date) 
+# 
+# phe_mortality_new_deaths %>% 
+#   mutate(Period = format(date, '%d %B')) %>% 
+#   rename(Date = date, 
+#          Name = areaName,
+#          Deaths = newDeathsByDeathDate,
+#          Deaths_within28 = newDeaths28DaysByDeathDate,
+#          Deaths_within28_rolling = newDeaths28DaysByDeathDateRollingSum,
+#          Deaths_within28_rolling_rate = newDeaths28DaysByDeathDateRollingRate,
+#          Deaths_within60 = newDeaths60DaysByDeathDate) %>% 
+#   select(Name, Date, Period, Deaths, Deaths_within28, Deaths_within28_rolling, Deaths_within28_rolling_rate, Deaths_within60) %>% 
+#   toJSON() %>% 
+#   write_lines(paste0(output_directory_x, '/covid_positive_deaths_all_cause.json'))
+# 
+# phe_mortality_cumdeaths %>%
+#   mutate(Period = format(date, '%d %B')) %>% 
+#   rename(Date = date, 
+#          Name = areaName,
+#          Cumulative_deaths = cumDeathsByDeathDate,
+#          Cumulative_deaths_28 = cumDeaths28DaysByDeathDate,
+#          Cumulative_deaths_60 = cumDeaths60DaysByDeathDate) %>% 
+#   select(Name, Date, Period, Cumulative_deaths, Cumulative_deaths_28, Cumulative_deaths_60) %>% 
+#   toJSON() %>% 
+#   write_lines(paste0(output_directory_x, '/covid_positive_cumdeaths_all_cause.json'))
 
 # MSOA map ####
 if(!file.exists(paste0(github_repo_dir, '/Source_files/msoa_lookup_local.csv'))) {
@@ -967,7 +1043,9 @@ wsx_msoas <- msoa_lookup %>%
 # This stopped on the 28th November!!!
 # legacy_msoa_case_df <- read_csv('https://coronavirus.data.gov.uk/downloads/msoa_data/MSOAs_latest.csv')
 
-msoa_cases_1 <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=msoa&metric=newCasesBySpecimenDateRollingSum&metric=newCasesBySpecimenDateRollingRate&format=csv') %>% 
+msoa_data <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=msoa&metric=newCasesBySpecimenDateRollingSum&metric=newCasesBySpecimenDateRollingRate&format=csv')
+
+msoa_cases_1 <-  msoa_data %>% 
   select(areaCode, areaName, date, newCasesBySpecimenDateRollingSum, newCasesBySpecimenDateRollingRate) %>% 
   # filter(areaCode %in% msoa_lookup$MSOA11CD) %>% 
   filter(date %in% c(max(date))) %>% 
@@ -975,7 +1053,7 @@ msoa_cases_1 <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=m
   rename(Latest_rate = newCasesBySpecimenDateRollingRate) %>% 
   mutate(Latest_rate_key = factor(ifelse(is.na(Latest_rate), 'Less than 3 cases', ifelse(Latest_rate <= 50, 'Up to 50 per 100,000', ifelse(Latest_rate <= 100, '51-100 cases per 100,000', ifelse(Latest_rate <= 150, '101-150 cases per 100,000', ifelse(Latest_rate <= 200, '151-200 cases per 100,000', 'More than 200 cases per 100,000'))))), levels = c('Less than 3 cases', 'Up to 50 cases per 100,000', '51-100 cases per 100,000', '101-150 cases per 100,000', '151-200 cases per 100,000', 'More than 200 cases per 100,000')))
 
-msoa_cases_raw <- as.data.frame(read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=msoa&metric=newCasesBySpecimenDateRollingSum&metric=newCasesBySpecimenDateRollingRate&format=csv') %>% 
+msoa_cases_raw <- as.data.frame(msoa_data %>% 
                                   select(areaCode, areaName, date, newCasesBySpecimenDateRollingSum, newCasesBySpecimenDateRollingRate) %>%  
                                   # filter(areaCode %in% msoa_lookup$MSOA11CD) %>% 
                                   group_by(areaCode, areaName) %>% 
@@ -1000,6 +1078,9 @@ msoa_cases <- msoa_cases_raw %>%
 msoa_boundaries_json <- geojson_read("https://opendata.arcgis.com/datasets/23cdb60ee47e4fef8d72e4ee202accb0_0.geojson",  what = "sp") %>% 
   filter(MSOA11NM %in% msoa_cases$MSOA11NM) %>%
   arrange(MSOA11NM)
+
+# download.file("https://opendata.arcgis.com/datasets/23cdb60ee47e4fef8d72e4ee202accb0_0.geojson", paste0(github_repo_dir, '/Source_files/failsafe_msoa_boundary.geojson'), mode = 'wb')
+
 
 df <- data.frame(ID = character())
 
@@ -1033,6 +1114,7 @@ ltla_summary_1 <- p12_test_df %>%
   rename(Cumulative_date = Date)
 
 ltla_summary_2 <- p12_test_df %>% 
+  filter(Type %in% c('Unitary Authority', 'Lower Tier Local Authority')) %>% 
   filter(Date %in% c(complete_date)) %>% 
   select(Name, Date, New_cases, New_cases_per_100000, Rolling_7_day_new_cases, Rolling_7_day_new_cases_per_100000, Rolling_7_day_average_new_cases, Perc_change_on_rolling_7_days_actual, Previous_7_days_sum) %>% 
   mutate(Change_direction = ifelse(Perc_change_on_rolling_7_days_actual <0, 'Down', ifelse(Perc_change_on_rolling_7_days_actual == 0, 'Same', ifelse(Perc_change_on_rolling_7_days_actual > 0, 'Up', NA)))) %>%   rename(Rate_date = Date)
@@ -1040,7 +1122,8 @@ ltla_summary_2 <- p12_test_df %>%
 ltla_summary <- ltla_summary_1 %>% 
   left_join(ltla_summary_2, by = 'Name') %>% 
   left_join(read_csv(paste0(github_repo_dir, '/Source_files/ltla_tiers.csv'))[c('Area code', 'Name', 'Tier')], by = 'Name') %>% 
-  mutate(Change_label = ifelse(Change_direction == 'Down', paste0('decreased by ', format(abs(Previous_7_days_sum - Rolling_7_day_new_cases), big.mark = ',', trim = TRUE), ' cases (', round(abs(Perc_change_on_rolling_7_days_actual) * 100,1), '%)'),ifelse(Change_direction == 'Up', paste0('increased by ',   format(abs(Previous_7_days_sum - Rolling_7_day_new_cases), big.mark = ',', trim = TRUE), ' cases (', round(abs(Perc_change_on_rolling_7_days_actual) * 100,1), '%)'), 'stayed the same.')))
+  mutate(Change_label = ifelse(Change_direction == 'Down', paste0('decreased by ', format(abs(Previous_7_days_sum - Rolling_7_day_new_cases), big.mark = ',', trim = TRUE), ' cases (', round(abs(Perc_change_on_rolling_7_days_actual) * 100,1), '%)'),ifelse(Change_direction == 'Up', paste0('increased by ',   format(abs(Previous_7_days_sum - Rolling_7_day_new_cases), big.mark = ',', trim = TRUE), ' cases (', round(abs(Perc_change_on_rolling_7_days_actual) * 100,1), '%)'), 'stayed the same.'))) %>% 
+  unique()
 
 ltla_summary %>% 
   toJSON() %>% 
