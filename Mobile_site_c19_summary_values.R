@@ -1257,12 +1257,14 @@ positivity_at_a_glance <- positivity_df %>%
 at_a_glance_all <- at_a_glance_1 %>% 
   filter(Age == 'All ages') %>% 
   select(Name, Rolling_7_day_new_cases ,Rolling_7_day_new_cases_per_100000) %>% 
+  mutate(Rolling_7_day_new_cases_per_100000 = round(Rolling_7_day_new_cases_per_100000, 1)) %>% 
   rename(Cases = Rolling_7_day_new_cases,
          `Rate per 100,000` = Rolling_7_day_new_cases_per_100000)
 
 at_a_glance_60s <- at_a_glance_1 %>% 
   filter(Age == '60+ years') %>% 
   select(Name, Rolling_7_day_new_cases_per_100000) %>% 
+  mutate(Rolling_7_day_new_cases_per_100000 = round(Rolling_7_day_new_cases_per_100000, 1)) %>% 
   rename(`Rate of cases per 100,000 for people aged 60 and over` = Rolling_7_day_new_cases_per_100000)
 
 public_latest_rates_table <- at_a_glance_all %>% 
@@ -1271,7 +1273,10 @@ public_latest_rates_table <- at_a_glance_all %>%
   select(Name, Cases, `Rate per 100,000`,  `Positivity rate (weekly percentage of individuals tested who test positive for COVID-19)`, `Number of people receiving a PCR (Polymerase chain reaction) test`, `Rate of cases per 100,000 for people aged 60 and over`)
 
 public_latest_rates_table %>% 
-  write.csv(., paste0(output_directory_x, 'public_latest_rates_table.csv'), row.names = FALSE)
+  mutate(Name = factor(Name, levels = c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex', 'South East region', 'England'))) %>% 
+  arrange(Name) %>% 
+  mutate(Date = complete_date) %>% 
+  write.csv(., paste0(output_directory_x, '/public_latest_rates_table.csv'), row.names = FALSE)
 
 
   
