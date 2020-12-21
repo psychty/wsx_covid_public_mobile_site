@@ -229,23 +229,23 @@ function loadTable_all(at_a_glance_all_ages) {
   const tableBody = document.getElementById("at_glance_table_1");
   var dataHTML = "";
 
-  // for (let item of at_a_glance_all_ages) {
-  //   dataHTML += `<tr><td>${item.Name}</td><td>${d3.format(",.0f")(
-  //     item.Rolling_7_day_new_cases
-  //   )}</td><td>${d3.format(",.1f")(
-  //     item.Rolling_7_day_new_cases_per_100000
-  //   )}</td><td><img src ='${
-  //     item.icon_path
-  //   }' class = "icons_yo"><img></td></tr>`;
-  // }
-
   for (let item of at_a_glance_all_ages) {
     dataHTML += `<tr><td>${item.Name}</td><td>${d3.format(",.0f")(
       item.Rolling_7_day_new_cases
     )}</td><td>${d3.format(",.1f")(
       item.Rolling_7_day_new_cases_per_100000
-    )}</td></tr>`;
+    )}</td><td><img src ='${
+      item.icon_path
+    }' class = "icons_yo"><img></td></tr>`;
   }
+
+  // for (let item of at_a_glance_all_ages) {
+  //   dataHTML += `<tr><td>${item.Name}</td><td>${d3.format(",.0f")(
+  //     item.Rolling_7_day_new_cases
+  //   )}</td><td>${d3.format(",.1f")(
+  //     item.Rolling_7_day_new_cases_per_100000
+  //   )}</td></tr>`;
+  // }
 
   tableBody.innerHTML = dataHTML;
 }
@@ -254,23 +254,23 @@ function loadTable_60(at_a_glance_60_plus) {
   const tableBody_2 = document.getElementById("at_glance_table_2");
   var dataHTML_2 = "";
 
-  // for (let item of at_a_glance_60_plus) {
-  //   dataHTML_2 += `<tr><td>${item.Name}</td><td>${d3.format(",.0f")(
-  //     item.Rolling_7_day_new_cases
-  //   )}</td><td>${d3.format(",.1f")(
-  //     item.Rolling_7_day_new_cases_per_100000
-  //   )}</td><td><img src ='${
-  //     item.icon_path
-  //   }' class = "icons_yo"><img></td></tr>`;
-  // }
-
   for (let item of at_a_glance_60_plus) {
     dataHTML_2 += `<tr><td>${item.Name}</td><td>${d3.format(",.0f")(
       item.Rolling_7_day_new_cases
     )}</td><td>${d3.format(",.1f")(
       item.Rolling_7_day_new_cases_per_100000
-    )}</td></tr>`;
+    )}</td><td><img src ='${
+      item.icon_path
+    }' class = "icons_yo"><img></td></tr>`;
   }
+
+  // for (let item of at_a_glance_60_plus) {
+  //   dataHTML_2 += `<tr><td>${item.Name}</td><td>${d3.format(",.0f")(
+  //     item.Rolling_7_day_new_cases
+  //   )}</td><td>${d3.format(",.1f")(
+  //     item.Rolling_7_day_new_cases_per_100000
+  //   )}</td></tr>`;
+  // }
 
   tableBody_2.innerHTML = dataHTML_2;
 }

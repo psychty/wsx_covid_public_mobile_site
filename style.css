@@ -296,9 +296,11 @@ td {
 
 .figure_style {
   margin: 25px;
-  height: 40vh;
+  /* height: 40vh; */
   display: flex;
   justify-content: center;
+  visibility: hidden;
+  height: 0px;
 }
 
 .highlight {
