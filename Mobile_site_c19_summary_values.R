@@ -154,7 +154,27 @@ p12_test_df <- daily_cases_ltla %>%
   bind_rows(daily_cases_utla) %>% 
   bind_rows(daily_cases_region) %>% 
   bind_rows(daily_cases_nation) %>% 
-  unique() %>% 
+  unique() #%>%
+
+first_date <- min(p12_test_df$Date)
+last_case_date <- p12_test_df %>% 
+  filter(New_cases != 0)
+
+last_case_date <- max(last_case_date$Date)
+
+Areas = p12_test_df %>% 
+    select(Name, Code, Type) %>%
+    unique()
+  
+Dates = seq.Date(first_date, last_case_date, by = '1 day')
+
+daily_cases_reworked <- data.frame(Name = rep(Areas$Name, length(Dates)), Code = rep(Areas$Code, length(Dates)), Type = rep(Areas$Type, length(Dates)), check.names = FALSE) %>%
+  arrange(Name) %>%
+  group_by(Name) %>%
+  mutate(Date = seq.Date(first_date, last_case_date, by = '1 day'))
+
+p12_test_df <- daily_cases_reworked %>% 
+  left_join(p12_test_df, by = c('Name', 'Code', 'Type', 'Date')) %>% 
   mutate(Period = format(Date, '%d %B')) %>%
   mutate(Data_completeness = ifelse(Date > complete_date, 'Considered incomplete', 'Complete')) %>% 
   mutate(Cumulative_per_100000 = (Cumulative_cases / Population) * 100000) %>% 
@@ -172,14 +192,6 @@ p12_test_df <- daily_cases_ltla %>%
   mutate(Previous_7_days_sum = lag(Rolling_7_day_new_cases, 7)) %>% 
   ungroup() 
 
-# One way to do this is to create a new dataframe with a row for each area and date, and left join the daily_cases data to it.
-
-first_date <- min(p12_test_df$Date)
-last_case_date <- p12_test_df %>% 
-  filter(New_cases != 0)
-
-last_case_date <- max(last_case_date$Date)
-
 data.frame(Item = 'latest_daily_case', Label = paste0(format(last_case_date, '%A '), ordinal(as.numeric(format(last_case_date, '%d'))), format(last_case_date, ' %B %Y'))) %>% 
   add_row(Item = 'daily_case_update_date',Label = paste0(format(last_date, '%A '), ordinal(as.numeric(format(last_date, '%d'))), format(last_date, ' %B %Y'))) %>% 
   add_row(Item = 'complete_date', Label = paste0(format(complete_date, '%A '), ordinal(as.numeric(format(complete_date, '%d'))), format(complete_date, ' %B %Y')))%>% 
@@ -189,53 +201,6 @@ data.frame(Item = 'latest_daily_case', Label = paste0(format(last_case_date, '%A
   add_row(Item = 'complete_date_actual', Label = format(complete_date, '%d/%m/%y')) %>% 
   toJSON() %>% 
   write_lines(paste0(output_directory_x, '/case_dates.json'))
-
-# Areas = daily_cases %>% 
-#   select(Name, Code, Type) %>% 
-#   unique()
-# 
-# Dates = seq.Date(first_date, last_case_date, by = '1 day')
-# 
-# daily_cases_reworked <- data.frame(Name = rep(Areas$Name, length(Dates)), Code = rep(Areas$Code, length(Dates)), Type = rep(Areas$Type, length(Dates)), check.names = FALSE) %>% 
-#   arrange(Name) %>% 
-#   group_by(Name) %>% 
-#   mutate(Date = seq.Date(first_date, last_case_date, by = '1 day')) %>% 
-#   left_join(daily_cases, by = c('Name', 'Code', 'Type', 'Date')) %>% 
-#   mutate(New_cases = ifelse(is.na(New_cases), 0, New_cases)) %>% 
-#   mutate(New_cumulative = cumsum(New_cases)) %>% 
-#   filter(!is.na(Cumulative_cases)) %>% 
-#   mutate(Calculated_same_as_original = ifelse(Cumulative_cases == New_cumulative, 'Yaas', 'Negative'))
-
-# Case results are generally published in the afternoon and represent cases reported up to 9am of the reporting day. However, cases are assigned to the date of which the specimen was taken rather than when it was reported. This means it will be very unlikely that a specimen would be taken and results returned by 9am of the day of publication. As such, we consider the last five days (four days plus the day of reporting) as incomplete.
-# 
-# p12_test_df <- data.frame(Name = rep(Areas$Name, length(Dates)), Code = rep(Areas$Code, length(Dates)), Type = rep(Areas$Type, length(Dates)), check.names = FALSE) %>% 
-#   arrange(Name) %>% 
-#   group_by(Name) %>% 
-#   mutate(Date = seq.Date(first_date, last_case_date, by = '1 day')) %>% 
-#   mutate(Data_completeness = ifelse(Date > complete_date, 'Considered incomplete', 'Complete')) %>% 
-#   left_join(daily_cases, by = c('Name', 'Code', 'Type', 'Date')) %>% 
-#   mutate(New_cases = ifelse(is.na(New_cases), 0, New_cases)) %>% 
-#   rename(Original_cumulative = Cumulative_cases) %>% # We should keep the original cumulative cases for reference
-#   mutate(Cumulative_cases = cumsum(New_cases)) %>% # These are based on the new cases data being accurate
-#   group_by(Name) %>% 
-#   mutate(Period = format(Date, '%d %B')) %>%
-#   select(-Population) %>% 
-#   left_join(mye_total[c('Code', 'Population')], by = 'Code') %>% 
-#   mutate(Cumulative_per_100000 = (Cumulative_cases / Population) * 100000) %>% 
-#   mutate(New_cases_per_100000 = (New_cases / Population) * 100000) %>% 
-#   ungroup() %>% 
-#   mutate(Name = ifelse(Name == 'South East', 'South East region', Name))  %>% 
-#   group_by(Name) %>% 
-#   mutate(Rolling_7_day_new_cases = rollapply(New_cases, 7, sum, align = 'right', fill = NA)) %>% 
-#   mutate(Rolling_7_day_new_cases_per_100000 = ifelse(is.na(Rolling_7_day_new_cases), NA, (Rolling_7_day_new_cases / Population) * 100000)) %>% 
-#   mutate(Perc_change_on_rolling_7_days_actual = round((Rolling_7_day_new_cases - lag(Rolling_7_day_new_cases, 7))/ lag(Rolling_7_day_new_cases, 7), 2))  %>% 
-#   mutate(Perc_change_on_rolling_7_days_actual = ifelse(Perc_change_on_rolling_7_days_actual == Inf, 1, Perc_change_on_rolling_7_days_actual)) %>% 
-#   mutate(Perc_change_on_rolling_7_days_actual = replace_na(Perc_change_on_rolling_7_days_actual, 0)) %>%
-#   mutate(Rolling_7_day_average_new_cases = rollapply(New_cases, 7, mean, align = 'right', fill = NA)) %>%
-#   mutate(Previous_7_days_sum = lag(Rolling_7_day_new_cases, 7)) %>% 
-#   ungroup() 
-# 
-# rm(daily_cases, Areas, Dates, first_date, mye_total, area_code_names, daily_cases_reworked, query_structure)
 
 Areas <- c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex', 'South East region', 'England')
 
