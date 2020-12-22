@@ -48,12 +48,13 @@ mye_total <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.
   select(-Count) %>% 
   unique()
 
-mye_total %>% 
-  write.csv(., paste0(github_repo_dir,'/Source_files/mye2019_ltla.csv'), row.names = FALSE)
-
 if(exists('mye_total') == FALSE) {
   mye_total <- read_csv(paste0(github_repo_dir,'/Source_files/mye2019_ltla.csv'))
 }
+
+mye_total %>% 
+  write.csv(., paste0(github_repo_dir,'/Source_files/mye2019_ltla.csv'), row.names = FALSE)
+
 
 area_code_names <- mye_total %>% 
   select(Code, Name)
@@ -249,12 +250,12 @@ mye_ages <- read_csv('https://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.
   ungroup() %>% 
   mutate(Name = ifelse(Name == 'South East', 'South East region', Name))
 
-mye_ages %>% 
-  write.csv(., paste0(github_repo_dir,'/Source_files/mye_ages.csv'), row.names = FALSE)
-
 if(exists('mye_ages') == FALSE) {
   mye_ages <- read_csv(paste0(github_repo_dir,'/Source_files/mye_ages.csv'))
 }
+
+mye_ages %>% 
+  write.csv(., paste0(github_repo_dir,'/Source_files/mye_ages.csv'), row.names = FALSE)
 
 age_spec <- read_csv('https://coronavirus.data.gov.uk/downloads/demographic/cases/specimenDate_ageDemographic-unstacked.csv') %>% 
   filter(areaName %in% c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex', 'South East', 'England')) %>% 
@@ -652,13 +653,13 @@ mye_total_raw <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.d
   select(-Count) %>% 
   unique()
 
-mye_total_raw %>% 
-  write.csv(., paste0(github_repo_dir,'/Source_files/mye_ages.csv'), row.names = FALSE)
-
 if(exists('mye_total_raw') == FALSE) {
   mye_total_raw <- read_csv(paste0(github_repo_dir,'/Source_files/mye_total_raw.csv'))
 }
-            
+
+mye_total_raw %>% 
+  write.csv(., paste0(github_repo_dir,'/Source_files/mye_ages.csv'), row.names = FALSE)
+
 area_code_names <- mye_total_raw %>% 
   select(Area_code, Name) %>% 
   rename(Code = Area_code) %>% 
@@ -685,7 +686,7 @@ set_week_start('Friday')
 week_ending <- data.frame(Week_ending = get_date(week = 1:52, year = 2020)) %>% 
   mutate(Week_number = row_number())
 
-download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek',substr(as.character(as.aweek(Sys.Date()-11)), 7,8), '.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
+download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek',substr(as.character(as.aweek(Sys.Date()-11)), 7,8), '1.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
 
 # # if the download does fail, it wipes out the old one, which we can use to our advantage
 if(!file.exists(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'))){
@@ -1046,7 +1047,6 @@ msoa_boundaries_json <- geojson_read("https://opendata.arcgis.com/datasets/23cdb
 
 # download.file("https://opendata.arcgis.com/datasets/23cdb60ee47e4fef8d72e4ee202accb0_0.geojson", paste0(github_repo_dir, '/Source_files/failsafe_msoa_boundary.geojson'), mode = 'wb')
 
-
 df <- data.frame(ID = character())
 
 # Get the IDs of spatial polygon
@@ -1174,7 +1174,6 @@ growth_rate_ltla %>%
   select(Name, Date, Rolling_7_day_rate, Change_actual_by_week) %>% 
   toJSON() %>%
   write_lines(paste0(output_directory_x,'/ltla_growth_complete_date.json'))
-
 
 # Positivity
 positivity_ltla <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=ltla&metric=uniquePeopleTestedBySpecimenDateRollingSum&metric=uniqueCasePositivityBySpecimenDateRollingSum&format=csv') %>% 
