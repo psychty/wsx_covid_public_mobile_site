@@ -690,6 +690,8 @@ week_ending <- data.frame(Week_ending = get_date(week = 1:52, year = 2020)) %>%
 
 download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek',substr(as.character(as.aweek(Sys.Date()-11)), 7,8), '1.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
 
+
+
 # # if the download does fail, it wipes out the old one, which we can use to our advantage
 if(!file.exists(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'))){
   download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek',substr(as.character(as.aweek(Sys.Date()-12)), 7,8), '.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
@@ -1268,9 +1270,11 @@ positivity_worked <- positivity_df %>%
 positivity_worked %>% 
   filter(Date == complete_date)
 
-# positivity_worked %>% 
-#   filter(Date %in% c(max(Date) - 7, max(Date))) %>% 
+# positivity_worked %>%
+#   filter(Date %in% c(complete_date - 7, complete_date)) %>%
 #   view()
+
+library(lemon)
 
 data_dummy_positivity_worked <- positivity_worked %>% 
   rename(dummy_name = Name)

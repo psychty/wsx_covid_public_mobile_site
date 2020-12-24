@@ -133,13 +133,13 @@ d3.select("#case_date_heading").html(function (d) {
   return "New cases in the 7 days to " + complete_date_actual;
 });
 
-// d3.select("#case_date_heading_2").html(function (d) {
-//   return "New cases among 60+ in the 7 days to " + complete_date_actual;
-// });
-
 d3.select("#case_date_heading_2").html(function (d) {
-  return "New cases among 60+ in the 7 days to " + "17/12/20";
+  return "New cases among 60+ in the 7 days to " + complete_date_actual;
 });
+
+// d3.select("#case_date_heading_2").html(function (d) {
+//   return "New cases among 60+ in the 7 days to " + "17/12/20";
+// });
 
 // ! Get data
 var request = new XMLHttpRequest();
@@ -289,25 +289,25 @@ d3.select("#arrow_explainer").html(function (d) {
   );
 });
 
-// d3.select("#arrow_explainer_2").html(function (d) {
-//   return (
-//     "*The arrows denote whether cases among over 60s are increasing (red arrows pointing up) or decreasing (green arrows point down) in the seven days to " +
-//     complete_date +
-//     " compared to the previous week (the seven days to " +
-//     previous_week_period +
-//     "). A blue equals symbol denotes cases have remained the same across the two weeks."
-//   );
-// });
-
 d3.select("#arrow_explainer_2").html(function (d) {
   return (
     "*The arrows denote whether cases among over 60s are increasing (red arrows pointing up) or decreasing (green arrows point down) in the seven days to " +
-    "Thursday 17th December 2020" +
+    complete_date +
     " compared to the previous week (the seven days to " +
-    "Thursday 10th December 2020" +
+    previous_week_period +
     "). A blue equals symbol denotes cases have remained the same across the two weeks."
   );
 });
+
+// d3.select("#arrow_explainer_2").html(function (d) {
+//   return (
+//     "*The arrows denote whether cases among over 60s are increasing (red arrows pointing up) or decreasing (green arrows point down) in the seven days to " +
+//     "Thursday 17th December 2020" +
+//     " compared to the previous week (the seven days to " +
+//     "Thursday 10th December 2020" +
+//     "). A blue equals symbol denotes cases have remained the same across the two weeks."
+//   );
+// });
 
 // ! Daily cases bar chart
 
