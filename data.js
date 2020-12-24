@@ -510,7 +510,7 @@ var daily_average_case_60_bars = svg_daily_case_60_bars
 
 d3.select("#ons_deaths_date").html(function () {
   return (
-    "As such, the data include deaths that occurred up to Friday " +
+    "As such, the data include deaths that occurred up to " +
     deaths_occurring_period +
     " but were registered up to " +
     deaths_registered_period +

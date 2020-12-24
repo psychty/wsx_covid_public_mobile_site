@@ -256,7 +256,7 @@ if(exists('mye_ages') == FALSE) {
 mye_ages %>% 
   write.csv(., paste0(github_repo_dir,'/Source_files/mye_ages.csv'), row.names = FALSE)
 
-#age_spec_ltla <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=ltla&metric=newCasesBySpecimenDateAgeDemographics&format=csv')
+# age_spec_ltla <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=ltla&metric=newCasesBySpecimenDateAgeDemographics&format=csv')
 
 # &metric=newVirusTests&metric=uniqueCasePositivityBySpecimenDateRollingSum
 
@@ -341,7 +341,7 @@ age_spec_10 <- case_age_df_daily %>%
   select(Name, Age, Date, Cases, Cumulative_cases, Rolling_7_day_new_cases, Rolling_7_day_average_new_cases, ASR, Perc_change_on_rolling_7_days_actual, Population)  
 
 age_spec_10_summary_1 <- age_spec_10 %>% 
-  filter(Date == complete_date) %>% 
+  filter(Date == max(Date)) %>% 
   mutate(New_cases_per_100000 = pois.exact(Cases, Population)[[3]]*100000) %>% 
   mutate(Cumulative_per_100000 = pois.exact(Cumulative_cases, Population)[[3]]*100000) %>% 
   rename(New_cases = Cases) %>% 
@@ -368,7 +368,7 @@ age_spec_over_60 <- case_age_df_daily %>%
   mutate(ASR = pois.exact(Rolling_7_day_new_cases, Population)[[3]]*100000) 
 
 age_spec_60_summary_1 <- age_spec_over_60 %>% 
-  filter(Date == complete_date) %>% 
+  filter(Date == max(Date)) %>% 
   mutate(New_cases_per_100000 = pois.exact(Cases, Population)[[3]]*100000) %>% 
   mutate(Cumulative_per_100000 = pois.exact(Cumulative_cases, Population)[[3]]*100000) %>% 
   rename(New_cases = Cases) %>% 
@@ -1178,7 +1178,7 @@ growth_rate_ltla %>%
   write_lines(paste0(output_directory_x,'/ltla_growth_complete_date.json'))
 
 # Positivity
-positivity_ltla <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=ltla&metric=uniquePeopleTestedBySpecimenDateRollingSum&metric=uniqueCasePositivityBySpecimenDateRollingSum&format=csv') %>% 
+positivity_ltla <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=ltla&metric=uniquePeopleTestedBySpecimenDateRollingSum&metric=uniqueCasePositivityBySpecimenDateRollingSum&metric=newVirus&format=csv') %>% 
   filter(substr(areaCode, 1,1) == 'E') %>%
   select(-areaType) %>% 
   rename(Name = areaName,
@@ -1245,4 +1245,68 @@ public_latest_rates_table %>%
   write.csv(., paste0(output_directory_x, '/public_latest_rates_table.csv'), row.names = FALSE)
 
 
-  
+# The number of people who received a PCR test in the previous 7 days, and the percentage of people who received a PCR test in the previous 7 days, who had at least one positive COVID-19 PCR test result.
+
+# Polymerase chain reaction (PCR) tests are lab-based and test for the presence of SARS-CoV-2 virus. This data shows the number of people who received a PCR test in the previous 7 days, and the percentage of people who received a PCR test in the previous 7 days who had at least one positive PCR test result.
+
+# If a person has had more than one test result in the 7-day period, they are only counted once. If any of their tests in that period were positive, they count as one person with a positive test result. The positivity percentage is the number of people with a positive test result, divided by the number of people tested and multiplied by 100.
+
+# Individuals tested more than once in the period are only counted once in the denominator, and those with more than one positive test result in the period are only included once in the numerator.
+
+positivity_worked <- positivity_df %>% 
+  rename(Seven_day_PCR_positivity = uniqueCasePositivityBySpecimenDateRollingSum,
+         Seven_day_PCR_tested_individuals = uniquePeopleTestedBySpecimenDateRollingSum) %>% 
+  group_by(Name) %>% 
+  arrange(Name, Date) %>% 
+  mutate(Perc_change_on_individuals_tested = round((Seven_day_PCR_tested_individuals - lag(Seven_day_PCR_tested_individuals, 7))/ lag(Seven_day_PCR_tested_individuals, 7), 2))  %>% 
+  mutate(Perc_change_on_individuals_tested = ifelse(Perc_change_on_individuals_tested == Inf, 1, Perc_change_on_individuals_tested)) %>% 
+  mutate(Perc_change_on_individuals_tested = replace_na(Perc_change_on_individuals_tested, 0)) %>% 
+  mutate(Name = factor(Name, levels = c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex', 'South East region', 'England'))) %>% 
+  arrange(Name, Date) %>% 
+  filter(Date >= max(Date) - 90)
+
+positivity_worked %>% 
+  filter(Date == complete_date)
+
+# positivity_worked %>% 
+#   filter(Date %in% c(max(Date) - 7, max(Date))) %>% 
+#   view()
+
+data_dummy_positivity_worked <- positivity_worked %>% 
+  rename(dummy_name = Name)
+
+positivity_worked_plotted <- ggplot(positivity_worked,
+       aes(x = Date,
+           y = Seven_day_PCR_positivity,
+           colour = Name)) +
+geom_line(data = data_dummy_positivity_worked,
+                       aes(x = Date,
+                           y = Seven_day_PCR_positivity,
+                           group = dummy_name),
+                       colour = '#dbdbdb',
+                       size = .6) +
+geom_line(size = .9) +
+geom_point(size = .5) +
+ph_theme() +
+theme(axis.text.x = element_text(angle = 90, size = 6),
+        legend.position = 'none') +
+scale_y_continuous(labels = label_comma(accuracy = 1, suffix = '%'),
+                   limits = c(0,12),
+                   breaks = seq(0, 12, 2)) +
+scale_x_date(date_labels = "%b %d",
+               breaks = seq.Date(max(positivity_worked$Date) -(52*7), max(positivity_worked$Date), by = 7),
+               limits = c(min(positivity_worked$Date), max(positivity_worked$Date) + 7),
+               expand = c(0.01,1)) +
+labs(x = '',
+     y = '7-day rolling PCR case positivity rate',
+     title = paste0('7-day PCR Case positivity rate for Covid-19 in the last 90 days; West Sussex, South East region, and England'),
+     subtitle = paste0('Pillar 1 and 2 combined; data as at ', format(last_date, '%d %B')))  +
+theme(axis.text.x = element_text(size = 8)) +
+facet_rep_wrap(. ~ Name, ncol = 4, repeat.tick.labels = TRUE)
+
+png(paste0(output_directory_x, '/Figure_7_day_rolling_positivity_rates_latest_faceted.png'),
+    width = 1480,
+    height = 880,
+    res = 130)
+print(positivity_worked_plotted)
+dev.off()  
