@@ -55,7 +55,6 @@ if(exists('mye_total') == FALSE) {
 mye_total %>% 
   write.csv(., paste0(github_repo_dir,'/Source_files/mye2019_ltla.csv'), row.names = FALSE)
 
-
 area_code_names <- mye_total %>% 
   select(Code, Name)
 
@@ -257,6 +256,10 @@ if(exists('mye_ages') == FALSE) {
 mye_ages %>% 
   write.csv(., paste0(github_repo_dir,'/Source_files/mye_ages.csv'), row.names = FALSE)
 
+#age_spec_ltla <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=ltla&metric=newCasesBySpecimenDateAgeDemographics&format=csv')
+
+# &metric=newVirusTests&metric=uniqueCasePositivityBySpecimenDateRollingSum
+
 age_spec <- read_csv('https://coronavirus.data.gov.uk/downloads/demographic/cases/specimenDate_ageDemographic-unstacked.csv') %>% 
   filter(areaName %in% c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex', 'South East', 'England')) %>% 
   mutate(areaName = ifelse(areaName == 'South East', 'South East region', areaName)) %>% 
@@ -344,8 +347,7 @@ age_spec_10_summary_1 <- age_spec_10 %>%
   rename(New_cases = Cases) %>% 
   select(Name, Date, Age, Cumulative_cases, Cumulative_per_100000, New_cases, New_cases_per_100000, Rolling_7_day_new_cases, ASR, Rolling_7_day_average_new_cases, Perc_change_on_rolling_7_days_actual) %>% 
   rename(Rolling_7_day_new_cases_per_100000 = ASR) %>% 
-  mutate(Change_direction = ifelse(Perc_change_on_rolling_7_days_actual < 0, 'Down', ifelse(Perc_change_on_rolling_7_days_actual == 0, 'Same', ifelse(Perc_change_on_rolling_7_days_actual > 0, 'Up', NA)))) %>% 
-  rename(Rate_date = Date) %>% 
+  mutate(Change_direction = ifelse(Perc_change_on_rolling_7_days_actual < 0, 'Down', ifelse(Perc_change_on_rolling_7_days_actual == 0, 'Same', ifelse(Perc_change_on_rolling_7_days_actual > 0, 'Up', NA)))) %>%   rename(Rate_date = Date) %>% 
   mutate(Cumulative_date = Rate_date)
 
 age_spec_over_60 <- case_age_df_daily %>% 
