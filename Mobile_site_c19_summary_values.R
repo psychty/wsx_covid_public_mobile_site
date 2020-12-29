@@ -154,7 +154,7 @@ p12_test_df <- daily_cases_ltla %>%
   bind_rows(daily_cases_utla) %>% 
   bind_rows(daily_cases_region) %>% 
   bind_rows(daily_cases_nation) %>% 
-  unique() #%>%
+  unique() 
 
 first_date <- min(p12_test_df$Date)
 last_case_date <- p12_test_df %>% 
@@ -634,6 +634,12 @@ trust_admission_date %>%
   toJSON() %>% 
   write_lines(paste0(output_directory_x,'/trust_meta.json'))
 
+trust_admissions_5 %>% 
+  rename(Patients_occupying_MV_beds = Patients_occupying_beds) %>% 
+  left_join(trust_admissions_4, by = c('Name', 'Date')) %>% 
+  toJSON() %>% 
+  write_lines(paste0(output_directory_x,'/trust_bed_occupancy_df.json'))
+
 # capacity <- read_csv(paste0('https://api.coronavirus.data.gov.uk/v2/data?areaType=', area_level, '&metric=capacityPillarFour&metric=capacityPillarOne&metric=capacityPillarOneTwo&metric=capacityPillarThree&format=csv'))
 
 # mortality ####
@@ -689,8 +695,6 @@ week_ending <- data.frame(Week_ending = get_date(week = 1:52, year = 2020)) %>%
   mutate(Week_number = row_number())
 
 download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek',substr(as.character(as.aweek(Sys.Date()-11)), 7,8), '1.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
-
-
 
 # # if the download does fail, it wipes out the old one, which we can use to our advantage
 if(!file.exists(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'))){
@@ -1270,9 +1274,10 @@ positivity_worked <- positivity_df %>%
 positivity_worked %>% 
   filter(Date == complete_date)
 
-# positivity_worked %>%
-#   filter(Date %in% c(complete_date - 7, complete_date)) %>%
-#   view()
+positivity_worked %>%
+ select(!Code) %>% 
+ toJSON() %>% 
+  write_lines(paste0(output_directory_x, '/positivity_df.json'))
 
 library(lemon)
 
