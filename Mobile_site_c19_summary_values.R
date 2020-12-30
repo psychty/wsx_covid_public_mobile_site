@@ -464,6 +464,20 @@ trust_admissions_1 <- read_excel( paste0(github_repo_dir,'/Source_files/trust_ad
   filter(Name %in% c('England', 'South East', 'Western Sussex Hospitals NHS Foundation Trust', 'Surrey and Sussex Healthcare NHS Trust', 'Sussex Community NHS Foundation Trust', 'Brighton and Sussex University Hospitals NHS Trust')) %>% 
   select(!c('Type 1 Acute?', 'NHS England Region', 'Code'))
 
+trust_admissions_1_ch <- read_excel( paste0(github_repo_dir,'/Source_files/trust_admissions.xlsx'),
+                                  sheet = 'Care home ads and diags',
+                                  skip = 13) %>% 
+  filter(!is.na(Name)) %>% 
+  mutate(Name = capwords(Name, strict = TRUE)) %>% 
+  mutate(Name = gsub('Nhs', 'NHS', Name)) %>% 
+  mutate(Name = gsub(' And ', ' and ', Name)) %>% 
+  mutate(Name = gsub('Cic', 'CIC', Name)) %>% 
+  mutate(Name = gsub('C.i.c', 'C.I.C', Name)) %>% 
+  pivot_longer(names_to = 'Date', values_to = 'Care_home_admissions_or_new_cases_in_last_24hrs', cols = 5:ncol(.)) %>% 
+  mutate(Date = as.Date(as.numeric(Date), origin = "1899-12-30"))  %>% 
+  filter(Name %in% c('England', 'South East', 'Western Sussex Hospitals NHS Foundation Trust', 'Surrey and Sussex Healthcare NHS Trust', 'Sussex Community NHS Foundation Trust', 'Brighton and Sussex University Hospitals NHS Trust')) %>% 
+  select(!c('Type 1 Acute?', 'NHS England Region', 'Code'))
+
 trust_admissions_2 <- read_excel( paste0(github_repo_dir,'/Source_files/trust_admissions.xlsx'),
                                 sheet = 'New hosp cases',
                                 skip = 13) %>% 
@@ -694,7 +708,8 @@ set_week_start('Friday')
 week_ending <- data.frame(Week_ending = get_date(week = 1:52, year = 2020)) %>% 
   mutate(Week_number = row_number())
 
-download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek',substr(as.character(as.aweek(Sys.Date()-11)), 7,8), '1.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
+download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek',substr(as.character(as.aweek(Sys.Date()-11)), 7,8), '.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
+
 
 # # if the download does fail, it wipes out the old one, which we can use to our advantage
 if(!file.exists(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'))){

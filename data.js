@@ -410,6 +410,16 @@ var daily_average_case_bars = svg_daily_case_bars
       })
   );
 
+// ! Positivity and number of tests
+
+// var svg_positivity_figure = d3
+//   .select("#positivity_figure")
+//   .append("svg")
+//   .attr("width", width) // This compensates for the 25px margin styling
+//   .attr("height", height)
+//   .append("g")
+//   .attr("transform", "translate(" + width_margin + "," + 0 + ")");
+
 // ! Over 60s bars
 
 var bars_daily_cases_60_chosen = case_data.filter(function (d) {
