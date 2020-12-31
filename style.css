@@ -433,6 +433,14 @@ td {
     margin-right: 25px;
     z-index: 1;
   }
+
+  #ltla_primary_schools_map {
+    height: 40vh;
+    width: auto;
+    margin-left: 25px;
+    margin-right: 25px;
+    z-index: 1;
+  }
 }
 
 @media screen and (max-width: 600px) {
