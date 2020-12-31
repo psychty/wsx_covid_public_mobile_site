@@ -1607,6 +1607,82 @@ $.when(ltla_restrictions).done(function () {
   ltla_map_restrictions.fitBounds(ltla_restrictions_hcl.getBounds());
 });
 
+// ! primary schools
+
+var open_type = ["All pupils", "Restricted"];
+
+var primary_school_colours = ["#74cce1", "#ff0c0c"];
+
+var primary_school_colour_func = d3
+  .scaleOrdinal()
+  .domain(open_type)
+  .range(primary_school_colours);
+
+var primary_school_label_func = d3
+  .scaleOrdinal()
+  .domain(open_type)
+  .range(
+    "All primary school pupils are expected to return as normal.",
+    "Primary schools should restrict on site education to vulnerable children and children of critical workers."
+  );
+
+// Add AJAX request for data
+var ltla_primary = $.ajax({
+  url: "./Outputs/ltla_covid_latest.geojson",
+  dataType: "json",
+  success: console.log(
+    "LTLA boundary for primary schools opening successfully loaded."
+  ),
+  error: function (xhr) {
+    alert(xhr.statusText);
+  },
+});
+
+function primary_ltla_colour(d) {
+  return d === open_type[0]
+    ? primary_school_colours[0]
+    : d === open_type[1]
+    ? primary_school_colours[1]
+    : "#feebe2";
+}
+
+function style_primary(feature) {
+  return {
+    fillColor: primary_ltla_colour(feature.properties.Primary_schools),
+    weight: 1,
+    opacity: 0.6,
+    color: "white",
+    dashArray: "3",
+    fillOpacity: 1,
+  };
+}
+
+$.when(ltla_primary).done(function () {
+  var ltla_map_primary = L.map("ltla_primary_schools_map");
+
+  var basemap_primary = L.tileLayer(tileUrl, {
+    attribution,
+    minZoom: 5,
+  }).addTo(ltla_map_primary);
+
+  var ltla_primary_hcl = L.geoJSON(ltla_primary.responseJSON, {
+    style: style_primary,
+  })
+    .addTo(ltla_map_primary)
+    .bindPopup(function (layer) {
+      return (
+        "<b>" +
+        layer.feature.properties.Name +
+        "</b><br>" +
+        layer.feature.properties.Primary_schools
+      );
+    });
+
+  ltla_map_primary.fitBounds(ltla_primary_hcl.getBounds());
+});
+
+// ! Icons
+
 if (width < 1300) {
   var scaled_icon_size = 30;
 }

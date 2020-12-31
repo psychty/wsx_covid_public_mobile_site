@@ -1109,7 +1109,7 @@ ltla_summary_2 <- p12_test_df %>%
 
 ltla_summary <- ltla_summary_1 %>% 
   left_join(ltla_summary_2, by = 'Name') %>% 
-  left_join(read_csv(paste0(github_repo_dir, '/Source_files/ltla_tiers.csv'))[c('Area code', 'Name', 'Tier')], by = 'Name') %>% 
+  left_join(read_csv(paste0(github_repo_dir, '/Source_files/ltla_tiers.csv'))[c('Area code', 'Name', 'Tier', 'Primary_schools')], by = 'Name') %>% 
   mutate(Change_label = ifelse(Change_direction == 'Down', paste0('decreased by ', format(abs(Previous_7_days_sum - Rolling_7_day_new_cases), big.mark = ',', trim = TRUE), ' cases (', round(abs(Perc_change_on_rolling_7_days_actual) * 100,1), '%)'),ifelse(Change_direction == 'Up', paste0('increased by ',   format(abs(Previous_7_days_sum - Rolling_7_day_new_cases), big.mark = ',', trim = TRUE), ' cases (', round(abs(Perc_change_on_rolling_7_days_actual) * 100,1), '%)'), 'stayed the same.'))) %>% 
   unique()
 

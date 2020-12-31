@@ -312,9 +312,14 @@ td {
   width: 600px;
   margin: auto;
   z-index: 1;
-  /* background: red; */
 }
 
+#ltla_primary_schools_map {
+  height: 50vh;
+  width: 600px;
+  margin: auto;
+  z-index: 1;
+}
 @media screen and (max-width: 1400px) {
   p {
     font-size: 0.9rem;
