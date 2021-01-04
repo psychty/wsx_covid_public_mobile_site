@@ -1315,8 +1315,8 @@ ph_theme() +
 theme(axis.text.x = element_text(angle = 90, size = 6),
         legend.position = 'none') +
 scale_y_continuous(labels = label_comma(accuracy = 1, suffix = '%'),
-                   limits = c(0,12),
-                   breaks = seq(0, 12, 2)) +
+                   limits = c(0,30),
+                   breaks = seq(0, 30, 5)) +
 scale_x_date(date_labels = "%b %d",
                breaks = seq.Date(max(positivity_worked$Date) -(52*7), max(positivity_worked$Date), by = 7),
                limits = c(min(positivity_worked$Date), max(positivity_worked$Date) + 7),
