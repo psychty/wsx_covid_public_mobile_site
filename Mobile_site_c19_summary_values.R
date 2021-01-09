@@ -175,7 +175,7 @@ daily_cases_reworked <- data.frame(Name = rep(Areas$Name, length(Dates)), Code =
 
 p12_test_df <- daily_cases_reworked %>% 
   left_join(p12_test_df, by = c('Name', 'Code', 'Type', 'Date')) %>% 
-  mutate(Period = format(Date, '%d %B')) %>%
+  mutate(Period = format(Date, '%d %B %Y')) %>%
   mutate(Data_completeness = ifelse(Date > complete_date, 'Considered incomplete', 'Complete')) %>% 
   mutate(Cumulative_per_100000 = (Cumulative_cases / Population) * 100000) %>% 
   mutate(New_cases_per_100000 = (New_cases / Population) * 100000) %>% 
@@ -195,8 +195,8 @@ p12_test_df <- daily_cases_reworked %>%
 data.frame(Item = 'latest_daily_case', Label = paste0(format(last_case_date, '%A '), ordinal(as.numeric(format(last_case_date, '%d'))), format(last_case_date, ' %B %Y'))) %>% 
   add_row(Item = 'daily_case_update_date',Label = paste0(format(last_date, '%A '), ordinal(as.numeric(format(last_date, '%d'))), format(last_date, ' %B %Y'))) %>% 
   add_row(Item = 'complete_date', Label = paste0(format(complete_date, '%A '), ordinal(as.numeric(format(complete_date, '%d'))), format(complete_date, ' %B %Y')))%>% 
-  add_row(Item = 'first_case_period', Label =  format(first_date, '%d %B')) %>% 
-  add_row(Item = 'last_case_period', Label =  format(last_case_date, '%d %B')) %>% 
+  add_row(Item = 'first_case_period', Label =  format(first_date, '%d %B %Y')) %>% 
+  add_row(Item = 'last_case_period', Label =  format(last_case_date, '%d %B %Y')) %>% 
   add_row(Item = 'previous_week_period', Label =  format(complete_date -7, '%A %d %B %Y')) %>% 
   add_row(Item = 'complete_date_actual', Label = format(complete_date, '%d/%m/%y')) %>% 
   toJSON() %>% 
@@ -418,7 +418,7 @@ daily_cases_df <- p12_test_df %>%
   mutate(Data_completeness = ifelse(Date > complete_date, 'Considered incomplete', 'Complete'))
 
 daily_cases_df %>% 
-  mutate(Period = format(Date, '%d %B')) %>% 
+  mutate(Period = format(Date, '%d %B %Y')) %>% 
   toJSON() %>% 
   write_lines(paste0(output_directory_x, '/daily_cases.json'))
 
@@ -1324,7 +1324,7 @@ scale_x_date(date_labels = "%b %d",
 labs(x = '',
      y = '7-day rolling PCR case positivity rate',
      title = paste0('7-day PCR Case positivity rate for Covid-19 in the last 90 days; West Sussex, South East region, and England'),
-     subtitle = paste0('Pillar 1 and 2 combined; data as at ', format(last_date, '%d %B')))  +
+     subtitle = paste0('Pillar 1 and 2 combined; data as at ', format(last_date, '%d %B %Y')))  +
 theme(axis.text.x = element_text(size = 8)) +
 facet_rep_wrap(. ~ Name, ncol = 4, repeat.tick.labels = TRUE)
 
