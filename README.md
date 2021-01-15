@@ -19,4 +19,4 @@ As more data becomes available, more will be added to the data visualisation.
 You can view the mobile site [here](https://wsx-c19-mobile.netlify.app).
 You can view the desktop site [here](https://wsx-c19-weekly-supplement.netlify.app).
 
-This version is hosted on netlify. [[![Netlify Status](https://api.netlify.com/api/v1/badges/c8151007-9bc4-4f3f-a28a-86e95d5404ab/deploy-status)](https://app.netlify.com/sites/wsx-c19-weekly-supplement/deploys)
+This version is hosted on netlify. [![Netlify Status](https://api.netlify.com/api/v1/badges/455989c9-e987-494b-abf2-9c9e4102f8cb/deploy-status)](https://app.netlify.com/sites/wsx-c19-mobile/deploys)
