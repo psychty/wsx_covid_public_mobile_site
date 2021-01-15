@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 [{"Item":"latest_daily_case","Label":"Wednesday 13th January 2021"},{"Item":"daily_case_update_date","Label":"Thursday 14th January 2021"},{"Item":"complete_date","Label":"Saturday 9th January 2021"},{"Item":"first_case_period","Label":"30 January 2020"},{"Item":"last_case_period","Label":"13 January 2021"},{"Item":"previous_week_period","Label":"Saturday 02 January 2021"},{"Item":"complete_date_actual","Label":"09/01/21"}]
+=======
+[{"Item":"latest_daily_case","Label":"Tuesday 12th January 2021"},{"Item":"daily_case_update_date","Label":"Wednesday 13th January 2021"},{"Item":"complete_date","Label":"Friday 8th January 2021"},{"Item":"first_case_period","Label":"30 January 2020"},{"Item":"last_case_period","Label":"12 January 2021"},{"Item":"previous_week_period","Label":"Friday 01 January 2021"},{"Item":"complete_date_actual","Label":"08/01/21"}]
+>>>>>>> 072e276e96bf3a76bd4ab59997ebd273f7af423a

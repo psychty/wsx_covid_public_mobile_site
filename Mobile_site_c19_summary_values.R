@@ -705,10 +705,12 @@ mye_total <- mye_total %>%
 
 set_week_start('Friday')
 
-week_ending <- data.frame(Week_ending = get_date(week = 1:52, year = 2020)) %>% 
+week_ending <- data.frame(Week_ending = get_date(week = 1:53, year = 2020)) %>% 
   mutate(Week_number = row_number())
 
 download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek',substr(as.character(as.aweek(Sys.Date()-11)), 7,8), '.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
+
+download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek53.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
 
 
 # # if the download does fail, it wipes out the old one, which we can use to our advantage
@@ -787,7 +789,7 @@ deaths_labels <- Occurrences %>%
   arrange(Week_number) %>% 
   select(Week_ending) %>% 
   unique() %>% 
-  mutate(deaths_label = paste0('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, ' %b')))
+  mutate(deaths_label = paste0('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, ' %b %y')))
 
 # calculating release date 
 Occurrences_meta_1 <- week_ending %>% 
@@ -803,7 +805,7 @@ Occurrences_meta_2 <- data.frame(Week_number = numeric(), Item = character()) %>
   add_row(Week_number = max(Occurrences$Week_number),
           Item = 'Last_week') %>% 
   left_join(week_ending, by = 'Week_number') %>% 
-  mutate(Label = paste0('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, ' %b'))) %>% 
+  mutate(Label = paste0('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, ' %b %y'))) %>% 
   rename(value = Week_ending)
 
 Occurrences_meta_1 %>%
@@ -817,7 +819,7 @@ weekly_all_place_all_deaths <- Occurrences %>%
   group_by(Name, Week_ending) %>% 
   summarise(Deaths = sum(Deaths, na.rm = TRUE)) %>% 
   select(Name, Week_ending, Deaths) %>% 
-  mutate(Week_ending = factor(paste0('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, ' %b')), levels = deaths_labels$deaths_label)) %>% 
+  mutate(Week_ending = factor(paste0('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, ' %b %y')), levels = deaths_labels$deaths_label)) %>% 
   rename(All_deaths = Deaths)
 
 All_settings_occurrences <- Occurrences %>% 
@@ -832,7 +834,7 @@ weekly_all_place_deaths <- All_settings_occurrences %>%
   filter(Name %in% Areas) %>%
   arrange(Week_number) %>% 
   select(Name, Cause, Week_ending, Deaths) %>% 
-  mutate(Week_ending = factor(paste0('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, ' %b')), levels = deaths_labels$deaths_label)) %>% 
+  mutate(Week_ending = factor(paste0('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, ' %b %y')), levels = deaths_labels$deaths_label)) %>% 
   pivot_wider(id_cols = c(Name, Week_ending),
               names_from = Cause,
               values_from = Deaths) %>% 
@@ -902,7 +904,7 @@ all_deaths_json_export <- All_settings_occurrences %>%
   mutate(Cumulative_deaths_all_cause = cumsum(`All causes`)) %>%
   mutate(Cumulative_covid_deaths = cumsum(`Covid-19`)) %>%
   mutate(Cumulative_deaths_label = paste0('As at ', format(Week_ending, '%d %B %Y'), ' in ', Name, ' the total cumulative number of deaths for 2020 was<b> ', format(Cumulative_deaths_all_cause, big.mark = ',', trim = TRUE), '</b>. The cumulative number of deaths where Covid-19 is recorded as a cause by this date was ', format(Cumulative_covid_deaths, big.mark = ',', trim = TRUE), '. This is ', round((Cumulative_covid_deaths/Cumulative_deaths_all_cause) * 100, 1), '% of deaths occuring by this week.')) %>%
-  mutate(Date_label = factor(paste0('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, ' %b')), levels = deaths_labels$deaths_label))
+  mutate(Date_label = factor(paste0('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, ' %b %y')), levels = deaths_labels$deaths_label))
 
 all_deaths_json_export %>% 
   select(Name, Date_label, Week_number, `Covid-19`, `Not attributed to Covid-19`, Cumulative_covid_deaths, Cumulative_deaths_all_cause) %>%
@@ -922,7 +924,7 @@ carehome_deaths_json_export <- Occurrences %>%
   filter(Place_of_death %in% 'Care home') %>%
   arrange(Week_number) %>%
   select(Name, Cause, Week_ending, Week_number, Deaths) %>%
-  mutate(Date_label = factor(paste0('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, ' %b')), levels = deaths_labels$deaths_label)) %>%
+  mutate(Date_label = factor(paste0('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, ' %b %y')), levels = deaths_labels$deaths_label)) %>%
   pivot_wider(id_cols = c(Name, Week_ending, Week_number, Date_label),
               names_from = Cause,
               values_from = Deaths) %>%

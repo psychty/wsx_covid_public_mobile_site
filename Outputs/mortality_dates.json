@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 [{"Week_number":1,"Item":"First_week","value":"2020-01-03","Label":"w/e 3rd Jan"},{"Week_number":53,"Item":"Last_week","Label":"w/e NANA"}]
+=======
+[{"Week_number":53,"Item":"Week_ending","value":"2021-01-01","Label":"Friday 01 January"},{"Week_number":53,"Item":"registered_by","value":"2021-01-09","Label":"Saturday 09 January"},{"Week_number":53,"Item":"published_on","value":"2021-01-12","Label":"Tuesday 12 January"},{"Week_number":1,"Item":"First_week","value":"2020-01-03","Label":"w/e 3rd Jan 20"},{"Week_number":53,"Item":"Last_week","value":"2021-01-01","Label":"w/e 1st Jan 21"}]
+>>>>>>> 072e276e96bf3a76bd4ab59997ebd273f7af423a
