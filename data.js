@@ -1433,14 +1433,24 @@ $(document).on("click", "#btnPostcode", function () {
         return d.Change_label;
       });
 
+    // d3.select("#local_case_summary_4")
+    //   .data(ltla_summary_data_chosen)
+    //   .html(function (d) {
+    //     return (
+    //       "This local area is within <b>" +
+    //       chosen_ltla +
+    //       "</b> which is currently in <b class = 'tier'>" +
+    //       d.Tier +
+    //       "</b>."
+    //     );
+    //   });
+
     d3.select("#local_case_summary_4")
       .data(ltla_summary_data_chosen)
       .html(function (d) {
         return (
           "This local area is within <b>" +
           chosen_ltla +
-          "</b> which is currently in <b class = 'tier'>" +
-          d.Tier +
           "</b>."
         );
       });
