@@ -1109,11 +1109,15 @@ msoa_cases <- msoa_cases_raw %>%
   #  filter(MSOA11NM %in% se_msoas$MSOA11NM) %>%
   arrange(MSOA11NM)
 
-msoa_boundaries_json <- geojson_read("https://opendata.arcgis.com/datasets/23cdb60ee47e4fef8d72e4ee202accb0_0.geojson",  what = "sp") %>% 
-  filter(MSOA11NM %in% msoa_cases$MSOA11NM) %>%
-  arrange(MSOA11NM)
+# msoa_boundaries_json <- geojson_read("https://opendata.arcgis.com/datasets/e680000c6806493ca126c3ef98fdae19_0.geojson",  what = "sp") %>% 
+#   filter(MSOA11NM %in% msoa_cases$MSOA11NM) %>%
+#   arrange(MSOA11NM)
 
 # download.file("https://opendata.arcgis.com/datasets/23cdb60ee47e4fef8d72e4ee202accb0_0.geojson", paste0(github_repo_dir, '/Source_files/failsafe_msoa_boundary.geojson'), mode = 'wb')
+
+msoa_boundaries_json <- geojson_read(paste0(github_repo_dir, '/Source_files/failsafe_msoa_boundary.geojson'),  what = "sp") %>% 
+  filter(MSOA11NM %in% msoa_cases$MSOA11NM) %>%
+  arrange(MSOA11NM)
 
 df <- data.frame(ID = character())
 
@@ -1309,7 +1313,6 @@ public_latest_rates_table %>%
   arrange(Name) %>% 
   mutate(Date = complete_date) %>% 
   write.csv(., paste0(output_directory_x, '/public_latest_rates_table.csv'), row.names = FALSE)
-
 
 # The number of people who received a PCR test in the previous 7 days, and the percentage of people who received a PCR test in the previous 7 days, who had at least one positive COVID-19 PCR test result.
 
