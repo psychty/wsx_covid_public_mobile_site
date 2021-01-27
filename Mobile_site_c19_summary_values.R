@@ -37,7 +37,7 @@ ph_theme = function(){
 github_repo_dir <- "~/GitHub/wsx_covid_public_mobile_site"
 output_directory_x <- paste0(github_repo_dir, '/Outputs')
 
-list.files(output_directory_x)
+#list.files(output_directory_x)
 # 2019 MYE
 
 mye_total <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.csv?geography=1816133633...1816133848,1820327937...1820328318,2092957697...2092957703,2013265921...2013265932&date=latest&gender=0&c_age=200&measures=20100&select=date_name,geography_name,geography_type,geography_code,obs_value') %>% 
@@ -822,8 +822,6 @@ deaths_labels <- Occurrences %>%
   unique() %>% 
   mutate(deaths_label = paste0('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, ' %b %y')))
 
-
-
 # calculating release date 
 Occurrences_meta_1 <- week_ending %>% 
   filter(Week_ending == max(Occurrences$Week_ending)) %>% 
@@ -1381,4 +1379,4 @@ png(paste0(output_directory_x, '/Figure_7_day_rolling_positivity_rates_latest_fa
     height = 880,
     res = 130)
 print(positivity_worked_plotted)
-dev.off()  
+dev.off()
