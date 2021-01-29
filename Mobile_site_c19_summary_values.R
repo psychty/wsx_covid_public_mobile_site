@@ -428,6 +428,24 @@ daily_cases_df %>%
   toJSON() %>% 
   write_lines(paste0(output_directory_x, '/daily_cases.json'))
 
+cases_this_week <- daily_cases_df %>% 
+  filter(Name == 'West Sussex',
+         Age == 'All ages',
+         Date == complete_date)
+
+cases_last_week <- daily_cases_df %>% 
+  filter(Name == 'West Sussex',
+         Age == 'All ages',
+         Date == complete_date - 7)
+
+change_between_weeks <- cases_this_week$Rolling_7_day_new_cases - cases_last_week$Rolling_7_day_new_cases
+
+change_direction_between_weeks <- ifelse(cases_this_week$Rolling_7_day_new_cases - cases_last_week$Rolling_7_day_new_cases == 0, 'SAME', ifelse(cases_this_week$Rolling_7_day_new_cases - cases_last_week$Rolling_7_day_new_cases < 0, 'DOWN',  ifelse(cases_this_week$Rolling_7_day_new_cases - cases_last_week$Rolling_7_day_new_cases > 0, 'UP', NA)))
+
+total_so_far <- p12_test_df %>% 
+  filter(Name == 'West Sussex',
+         Date == max(Date))
+
 # Hospital admissions ####
 
 # Hospital provider trusts do not have geographically defined boundaries for their population nor do they have complete lists of registered patients. However, modeled estimates of the catchment populations for hospital provider trusts in England are provided by Public Health England (PHE). These experimental statistics estimates the number of people who are using each hospital trust or have the potential to do so. Individual acute trusts sometimes use varying methods to define the population they serve, such as patient flow, CCG derived or travel time based estimates. PHE published modelled estimates use the patient flow method.
