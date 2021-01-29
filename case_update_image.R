@@ -195,7 +195,6 @@ if(change_direction_between_weeks == 'SAME'){
                       fontface = 'bold'))  
 }
 
-
 grid.text(paste0('In the seven days to ', format(complete_date, '%A '), ordinal(as.numeric(format(complete_date, '%d'))), format(complete_date, ' %B'), ',  there were'),
           just = "left",  
           x = unit(0.04, "npc"), 
