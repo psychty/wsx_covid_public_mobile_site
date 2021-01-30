@@ -241,6 +241,98 @@ grid.text(paste0(format(total_so_far$Cumulative_cases, big.mark = ','), ' confir
                     fontfamily = 'Verdana',
                     fontface = 'bold'))
 
+# Table ####
+
+grid.rect(x = unit(0.54, "npc"), 
+          y = unit(0.48, "npc"), 
+          width = unit(.44, "npc"), 
+          height = unit(0.5, "npc"), 
+          just = "left", 
+          default.units = "npc", 
+          gp=gpar(fill = "#ffffff", col = "#ffffff"), 
+          draw = TRUE, 
+          vp = NULL)
+
+latest_table <- public_latest_rates_table %>% 
+  select(Name, Cases, `Rate per 100,000`) %>% 
+  mutate(Name = factor(Name, levels = c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex', 'South East region', 'England'))) %>% 
+  arrange(Name)
+
+# seven_day_heading <- paste0('Cases in the 7 days to ', format(complete_date, '%d/%m/%y'))
+
+grid.text('Area',
+          just = "left",  
+          x = unit(0.55, "npc"), 
+          y = unit(0.7, "npc"), 
+          gp = gpar(col = "#000000", 
+                    fontsize = "9", 
+                    fontfamily = 'Verdana',
+                    fontface = 'bold'))
+
+grid.text('Cases in the seven',
+          just = "right",  
+          x = unit(0.79, "npc"), 
+          y = unit(0.7, "npc"), 
+          gp = gpar(col = "#000000", 
+                    fontsize = "9", 
+                    fontfamily = 'Verdana',
+                    fontface = 'bold'))
+
+grid.text(paste0('days to ', format(complete_date, '%d/%m/%y')),
+          just = "right",  
+          x = unit(0.79, "npc"), 
+          y = unit(0.67, "npc"), 
+          gp = gpar(col = "#000000", 
+                    fontsize = "9", 
+                    fontfamily = 'Verdana',
+                    fontface = 'bold'))
+
+grid.text('Rate per 100,000',
+          just = "right",  
+          x = unit(0.98, "npc"), 
+          y = unit(0.7, "npc"), 
+          gp = gpar(col = "#000000", 
+                    fontsize = "9", 
+                    fontfamily = 'Verdana',
+                    fontface = 'bold'))
+
+grid.text('population (all ages)',
+          just = "right",  
+          x = unit(0.98, "npc"), 
+          y = unit(0.67, "npc"), 
+          gp = gpar(col = "#000000", 
+                    fontsize = "9", 
+                    fontfamily = 'Verdana',
+                    fontface = 'bold'))
+
+grid.lines(x = c(0.54,0.98),
+           y = 0.645, 
+           default.units = "npc", 
+           gp = gpar(col = "#333333", 
+                     # lty = "dotted", 
+                     lwd = 1.2))
+
+grid.lines(x = c(0.54,0.98),
+           y = 0.73, 
+           default.units = "npc", 
+           gp = gpar(col = "#333333", 
+                     # lty = "dotted", 
+                     lwd = 1.2))
+
+grid.lines(x = c(0.54,0.98),
+           y = 0.3, 
+           default.units = "npc", 
+           gp = gpar(col = "#333333", 
+                     # lty = "dotted", 
+                     lwd = 1.2))
+
+grid.lines(x = c(0.54,0.98),
+           y = 0.225, 
+           default.units = "npc", 
+           gp = gpar(col = "#333333", 
+                     # lty = "dotted", 
+                     lwd = 1.2))
+# Banner bottom ####
 
 grid.rect(x = unit(0.5, "npc"), 
           y = unit(0.05, "npc"), 
@@ -303,14 +395,9 @@ grid.text(paste0('because data for more recent days are considered incomplete.')
                     fontsize = "7", 
                     fontfamily = 'Verdana'))
 
-# grid.text(paste("West Sussex Public Health Outcomes (Data correct as of ", format(Sys.Date(), "%B %Y"), ")", sep = ""), just = "left",  x = unit(0.025, "npc"), y = unit(.97, "npc"), gp = gpar(col = "#ffffff", fontsize = "12", fontface = "bold"))
-
-# Icon for the week
-# grid.circle(x = 0.775, y = 0.94  , r = 0.04, default.units = "npc", name = NULL, gp = gpar(fill = '#ffffff', col = "#333333"), draw = TRUE, vp = NULL)
-
 grid.raster(wscc_logo, 
             y = unit(0.92, "npc"), 
-            x = unit(0.85, "npc"), 
+            x = unit(0.84, "npc"), 
             vjust = 1, 
             hjust = 0, 
             width = .12)
