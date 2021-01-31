@@ -243,15 +243,17 @@ grid.text(paste0(format(total_so_far$Cumulative_cases, big.mark = ','), ' confir
 
 # Table ####
 
-grid.rect(x = unit(0.54, "npc"), 
-          y = unit(0.48, "npc"), 
-          width = unit(.44, "npc"), 
-          height = unit(0.5, "npc"), 
-          just = "left", 
-          default.units = "npc", 
-          gp=gpar(fill = "#ffffff", col = "#ffffff"), 
-          draw = TRUE, 
-          vp = NULL)
+text_colour <- '#ffffff'
+
+# grid.rect(x = unit(0.54, "npc"), 
+#           y = unit(0.48, "npc"), 
+#           width = unit(.44, "npc"), 
+#           height = unit(0.5, "npc"), 
+#           just = "left", 
+#           default.units = "npc", 
+#           gp=gpar(fill = "#ffffff", col = "#ffffff"), 
+#           draw = TRUE, 
+#           vp = NULL)
 
 latest_table <- public_latest_rates_table %>% 
   select(Name, Cases, `Rate per 100,000`) %>% 
@@ -263,17 +265,18 @@ latest_table <- public_latest_rates_table %>%
 grid.text('Area',
           just = "left",  
           x = unit(0.55, "npc"), 
-          y = unit(0.7, "npc"), 
-          gp = gpar(col = "#000000", 
+          y = unit(0.71, "npc"), 
+          gp = gpar(col = text_colour, 
                     fontsize = "9", 
                     fontfamily = 'Verdana',
                     fontface = 'bold'))
 
+
 grid.text('Cases in the seven',
           just = "right",  
           x = unit(0.79, "npc"), 
-          y = unit(0.7, "npc"), 
-          gp = gpar(col = "#000000", 
+          y = unit(0.71, "npc"), 
+          gp = gpar(col = text_colour, 
                     fontsize = "9", 
                     fontfamily = 'Verdana',
                     fontface = 'bold'))
@@ -282,7 +285,7 @@ grid.text(paste0('days to ', format(complete_date, '%d/%m/%y')),
           just = "right",  
           x = unit(0.79, "npc"), 
           y = unit(0.67, "npc"), 
-          gp = gpar(col = "#000000", 
+          gp = gpar(col = text_colour, 
                     fontsize = "9", 
                     fontfamily = 'Verdana',
                     fontface = 'bold'))
@@ -290,8 +293,8 @@ grid.text(paste0('days to ', format(complete_date, '%d/%m/%y')),
 grid.text('Rate per 100,000',
           just = "right",  
           x = unit(0.98, "npc"), 
-          y = unit(0.7, "npc"), 
-          gp = gpar(col = "#000000", 
+          y = unit(0.71, "npc"), 
+          gp = gpar(col = text_colour, 
                     fontsize = "9", 
                     fontfamily = 'Verdana',
                     fontface = 'bold'))
@@ -300,10 +303,47 @@ grid.text('population (all ages)',
           just = "right",  
           x = unit(0.98, "npc"), 
           y = unit(0.67, "npc"), 
-          gp = gpar(col = "#000000", 
+          gp = gpar(col = text_colour, 
                     fontsize = "9", 
                     fontfamily = 'Verdana',
                     fontface = 'bold'))
+
+areas_to_loop <- c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex')
+
+for(i in 1:length(areas_to_loop)){
+  
+  area_x <- areas_to_loop[i]
+  
+  seven_day_area_x <- latest_table %>% 
+    filter(Name == area_x)
+  
+  interval_pos <- .05
+  
+  grid.text(area_x,
+            just = "left",  
+            x = unit(0.55, "npc"), 
+            y = unit(0.66 - interval_pos * i, "npc"), 
+            gp = gpar(col = text_colour, 
+                      fontsize = "9", 
+                      fontfamily = 'Verdana'))
+  
+  grid.text(format(seven_day_area_x$Cases, big.mark = ',', trim = TRUE),
+            just = "right",  
+            x = unit(0.79, "npc"), 
+            y = unit(0.66 - interval_pos * i, "npc"), 
+            gp = gpar(col = text_colour, 
+                      fontsize = "9", 
+                      fontfamily = 'Verdana'))
+  
+  grid.text(round(seven_day_area_x$`Rate per 100,000`, 1),
+            just = "right",  
+            x = unit(0.98, "npc"), 
+            y = unit(0.66 - interval_pos * i, "npc"), 
+            gp = gpar(col = text_colour, 
+                      fontsize = "9", 
+                      fontfamily = 'Verdana'))
+  
+}
 
 grid.lines(x = c(0.54,0.98),
            y = 0.645, 
@@ -320,7 +360,7 @@ grid.lines(x = c(0.54,0.98),
                      lwd = 1.2))
 
 grid.lines(x = c(0.54,0.98),
-           y = 0.3, 
+           y = 0.285, 
            default.units = "npc", 
            gp = gpar(col = "#333333", 
                      # lty = "dotted", 
