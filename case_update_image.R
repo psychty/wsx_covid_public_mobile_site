@@ -3,8 +3,8 @@
 
 
 #install.packages('jpeg')
-library(jpeg)
-wscc_logo <- readJPEG(paste0(github_repo_dir, '/images/west sussex logo.jpg'))
+# library(jpeg)
+wscc_logo <- readPNG(paste0(github_repo_dir, '/images/WSCC-Blue-negative.png'))
 
 down_img <- readPNG(paste0(github_repo_dir, '/images/double-down-arrows green.png'))
 up_img <- readPNG(paste0(github_repo_dir, '/images/double-up-arrow red.png'))
@@ -25,7 +25,7 @@ jpeg(paste0(output_directory_x, '/Daily_infographic_socials.jpg'),
      height = 4, 
      units = "in",
      # pointsize = 14,
-     res = 240, 
+     res = 150, 
      quality = 100)
 
 grid.newpage()
@@ -256,7 +256,7 @@ text_colour <- '#ffffff'
 #           vp = NULL)
 
 latest_table <- public_latest_rates_table %>% 
-  select(Name, Cases, `Rate per 100,000`) %>% 
+  # select(Name, Cases, `Rate per 100,000`) %>% 
   mutate(Name = factor(Name, levels = c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex', 'South East region', 'England'))) %>% 
   arrange(Name)
 
@@ -348,28 +348,28 @@ for(i in 1:length(areas_to_loop)){
 grid.lines(x = c(0.54,0.98),
            y = 0.645, 
            default.units = "npc", 
-           gp = gpar(col = "#333333", 
+           gp = gpar(col = "#ffffff", 
                      # lty = "dotted", 
                      lwd = 1.2))
 
 grid.lines(x = c(0.54,0.98),
            y = 0.73, 
            default.units = "npc", 
-           gp = gpar(col = "#333333", 
+           gp = gpar(col = "#ffffff", 
                      # lty = "dotted", 
                      lwd = 1.2))
 
 grid.lines(x = c(0.54,0.98),
            y = 0.285, 
            default.units = "npc", 
-           gp = gpar(col = "#333333", 
+           gp = gpar(col = "#ffffff", 
                      # lty = "dotted", 
                      lwd = 1.2))
 
 grid.lines(x = c(0.54,0.98),
            y = 0.225, 
            default.units = "npc", 
-           gp = gpar(col = "#333333", 
+           gp = gpar(col = "#ffffff", 
                      # lty = "dotted", 
                      lwd = 1.2))
 # Banner bottom ####
@@ -436,8 +436,8 @@ grid.text(paste0('because data for more recent days are considered incomplete.')
                     fontfamily = 'Verdana'))
 
 grid.raster(wscc_logo, 
-            y = unit(0.92, "npc"), 
-            x = unit(0.84, "npc"), 
+            y = unit(0.96, "npc"), 
+            x = unit(0.85, "npc"), 
             vjust = 1, 
             hjust = 0, 
             width = .12)
