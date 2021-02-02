@@ -10,6 +10,10 @@ down_img <- readPNG(paste0(github_repo_dir, '/images/double-down-arrows green.pn
 up_img <- readPNG(paste0(github_repo_dir, '/images/double-up-arrow red.png'))
 same_img <- readPNG(paste0(github_repo_dir, '/images/equals-sign.png'))
 
+down_img_w <- readPNG(paste0(github_repo_dir, '/images/double-down-arrows white.png'))
+up_img_w <- readPNG(paste0(github_repo_dir, '/images/double-up-arrow white.png'))
+same_img_w <- readPNG(paste0(github_repo_dir, '/images/equals-sign white.png'))
+
 # This will be the coordinate system for placing our objects in grid later
 vplayout <- function(x,y)
   viewport(layout.pos.row = x, layout.pos.col = y)
@@ -245,18 +249,19 @@ grid.text(paste0(format(total_so_far$Cumulative_cases, big.mark = ','), ' confir
 
 text_colour <- '#ffffff'
 
-# grid.rect(x = unit(0.54, "npc"), 
-#           y = unit(0.48, "npc"), 
-#           width = unit(.44, "npc"), 
-#           height = unit(0.5, "npc"), 
-#           just = "left", 
-#           default.units = "npc", 
-#           gp=gpar(fill = "#ffffff", col = "#ffffff"), 
-#           draw = TRUE, 
-#           vp = NULL)
+text_colour <- '#000000'
+grid.rect(x = unit(0.54, "npc"),
+          y = unit(0.48, "npc"),
+          width = unit(.44, "npc"),
+          height = unit(0.5, "npc"),
+          just = "left",
+          default.units = "npc",
+          gp=gpar(fill = "#ffffff", col = "#ffffff"),
+          draw = TRUE,
+          vp = NULL)
 
-latest_table <- public_latest_rates_table %>% 
-  # select(Name, Cases, `Rate per 100,000`) %>% 
+latest_table <- p12_test_summary %>% 
+  select(Name, Rolling_7_day_new_cases, Rolling_7_day_new_cases_per_100000, Change_direction) %>%
   mutate(Name = factor(Name, levels = c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex', 'South East region', 'England'))) %>% 
   arrange(Name)
 
@@ -327,15 +332,41 @@ for(i in 1:length(areas_to_loop)){
                       fontsize = "9", 
                       fontfamily = 'Verdana'))
   
-  grid.text(format(seven_day_area_x$Cases, big.mark = ',', trim = TRUE),
+  grid.text(format(seven_day_area_x$Rolling_7_day_new_cases, big.mark = ',', trim = TRUE),
             just = "right",  
-            x = unit(0.79, "npc"), 
+            x = unit(0.79 - .03, "npc"), 
             y = unit(0.66 - interval_pos * i, "npc"), 
             gp = gpar(col = text_colour, 
                       fontsize = "9", 
                       fontfamily = 'Verdana'))
   
-  grid.text(round(seven_day_area_x$`Rate per 100,000`, 1),
+  
+  if(seven_day_area_x$Change_direction == 'Up'){
+  grid.raster(up_img, 
+              x = unit(0.79, "npc"),
+              y = unit(0.66 - interval_pos * i, "npc"), 
+              just = 'right',
+              width = .018)
+  }
+  
+  if(seven_day_area_x$Change_direction == 'Down'){
+    grid.raster(down_img, 
+                x = unit(0.79, "npc"),
+                y = unit(0.66 - interval_pos * i, "npc"), 
+                just = 'right',
+                width = .018)
+  }
+  
+  if(seven_day_area_x$Change_direction == 'Same'){
+    grid.raster(same_img, 
+                x = unit(0.79, "npc"),
+                y = unit(0.66 - interval_pos * i, "npc"), 
+                just = 'right',
+                width = .018)
+  }
+  
+  
+  grid.text(round(seven_day_area_x$Rolling_7_day_new_cases_per_100000, 1),
             just = "right",  
             x = unit(0.98, "npc"), 
             y = unit(0.66 - interval_pos * i, "npc"), 
@@ -348,28 +379,28 @@ for(i in 1:length(areas_to_loop)){
 grid.lines(x = c(0.54,0.98),
            y = 0.645, 
            default.units = "npc", 
-           gp = gpar(col = "#ffffff", 
+           gp = gpar(col = text_colour, 
                      # lty = "dotted", 
                      lwd = 1.2))
 
 grid.lines(x = c(0.54,0.98),
            y = 0.73, 
            default.units = "npc", 
-           gp = gpar(col = "#ffffff", 
+           gp = gpar(col = text_colour, 
                      # lty = "dotted", 
                      lwd = 1.2))
 
 grid.lines(x = c(0.54,0.98),
            y = 0.285, 
            default.units = "npc", 
-           gp = gpar(col = "#ffffff", 
+           gp = gpar(col = text_colour, 
                      # lty = "dotted", 
                      lwd = 1.2))
 
 grid.lines(x = c(0.54,0.98),
            y = 0.225, 
            default.units = "npc", 
-           gp = gpar(col = "#ffffff", 
+           gp = gpar(col = text_colour, 
                      # lty = "dotted", 
                      lwd = 1.2))
 # Banner bottom ####
