@@ -1264,29 +1264,29 @@ growth_rate_ltla %>%
   toJSON() %>%
   write_lines(paste0(output_directory_x,'/ltla_growth_complete_date.json'))
 
-# Positivity
-positivity_ltla <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=ltla&metric=uniquePeopleTestedBySpecimenDateRollingSum&metric=uniqueCasePositivityBySpecimenDateRollingSum&metric=newVirus&format=csv') %>% 
+# Positivity ####
+positivity_ltla <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=ltla&metric=uniquePeopleTestedBySpecimenDateRollingSum&metric=uniqueCasePositivityBySpecimenDateRollingSum&metric=newLFDTests&format=csv') %>% 
   filter(substr(areaCode, 1,1) == 'E') %>%
   select(-areaType) %>% 
   rename(Name = areaName,
          Code = areaCode,
          Date = date) 
 
-positivity_utla <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=utla&metric=uniquePeopleTestedBySpecimenDateRollingSum&metric=uniqueCasePositivityBySpecimenDateRollingSum&format=csv') %>% 
+positivity_utla <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=utla&metric=uniquePeopleTestedBySpecimenDateRollingSum&metric=uniqueCasePositivityBySpecimenDateRollingSum&metric=newLFDTests&format=csv') %>% 
   filter(substr(areaCode, 1,1) == 'E') %>%
   select(-areaType) %>% 
   rename(Name = areaName,
          Code = areaCode,
          Date = date) 
 
-positivity_region <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=region&metric=uniquePeopleTestedBySpecimenDateRollingSum&metric=uniqueCasePositivityBySpecimenDateRollingSum&format=csv') %>% 
+positivity_region <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=region&metric=uniquePeopleTestedBySpecimenDateRollingSum&metric=uniqueCasePositivityBySpecimenDateRollingSum&metric=newLFDTests&format=csv') %>% 
   filter(substr(areaCode, 1,1) == 'E') %>%
   select(-areaType) %>% 
   rename(Name = areaName,
          Code = areaCode,
          Date = date) 
 
-positivity_nation <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=nation&metric=uniquePeopleTestedBySpecimenDateRollingSum&metric=uniqueCasePositivityBySpecimenDateRollingSum&format=csv') %>% 
+positivity_nation <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=nation&metric=uniquePeopleTestedBySpecimenDateRollingSum&metric=uniqueCasePositivityBySpecimenDateRollingSum&metric=newLFDTests&format=csv') %>% 
   filter(substr(areaCode, 1,1) == 'E') %>%
   select(-areaType) %>% 
   rename(Name = areaName,
@@ -1299,13 +1299,17 @@ positivity_df <- positivity_ltla %>%
   bind_rows(positivity_nation) %>% 
   unique() %>% 
   filter(Name %in% c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex', 'South East', 'England')) %>% 
-  mutate(Name = ifelse(Name == 'South East', 'South East region', Name)) 
+  mutate(Name = ifelse(Name == 'South East', 'South East region', Name)) %>% 
+  group_by(Name) %>% 
+  arrange(Name, Date) %>% 
+  mutate(LFD_7_day_tests = rollapplyr(newLFDTests, 7, sum, align = 'right', partial = TRUE))
 
 positivity_at_a_glance <- positivity_df %>% 
   filter(Date == complete_date) %>% 
-  select(Name, uniquePeopleTestedBySpecimenDateRollingSum, uniqueCasePositivityBySpecimenDateRollingSum) %>% 
+  select(Name, uniquePeopleTestedBySpecimenDateRollingSum, uniqueCasePositivityBySpecimenDateRollingSum, LFD_7_day_tests) %>% 
   rename(`Number of people receiving a PCR (Polymerase chain reaction) test` = uniquePeopleTestedBySpecimenDateRollingSum,
-         `Positivity rate (weekly percentage of individuals tested who test positive for COVID-19)` = uniqueCasePositivityBySpecimenDateRollingSum)
+         `Positivity rate (weekly percentage of individuals tested who test positive for COVID-19)` = uniqueCasePositivityBySpecimenDateRollingSum,
+         `Number of LFD tests conducted in last 7 days` = LFD_7_day_tests)
 
 at_a_glance_all <- at_a_glance_1 %>% 
   filter(Age == 'All ages') %>% 
