@@ -37,6 +37,9 @@ ph_theme = function(){
 github_repo_dir <- "~/GitHub/wsx_covid_public_mobile_site"
 output_directory_x <- paste0(github_repo_dir, '/Outputs')
 
+
+
+
 # Hospital admissions ####
 
 # Hospital provider trusts do not have geographically defined boundaries for their population nor do they have complete lists of registered patients. However, modeled estimates of the catchment populations for hospital provider trusts in England are provided by Public Health England (PHE). These experimental statistics estimates the number of people who are using each hospital trust or have the potential to do so. Individual acute trusts sometimes use varying methods to define the population they serve, such as patient flow, CCG derived or travel time based estimates. PHE published modelled estimates use the patient flow method.
@@ -138,7 +141,8 @@ trust_c19_patients_occupying_beds <- read_excel( paste0(github_repo_dir,'/Source
   pivot_longer(names_to = 'Date', values_to = 'Patients_occupying_beds', cols = 5:ncol(.)) %>% 
   mutate(Date = as.Date(as.numeric(Date), origin = "1899-12-30"))  %>% 
   filter(Name %in% c('England', 'South East', 'Western Sussex Hospitals NHS Foundation Trust', 'Surrey and Sussex Healthcare NHS Trust', 'Sussex Community NHS Foundation Trust', 'Brighton and Sussex University Hospitals NHS Trust')) %>% 
-  select(!c('Type 1 Acute?', 'NHS England Region', 'Code'))
+  select(!c('Type 1 Acute?', 'NHS England Region', 'Code')) %>% 
+  mutate(Bed_type = 'All')
 
 trust_c19_patients_occupying_mv_beds <- read_excel( paste0(github_repo_dir,'/Source_files/trust_admissions.xlsx'),
                                   sheet = 'MV beds COVID',
@@ -149,12 +153,22 @@ trust_c19_patients_occupying_mv_beds <- read_excel( paste0(github_repo_dir,'/Sou
   mutate(Name = gsub(' And ', ' and ', Name)) %>% 
   mutate(Name = gsub('Cic', 'CIC', Name)) %>% 
   mutate(Name = gsub('C.i.c', 'C.I.C', Name)) %>% 
-  pivot_longer(names_to = 'Date', values_to = 'Patients_occupying_mv_beds', cols = 5:ncol(.)) %>% 
+  pivot_longer(names_to = 'Date', values_to = 'Patients_occupying_beds', cols = 5:ncol(.)) %>% 
   mutate(Date = as.Date(as.numeric(Date), origin = "1899-12-30")) %>% 
   filter(Name %in% c('England', 'South East', 'Western Sussex Hospitals NHS Foundation Trust', 'Surrey and Sussex Healthcare NHS Trust', 'Sussex Community NHS Foundation Trust', 'Brighton and Sussex University Hospitals NHS Trust')) %>% 
-  select(!c('Type 1 Acute?', 'NHS England Region', 'Code'))
+  select(!c('Type 1 Acute?', 'NHS England Region', 'Code')) %>% 
+  mutate(Bed_type = 'Mechanical ventilation')
 
 # patients occupying beds as at 8am
+
+numbers_in_beds <- trust_c19_patients_occupying_beds %>% 
+  bind_rows(trust_c19_patients_occupying_mv_beds) %>% 
+  pivot_wider(names_from = Bed_type, values_from = Patients_occupying_beds) %>% 
+  mutate(All = replace_na(All, 0),
+         `Mechanical ventilation` = replace_na(`Mechanical ventilation`, 0)) %>% 
+  mutate(Not_mv = All - `Mechanical ventilation`)
+
+
 
 trust_c19_patients_occupying_ga_beds <- read_excel( paste0(github_repo_dir,'/Source_files/trust_admissions.xlsx'),
                                                     sheet = 'Adult G&A Beds Occupied COVID',
@@ -205,33 +219,16 @@ bed_used_df <- trust_c19_patients_occupying_ga_beds %>%
   group_by(Name, Date) %>% 
   mutate(Total_open_beds = sum(Beds),
          Proportion = Beds/sum(Beds)) %>% 
-  mutate(Bed_status = factor(ifelse(Bed_status == 'c19_patients_occupying_ga_beds', 'COVID-19 + patients', ifelse(Bed_status == 'other_patients_occupying_ga_beds', 'Other patients', ifelse(Bed_status == 'vacant_ga_beds', 'Vacant (open) beds', NA))), levels = c('COVID-19 + patients', 'Other patients', 'Vacant (open) beds')))
+  mutate(Bed_status = factor(ifelse(Bed_status == 'c19_patients_occupying_ga_beds', 'COVID-19 + patients', ifelse(Bed_status == 'other_patients_occupying_ga_beds', 'Other patients', ifelse(Bed_status == 'vacant_ga_beds', 'Vacant (open) beds', NA))), levels = rev(c('COVID-19 + patients', 'Other patients', 'Vacant (open) beds'))))
 
-eng_beds <- bed_used_df %>% 
-  filter(Name == 'England')
-
-ggplot(eng_beds,
-       aes(x = Date,
-           y = Proportion)) +
-  geom_bar(stat = 'identity',
-           position = 'stack',
-           colour = '#ffffff',
-           aes(fill = Bed_status)) +
-  scale_x_date(date_labels = "%b %d",
-               breaks = seq.Date(max(bed_used_df$Date) -(52*7), max(bed_used_df$Date), by = 7),
-              # limits = c(min(area_x_df_1$Date), last_date),
-               expand = c(0.01,0.01))
-  
-
-
-trust_admissions_metadata <- read_excel( paste0(github_repo_dir,'/Source_files/trust_admissions.xlsx'),
-                                         sheet = 'All beds COVID',
-                                         skip = 2, 
-                                         col_names = FALSE, 
-                                         n_max = 5) %>% 
-  rename(Item = ...1,
-         Description = ...2) %>%
-  mutate(Description = ifelse(Item == 'Published:', as.character(format(as.Date(as.numeric(Description), origin = "1899-12-30"), '%d-%b-%Y')), Description))
+# trust_admissions_metadata <- read_excel( paste0(github_repo_dir,'/Source_files/trust_admissions.xlsx'),
+#                                          sheet = 'All beds COVID',
+#                                          skip = 2, 
+#                                          col_names = FALSE, 
+#                                          n_max = 5) %>% 
+#   rename(Item = ...1,
+#          Description = ...2) %>%
+#   mutate(Description = ifelse(Item == 'Published:', as.character(format(as.Date(as.numeric(Description), origin = "1899-12-30"), '%d-%b-%Y')), Description))
 
 trust_admission_date <- read_excel( paste0(github_repo_dir,'/Source_files/trust_admissions.xlsx'),
                                     sheet = 'All beds COVID',
@@ -243,6 +240,50 @@ trust_admission_date <- read_excel( paste0(github_repo_dir,'/Source_files/trust_
   filter(Item == 'Published:') %>% 
   mutate(Description  = as.Date(as.numeric(Description), origin = "1899-12-30"))
 
+eng_beds <- bed_used_df %>% 
+  filter(Name == 'England')
+
+ggplot(eng_beds,
+       aes(x = Date,
+           y = Proportion)) +
+  geom_bar(stat = 'identity',
+           position = position_fill(reverse = TRUE),
+           colour = '#ffffff',
+           aes(fill = Bed_status)) +
+  scale_x_date(date_labels = "%b %d",
+               breaks = seq.Date(max(bed_used_df$Date) -(52*7), max(bed_used_df$Date), by = 7),
+               expand = c(0.01,0.01)) +
+  scale_fill_manual(values = c('#12263a', '#c96480', '#abcdef')) +
+  scale_y_continuous(limits = c(0,1),
+                     breaks = seq(0,1, .1),
+                     labels = percent_format(accuracy = 1)) +
+  labs(x = 'Date',
+       y = 'Proportion',
+       title = paste0('Proportion of patients occupying adult beds in NHS hospital trusts'),
+       subtitle = paste0('Share of all adult general and acute beds (%); data up to ', format(max(bed_used_df$Date), '%d %B %Y'), ' as at ', format(trust_admission_date$Description, '%d %B %Y')),
+       caption = 'This measure only includes adult inpatient beds. It is estimated that adult beds comprised more than 99% of inpatient beds in NHS hospital trusts.') +
+  ph_theme() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5))
+
+# ggplot(eng_beds,
+#        aes(x = Date,
+#            y = Beds)) +
+#   geom_bar(stat = 'identity',
+#            position = position_fill(reverse = TRUE),
+#            colour = '#ffffff',
+#            aes(fill = Bed_status)) +
+#   scale_x_date(date_labels = "%b %d",
+#                breaks = seq.Date(max(bed_used_df$Date) -(52*7), max(bed_used_df$Date), by = 7),
+#                expand = c(0.01,0.01)) +
+#   scale_fill_manual(values = c('#12263a', '#c96480', '#abcdef')) +
+#   labs(x = 'Date',
+#        y = 'Number of beds',
+#        title = paste0('Number of patients occupying adult beds in NHS hospital trusts'),
+#        subtitle = paste0('Share of all adult general and acute beds (%); data up to ', format(max(bed_used_df$Date), '%d %B %Y'), ' as at ', format(trust_admission_date$Description, '%d %B %Y')),
+#        caption = 'This measure only includes adult inpatient beds. It is estimated that adult beds comprised more than 99% of inpatient beds in NHS hospital trusts.') +
+#   ph_theme() +
+#   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5))
+  
 # rm(trust_admissions_1, trust_admissions_2, trust_admissions_3, trust_admissions_4, trust_admissions_5)
 
 trust_summary_1_beds <- trust_admissions_4 %>% 
