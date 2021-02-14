@@ -1828,7 +1828,7 @@ grid.text('PUBLICATION DATE:',
           x = unit(0.04, "npc"), 
           y = unit(0.07, "npc"), 
           gp = gpar(col = "#000000", 
-                    fontsize = "18", 
+                    fontsize = "16", 
                     fontfamily = 'Bahnschrift',
                     fontface = 'bold'))
 
@@ -1837,7 +1837,7 @@ grid.text(format(last_date + 1 , '%d %B %Y'),
           x = unit(0.3, "npc"), 
           y = unit(0.07, "npc"), 
           gp = gpar(col = "#0071B6", 
-                    fontsize = "20", 
+                    fontsize = "18", 
                     fontfamily = 'Verdana',
                     fontface = 'bold'))
 

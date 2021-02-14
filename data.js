@@ -1464,7 +1464,7 @@ $(document).on("click", "#btnPostcode", function () {
           " overall</b>, in the seven days to " +
           complete_date +
           " there have been " +
-          d.Rolling_7_day_new_cases +
+          d3.format(",.0f")(d.Rolling_7_day_new_cases) +
           " cases (" +
           d3.format(",.1f")(d.Rolling_7_day_new_cases_per_100000) +
           " cases per 100,000).<b> " +
