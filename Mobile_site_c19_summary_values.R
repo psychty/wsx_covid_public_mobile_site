@@ -752,7 +752,7 @@ download.file(paste0('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommun
 #   download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek',substr(as.character(as.aweek(Sys.Date()-12)), 7,8), '.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
 # }
 
-Occurrences_ltla_2021 <- (read_excel(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2)) %>% 
+Occurrences_ltla_2021 <- read_excel(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>% 
   mutate(`Week number` = paste0(`Week number`, ' - 2021'))
 
 Occurrences_ltla <- read_excel(paste0(github_repo_dir, '/Source_files/ons_mortality_2020.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>% 
