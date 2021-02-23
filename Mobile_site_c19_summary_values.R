@@ -745,7 +745,7 @@ rm(week_ending_a, week_ending_b)
 
 download.file('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2020/lahbtablesweek01to532020datawk52021.xlsx', paste0(github_repo_dir, '/Source_files/ons_mortality_2020.xlsx'), mode = 'wb')
 
-download.file(paste0('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2021/lahbtables2021week5.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
+download.file(paste0('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2021/lahbtables2021week6.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
 
 # # if the download does fail, it wipes out the old one, which we can use to our advantage
 # if(!file.exists(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'))){
@@ -1405,7 +1405,6 @@ print(positivity_worked_plotted)
 dev.off()
 
 
-
 # Export image file ####
 
 
@@ -1624,17 +1623,16 @@ grid.text(paste0(format(cases_this_week$Rolling_7_day_new_cases, big.mark = ',')
                     fontfamily = 'Verdana',
                     fontface = 'bold'))
 
-grid.text(ifelse(change_direction_between_weeks == 'SAME', 'Confirmed cases remain the same as they did in the previous week.', ifelse(change_direction_between_weeks == 'DOWN', 'Confirmed cases are falling compared to the previous week.', ifelse(change_direction_between_weeks == 'UP', 'Confirmed cases are rising compared to the previous week.', NA))),
+grid.text(ifelse(change_direction_between_weeks == 'SAME', 'Confirmed cases remain the same as they did in the previous week', ifelse(change_direction_between_weeks == 'DOWN', 'Confirmed cases are falling compared to the previous week', ifelse(change_direction_between_weeks == 'UP', 'Confirmed cases are rising compared to the previous week', NA))),
           just = "left",  
           x = unit(0.04, "npc"), 
-          y = unit(0.36, "npc"), 
+          y = unit(0.34, "npc"), 
           gp = gpar(col = "#ffffff", 
                     fontsize = "9", 
                     fontfamily = 'Verdana',
                     fontface = 'bold'))
 
-
-grid.text(paste0('Since the start of the COVID-19 pandemic, there have been'),
+grid.text(paste0('(', format(cases_last_week$Rolling_7_day_new_cases, big.mark = ','), ' cases in the seven days to the ', ordinal(as.numeric(format(complete_date - 7, '%d'))), format(complete_date - 7, ' %B %Y'), ').'),
           just = "left",  
           x = unit(0.04, "npc"), 
           y = unit(0.3, "npc"), 
@@ -1643,10 +1641,19 @@ grid.text(paste0('Since the start of the COVID-19 pandemic, there have been'),
                     fontfamily = 'Verdana',
                     fontface = 'bold'))
 
+grid.text(paste0('Since the start of the COVID-19 pandemic, there have been'),
+          just = "left",  
+          x = unit(0.04, "npc"), 
+          y = unit(0.22, "npc"), 
+          gp = gpar(col = "#ffffff", 
+                    fontsize = "9", 
+                    fontfamily = 'Verdana',
+                    fontface = 'bold'))
+
 grid.text(paste0(format(total_so_far$Cumulative_cases, big.mark = ','), ' confirmed cases in West Sussex (as of ', ordinal(as.numeric(format(last_date, '%d'))), format(last_date, ' %B'),').'),
           just = "left",  
           x = unit(0.04, "npc"), 
-          y = unit(0.26, "npc"), 
+          y = unit(0.18, "npc"), 
           gp = gpar(col = "#ffffff", 
                     fontsize = "9", 
                     fontfamily = 'Verdana',
@@ -1884,4 +1891,5 @@ grid.raster(wscc_logo,
 # grid.text("Infographic images designed by Freepik and OCHA from Flaticon",just = "centre", x = unit(0.5, "npc"), y = unit(.05, "npc"), gp = gpar(col = "#333333", fontsize = "8"))
 
 dev.off()
+
 
