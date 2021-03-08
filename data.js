@@ -913,7 +913,7 @@ function update_summary() {
         d3.format(",.0f")(d.COVID_deaths_cumulative) +
         " </b> COVID-19 deaths in " +
         chosen_summary_area +
-        " since the start of the pandemic."
+        " so far."
       );
     });
 
@@ -1448,11 +1448,7 @@ $(document).on("click", "#btnPostcode", function () {
     d3.select("#local_case_summary_4")
       .data(ltla_summary_data_chosen)
       .html(function (d) {
-        return (
-          "This local area is within <b>" +
-          chosen_ltla +
-          "</b>."
-        );
+        return "This local area is within <b>" + chosen_ltla + "</b>.";
       });
 
     d3.select("#local_case_summary_5")
