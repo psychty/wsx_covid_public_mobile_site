@@ -26,7 +26,7 @@
         <li><a href = "#home">Summary</a></li>
         <li><a href = '#latest_case_section'>Latest cases</a></li>
         <li><a href = '#local_section'>Your local area</a></li>
-        <!-- <li><a href = '#vaccination_section'>Vaccinations</a></li> -->
+        <li><a href = '#vaccination_section'>Vaccinations</a></li>
         <li><a href = '#mortality_section'>Deaths</a></li>
       </ul>
   
@@ -62,19 +62,18 @@
           <p class = 'class_3' id = 'latest_seven_days_60_plus_2'></p>
           <p class = 'class_4' id = 'latest_seven_days_60_plus_3'></p>
         </div>
-        <!-- <div class="child_3">
-          <p class = 'class_1'>Vaccinations</p>
-          <p class = 'class_2'>From 5th January, England has been placed in a national lockdown (Stay at home).</p>
-          <p class = 'class_2'>A full breakdown of the restrictions can be found on the <a href = 'https://www.gov.uk/guidance/national-lockdown-stay-at-home'>GOV.UK website</a>.</p>
-          <p class = 'class_4'>This was updated on Monday 4 January</p>
-        </div> -->
-        <div class="child_4">
+        <div class="child_3">
           <p class = 'class_1'>Health care in the South East</p>
           <p class = 'class_2' id = 'latest_covid_beds_1'></p>
           <p class = 'class_2' id = 'latest_covid_beds_2'></p>
           <p class = 'class_3' id = 'latest_covid_beds_3'></p>
           <p class = 'class_4' id = 'latest_covid_beds_4'></p>
-
+        </div>
+        <div class="child_4">
+            <p class = 'class_1'>Vaccinations</p>
+            <p class = 'class_2' id = 'vaccination_1'></p>
+            <p class = 'class_3' id = 'vaccination_2'></p>
+            <p class = 'class_4' id = 'vaccination_date_update'></p>
         </div>
         <div class="child_5">
           <p class = 'class_1'>Deaths</p>
@@ -147,20 +146,19 @@
   </div>
 </section>
 
-<!-- <section class = 'vaccination_section' id = 'vaccination_section'>
+<section class = 'vaccination_section' id = 'vaccination_section'>
   <div class="content">
     <h4 class = 'content_top'>Vaccinations</h4>
-        <p id="wsx_so_far"></p>
-        <p>
-          The figure below shows the proportion of adults aged 16+ who have
-          received a vaccine dose in West Sussex. You can use the drop down menu
-          below to choose a different area or use the table below to see all
-          West Sussex areas.
-        </p>
-        <select id="select_guage_area_button"></select>
-        <div id="overall_guage_1"></div>
+        <p id = 'vaccination_text_intro'></p>
+        <p>Some areas have more older people and care homes and so these areas will likely show as having a higher proportion of people with vaccinations as these populations were prioritised to receive immunisation.</p>
+        <div id="overall_guage"></div>
+        <div id="eligible_age_guage"></div>
+        <div id="over_65_guage"></div>
+        <p>This number of individuals receiving vaccinations excludes a small number of people who did not have their age recorded at the time of vaccination. As such it may be different to figures presented elsewhere.</p>
+        <p id = 'se_eng_selected'></p>
+        <p>This excludes a small number of individuals where age was unknown at the time of vaccination. Currently, those aged under 16 are not eligible for the vaccine and so this cohort has been removed from the denominator (the population at large) in calculating the proportion value for those receiving a COVID-19 vaccination overall.</p>
   </div>
-</section> -->
+</section>
 
 <section class = 'local_section' id = 'local_section'>
   <div class="content">

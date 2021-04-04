@@ -506,197 +506,130 @@ var daily_average_case_60_bars = svg_daily_case_60_bars
       })
   );
 
-//   // ! Percentage visual
+// ! Percentage visual
 
-// d3.select("#select_guage_area_button")
-// .selectAll("myOptions")
-// .data([
-//   "West Sussex",
-//   "Adur",
-//   "Arun",
-//   "Chichester",
-//   "Crawley",
-//   "Horsham",
-//   "Mid Sussex",
-//   "Worthing",
-// ])
-// .enter()
-// .append("option")
-// .text(function (d) {
-//   return d;
-// })
-// .attr("value", function (d) {
-//   return d;
-// });
+var request = new XMLHttpRequest();
+request.open("GET", "./Outputs/vaccine_at_a_glance.json", false);
+request.send(null);
+var vaccine_at_a_glance = JSON.parse(request.responseText);
 
-// var width_guage = 250;
-// var height_guage = width_guage;
-// var innerR = width_guage * 0.3;
-// var outerR = width_guage * 0.4;
-// var twoPi = 2 * Math.PI;
+var request = new XMLHttpRequest();
+request.open("GET", "./Outputs/vaccine_update_date.json", false);
+request.send(null);
+var vaccine_update_date = JSON.parse(request.responseText);
 
-// var svg_overall_vaccinated = d3
-// .select("#overall_guage_1")
-// .append("svg")
-// .attr("width", width_guage)
-// .attr("height", height_guage)
-// .append("g")
-// .attr(
-//   "transform",
-//   "translate(" + width_guage / 2 + "," + height_guage / 2 + ")"
-// )
-// .attr("class", "percentage_guage");
+var request = new XMLHttpRequest();
+request.open("GET", "./Outputs/vaccine_administered_date.json", false);
+request.send(null);
+var vaccine_administered_date = JSON.parse(request.responseText);
 
-// // Retrieve the selected area name
-// var selected_vaccine_area = d3
-// .select("#select_guage_area_button")
-// .property("value");
+var request = new XMLHttpRequest();
+request.open("GET", "./Outputs/vaccine_ltla_age.json", false);
+request.send(null);
+var vaccine_ltla_age = JSON.parse(request.responseText);
 
-// overall_cumulative = vaccine_at_a_glance.filter(function (d) {
-// return d.Name === selected_vaccine_area;
-// });
+d3.select("#vaccination_text_intro").html(function () {
+  return (
+    "The figure below shows the proportion of adults aged 16+ who have received a vaccine dose in " +
+    chosen_summary_area +
+    "."
+  );
+});
 
-// number_vaccinated = overall_cumulative[0].Total_where_age_known;
-// proportion_vaccinated = overall_cumulative[0].Proportion_age_known;
-// estimated_population = overall_cumulative[0].Population_16_and_over;
+var width_guage = width;
+if (width_guage > 300) {
+  width_guage = 250;
+}
 
-// var arc_vaccine_overall = d3
-// .arc()
-// .startAngle(0)
-// .innerRadius(innerR)
-// .outerRadius(outerR);
+var height_guage = width_guage;
+var innerR = width_guage * 0.3;
+var outerR = width_guage * 0.4;
+var twoPi = 2 * Math.PI;
 
-// svg_overall_vaccinated
-// .append("path")
-// .attr("class", "background")
-// .attr("d", arc_vaccine_overall.endAngle(twoPi));
+var svg_overall_vaccinated = d3
+  .select("#overall_guage")
+  .append("svg")
+  .attr("width", width_guage)
+  .attr("height", height_guage)
+  .append("g")
+  .attr(
+    "transform",
+    "translate(" + width_guage / 2 + "," + height_guage / 2 + ")"
+  )
+  .attr("class", "percentage_guage");
 
-// var foreground_vaccinated = svg_overall_vaccinated
-// .append("path")
-// .attr("class", "foreground");
+overall_cumulative = vaccine_at_a_glance.filter(function (d) {
+  return d.Name === chosen_summary_area;
+});
 
-// var Percent_vaccinated_1 = svg_overall_vaccinated
-// .append("text")
-// .attr("id", "vaccine_overall_perc")
-// .attr("text-anchor", "middle")
-// .attr("class", "percent-vaccine")
-// .attr("dy", "-0.25em");
+number_vaccinated = overall_cumulative[0].Total_where_age_known;
+proportion_vaccinated = overall_cumulative[0].Proportion_age_known;
+estimated_population = overall_cumulative[0].Population_16_and_over;
 
-// svg_overall_vaccinated
-// .append("text")
-// .attr("text-anchor", "middle")
-// .attr("id", "vaccinated_label_1")
-// .attr("class", "description")
-// .attr("dy", "0.5em")
-// .text(
-//   d3.format(",.0f")(number_vaccinated) +
-//     " / " +
-//     d3.format(",.0f")(estimated_population)
-// );
+var arc_vaccine_overall = d3
+  .arc()
+  .startAngle(0)
+  .innerRadius(innerR)
+  .outerRadius(outerR);
 
-// svg_overall_vaccinated
-// .append("text")
-// .attr("text-anchor", "middle")
-// .attr("id", "deaths_label_2")
-// .attr("class", "description")
-// .attr("dy", "1.5em")
-// .text("aged 16+ received");
+svg_overall_vaccinated
+  .append("path")
+  .attr("class", "background")
+  .attr("d", arc_vaccine_overall.endAngle(twoPi));
 
-// svg_overall_vaccinated
-// .append("text")
-// .attr("text-anchor", "middle")
-// .attr("id", "deaths_label_3")
-// .attr("class", "description")
-// .attr("dy", "2.5em")
-// .text("at least one dose");
+var foreground_vaccinated = svg_overall_vaccinated
+  .append("path")
+  .attr("class", "foreground");
 
-// var i_vaccinated_prop = d3.interpolate(0, proportion_vaccinated);
+var Percent_vaccinated_1 = svg_overall_vaccinated
+  .append("text")
+  .attr("id", "vaccine_overall_perc")
+  .attr("text-anchor", "middle")
+  .attr("class", "percent-vaccine")
+  .attr("dy", "-0.25em");
 
-// svg_overall_vaccinated
-// .transition()
-// .duration(3000)
-// .tween("vaccinated", function () {
-//   return function (t) {
-//     vaccinated = i_vaccinated_prop(t);
-//     foreground_vaccinated
-//       .attr("d", arc_vaccine_overall.endAngle(twoPi * vaccinated))
-//       .attr("fill", "#ff4f03");
-//     Percent_vaccinated_1.text(d3.format(".1%")(vaccinated));
-//   };
-// });
+svg_overall_vaccinated
+  .append("text")
+  .attr("text-anchor", "middle")
+  .attr("id", "vaccinated_label_1")
+  .attr("class", "description")
+  .attr("dy", "0.5em")
+  .text(
+    d3.format(",.0f")(number_vaccinated) +
+      " / " +
+      d3.format(",.0f")(estimated_population)
+  );
 
-// function update_vaccine_guage(selected_vaccine_area) {
-// var old_number_vaccinated = number_vaccinated;
+svg_overall_vaccinated
+  .append("text")
+  .attr("text-anchor", "middle")
+  .attr("id", "deaths_label_2")
+  .attr("class", "description")
+  .attr("dy", "1.5em")
+  .text("aged 16+ received");
 
-// if (number_vaccinated === undefined) {
-//   old_number_vaccinated = 0.001;
-// }
+svg_overall_vaccinated
+  .append("text")
+  .attr("text-anchor", "middle")
+  .attr("id", "deaths_label_3")
+  .attr("class", "description")
+  .attr("dy", "2.5em")
+  .text("at least one dose");
 
-// var old_vaccine_percentage = proportion_vaccinated;
+var i_vaccinated_prop = d3.interpolate(0, proportion_vaccinated);
 
-// if (proportion_vaccinated === undefined) {
-//   old_vaccine_percentage = 0.001;
-// }
-
-// var selected_vaccine_area = d3
-//   .select("#select_guage_area_button")
-//   .property("value");
-
-// overall_cumulative = vaccine_at_a_glance.filter(function (d) {
-//   return d.Name === selected_vaccine_area;
-// });
-
-// number_vaccinated = overall_cumulative[0].Total_where_age_known;
-// proportion_vaccinated = overall_cumulative[0].Proportion_age_known;
-// estimated_population = overall_cumulative[0].Population_16_and_over;
-
-// var i_vaccinated_prop = d3.interpolate(
-//   old_vaccine_percentage,
-//   proportion_vaccinated
-// );
-
-// svg_overall_vaccinated
-//   .selectAll("#vaccinated_label_1")
-//   .transition()
-//   .duration(750)
-//   .style("opacity", 0);
-
-// svg_overall_vaccinated
-//   .transition()
-//   .duration(3000)
-//   .tween("vaccinated", function () {
-//     return function (t) {
-//       vaccinated = i_vaccinated_prop(t);
-//       foreground_vaccinated
-//         .attr("d", arc_vaccine_overall.endAngle(twoPi * vaccinated))
-//         .attr("fill", "#ff4f03");
-//       Percent_vaccinated_1.text(d3.format(".1%")(vaccinated));
-//     };
-//   });
-
-// svg_overall_vaccinated
-//   .append("text")
-//   .attr("text-anchor", "middle")
-//   .attr("id", "vaccinated_label_1")
-//   .attr("class", "description")
-//   .attr("dy", "0.5em")
-//   .text(
-//     d3.format(",.0f")(number_vaccinated) +
-//       " / " +
-//       d3.format(",.0f")(estimated_population)
-//   )
-//   .style("opacity", 0)
-//   .transition()
-//   .duration(500)
-//   .style("opacity", 1);
-// }
-
-// d3.select("#select_guage_area_button").on("change", function (d) {
-// var selected_vaccine_area = d3
-//   .select("#select_guage_area_button")
-//   .property("value");
-// update_vaccine_guage(selected_vaccine_area);
-// });
+svg_overall_vaccinated
+  .transition()
+  .duration(3000)
+  .tween("vaccinated", function () {
+    return function (t) {
+      vaccinated = i_vaccinated_prop(t);
+      foreground_vaccinated
+        .attr("d", arc_vaccine_overall.endAngle(twoPi * vaccinated))
+        .attr("fill", "#ff4f03");
+      Percent_vaccinated_1.text(d3.format(".1%")(vaccinated));
+    };
+  });
 
 // ! Mortality
 
@@ -1444,6 +1377,123 @@ function update_summary() {
       return y_m2_ts(d[0]) - y_m2_ts(d[1]);
     })
     .attr("width", x_m2.bandwidth());
+
+  // ! Update vaccination guages
+
+  d3.select("#vaccination_date_update").html(function () {
+    return "This was updated on Thursday " + vaccine_update_date + ".";
+  });
+
+  d3.select("#vaccination_text_intro").html(function () {
+    return (
+      "The figure below shows the proportion of adults aged 16+ who have received a vaccine dose in " +
+      chosen_summary_area +
+      "."
+    );
+  });
+
+  var old_number_vaccinated = number_vaccinated;
+
+  if (number_vaccinated === undefined) {
+    old_number_vaccinated = 0.001;
+  }
+
+  var old_vaccine_percentage = proportion_vaccinated;
+
+  if (proportion_vaccinated === undefined) {
+    old_vaccine_percentage = 0.001;
+  }
+
+  overall_cumulative = vaccine_at_a_glance.filter(function (d) {
+    return d.Name === chosen_summary_area;
+  });
+
+  if (chosen_summary_area === "England") {
+    d3.select("#se_eng_selected").html(function () {
+      return "Also note that population estimates for the South East region and England utilise data from the Office for National statistics whilst data for Local Authority areas used estimated provided by the NIMS service.";
+    });
+  }
+
+  if (chosen_summary_area === "South East region") {
+    d3.select("#se_eng_selected").html(function () {
+      return "Also note that population estimates for the South East region and England utilise data from the Office for National statistics whilst data for Local Authority areas used estimated provided by the NIMS service.";
+    });
+  }
+
+  if (
+    chosen_summary_area !== "South East region" &&
+    chosen_summary_area !== "England"
+  ) {
+    d3.select("#se_eng_selected").html(function () {
+      return "";
+    });
+  }
+
+  d3.select("#vaccination_1").html(function () {
+    return (
+      "As of " +
+      vaccine_update_date +
+      ", <b class = 'highlight'>" +
+      d3.format(",.0f")(overall_cumulative[0]["Total_where_age_known"]) +
+      "</b> individuals have received at least one dose of a COVID-19 vaccine in " +
+      chosen_summary_area +
+      ". This is " +
+      d3.format(".1%")(overall_cumulative[0]["Proportion_age_known"]) +
+      " of the estimated population aged 16+."
+    );
+  });
+
+  d3.select("#vaccination_2").html(function () {
+    return (
+      "This includes vaccinations administered from " +
+      vaccine_administered_date +
+      "."
+    );
+  });
+
+  number_vaccinated = overall_cumulative[0].Total_where_age_known;
+  proportion_vaccinated = overall_cumulative[0].Proportion_age_known;
+  estimated_population = overall_cumulative[0].Population_16_and_over;
+
+  var i_vaccinated_prop = d3.interpolate(
+    old_vaccine_percentage,
+    proportion_vaccinated
+  );
+
+  svg_overall_vaccinated
+    .selectAll("#vaccinated_label_1")
+    .transition()
+    .duration(750)
+    .style("opacity", 0);
+
+  svg_overall_vaccinated
+    .transition()
+    .duration(3000)
+    .tween("vaccinated", function () {
+      return function (t) {
+        vaccinated = i_vaccinated_prop(t);
+        foreground_vaccinated
+          .attr("d", arc_vaccine_overall.endAngle(twoPi * vaccinated))
+          .attr("fill", "#ff4f03");
+        Percent_vaccinated_1.text(d3.format(".1%")(vaccinated));
+      };
+    });
+
+  svg_overall_vaccinated
+    .append("text")
+    .attr("text-anchor", "middle")
+    .attr("id", "vaccinated_label_1")
+    .attr("class", "description")
+    .attr("dy", "0.5em")
+    .text(
+      d3.format(",.0f")(number_vaccinated) +
+        " / " +
+        d3.format(",.0f")(estimated_population)
+    )
+    .style("opacity", 0)
+    .transition()
+    .duration(500)
+    .style("opacity", 1);
 }
 update_summary();
 

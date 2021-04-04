@@ -269,7 +269,7 @@ td {
   flex-grow: 1;
   min-height: 300px;
   margin: 5px;
-  background-color: #327c9c;
+  background-color: #4f6177;
   border-radius: 10px;
   position: relative;
 }
@@ -279,7 +279,7 @@ td {
   flex-grow: 1;
   min-height: 300px;
   margin: 5px;
-  background-color: #4f6177;
+  background-color: #327c9c;
   border-radius: 10px;
   position: relative;
 }
@@ -507,4 +507,36 @@ td {
   z-index: 100;
   /* visibility: visible; */
   width: 0.8rem;
+}
+
+/* Percentage fill donut */
+
+.liquidFillGaugeText {
+  font-family: Helvetica;
+  font-weight: bold;
+}
+
+.percentage_guage .background {
+  fill: #e6e7e8;
+}
+
+.percentage_guage .foreground {
+  /* fill: #191947; */
+}
+
+.percent-vaccine {
+  font-size: 2.8rem;
+  fill: #327c9c;
+  letter-spacing: -0.03em;
+}
+
+.description {
+  font-size: 0.8rem;
+  fill: #4f6177;
+}
+
+.description_none {
+  font-size: 0.9;
+  /* font-weight: bold; */
+  fill: #d80727;
 }
