@@ -1891,5 +1891,3 @@ grid.raster(wscc_logo,
 # grid.text("Infographic images designed by Freepik and OCHA from Flaticon",just = "centre", x = unit(0.5, "npc"), y = unit(.05, "npc"), gp = gpar(col = "#333333", fontsize = "8"))
 
 dev.off()
-
-
