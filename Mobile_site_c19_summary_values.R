@@ -160,6 +160,7 @@ p12_test_df <- daily_cases_ltla %>%
   bind_rows(daily_cases_utla) %>% 
   bind_rows(daily_cases_region) %>% 
   bind_rows(daily_cases_nation) %>% 
+  filter(substr(Code, 1,1) == 'E') %>% 
   unique() 
 
 first_date <- min(p12_test_df$Date)
