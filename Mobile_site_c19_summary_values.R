@@ -743,9 +743,9 @@ week_ending <- week_ending_a %>%
 
 rm(week_ending_a, week_ending_b)
 
-download.file('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2020/lahbtablesweek01to532020datawk122021.xlsx', paste0(github_repo_dir, '/Source_files/ons_mortality_2020.xlsx'), mode = 'wb')
+download.file('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2020/lahbtablesweek01to532020datawk132021.xlsx', paste0(github_repo_dir, '/Source_files/ons_mortality_2020.xlsx'), mode = 'wb')
 
-download.file(paste0('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2021/lahbtables2021week12.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
+download.file(paste0('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2021/lahbtables2021week13.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
 
 # # if the download does fail, it wipes out the old one, which we can use to our advantage
 # if(!file.exists(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'))){
@@ -1094,7 +1094,31 @@ wsx_msoas <- msoa_lookup %>%
 # This stopped on the 28th November!!!
 # legacy_msoa_case_df <- read_csv('https://coronavirus.data.gov.uk/downloads/msoa_data/MSOAs_latest.csv')
 
-msoa_data <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=msoa&metric=newCasesBySpecimenDateRollingSum&metric=newCasesBySpecimenDateRollingRate&format=csv')
+msoa_data <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=msoa&metric=newCasesBySpecimenDateRollingSum&metric=newCasesBySpecimenDateRollingRate&format=csv') %>% 
+  select(areaCode, areaName, date, newCasesBySpecimenDateRollingSum, newCasesBySpecimenDateRollingRate)
+
+# I think the team have stopped pushing data for time periods and msoas where cases are supressed. We need to therefore create a dummy dataset which does include a row for every msoa and expected date.
+Areas <- unique(msoa_data$areaCode)
+Dates <- unique(msoa_data$date)
+
+msoa_cases_dummy <- data.frame(areaCode = character(), date = character())
+
+for(i in 1:length(Areas)){
+  area_x = Areas[i]
+  df_x <- data.frame(date = Dates, areaCode = area_x) %>% 
+    mutate(date = as.character(date))
+  
+  msoa_cases_dummy <- msoa_cases_dummy %>%
+    bind_rows(df_x)
+}
+
+msoa_data <- msoa_cases_dummy %>% 
+  mutate(date = as.Date(date)) %>%
+  left_join(msoa_data, by = c('areaCode', 'date')) %>% 
+  select(-areaName) %>% 
+  left_join(msoa_lookup[c('MSOA11CD', 'msoa11hclnm')], by = c('areaCode' = 'MSOA11CD')) %>%
+  rename(areaName = msoa11hclnm) %>% 
+  select(areaCode, areaName, date, newCasesBySpecimenDateRollingSum, newCasesBySpecimenDateRollingRate)
 
 msoa_cases_1 <-  msoa_data %>% 
   select(areaCode, areaName, date, newCasesBySpecimenDateRollingSum, newCasesBySpecimenDateRollingRate) %>% 
