@@ -540,3 +540,9 @@ td {
   /* font-weight: bold; */
   fill: #d80727;
 }
+
+.arrange_guages {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+}

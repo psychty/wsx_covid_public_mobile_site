@@ -530,7 +530,7 @@ var vaccine_ltla_age = JSON.parse(request.responseText);
 
 d3.select("#vaccination_text_intro").html(function () {
   return (
-    "The figure below shows the proportion of adults aged 16+ who have received a vaccine dose in " +
+    "The figure below shows the proportion of adults aged 16+ and those aged 50+ who have received a vaccine dose in " +
     chosen_summary_area +
     "."
   );
@@ -603,7 +603,7 @@ svg_overall_vaccinated
 svg_overall_vaccinated
   .append("text")
   .attr("text-anchor", "middle")
-  .attr("id", "deaths_label_2")
+  .attr("id", "vaccination_label_2")
   .attr("class", "description")
   .attr("dy", "1.5em")
   .text("aged 16+ received");
@@ -611,7 +611,7 @@ svg_overall_vaccinated
 svg_overall_vaccinated
   .append("text")
   .attr("text-anchor", "middle")
-  .attr("id", "deaths_label_3")
+  .attr("id", "vaccination_label_3")
   .attr("class", "description")
   .attr("dy", "2.5em")
   .text("at least one dose");
@@ -628,6 +628,98 @@ svg_overall_vaccinated
         .attr("d", arc_vaccine_overall.endAngle(twoPi * vaccinated))
         .attr("fill", "#ff4f03");
       Percent_vaccinated_1.text(d3.format(".1%")(vaccinated));
+    };
+  });
+
+// Over 50s
+
+var svg_eligible_vaccinated = d3
+  .select("#eligible_age_guage")
+  .append("svg")
+  .attr("width", width_guage)
+  .attr("height", height_guage)
+  .append("g")
+  .attr(
+    "transform",
+    "translate(" + width_guage / 2 + "," + height_guage / 2 + ")"
+  )
+  .attr("class", "percentage_guage");
+
+number_eligible_age_vaccinated = overall_cumulative[0].Age_50_and_over;
+proportion_eligible_age_vaccinated = overall_cumulative[0].Proportion_50_plus;
+estimated_eligible_age_population =
+  overall_cumulative[0].Population_50_and_over;
+
+var arc_vaccine_eligible_age = d3
+  .arc()
+  .startAngle(0)
+  .innerRadius(innerR)
+  .outerRadius(outerR);
+
+svg_eligible_vaccinated
+  .append("path")
+  .attr("class", "background")
+  .attr("d", arc_vaccine_eligible_age.endAngle(twoPi));
+
+var foreground_eligible_age_vaccinated = svg_eligible_vaccinated
+  .append("path")
+  .attr("class", "foreground");
+
+var Percent_vaccinated_eligible_age_1 = svg_eligible_vaccinated
+  .append("text")
+  .attr("id", "vaccine_eligible_age_perc")
+  .attr("text-anchor", "middle")
+  .attr("class", "percent-vaccine")
+  .attr("dy", "-0.25em");
+
+svg_eligible_vaccinated
+  .append("text")
+  .attr("text-anchor", "middle")
+  .attr("id", "vaccinated_eligible_age_label_1")
+  .attr("class", "description")
+  .attr("dy", "0.5em")
+  .text(
+    d3.format(",.0f")(number_eligible_age_vaccinated) +
+      " / " +
+      d3.format(",.0f")(estimated_eligible_age_population)
+  );
+
+svg_eligible_vaccinated
+  .append("text")
+  .attr("text-anchor", "middle")
+  .attr("id", "vaccination_eligible_age_label_2")
+  .attr("class", "description")
+  .attr("dy", "1.5em")
+  .text("aged 50+ received");
+
+svg_eligible_vaccinated
+  .append("text")
+  .attr("text-anchor", "middle")
+  .attr("id", "vaccination_eligible_age_label_3")
+  .attr("class", "description")
+  .attr("dy", "2.5em")
+  .text("at least one dose");
+
+var i_vaccinated_eligible_age_prop = d3.interpolate(
+  0,
+  proportion_eligible_age_vaccinated
+);
+
+svg_eligible_vaccinated
+  .transition()
+  .duration(3000)
+  .tween("vaccinated_eligible_age", function () {
+    return function (t) {
+      vaccinated_eligible_age = i_vaccinated_eligible_age_prop(t);
+      foreground_eligible_age_vaccinated
+        .attr(
+          "d",
+          arc_vaccine_eligible_age.endAngle(twoPi * vaccinated_eligible_age)
+        )
+        .attr("fill", "#a00a4d");
+      Percent_eligible_age_vaccinated_1.text(
+        d3.format(".1%")(vaccinated_eligible_age)
+      );
     };
   });
 
@@ -838,29 +930,7 @@ d3.select("#selected_m2_title").html(function (d) {
   return "Weekly care home deaths in " + chosen_summary_area;
 });
 
-// ! Growth chart
-
-// var request = new XMLHttpRequest();
-// request.open("GET", "./Outputs/ltla_growth_complete_date.json", false);
-// request.send(null);
-// var ltla_growth_latest_data = JSON.parse(request.responseText);
-
-// var svg_growth_scatter = d3
-//   .select("#growth_scatter")
-//   .append("svg")
-//   .attr("width", width) // This compensates for the 25px margin styling
-//   .attr("height", height)
-//   .append("g")
-//   .attr("transform", "translate(" + width_margin + "," + 0 + ")");
-
-// d3.select("#growth_title").html(function (d) {
-//     return (
-//       "Confirmed COVID-19 cases per 100,000 population (all ages) in the seven days to " +
-//      complete_date +
-//       " by week on week change in number of cases; Lower Tier Local Authorities;"
-//     );
-//   });
-
+// !
 // ! On area change
 
 function update_summary() {
@@ -1386,7 +1456,7 @@ function update_summary() {
 
   d3.select("#vaccination_text_intro").html(function () {
     return (
-      "The figure below shows the proportion of adults aged 16+ who have received a vaccine dose in " +
+      "The figure below shows the proportion of adults aged 16+ and those aged 50+ who have received a vaccine dose in " +
       chosen_summary_area +
       "."
     );
@@ -1494,7 +1564,80 @@ function update_summary() {
     .transition()
     .duration(500)
     .style("opacity", 1);
+
+  d3.select("#select_summary_area_button").on("change", function (d) {
+    var chosen_summary_area = d3
+      .select("#select_summary_area_button")
+      .property("value");
+    update_summary();
+  });
+
+  // Over 50s
+  var old_number_eligible_age_vaccinated = number_eligible_age_vaccinated;
+
+  if (number_eligible_age_vaccinated === undefined) {
+    old_number_eligible_age_vaccinated = 0.001;
+  }
+
+  var old_vaccine_eligible_age_percentage = proportion_eligible_age_vaccinated;
+
+  if (proportion_eligible_age_vaccinated === undefined) {
+    old_number_eligible_age_vaccinated = 0.001;
+  }
+
+  number_eligible_age_vaccinated = overall_cumulative[0].Age_50_and_over;
+  proportion_eligible_age_vaccinated = overall_cumulative[0].Proportion_50_plus;
+  estimated_eligible_age_population =
+    overall_cumulative[0].Population_50_and_over;
+
+  var i_vaccinated_eligible_age_prop = d3.interpolate(
+    old_vaccine_eligible_age_percentage,
+    proportion_eligible_age_vaccinated
+  );
+
+  svg_eligible_vaccinated
+    .selectAll("#vaccinated_eligible_age_label_1")
+    .transition()
+    .duration(750)
+    .style("opacity", 0);
+
+  svg_eligible_vaccinated
+    .transition()
+    .duration(3000)
+    .tween("vaccinated_eligible_age", function () {
+      return function (t) {
+        vaccinated_eligible_age = i_vaccinated_eligible_age_prop(t);
+        foreground_eligible_age_vaccinated
+          .attr(
+            "d",
+            arc_vaccine_eligible_age.endAngle(twoPi * vaccinated_eligible_age)
+          )
+          .attr("fill", "#a00a4d");
+        Percent_vaccinated_eligible_age_1.text(
+          d3.format(".1%")(vaccinated_eligible_age)
+        );
+      };
+    });
+
+  svg_eligible_vaccinated
+    .append("text")
+    .attr("text-anchor", "middle")
+    .attr("id", "vaccinated_eligible_age_label_1")
+    .attr("class", "description")
+    .attr("dy", "0.5em")
+    .text(
+      d3.format(",.0f")(number_eligible_age_vaccinated) +
+        " / " +
+        d3.format(",.0f")(estimated_eligible_age_population)
+    )
+    .style("opacity", 0)
+    .transition()
+    .duration(500)
+    .style("opacity", 1);
 }
+
+// ! Run function on update of selection box
+
 update_summary();
 
 d3.select("#select_summary_area_button").on("change", function (d) {
@@ -1506,26 +1649,6 @@ d3.select("#select_summary_area_button").on("change", function (d) {
 
 // ! Postcode lookup and msoa map
 
-// var case_key_msoa = [
-//   "0-2 cases",
-//   "3-5 cases",
-//   "6-10 cases",
-//   "11-15 cases",
-//   "More than 15 cases",
-// ];
-// var case_key_msoa_colours = [
-//   "#f1eef6",
-//   "#d7b5d8",
-//   "#df65b0",
-//   "#dd1c77",
-//   "#980043",
-// ];
-
-// var msoa_case_colour_func = d3
-//   .scaleOrdinal()
-//   .domain(case_key_msoa)
-//   .range(case_key_msoa_colours);
-
 var request = new XMLHttpRequest();
 request.open("GET", "./Outputs/msoa_summary.json", false);
 request.send(null);
@@ -1535,69 +1658,6 @@ var request = new XMLHttpRequest();
 request.open("GET", "./Outputs/ltla_summary.json", false);
 request.send(null);
 var ltla_summary_data = JSON.parse(request.responseText); // parse the fetched json data into a variable
-
-// // Add AJAX request for data
-// var msoa_map_data = $.ajax({
-//   url: "./Outputs/msoa_covid_rate_latest.geojson",
-//   dataType: "json",
-//   success: console.log("MSOA boundary for cases successfully loaded."),
-//   error: function (xhr) {
-//     alert(xhr.statusText);
-//   },
-// });
-
-// var tileUrl = "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png";
-// var attribution =
-//   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a><br> Contains Ordnance Survey data © Crown copyright and database right 2020.<br>Contains Parliamentary information licensed under the Open Parliament Licence v3.0.<br>Zoom in/out using your mouse wheel or the plus (+) and minus (-) buttons. Click on an area to find out more.';
-
-// function msoa_case_colour(d) {
-//   return d === case_key_msoa[0]
-//     ? case_key_msoa_colours[0]
-//     : d === case_key_msoa[1]
-//     ? case_key_msoa_colours[1]
-//     : d === case_key_msoa[2]
-//     ? case_key_msoa_colours[2]
-//     : d === case_key_msoa[3]
-//     ? case_key_msoa_colours[3]
-//     : d === case_key_msoa[4]
-//     ? case_key_msoa_colours[4]
-//     : "#feebe2";
-// }
-
-// function style_msoa_cases(feature) {
-//   return {
-//     fillColor: msoa_case_colour(feature.properties.Case_key),
-//     weight: 1,
-//     opacity: 0.6,
-//     color: "white",
-//     dashArray: "3",
-//     fillOpacity: 0.7,
-//   };
-// }
-
-// $.when(msoa_map_data).done(function () {
-//   var msoa_map = L.map("msoa_map_place");
-
-//   var msoa_basemap = L.tileLayer(tileUrl, {
-//     attribution,
-//     minZoom: 8,
-//   }).addTo(msoa_map);
-
-//   var msoa_map_hcl = L.geoJSON(msoa_map_data.responseJSON, {
-//     style: style_msoa_cases,
-//   })
-//     .addTo(msoa_map)
-//     .bindPopup(function (layer) {
-//       return (
-//         "<p style = 'font-size: .8rem'>" +
-//         layer.feature.properties.Label +
-//         "</p>"
-//       );
-//     });
-
-//   msoa_map.fitBounds(msoa_map_hcl.getBounds());
-
-//   var marker_chosen = L.marker([0, 0]).addTo(msoa_map_hcl);
 
 //search event
 $(document).on("click", "#btnPostcode", function () {
@@ -1737,187 +1797,6 @@ function post(url) {
     },
   });
 }
-// });
-
-// function key_msoa_cases() {
-//   case_key_msoa.forEach(function (item, index) {
-//     var list = document.createElement("li");
-//     list.innerHTML = item + " in 7 days to " + complete_date;
-//     list.className = "key_list_msoa_cases";
-//     list.style.borderColor = msoa_case_colour_func(index);
-//     var tt = document.createElement("div");
-//     tt.className = "side_tt";
-//     tt.style.borderColor = msoa_case_colour_func(index);
-//     var tt_h3_1 = document.createElement("h3");
-//     tt_h3_1.innerHTML = item.Case_key;
-
-//     tt.appendChild(tt_h3_1);
-//     var div = document.getElementById("msoa_case_key");
-//     div.appendChild(list);
-//   });
-// }
-
-// key_msoa_cases();
-
-// d3.select("#local_case_map_title").html(function (d) {
-//   return (
-//     "Number of confirmed COVID-19 cases in the seven days to " +
-//     complete_date +
-//     "; South East England MSOAs"
-//   );
-// });
-
-// ! ltla restrictions
-
-// var restriction_type = [
-//   "Tier 1 (medium)",
-//   "Tier 2 (high)",
-//   "Tier 3 (very high)",
-//   "Tier 4 (stay at home)",
-// ];
-// // var restriction_colours = ["#ffb400", "#9762a2", "#374776"];
-// // var restriction_colours = ["#B9DDF1", "#6A9BC3", "#2A5783"];
-// var restriction_colours = ["#ffb400", "#6A9BC3", "#2A5783", "#5c3776"];
-
-// var restriction_colour_func = d3
-//   .scaleOrdinal()
-//   .domain(restriction_type)
-//   .range(restriction_colours);
-
-// // Add AJAX request for data
-// var ltla_restrictions = $.ajax({
-//   url: "./Outputs/ltla_covid_latest.geojson",
-//   dataType: "json",
-//   success: console.log("LTLA boundary for restrictions successfully loaded."),
-//   error: function (xhr) {
-//     alert(xhr.statusText);
-//   },
-// });
-
-// var tileUrl = "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png";
-// var attribution =
-//   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a><br>Click on an area to find out more.';
-
-// function restriction_ltla_colour(d) {
-//   return d === restriction_type[0]
-//     ? restriction_colours[0]
-//     : d === restriction_type[1]
-//     ? restriction_colours[1]
-//     : d === restriction_type[2]
-//     ? restriction_colours[2]
-//     : d === restriction_type[3]
-//     ? restriction_colours[3]
-//     : "#feebe2";
-// }
-
-// function style_restriction(feature) {
-//   return {
-//     fillColor: restriction_ltla_colour(feature.properties.Tier),
-//     weight: 1,
-//     opacity: 0.6,
-//     color: "white",
-//     dashArray: "3",
-//     fillOpacity: 1,
-//   };
-// }
-
-// $.when(ltla_restrictions).done(function () {
-//   var ltla_map_restrictions = L.map("ltla_restrictions_map");
-
-//   var basemap_restriction = L.tileLayer(tileUrl, {
-//     attribution,
-//     minZoom: 5,
-//   }).addTo(ltla_map_restrictions);
-
-//   var ltla_restrictions_hcl = L.geoJSON(ltla_restrictions.responseJSON, {
-//     style: style_restriction,
-//   })
-//     .addTo(ltla_map_restrictions)
-//     .bindPopup(function (layer) {
-//       return (
-//         "<b>" +
-//         layer.feature.properties.Name +
-//         "</b><br>" +
-//         layer.feature.properties.Tier
-//       );
-//     });
-
-//   ltla_map_restrictions.fitBounds(ltla_restrictions_hcl.getBounds());
-// });
-
-// // ! primary schools
-
-// var open_type = ["All pupils", "Restricted"];
-
-// var primary_school_colours = ["#74cce1", "#ff0c0c"];
-
-// var primary_school_colour_func = d3
-//   .scaleOrdinal()
-//   .domain(open_type)
-//   .range(primary_school_colours);
-
-// var primary_school_label_func = d3
-//   .scaleOrdinal()
-//   .domain(open_type)
-//   .range(
-//     "All primary school pupils are expected to return as normal.",
-//     "Primary schools should restrict on site education to vulnerable children and children of critical workers."
-//   );
-
-// // Add AJAX request for data
-// var ltla_primary = $.ajax({
-//   url: "./Outputs/ltla_covid_latest.geojson",
-//   dataType: "json",
-//   success: console.log(
-//     "LTLA boundary for primary schools opening successfully loaded."
-//   ),
-//   error: function (xhr) {
-//     alert(xhr.statusText);
-//   },
-// });
-
-// function primary_ltla_colour(d) {
-//   return d === open_type[0]
-//     ? primary_school_colours[0]
-//     : d === open_type[1]
-//     ? primary_school_colours[1]
-//     : "#feebe2";
-// }
-
-// function style_primary(feature) {
-//   return {
-//     fillColor: primary_ltla_colour(feature.properties.Primary_schools),
-//     weight: 1,
-//     opacity: 0.6,
-//     color: "white",
-//     dashArray: "3",
-//     fillOpacity: 1,
-//   };
-// }
-
-// $.when(ltla_primary).done(function () {
-//   var ltla_map_primary = L.map("ltla_primary_schools_map");
-
-//   var basemap_primary = L.tileLayer(tileUrl, {
-//     attribution,
-//     minZoom: 5,
-//   }).addTo(ltla_map_primary);
-
-//   var ltla_primary_hcl = L.geoJSON(ltla_primary.responseJSON, {
-//     style: style_primary,
-//   })
-//     .addTo(ltla_map_primary)
-//     .bindPopup(function (layer) {
-//       return (
-//         "<b>" +
-//         layer.feature.properties.Name +
-//         "</b><br>" +
-//         layer.feature.properties.Primary_schools
-//       );
-//     });
-
-//   ltla_map_primary.fitBounds(ltla_primary_hcl.getBounds());
-// });
 
 // ! Icons
 
