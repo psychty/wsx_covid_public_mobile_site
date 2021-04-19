@@ -1227,26 +1227,26 @@ if(exists('ltla_boundaries') == FALSE) {
 
 # geojson_write(geojson_json(utla_restrictions_geojson), file = paste0(output_directory_x, '/utla_covid_latest.geojson'))
 
-ltla_restrictions_geojson <- ltla_boundaries %>% 
-  filter(lad19cd %in% ltla_summary$`Area code`) %>% 
-  arrange(lad19nm)
-
-ltla_summary <- ltla_summary %>% 
-  arrange(Name)
-#left_join(ltla_summary, by = c('lad19nm' = 'Name')) 
-
-df <- data.frame(ID = character())
-
-# Get the IDs of spatial polygon
-for (i in ltla_restrictions_geojson@polygons ) { df <- rbind(df, data.frame(ID = i@ID, stringsAsFactors = FALSE))  }
-
-# and set rowname = ID
-row.names(ltla_summary) <- df$ID
-
-# Then use df as the second argument to the spatial dataframe conversion function:
-ltla_restrictions_geojson <- SpatialPolygonsDataFrame(ltla_restrictions_geojson, ltla_summary)  
-
-geojson_write(geojson_json(ltla_restrictions_geojson), file = paste0(output_directory_x, '/ltla_covid_latest.geojson'))
+# ltla_restrictions_geojson <- ltla_boundaries %>% 
+#   filter(lad19cd %in% ltla_summary$`Area code`) %>% 
+#   arrange(lad19nm)
+# 
+# ltla_summary <- ltla_summary %>% 
+#   arrange(Name)
+# #left_join(ltla_summary, by = c('lad19nm' = 'Name')) 
+# 
+# df <- data.frame(ID = character())
+# 
+# # Get the IDs of spatial polygon
+# for (i in ltla_restrictions_geojson@polygons ) { df <- rbind(df, data.frame(ID = i@ID, stringsAsFactors = FALSE))  }
+# 
+# # and set rowname = ID
+# row.names(ltla_summary) <- df$ID
+# 
+# # Then use df as the second argument to the spatial dataframe conversion function:
+# ltla_restrictions_geojson <- SpatialPolygonsDataFrame(ltla_restrictions_geojson, ltla_summary)  
+# 
+# geojson_write(geojson_json(ltla_restrictions_geojson), file = paste0(output_directory_x, '/ltla_covid_latest.geojson'))
 
 # daily_cases_df %>% 
 #   filter(Name == 'West Sussex') %>% 
@@ -1380,8 +1380,8 @@ positivity_worked <- positivity_df %>%
   arrange(Name, Date) %>% 
   filter(Date >= max(Date) - 90)
 
-positivity_worked %>% 
-  filter(Date == complete_date)
+# positivity_worked %>% 
+#   filter(Date == complete_date)
 
 positivity_worked %>%
   select(!Code) %>% 
@@ -1428,7 +1428,6 @@ png(paste0(output_directory_x, '/Figure_7_day_rolling_positivity_rates_latest_fa
     res = 130)
 print(positivity_worked_plotted)
 dev.off()
-
 
 # Export image file ####
 
@@ -1916,3 +1915,4 @@ grid.raster(wscc_logo,
 # grid.text("Infographic images designed by Freepik and OCHA from Flaticon",just = "centre", x = unit(0.5, "npc"), y = unit(.05, "npc"), gp = gpar(col = "#333333", fontsize = "8"))
 
 dev.off()
+
