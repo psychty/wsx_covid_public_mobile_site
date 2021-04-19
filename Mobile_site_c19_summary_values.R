@@ -83,6 +83,7 @@ query_structure <- list(
 )
 
 last_date <- as.Date(last_update(filters = query_filters, structure = query_structure))
+# last_date <- as.Date('2021-04-19')
 
 # PHE say the last four data points are incomplete (perhaps they should not publish them). Instead, we need to make sure we account for this so that it is not misinterpreted.
 complete_date <- last_date - 5
