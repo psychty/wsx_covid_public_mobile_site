@@ -67,27 +67,6 @@ area_code_names <- mye_total %>%
 mye_total <- mye_total %>%
   select(-Name)
 
-# Preliminary dates####
-
-query_filters <- c(
-  # "areaType=utla"
-  'areaName=West Sussex'
-)
-
-query_structure <- list(
-  date = "date", 
-  name = "areaName", 
-  code = "areaCode", 
-  daily = "newCasesBySpecimenDate",
-  cumulative = "cumCasesBySpecimenDate"
-)
-
-last_date <- as.Date(last_update(filters = query_filters, structure = query_structure))
-# last_date <- as.Date('2021-04-19')
-
-# PHE say the last four data points are incomplete (perhaps they should not publish them). Instead, we need to make sure we account for this so that it is not misinterpreted.
-complete_date <- last_date - 5
-
 # Cases ####
 # 
 # daily_cases <- read_csv('https://coronavirus.data.gov.uk/downloads/csv/coronavirus-cases_latest.csv') %>%
@@ -163,6 +142,27 @@ p12_test_df <- daily_cases_ltla %>%
   bind_rows(daily_cases_nation) %>% 
   filter(substr(Code, 1,1) == 'E') %>% 
   unique() 
+
+# 
+# query_filters <- c(
+#   # "areaType=utla"
+#   'areaName=West Sussex'
+# )
+# 
+# query_structure <- list(
+#   date = "date", 
+#   name = "areaName", 
+#   code = "areaCode", 
+#   daily = "newCasesBySpecimenDate",
+#   cumulative = "cumCasesBySpecimenDate"
+# )
+# 
+# last_date <- as.Date(last_update(filters = query_filters, structure = query_structure))
+# # last_date <- as.Date('2021-04-19')
+last_date <- max(p12_test_df$Date) +1
+
+# PHE say the last four data points are incomplete (perhaps they should not publish them). Instead, we need to make sure we account for this so that it is not misinterpreted.
+complete_date <- last_date - 5
 
 first_date <- min(p12_test_df$Date)
 last_case_date <- p12_test_df %>% 
@@ -745,9 +745,9 @@ week_ending <- week_ending_a %>%
 
 rm(week_ending_a, week_ending_b)
 
-download.file('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2020/lahbtablesweek01to532020datawk132021.xlsx', paste0(github_repo_dir, '/Source_files/ons_mortality_2020.xlsx'), mode = 'wb')
+download.file('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2020/lahbtablesweek01to532020datawk142021.xlsx', paste0(github_repo_dir, '/Source_files/ons_mortality_2020.xlsx'), mode = 'wb')
 
-download.file(paste0('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2021/lahbtables2021week13.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
+download.file(paste0('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2021/lahbtables2021week14.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
 
 # # if the download does fail, it wipes out the old one, which we can use to our advantage
 # if(!file.exists(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'))){
