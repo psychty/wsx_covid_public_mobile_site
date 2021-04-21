@@ -1257,38 +1257,38 @@ if(exists('ltla_boundaries') == FALSE) {
 
 # Growth Rates ####
 
-growth_rate <- p12_test_df %>% 
-  filter(Data_completeness == 'Complete') %>% 
-  filter(Date >= complete_date -10) %>% 
-  select(Name, Code, Type, Date, Rolling_7_day_new_cases, Perc_change_on_rolling_7_days_actual, Population) %>%
-  mutate(Rolling_7_day_new_cases = replace_na(Rolling_7_day_new_cases, 0)) %>% 
-  mutate(Rolling_7_day_rate = pois.exact(Rolling_7_day_new_cases, Population)[[3]]*100000) %>% 
-  mutate(Rolling_rate_lcl = pois.exact(Rolling_7_day_new_cases, Population)[[4]]*100000) %>% 
-  mutate(Rolling_rate_ucl = pois.exact(Rolling_7_day_new_cases, Population)[[5]]*100000) %>% 
-  arrange(Name, Date) %>% 
-  group_by(Name) %>% 
-  mutate(Last_week_incidence_rate = lag(Rolling_7_day_rate, 7),
-         Last_week_date = lag(Date, 7)) %>% 
-  ungroup() %>% 
-  filter(Date == complete_date) %>% 
-  rename(Change_actual_by_week = Perc_change_on_rolling_7_days_actual)
-
-growth_rate_england <- growth_rate %>% 
-  filter(Name == 'England') %>% 
-  rename(Eng_rate = Rolling_7_day_rate,
-         Eng_lcl = Rolling_rate_lcl,
-         Eng_ucl = Rolling_rate_ucl) 
-
-growth_rate_ltla <- growth_rate %>%
-  left_join(growth_rate_england[c('Date', 'Eng_rate', 'Eng_lcl', 'Eng_ucl')], by = 'Date') %>%
-  filter(Type %in% c('Lower Tier Local Authority', 'Unitary Authority') | Name == 'England')
-
-growth_rate_ltla %>%
-  mutate(Name = factor(Name, levels = c(setdiff(unique(growth_rate_ltla$Name), c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex','Worthing', 'England')), c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex','Worthing', 'England')))) %>% 
-  arrange(Name) %>% 
-  select(Name, Date, Rolling_7_day_rate, Change_actual_by_week) %>% 
-  toJSON() %>%
-  write_lines(paste0(output_directory_x,'/ltla_growth_complete_date.json'))
+# growth_rate <- p12_test_df %>% 
+#   filter(Data_completeness == 'Complete') %>% 
+#   filter(Date >= complete_date -10) %>% 
+#   select(Name, Code, Type, Date, Rolling_7_day_new_cases, Perc_change_on_rolling_7_days_actual, Population) %>%
+#   mutate(Rolling_7_day_new_cases = replace_na(Rolling_7_day_new_cases, 0)) %>% 
+#   mutate(Rolling_7_day_rate = pois.exact(Rolling_7_day_new_cases, Population)[[3]]*100000) %>% 
+#   mutate(Rolling_rate_lcl = pois.exact(Rolling_7_day_new_cases, Population)[[4]]*100000) %>% 
+#   mutate(Rolling_rate_ucl = pois.exact(Rolling_7_day_new_cases, Population)[[5]]*100000) %>% 
+#   arrange(Name, Date) %>% 
+#   group_by(Name) %>% 
+#   mutate(Last_week_incidence_rate = lag(Rolling_7_day_rate, 7),
+#          Last_week_date = lag(Date, 7)) %>% 
+#   ungroup() %>% 
+#   filter(Date == complete_date) %>% 
+#   rename(Change_actual_by_week = Perc_change_on_rolling_7_days_actual)
+# 
+# growth_rate_england <- growth_rate %>% 
+#   filter(Name == 'England') %>% 
+#   rename(Eng_rate = Rolling_7_day_rate,
+#          Eng_lcl = Rolling_rate_lcl,
+#          Eng_ucl = Rolling_rate_ucl) 
+# 
+# growth_rate_ltla <- growth_rate %>%
+#   left_join(growth_rate_england[c('Date', 'Eng_rate', 'Eng_lcl', 'Eng_ucl')], by = 'Date') %>%
+#   filter(Type %in% c('Lower Tier Local Authority', 'Unitary Authority') | Name == 'England')
+# 
+# growth_rate_ltla %>%
+#   mutate(Name = factor(Name, levels = c(setdiff(unique(growth_rate_ltla$Name), c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex','Worthing', 'England')), c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex','Worthing', 'England')))) %>% 
+#   arrange(Name) %>% 
+#   select(Name, Date, Rolling_7_day_rate, Change_actual_by_week) %>% 
+#   toJSON() %>%
+#   write_lines(paste0(output_directory_x,'/ltla_growth_complete_date.json'))
 
 # Positivity ####
 positivity_ltla <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=ltla&metric=uniquePeopleTestedBySpecimenDateRollingSum&metric=uniqueCasePositivityBySpecimenDateRollingSum&metric=newLFDTests&format=csv') %>% 
@@ -1911,6 +1911,7 @@ grid.raster(wscc_logo,
             vjust = 1, 
             hjust = 0, 
             width = .12)
+
 # grid.text("http://jsna.westsussex.gov.uk",just = "left", x = unit(0.05, "npc"), y = unit(.05, "npc"), gp = gpar(col = "#1c8ccd", fontsize = "11", fontface = "bold"))
 
 # grid.text("Infographic images designed by Freepik and OCHA from Flaticon",just = "centre", x = unit(0.5, "npc"), y = unit(.05, "npc"), gp = gpar(col = "#333333", fontsize = "8"))
