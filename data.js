@@ -530,7 +530,7 @@ var vaccine_ltla_age = JSON.parse(request.responseText);
 
 d3.select("#vaccination_text_intro").html(function () {
   return (
-    "The figure below shows the proportion of adults aged 16+ and those aged 50+ who have received a vaccine dose in " +
+    "The figure below shows three guages showing the proportion of adults aged 16+, those aged 45+, and those aged 45-64 (as an approximation for working age population) who have received a vaccine dose in " +
     chosen_summary_area +
     "."
   );
@@ -631,7 +631,7 @@ svg_overall_vaccinated
     };
   });
 
-// Over 50s
+// Over 45s
 
 var svg_eligible_vaccinated = d3
   .select("#eligible_age_guage")
@@ -645,10 +645,10 @@ var svg_eligible_vaccinated = d3
   )
   .attr("class", "percentage_guage");
 
-number_eligible_age_vaccinated = overall_cumulative[0].Age_50_and_over;
-proportion_eligible_age_vaccinated = overall_cumulative[0].Proportion_50_plus;
+number_eligible_age_vaccinated = overall_cumulative[0].Age_45_and_over;
+proportion_eligible_age_vaccinated = overall_cumulative[0].Proportion_45_plus;
 estimated_eligible_age_population =
-  overall_cumulative[0].Population_50_and_over;
+  overall_cumulative[0].Population_45_and_over;
 
 var arc_vaccine_eligible_age = d3
   .arc()
@@ -690,7 +690,7 @@ svg_eligible_vaccinated
   .attr("id", "vaccination_eligible_age_label_2")
   .attr("class", "description")
   .attr("dy", "1.5em")
-  .text("aged 50+ received");
+  .text("aged 45+ received");
 
 svg_eligible_vaccinated
   .append("text")
@@ -719,6 +719,97 @@ svg_eligible_vaccinated
         .attr("fill", "#a00a4d");
       Percent_eligible_age_vaccinated_1.text(
         d3.format(".1%")(vaccinated_eligible_age)
+      );
+    };
+  });
+
+// 45 to 64
+
+var svg_working_age_vaccinated = d3
+  .select("#working_age_guage")
+  .append("svg")
+  .attr("width", width_guage)
+  .attr("height", height_guage)
+  .append("g")
+  .attr(
+    "transform",
+    "translate(" + width_guage / 2 + "," + height_guage / 2 + ")"
+  )
+  .attr("class", "percentage_guage");
+
+number_working_age_vaccinated = overall_cumulative[0].Age_45_64;
+proportion_working_age_vaccinated = overall_cumulative[0].Proportion_45_64;
+estimated_working_age_population = overall_cumulative[0].Population_45_64;
+
+var arc_vaccine_working_age = d3
+  .arc()
+  .startAngle(0)
+  .innerRadius(innerR)
+  .outerRadius(outerR);
+
+svg_working_age_vaccinated
+  .append("path")
+  .attr("class", "background")
+  .attr("d", arc_vaccine_working_age.endAngle(twoPi));
+
+var foreground_working_age_vaccinated = svg_working_age_vaccinated
+  .append("path")
+  .attr("class", "foreground");
+
+var Percent_vaccinated_working_age_1 = svg_working_age_vaccinated
+  .append("text")
+  .attr("id", "vaccine_working_age_perc")
+  .attr("text-anchor", "middle")
+  .attr("class", "percent-vaccine")
+  .attr("dy", "-0.25em");
+
+svg_working_age_vaccinated
+  .append("text")
+  .attr("text-anchor", "middle")
+  .attr("id", "vaccinated_working_age_label_1")
+  .attr("class", "description")
+  .attr("dy", "0.5em")
+  .text(
+    d3.format(",.0f")(number_working_age_vaccinated) +
+      " / " +
+      d3.format(",.0f")(estimated_working_age_population)
+  );
+
+svg_working_age_vaccinated
+  .append("text")
+  .attr("text-anchor", "middle")
+  .attr("id", "vaccination_working_age_label_2")
+  .attr("class", "description")
+  .attr("dy", "1.5em")
+  .text("aged 45-64 received");
+
+svg_working_age_vaccinated
+  .append("text")
+  .attr("text-anchor", "middle")
+  .attr("id", "vaccination_working_age_label_3")
+  .attr("class", "description")
+  .attr("dy", "2.5em")
+  .text("at least one dose");
+
+var i_vaccinated_working_age_prop = d3.interpolate(
+  0,
+  proportion_working_age_vaccinated
+);
+
+svg_working_age_vaccinated
+  .transition()
+  .duration(3000)
+  .tween("vaccinated_working_age", function () {
+    return function (t) {
+      vaccinated_working_age = i_vaccinated_working_age_prop(t);
+      foreground_working_age_vaccinated
+        .attr(
+          "d",
+          arc_vaccine_working_age.endAngle(twoPi * vaccinated_working_age)
+        )
+        .attr("fill", "#0086bf");
+      Percent_vaccinated_working_age_1.text(
+        d3.format(".1%")(vaccinated_working_age)
       );
     };
   });
@@ -1456,7 +1547,7 @@ function update_summary() {
 
   d3.select("#vaccination_text_intro").html(function () {
     return (
-      "The figure below shows the proportion of adults aged 16+ and those aged 50+ who have received a vaccine dose in " +
+      "The figure below shows three guages showing the proportion of adults aged 16+, those aged 45+, and those aged 45-64 (as an approximation for working age population) who have received a vaccine dose in " +
       chosen_summary_area +
       "."
     );
@@ -1572,7 +1663,7 @@ function update_summary() {
     update_summary();
   });
 
-  // Over 50s
+  // Over 45s
   var old_number_eligible_age_vaccinated = number_eligible_age_vaccinated;
 
   if (number_eligible_age_vaccinated === undefined) {
@@ -1585,10 +1676,10 @@ function update_summary() {
     old_number_eligible_age_vaccinated = 0.001;
   }
 
-  number_eligible_age_vaccinated = overall_cumulative[0].Age_50_and_over;
-  proportion_eligible_age_vaccinated = overall_cumulative[0].Proportion_50_plus;
+  number_eligible_age_vaccinated = overall_cumulative[0].Age_45_and_over;
+  proportion_eligible_age_vaccinated = overall_cumulative[0].Proportion_45_plus;
   estimated_eligible_age_population =
-    overall_cumulative[0].Population_50_and_over;
+    overall_cumulative[0].Population_45_and_over;
 
   var i_vaccinated_eligible_age_prop = d3.interpolate(
     old_vaccine_eligible_age_percentage,
@@ -1629,6 +1720,68 @@ function update_summary() {
       d3.format(",.0f")(number_eligible_age_vaccinated) +
         " / " +
         d3.format(",.0f")(estimated_eligible_age_population)
+    )
+    .style("opacity", 0)
+    .transition()
+    .duration(500)
+    .style("opacity", 1);
+
+  // 45-64
+  var old_number_working_age_vaccinated = number_working_age_vaccinated;
+
+  if (number_working_age_vaccinated === undefined) {
+    old_number_working_age_vaccinated = 0.001;
+  }
+
+  var old_vaccine_working_age_percentage = proportion_working_age_vaccinated;
+
+  if (proportion_working_age_vaccinated === undefined) {
+    old_number_working_age_vaccinated = 0.001;
+  }
+
+  number_working_age_vaccinated = overall_cumulative[0].Age_45_64;
+  proportion_working_age_vaccinated = overall_cumulative[0].Proportion_45_64;
+  estimated_working_age_population = overall_cumulative[0].Population_45_64;
+
+  var i_vaccinated_working_age_prop = d3.interpolate(
+    old_vaccine_working_age_percentage,
+    proportion_working_age_vaccinated
+  );
+
+  svg_working_age_vaccinated
+    .selectAll("#vaccinated_working_age_label_1")
+    .transition()
+    .duration(750)
+    .style("opacity", 0);
+
+  svg_working_age_vaccinated
+    .transition()
+    .duration(3000)
+    .tween("vaccinated_working_age", function () {
+      return function (t) {
+        vaccinated_working_age = i_vaccinated_working_age_prop(t);
+        foreground_working_age_vaccinated
+          .attr(
+            "d",
+            arc_vaccine_working_age.endAngle(twoPi * vaccinated_working_age)
+          )
+          .attr("fill", "#0086bf");
+        Percent_vaccinated_working_age_1.text(
+          d3.format(".1%")(vaccinated_working_age)
+        );
+      };
+    });
+
+  svg_working_age_vaccinated
+    .append("text")
+    .attr("text-anchor", "middle")
+    .attr("id", "vaccinated_working_age_label_1")
+    .attr("class", "description")
+    .attr("dy", "0.5em")
+    .text(
+      d3.format(",.0f")(number_working_age_vaccinated) +
+        " / " +
+        d3.format(",.0f")(estimated_working_age_population)
     )
     .style("opacity", 0)
     .transition()
