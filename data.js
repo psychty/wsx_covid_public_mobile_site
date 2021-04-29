@@ -562,8 +562,8 @@ overall_cumulative = vaccine_at_a_glance.filter(function (d) {
   return d.Name === chosen_summary_area;
 });
 
-number_vaccinated = overall_cumulative[0].Total_where_age_known;
-proportion_vaccinated = overall_cumulative[0].Proportion_age_known;
+number_vaccinated = overall_cumulative[0].Total_first_dose_where_age_known;
+proportion_vaccinated = overall_cumulative[0].First_dose_proportion_age_known;
 estimated_population = overall_cumulative[0].Population_16_and_over;
 
 var arc_vaccine_overall = d3
@@ -645,8 +645,10 @@ var svg_eligible_vaccinated = d3
   )
   .attr("class", "percentage_guage");
 
-number_eligible_age_vaccinated = overall_cumulative[0].Age_45_and_over;
-proportion_eligible_age_vaccinated = overall_cumulative[0].Proportion_45_plus;
+number_eligible_age_vaccinated =
+  overall_cumulative[0].First_dose_age_45_and_over;
+proportion_eligible_age_vaccinated =
+  overall_cumulative[0].First_dose_proportion_45_plus;
 estimated_eligible_age_population =
   overall_cumulative[0].Population_45_and_over;
 
@@ -737,8 +739,9 @@ var svg_working_age_vaccinated = d3
   )
   .attr("class", "percentage_guage");
 
-number_working_age_vaccinated = overall_cumulative[0].Age_45_64;
-proportion_working_age_vaccinated = overall_cumulative[0].Proportion_45_64;
+number_working_age_vaccinated = overall_cumulative[0].First_dose_age_45_64;
+proportion_working_age_vaccinated =
+  overall_cumulative[0].First_dose_proportion_45_64;
 estimated_working_age_population = overall_cumulative[0].Population_45_64;
 
 var arc_vaccine_working_age = d3
@@ -1612,8 +1615,8 @@ function update_summary() {
     );
   });
 
-  number_vaccinated = overall_cumulative[0].Total_where_age_known;
-  proportion_vaccinated = overall_cumulative[0].Proportion_age_known;
+  number_vaccinated = overall_cumulative[0].Total_first_dose_where_age_known;
+  proportion_vaccinated = overall_cumulative[0].First_dose_proportion_age_known;
   estimated_population = overall_cumulative[0].Population_16_and_over;
 
   var i_vaccinated_prop = d3.interpolate(
@@ -1676,8 +1679,10 @@ function update_summary() {
     old_number_eligible_age_vaccinated = 0.001;
   }
 
-  number_eligible_age_vaccinated = overall_cumulative[0].Age_45_and_over;
-  proportion_eligible_age_vaccinated = overall_cumulative[0].Proportion_45_plus;
+  number_eligible_age_vaccinated =
+    overall_cumulative[0].First_dose_age_45_and_over;
+  proportion_eligible_age_vaccinated =
+    overall_cumulative[0].First_dose_proportion_45_plus;
   estimated_eligible_age_population =
     overall_cumulative[0].Population_45_and_over;
 
@@ -1739,8 +1744,9 @@ function update_summary() {
     old_number_working_age_vaccinated = 0.001;
   }
 
-  number_working_age_vaccinated = overall_cumulative[0].Age_45_64;
-  proportion_working_age_vaccinated = overall_cumulative[0].Proportion_45_64;
+  number_working_age_vaccinated = overall_cumulative[0].First_dose_age_45_64;
+  proportion_working_age_vaccinated =
+    overall_cumulative[0].First_dose_proportion_45_64;
   estimated_working_age_population = overall_cumulative[0].Population_45_64;
 
   var i_vaccinated_working_age_prop = d3.interpolate(
