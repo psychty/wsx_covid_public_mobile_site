@@ -1598,11 +1598,11 @@ function update_summary() {
       "As of " +
       vaccine_update_date +
       ", <b class = 'highlight'>" +
-      d3.format(",.0f")(overall_cumulative[0]["Total_where_age_known"]) +
+      d3.format(",.0f")(overall_cumulative[0]["Total_first_dose_where_age_known"]) +
       "</b> individuals have received at least one dose of a COVID-19 vaccine in " +
       chosen_summary_area +
       ". This is " +
-      d3.format(".1%")(overall_cumulative[0]["Proportion_age_known"]) +
+      d3.format(".1%")(overall_cumulative[0]["Proportion_first_dose_age_known"]) +
       " of the estimated population aged 16+."
     );
   });
