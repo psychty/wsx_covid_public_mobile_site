@@ -1602,7 +1602,7 @@ function update_summary() {
       "</b> individuals have received at least one dose of a COVID-19 vaccine in " +
       chosen_summary_area +
       ". This is " +
-      d3.format(".1%")(overall_cumulative[0]["Proportion_first_dose_age_known"]) +
+      d3.format(".1%")(overall_cumulative[0]["First_dose_proportion_age_known"]) +
       " of the estimated population aged 16+."
     );
   });
