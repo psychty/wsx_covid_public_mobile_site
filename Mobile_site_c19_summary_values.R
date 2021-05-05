@@ -227,6 +227,10 @@ p12_test_summary_2 <- p12_test_df %>%
 p12_test_summary <- p12_test_summary_1 %>% 
   left_join(p12_test_summary_2, by = 'Name') 
 
+# p12_test_df %>% 
+#   filter(Name == 'Arun') %>% 
+#   write.csv(., paste0(output_directory_x, '/Arun_ltla.csv'),  row.names = FALSE)
+
 # Cumulative to most recent case date, new cases and rolling 7 day incidence up to complete date only.
 
 rm(p12_test_summary_1, p12_test_summary_2)
