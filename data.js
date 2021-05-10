@@ -160,7 +160,7 @@ var bed_data = JSON.parse(request.responseText);
 var request = new XMLHttpRequest();
 request.open("GET", "./Outputs/trust_meta.json", false);
 request.send(null);
-var bed_data_publish_date = JSON.parse(request.responseText)[0].Date_published;
+var bed_data_publish_date = JSON.parse(request.responseText)[0];
 
 var request = new XMLHttpRequest();
 request.open("GET", "./Outputs/mortality_summary.json", false);
@@ -1150,7 +1150,7 @@ function update_summary() {
         "<b class = 'highlight'>" +
         d3.format(",.0f")(d.Patients_occupying_beds) +
         "</b> COVID-19 positive patients in hospital beds across the South East of England on " +
-        d.Beds_date
+        bed_data_publish_date
       );
     });
 
@@ -1177,7 +1177,7 @@ function update_summary() {
     });
 
   d3.select("#latest_covid_beds_4").html(function (d) {
-    return "This was updated on " + bed_data_publish_date;
+    return "This for the seven days to " + bed_data_publish_date;
   });
 
   d3.select("#latest_covid_deaths_1")
@@ -1598,11 +1598,15 @@ function update_summary() {
       "As of " +
       vaccine_update_date +
       ", <b class = 'highlight'>" +
-      d3.format(",.0f")(overall_cumulative[0]["Total_first_dose_where_age_known"]) +
+      d3.format(",.0f")(
+        overall_cumulative[0]["Total_first_dose_where_age_known"]
+      ) +
       "</b> individuals have received at least one dose of a COVID-19 vaccine in " +
       chosen_summary_area +
       ". This is " +
-      d3.format(".1%")(overall_cumulative[0]["First_dose_proportion_age_known"]) +
+      d3.format(".1%")(
+        overall_cumulative[0]["First_dose_proportion_age_known"]
+      ) +
       " of the estimated population aged 16+."
     );
   });
