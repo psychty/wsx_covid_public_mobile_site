@@ -5422,23 +5422,23 @@
 "South Derbyshire","E07000039","70-74 years","Lower Tier Local Authority",5568
 "South Derbyshire","E07000039","75-79 years","Lower Tier Local Authority",3658
 "South Derbyshire","E07000039","80+ years","Lower Tier Local Authority",4700
-"South East","E12000008","0-4 years","Region",520679
-"South East","E12000008","10-14 years","Region",561137
-"South East","E12000008","15-19 years","Region",511193
-"South East","E12000008","20-24 years","Region",533049
-"South East","E12000008","25-29 years","Region",545057
-"South East","E12000008","30-34 years","Region",550410
-"South East","E12000008","35-39 years","Region",586606
-"South East","E12000008","40-44 years","Region",575364
-"South East","E12000008","45-49 years","Region",628938
-"South East","E12000008","5-9 years","Region",580495
-"South East","E12000008","50-54 years","Region",661077
-"South East","E12000008","55-59 years","Region",616352
-"South East","E12000008","60-64 years","Region",518562
-"South East","E12000008","65-69 years","Region",464226
-"South East","E12000008","70-74 years","Region",482233
-"South East","E12000008","75-79 years","Region",335831
-"South East","E12000008","80+ years","Region",508926
+"South East region","E12000008","0-4 years","Region",520679
+"South East region","E12000008","10-14 years","Region",561137
+"South East region","E12000008","15-19 years","Region",511193
+"South East region","E12000008","20-24 years","Region",533049
+"South East region","E12000008","25-29 years","Region",545057
+"South East region","E12000008","30-34 years","Region",550410
+"South East region","E12000008","35-39 years","Region",586606
+"South East region","E12000008","40-44 years","Region",575364
+"South East region","E12000008","45-49 years","Region",628938
+"South East region","E12000008","5-9 years","Region",580495
+"South East region","E12000008","50-54 years","Region",661077
+"South East region","E12000008","55-59 years","Region",616352
+"South East region","E12000008","60-64 years","Region",518562
+"South East region","E12000008","65-69 years","Region",464226
+"South East region","E12000008","70-74 years","Region",482233
+"South East region","E12000008","75-79 years","Region",335831
+"South East region","E12000008","80+ years","Region",508926
 "South Gloucestershire","E06000025","0-4 years","Unitary Authoritory",16303
 "South Gloucestershire","E06000025","10-14 years","Unitary Authoritory",16696
 "South Gloucestershire","E06000025","15-19 years","Unitary Authoritory",15367
