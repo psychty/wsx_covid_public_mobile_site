@@ -159,7 +159,7 @@ p12_test_df <- daily_cases_ltla %>%
 # 
 # last_date <- as.Date(last_update(filters = query_filters, structure = query_structure))
 # # last_date <- as.Date('2021-04-19')
-last_date <- max(p12_test_df$Date) +1
+last_date <- max(p12_test_df$Date) + 1
 
 # PHE say the last four data points are incomplete (perhaps they should not publish them). Instead, we need to make sure we account for this so that it is not misinterpreted.
 complete_date <- last_date - 5
@@ -272,25 +272,91 @@ mye_ages %>%
 
 # &metric=newVirusTests&metric=uniqueCasePositivityBySpecimenDateRollingSum
 
-age_spec <- read_csv('https://coronavirus.data.gov.uk/downloads/demographic/cases/specimenDate_ageDemographic-unstacked.csv') %>% 
-  filter(areaName %in% c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex', 'South East', 'England')) %>% 
-  mutate(areaName = ifelse(areaName == 'South East', 'South East region', areaName)) %>% 
-  select(areaCode, areaName, areaType, date, `newCasesBySpecimenDate-0_4`,`newCasesBySpecimenDate-5_9`,`newCasesBySpecimenDate-10_14`,`newCasesBySpecimenDate-15_19`,`newCasesBySpecimenDate-20_24`,`newCasesBySpecimenDate-25_29`,`newCasesBySpecimenDate-30_34`,`newCasesBySpecimenDate-35_39`,`newCasesBySpecimenDate-40_44`,`newCasesBySpecimenDate-45_49`,`newCasesBySpecimenDate-50_54`,`newCasesBySpecimenDate-55_59`,`newCasesBySpecimenDate-60_64`,`newCasesBySpecimenDate-65_69`,`newCasesBySpecimenDate-70_74`,`newCasesBySpecimenDate-75_79`,`newCasesBySpecimenDate-80_84`,`newCasesBySpecimenDate-85_89`,`newCasesBySpecimenDate-90+`,`newCasesBySpecimenDate-unassigned`) %>%
-  pivot_longer(cols = c(`newCasesBySpecimenDate-0_4`,`newCasesBySpecimenDate-5_9`,`newCasesBySpecimenDate-10_14`,`newCasesBySpecimenDate-15_19`,`newCasesBySpecimenDate-20_24`,`newCasesBySpecimenDate-25_29`,`newCasesBySpecimenDate-30_34`,`newCasesBySpecimenDate-35_39`,`newCasesBySpecimenDate-40_44`,`newCasesBySpecimenDate-45_49`,`newCasesBySpecimenDate-50_54`,`newCasesBySpecimenDate-55_59`,`newCasesBySpecimenDate-60_64`,`newCasesBySpecimenDate-65_69`,`newCasesBySpecimenDate-70_74`,`newCasesBySpecimenDate-75_79`,`newCasesBySpecimenDate-80_84`,`newCasesBySpecimenDate-85_89`,`newCasesBySpecimenDate-90+`,`newCasesBySpecimenDate-unassigned`),
-               names_to = 'Age') %>% 
-  mutate(Age = gsub('newCasesBySpecimenDate-', '', Age)) %>% 
-  mutate(Age = ifelse(Age == 'unassigned', 'Unknown', paste0(Age, ' years'))) %>% 
+library(showtext)
+library(httr)
+
+lads <- c("E07000223", "E07000224","E07000225", "E07000226", "E07000227", "E07000228","E07000229")
+
+## build the required structure for the api
+# {"date":"date","areaCode":"areaCode","areaName":"areaName","newCasesBySpecimenDateRollingRate":"newCasesBySpecimenDateRollingRate","newCasesBySpecimenDateRollingSum":"newCasesBySpecimenDateRollingSum","uniqueCasePositivityBySpecimenDateRollingSum":"uniqueCasePositivityBySpecimenDateRollingSum","uniquePeopleTestedBySpecimenDateRollingSum":"uniquePeopleTestedBySpecimenDateRollingSum"}
+
+###### read the daaa
+england <- 'https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=nation;areaName=england&structure={"date":"date","areaCode":"areaCode","areaName":"areaName","newCasesBySpecimenDateAgeDemographics":"newCasesBySpecimenDateAgeDemographics"}'
+
+westsussex <- 'https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=utla;areaCode=E10000032&structure={"date":"date","areaCode":"areaCode","areaName":"areaName","newCasesBySpecimenDateAgeDemographics":"newCasesBySpecimenDateAgeDemographics"}'
+
+southeast <- 'https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=region;areaCode=E12000008&structure={"date":"date","areaCode":"areaCode","areaName":"areaName","newCasesBySpecimenDateAgeDemographics":"newCasesBySpecimenDateAgeDemographics"}'
+
+# create api calls for lads:
+baseurl <- 'https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=ltla;areaCode=HEREPLEASE&structure={"date":"date","areaCode":"areaCode","areaName":"areaName","newCasesBySpecimenDateAgeDemographics":"newCasesBySpecimenDateAgeDemographics"}'
+
+ltlas <- character()
+
+for(i in lads) {
+  new_string <- sub(pattern = "HEREPLEASE", replacement = i, x = baseurl)
+  ltlas <- c(ltlas, new_string)
+}
+
+# list of apis
+urls <- c(england, southeast, westsussex, ltlas)
+
+# empty list
+dflist <- list()
+
+# api calls for each geography into list
+for(i in urls) {
+  response <- httr::GET(url = i)
+  
+  if (response$status_code >= 400) {
+    err_msg = httr::http_status(response)
+    stop(err_msg)
+  }
+  json_text <- content(response, "text")
+  data <- jsonlite::fromJSON(json_text)
+  
+  df <- as.data.frame(data$data)
+  df$apisource <- i
+  
+  dflist[[i]] <- df
+}
+
+# bind together (unnest)
+age_spec <- bind_rows(dflist) %>%
+  unnest(newCasesBySpecimenDateAgeDemographics) %>% 
+  mutate(Age = ifelse(age == 'unassigned', 'Unknown', paste0(age, ' years'))) %>% 
   mutate(Age = gsub('_', '-', Age)) %>% 
-  mutate(Age = ifelse(Age %in% c('80-84 years', '85-89 years', '90+ years'), '80+ years', Age)) %>%
-  filter(areaType != 'overview') %>% 
-  mutate(areaType = ifelse(areaType == 'ltla', 'Lower Tier Local Authority', ifelse(areaType == 'utla', 'Upper Tier Local Authority', ifelse(areaType == 'region', 'Region', ifelse(areaType == 'nation' , 'Nation', NA))))) %>% 
+  mutate(Age = ifelse(Age %in% c('80-84 years', '85-89 years', '90+ years'), '80+ years', Age)) %>% 
+  mutate(Age = ifelse(Age == '00-04 years', '0-4 years', ifelse(Age == '05-09 years', '5-9 years', Age))) %>% 
   rename(Name = areaName,
          Code = areaCode,
-         Type = areaType,
-         Cases = value,
+         Cases = cases,
          Date = date) %>% 
   group_by(Name, Age, Date) %>% 
-  summarise(Cases = sum(Cases, na.rm = TRUE)) 
+  summarise(Cases = sum(Cases, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  filter(Age != 'Unknown') %>% 
+  mutate(Age = factor(Age, levels = c('0-4 years', '5-9 years', '10-14 years', '15-19 years', '20-24 years' , '25-29 years', '30-34 years', '35-39 years', '40-44 years', '45-49 years', '50-54 years' ,'55-59 years', '60-64 years' , '65-69 years', '70-74 years', '75-79 years', '80+ years'))) %>% 
+  mutate(Date = as.Date(Date))
+
+# age_spec <- read_csv('https://coronavirus.data.gov.uk/downloads/demographic/cases/specimenDate_ageDemographic-unstacked.csv') %>% 
+#   filter(areaName %in% c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex', 'South East', 'England')) %>% 
+#   mutate(areaName = ifelse(areaName == 'South East', 'South East region', areaName)) %>% 
+#   select(areaCode, areaName, areaType, date, `newCasesBySpecimenDate-0_4`,`newCasesBySpecimenDate-5_9`,`newCasesBySpecimenDate-10_14`,`newCasesBySpecimenDate-15_19`,`newCasesBySpecimenDate-20_24`,`newCasesBySpecimenDate-25_29`,`newCasesBySpecimenDate-30_34`,`newCasesBySpecimenDate-35_39`,`newCasesBySpecimenDate-40_44`,`newCasesBySpecimenDate-45_49`,`newCasesBySpecimenDate-50_54`,`newCasesBySpecimenDate-55_59`,`newCasesBySpecimenDate-60_64`,`newCasesBySpecimenDate-65_69`,`newCasesBySpecimenDate-70_74`,`newCasesBySpecimenDate-75_79`,`newCasesBySpecimenDate-80_84`,`newCasesBySpecimenDate-85_89`,`newCasesBySpecimenDate-90+`,`newCasesBySpecimenDate-unassigned`) %>%
+#   pivot_longer(cols = c(`newCasesBySpecimenDate-0_4`,`newCasesBySpecimenDate-5_9`,`newCasesBySpecimenDate-10_14`,`newCasesBySpecimenDate-15_19`,`newCasesBySpecimenDate-20_24`,`newCasesBySpecimenDate-25_29`,`newCasesBySpecimenDate-30_34`,`newCasesBySpecimenDate-35_39`,`newCasesBySpecimenDate-40_44`,`newCasesBySpecimenDate-45_49`,`newCasesBySpecimenDate-50_54`,`newCasesBySpecimenDate-55_59`,`newCasesBySpecimenDate-60_64`,`newCasesBySpecimenDate-65_69`,`newCasesBySpecimenDate-70_74`,`newCasesBySpecimenDate-75_79`,`newCasesBySpecimenDate-80_84`,`newCasesBySpecimenDate-85_89`,`newCasesBySpecimenDate-90+`,`newCasesBySpecimenDate-unassigned`),
+#                names_to = 'Age') %>% 
+#   mutate(Age = gsub('newCasesBySpecimenDate-', '', Age)) %>% 
+#   mutate(Age = ifelse(Age == 'unassigned', 'Unknown', paste0(Age, ' years'))) %>% 
+#   mutate(Age = gsub('_', '-', Age)) %>% 
+#   mutate(Age = ifelse(Age %in% c('80-84 years', '85-89 years', '90+ years'), '80+ years', Age)) %>%
+#   filter(areaType != 'overview') %>% 
+#   mutate(areaType = ifelse(areaType == 'ltla', 'Lower Tier Local Authority', ifelse(areaType == 'utla', 'Upper Tier Local Authority', ifelse(areaType == 'region', 'Region', ifelse(areaType == 'nation' , 'Nation', NA))))) %>% 
+#   rename(Name = areaName,
+#          Code = areaCode,
+#          Type = areaType,
+#          Cases = value,
+#          Date = date) %>% 
+#   group_by(Name, Age, Date) %>% 
+#   summarise(Cases = sum(Cases, na.rm = TRUE)) 
 
 Ages <- data.frame(Age = c('0-4 years', '5-9 years', '10-14 years', '15-19 years', '20-24 years' , '25-29 years', '30-34 years', '35-39 years', '40-44 years', '45-49 years', '50-54 years' ,'55-59 years', '60-64 years' , '65-69 years', '70-74 years', '75-79 years', '80+ years'))
 Dates <- seq.Date(min(age_spec$Date), max(age_spec$Date), by = '1 day')
@@ -514,7 +580,6 @@ hospital_admissions_df %>%
   select(!c(Date)) %>% 
   toJSON() %>% 
   write_lines(paste0(output_directory_x,'/trust_bed_summary.json'))
-
 
 # mortality ####
 
