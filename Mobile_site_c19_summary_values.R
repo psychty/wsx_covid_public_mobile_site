@@ -1519,7 +1519,7 @@ if(change_direction_between_weeks == 'SAME'){
               just = 'left',
               width = .04)
   
-  grid.text('No change in case numbers',
+  grid.text('No change\nin cases',
             just = "left",  
             x = unit(0.34, "npc"), 
             y = unit(0.58, "npc"), 
@@ -1547,7 +1547,7 @@ grid.text(paste0(format(cases_this_week$Rolling_7_day_new_cases, big.mark = ',')
                     fontfamily = 'Verdana',
                     fontface = 'bold'))
 
-grid.text(ifelse(change_direction_between_weeks == 'SAME', 'Confirmed cases remain the same as they did in the previous week', ifelse(change_direction_between_weeks == 'DOWN', 'Confirmed cases are falling compared to the previous week', ifelse(change_direction_between_weeks == 'UP', 'Confirmed cases are rising compared to the previous week', NA))),
+grid.text(ifelse(change_direction_between_weeks == 'SAME', 'Confirmed cases are the same as in the previous week', ifelse(change_direction_between_weeks == 'DOWN', 'Confirmed cases are falling compared to the previous week', ifelse(change_direction_between_weeks == 'UP', 'Confirmed cases are rising compared to the previous week', NA))),
           just = "left",  
           x = unit(0.04, "npc"), 
           y = unit(0.34, "npc"), 
