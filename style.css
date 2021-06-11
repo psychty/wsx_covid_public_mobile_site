@@ -520,9 +520,9 @@ td {
   fill: #e6e7e8;
 }
 
-.percentage_guage .foreground {
-  /* fill: #191947; */
-}
+/* .percentage_guage .foreground {
+  fill: #191947;
+} */
 
 .percent-vaccine {
   font-size: 2.8rem;
