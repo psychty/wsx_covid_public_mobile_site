@@ -1543,7 +1543,8 @@ latest_denominators <- latest_denominators_1 %>%
   ungroup() %>% 
   bind_rows(latest_denominators_1) %>% 
   bind_rows(latest_denominators_2) %>% 
-  bind_rows(latest_denominators_3)
+  bind_rows(latest_denominators_3) %>% 
+  bind_rows(latest_denominators_4)
 
 vaccine_df_ltla_1 <- vaccine_age_df %>% 
   group_by(Name, Age_group) %>% 
@@ -1617,6 +1618,66 @@ vaccine_df_ltla <- vaccine_df_ltla_2 %>%
 
 vaccine_df_ltla %>%  toJSON() %>% 
   write_lines(paste0(output_directory_x, '/vaccine_at_a_glance.json'))  
+
+# Vaccine figure infographic ####
+
+vac_info_df <- vaccine_df_ltla %>% 
+  mutate(`Not vaccinated` = Denominator - Dose_1) %>% 
+  mutate(`Received first dose only` = Dose_1 - Dose_2) %>% 
+  select(Name, Age_group, Dose_2, 'Received first dose only', 'Not vaccinated') %>% 
+  rename('Received first and second doses' = Dose_2) %>% 
+  pivot_longer(cols = c('Received first and second doses','Received first dose only', 'Not vaccinated'),
+               names_to = 'Status',
+               values_to = 'People') %>% 
+  mutate(Status = factor(Status, levels = c('Received first and second doses','Received first dose only', 'Not vaccinated')))
+
+vac_info_df <- vac_info_df %>%
+  group_by(Name, Age_group) %>%
+  arrange(Status) %>%
+  mutate(cumulative = cumsum(People),
+         pos = lag(cumulative) + People/2) %>%
+  mutate(pos = ifelse(is.na(pos), cumulative/2, pos)) %>%
+  mutate(pos = sum(People) - pos) %>%
+  mutate(Status_label = paste0(Status, ' (', format(People, big.mark = ',', trim = TRUE), ')')) %>%
+  mutate(Status_label = factor(Status_label, levels = unique(Status_label)))
+
+vac_info_df_x <- vac_info_df %>% 
+  filter(Name == 'West Sussex') %>% 
+  filter(Age_group == '18 and over')
+
+ggplot(vac_info_df_x, aes(x = 2, 
+                                                       y = People,
+                                                       fill = Status_label,
+                                                       colour = "#ffffff")) +
+  geom_bar(stat="identity") +
+  geom_text(data = subset(vac_info_df_x, People > 5),
+            aes(label = format(People,big.mark = ","),
+                y = pos),
+            size = 4,
+            colour = "#000000",
+            fontface="bold") +
+  xlim(.5, 2.5) +
+  coord_polar(theta = "y", start = 0, direction = 1) +
+  labs(x = '',
+       y = '')+
+  scale_fill_manual(values = c("#f6de6c", "#ed8a46", "#be3e2b"),
+                    breaks = levels(vac_info_df_x$Status_label),
+                    name = '') +
+  scale_colour_manual(values= "#ffffff", guide = FALSE) +
+  # geom_text(aes(label = paste0("First doses in\n", Name, '\n', format(sum(P),big.mark = ","), sep = ""),hjust = .5, vjust = 2, y= 0), size = 5, colour = "#000000")+
+  theme_bw()+
+  theme(axis.ticks=element_blank(),
+        axis.text=element_blank(),
+        axis.title=element_blank(),
+        panel.grid=element_blank(),
+        panel.border=element_blank(),
+        legend.position = 'bottom',
+        legend.key.size = unit(0.5, "lines"),
+        legend.text = element_text(size = 15),
+        legend.margin=margin(0,0,0,0),
+        legend.box.margin=margin(0,0,0,0)) +
+  guides(fill = guide_legend(nrow = 5, byrow = TRUE))
+
 
 # Export image file ####
 
