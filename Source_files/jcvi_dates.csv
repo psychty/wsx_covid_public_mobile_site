@@ -1,10 +1,10 @@
 Cohort,Cohort_name,Age_group,Opening_date
-1,Residents in a care home for older adults and their carers,,08/12/2020
+1,Residents in a care home for older adults and their carers,Care home residents,08/12/2020
 2,All adults aged 80 and over and frontline health and social care workers,80-84 years,08/12/2020
 3,All adults aged 75 and over,75-79 years,18/01/2021
 4,All adults aged 70 and over and clinically extremely vulnerable,70-74 years,18/01/2021
 5,All those aged 65 and over,65-69 years,15/02/2021
-6,All those aged 16 to 64 years with an underlying health condition which puts them at higher risk of serious disease and mortality,,15/02/2021
+6,All those aged 16 to 64 years with an underlying health condition which puts them at higher risk of serious disease and mortality,16-64 years*,15/02/2021
 7,All those aged 64 and over,60-64 years,26/02/2021
 7,All those aged 60 and over,60-64 years,01/03/2021
 8,All those aged 55 and over,55-59 years,06/03/2021
