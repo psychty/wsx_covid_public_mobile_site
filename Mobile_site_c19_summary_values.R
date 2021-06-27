@@ -1616,7 +1616,9 @@ vaccine_df_ltla <- vaccine_df_ltla_2 %>%
 #   toJSON() %>% 
 #   write_lines(paste0(output_directory_x, '/vaccine_at_a_glance.json'))  
 
-vaccine_df_ltla %>%  toJSON() %>% 
+vaccine_df_ltla %>% 
+  mutate(Name = ifelse(Name == 'South East', 'South East region', Name)) %>% 
+  toJSON() %>% 
   write_lines(paste0(output_directory_x, '/vaccine_at_a_glance.json'))  
 
 # Vaccine figure infographic ####
@@ -1654,8 +1656,6 @@ vac_info_df_x <- vac_info_df %>%
   filter(Name == 'West Sussex') %>% 
   filter(Age_group == '18 and over') %>% 
   mutate(Status_label = factor(Status_label, levels = unique(Status_label)))
-
-
 
 # Export image file ####
 
