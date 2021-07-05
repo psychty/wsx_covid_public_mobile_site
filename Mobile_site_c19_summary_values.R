@@ -1421,8 +1421,6 @@ vaccine_ts_df <- vaccine_age_df %>%
   mutate(Rolling_age_specific_second_dose_rate_per_100000 = pois.exact(Seven_day_sum_dose_2, Denominator)[[3]]*100000) %>% 
   mutate(Cumulative_age_specific_second_dose_rate_per_100000 = pois.exact(Cumulative_dose_2, Denominator)[[3]]*100000) 
 
-# Week by week change ####
-
 set_week_start('Monday')
 
 # Create a dataframe consisting of 52 rows (one for each week) with the field 'Week_start' as the date of the start of each week. Add a number corresponding to the week number, create a string called match_key (which we will use to match the filepath to the week) and then a formatted label for the dates included in the week.
@@ -1533,9 +1531,6 @@ latest_denominators_4 <-  vaccine_age_df %>%
   mutate(Age_group = '18-39 years') %>%
   ungroup() 
 
-# Continue #### 
-
-
 latest_denominators <- latest_denominators_1 %>% 
   group_by(Name) %>% 
   summarise(Denominator = sum(Denominator, na.rm = TRUE)) %>% 
@@ -1567,7 +1562,6 @@ vaccine_df_ltla_3 <- vaccine_age_df %>%
             Dose_2 = sum(Dose_2, na.rm = TRUE)) %>% 
   mutate(Age_group = '18-64 years') %>% 
   left_join(latest_denominators, by = c('Name', 'Age_group'))
-
 
 vaccine_df_ltla_4 <- vaccine_age_df %>% 
   group_by(Name) %>% 
@@ -1658,7 +1652,6 @@ vac_info_df_x <- vac_info_df %>%
   mutate(Status_label = factor(Status_label, levels = unique(Status_label)))
 
 # Export image file ####
-
 
 #install.packages('jpeg')
 # library(jpeg)
@@ -2531,8 +2524,6 @@ grid.lines(x = c(0.54,0.98),
            gp = gpar(col = text_colour,
                      # lty = "dotted",
                      lwd = 1.2))
-
-# Vaccinations ####
 
 vac_uptake_18_plus_gg <- ggplot(vac_info_df_x, aes(x = 2, 
                                                    y = People,
