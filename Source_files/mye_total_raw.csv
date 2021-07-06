@@ -1,849 +1,849 @@
 "Year","Name","Area_code","Type","Age","Population"
-2020,"Darlington","E06000005","Unitary Authority","All Ages",107402
-2020,"Darlington","E06000005","Unitary Authority","Aged 65+",22131
-2020,"County Durham","E06000047","Unitary Authority","All Ages",533149
-2020,"County Durham","E06000047","Unitary Authority","Aged 65+",111582
-2020,"Hartlepool","E06000001","Unitary Authority","All Ages",93836
-2020,"Hartlepool","E06000001","Unitary Authority","Aged 65+",18371
-2020,"Middlesbrough","E06000002","Unitary Authority","All Ages",141285
-2020,"Middlesbrough","E06000002","Unitary Authority","Aged 65+",23214
-2020,"Northumberland","E06000057","Unitary Authority","All Ages",323820
-2020,"Northumberland","E06000057","Unitary Authority","Aged 65+",81368
-2020,"Redcar and Cleveland","E06000003","Unitary Authority","All Ages",137228
-2020,"Redcar and Cleveland","E06000003","Unitary Authority","Aged 65+",31288
-2020,"Stockton-on-Tees","E06000004","Unitary Authority","All Ages",197419
-2020,"Stockton-on-Tees","E06000004","Unitary Authority","Aged 65+",36948
-2020,"Gateshead","E08000037","Unitary Authority","All Ages",201950
-2020,"Gateshead","E08000037","Unitary Authority","Aged 65+",39903
-2020,"Newcastle upon Tyne","E08000021","Unitary Authority","All Ages",306824
-2020,"Newcastle upon Tyne","E08000021","Unitary Authority","Aged 65+",44154
-2020,"North Tyneside","E08000022","Unitary Authority","All Ages",208871
-2020,"North Tyneside","E08000022","Unitary Authority","Aged 65+",42649
-2020,"South Tyneside","E08000023","Unitary Authority","All Ages",151133
-2020,"South Tyneside","E08000023","Unitary Authority","Aged 65+",30814
-2020,"Sunderland","E08000024","Unitary Authority","All Ages",277846
-2020,"Sunderland","E08000024","Unitary Authority","Aged 65+",55209
-2020,"Blackburn with Darwen","E06000008","Unitary Authority","All Ages",150030
-2020,"Blackburn with Darwen","E06000008","Unitary Authority","Aged 65+",21986
-2020,"Blackpool","E06000009","Unitary Authority","All Ages",138381
-2020,"Blackpool","E06000009","Unitary Authority","Aged 65+",28433
-2020,"Cheshire East","E06000049","Unitary Authority","All Ages",386667
-2020,"Cheshire East","E06000049","Unitary Authority","Aged 65+",89148
-2020,"Cheshire West and Chester","E06000050","Unitary Authority","All Ages",343823
-2020,"Cheshire West and Chester","E06000050","Unitary Authority","Aged 65+",74915
-2020,"Halton","E06000006","Unitary Authority","All Ages",129759
-2020,"Halton","E06000006","Unitary Authority","Aged 65+",24105
-2020,"Warrington","E06000007","Unitary Authority","All Ages",209397
-2020,"Warrington","E06000007","Unitary Authority","Aged 65+",40052
-2020,"Cumbria","E10000006","Upper Tier Local Authority","All Ages",499781
-2020,"Cumbria","E10000006","Upper Tier Local Authority","Aged 65+",123422
-2020,"Bolton","E08000001","Unitary Authority","All Ages",288248
-2020,"Bolton","E08000001","Unitary Authority","Aged 65+",50056
-2020,"Bury","E08000002","Unitary Authority","All Ages",190708
-2020,"Bury","E08000002","Unitary Authority","Aged 65+",35054
-2020,"Manchester","E08000003","Unitary Authority","All Ages",555741
-2020,"Manchester","E08000003","Unitary Authority","Aged 65+",51557
-2020,"Oldham","E08000004","Unitary Authority","All Ages",237628
-2020,"Oldham","E08000004","Unitary Authority","Aged 65+",38417
-2020,"Rochdale","E08000005","Unitary Authority","All Ages",223659
-2020,"Rochdale","E08000005","Unitary Authority","Aged 65+",36927
-2020,"Salford","E08000006","Unitary Authority","All Ages",262697
-2020,"Salford","E08000006","Unitary Authority","Aged 65+",36625
-2020,"Stockport","E08000007","Unitary Authority","All Ages",294197
-2020,"Stockport","E08000007","Unitary Authority","Aged 65+",58933
-2020,"Tameside","E08000008","Unitary Authority","All Ages",227117
-2020,"Tameside","E08000008","Unitary Authority","Aged 65+",39976
-2020,"Trafford","E08000009","Unitary Authority","All Ages",237579
-2020,"Trafford","E08000009","Unitary Authority","Aged 65+",41443
-2020,"Wigan","E08000010","Unitary Authority","All Ages",330712
-2020,"Wigan","E08000010","Unitary Authority","Aged 65+",63420
-2020,"Lancashire","E10000017","Upper Tier Local Authority","All Ages",1227076
-2020,"Lancashire","E10000017","Upper Tier Local Authority","Aged 65+",255637
-2020,"Knowsley","E08000011","Unitary Authority","All Ages",152452
-2020,"Knowsley","E08000011","Unitary Authority","Aged 65+",26419
-2020,"Liverpool","E08000012","Unitary Authority","All Ages",500474
-2020,"Liverpool","E08000012","Unitary Authority","Aged 65+",73799
-2020,"Sefton","E08000014","Unitary Authority","All Ages",275899
-2020,"Sefton","E08000014","Unitary Authority","Aged 65+",65463
-2020,"St. Helens","E08000013","Unitary Authority","All Ages",181095
-2020,"St. Helens","E08000013","Unitary Authority","Aged 65+",37320
-2020,"Wirral","E08000015","Unitary Authority","All Ages",324336
-2020,"Wirral","E08000015","Unitary Authority","Aged 65+",71289
-2020,"East Riding of Yorkshire","E06000011","Unitary Authority","All Ages",343201
-2020,"East Riding of Yorkshire","E06000011","Unitary Authority","Aged 65+",90631
-2020,"Kingston upon Hull, City of","E06000010","Unitary Authority","All Ages",259126
-2020,"Kingston upon Hull, City of","E06000010","Unitary Authority","Aged 65+",39437
-2020,"North East Lincolnshire","E06000012","Unitary Authority","All Ages",159364
-2020,"North East Lincolnshire","E06000012","Unitary Authority","Aged 65+",33258
-2020,"North Lincolnshire","E06000013","Unitary Authority","All Ages",172748
-2020,"North Lincolnshire","E06000013","Unitary Authority","Aged 65+",37294
-2020,"York","E06000014","Unitary Authority","All Ages",211012
-2020,"York","E06000014","Unitary Authority","Aged 65+",38874
-2020,"North Yorkshire","E10000023","Upper Tier Local Authority","All Ages",620610
-2020,"North Yorkshire","E10000023","Upper Tier Local Authority","Aged 65+",154958
-2020,"Barnsley","E08000016","Unitary Authority","All Ages",248071
-2020,"Barnsley","E08000016","Unitary Authority","Aged 65+",48660
-2020,"Doncaster","E08000017","Unitary Authority","All Ages",312785
-2020,"Doncaster","E08000017","Unitary Authority","Aged 65+",60324
-2020,"Rotherham","E08000018","Unitary Authority","All Ages",264984
-2020,"Rotherham","E08000018","Unitary Authority","Aged 65+",52388
-2020,"Sheffield","E08000019","Unitary Authority","All Ages",589214
-2020,"Sheffield","E08000019","Unitary Authority","Aged 65+",94714
-2020,"Bradford","E08000032","Unitary Authority","All Ages",542128
-2020,"Bradford","E08000032","Unitary Authority","Aged 65+",81814
-2020,"Calderdale","E08000033","Unitary Authority","All Ages",211439
-2020,"Calderdale","E08000033","Unitary Authority","Aged 65+",40223
-2020,"Kirklees","E08000034","Unitary Authority","All Ages",441290
-2020,"Kirklees","E08000034","Unitary Authority","Aged 65+",78994
-2020,"Leeds","E08000035","Unitary Authority","All Ages",798786
-2020,"Leeds","E08000035","Unitary Authority","Aged 65+",123784
-2020,"Wakefield","E08000036","Unitary Authority","All Ages",351592
-2020,"Wakefield","E08000036","Unitary Authority","Aged 65+",66961
-2020,"Derby","E06000015","Unitary Authority","All Ages",256814
-2020,"Derby","E06000015","Unitary Authority","Aged 65+",42361
-2020,"Leicester","E06000016","Unitary Authority","All Ages",354036
-2020,"Leicester","E06000016","Unitary Authority","Aged 65+",43602
-2020,"Nottingham","E06000018","Unitary Authority","All Ages",337098
-2020,"Nottingham","E06000018","Unitary Authority","Aged 65+",39125
-2020,"Rutland","E06000017","Unitary Authority","All Ages",40476
-2020,"Rutland","E06000017","Unitary Authority","Aged 65+",10345
-2020,"Derbyshire","E10000007","Upper Tier Local Authority","All Ages",807183
-2020,"Derbyshire","E10000007","Upper Tier Local Authority","Aged 65+",176969
-2020,"Leicestershire","E10000018","Upper Tier Local Authority","All Ages",713085
-2020,"Leicestershire","E10000018","Upper Tier Local Authority","Aged 65+",146675
-2020,"Lincolnshire","E10000019","Upper Tier Local Authority","All Ages",766333
-2020,"Lincolnshire","E10000019","Upper Tier Local Authority","Aged 65+",182278
-2020,"Northamptonshire","E10000021","Upper Tier Local Authority","All Ages",757181
-2020,"Northamptonshire","E10000021","Upper Tier Local Authority","Aged 65+",138216
-2020,"Nottinghamshire","E10000024","Upper Tier Local Authority","All Ages",833377
-2020,"Nottinghamshire","E10000024","Upper Tier Local Authority","Aged 65+",175086
-2020,"Herefordshire, County of","E06000019","Unitary Authority","All Ages",193615
-2020,"Herefordshire, County of","E06000019","Unitary Authority","Aged 65+",48458
-2020,"Shropshire","E06000051","Unitary Authority","All Ages",325415
-2020,"Shropshire","E06000051","Unitary Authority","Aged 65+",81216
-2020,"Stoke-on-Trent","E06000021","Unitary Authority","All Ages",256622
-2020,"Stoke-on-Trent","E06000021","Unitary Authority","Aged 65+",44414
-2020,"Telford and Wrekin","E06000020","Unitary Authority","All Ages",181322
-2020,"Telford and Wrekin","E06000020","Unitary Authority","Aged 65+",31739
-2020,"Staffordshire","E10000028","Upper Tier Local Authority","All Ages",883172
-2020,"Staffordshire","E10000028","Upper Tier Local Authority","Aged 65+",194191
-2020,"Warwickshire","E10000031","Upper Tier Local Authority","All Ages",583786
-2020,"Warwickshire","E10000031","Upper Tier Local Authority","Aged 65+",121235
-2020,"Birmingham","E08000025","Unitary Authority","All Ages",1140525
-2020,"Birmingham","E08000025","Unitary Authority","Aged 65+",149412
-2020,"Coventry","E08000026","Unitary Authority","All Ages",379387
-2020,"Coventry","E08000026","Unitary Authority","Aged 65+",50463
-2020,"Dudley","E08000027","Unitary Authority","All Ages",322363
-2020,"Dudley","E08000027","Unitary Authority","Aged 65+",65656
-2020,"Sandwell","E08000028","Unitary Authority","All Ages",329042
-2020,"Sandwell","E08000028","Unitary Authority","Aged 65+",49298
-2020,"Solihull","E08000029","Unitary Authority","All Ages",217487
-2020,"Solihull","E08000029","Unitary Authority","Aged 65+",45621
-2020,"Walsall","E08000030","Unitary Authority","All Ages",286716
-2020,"Walsall","E08000030","Unitary Authority","Aged 65+",50053
-2020,"Wolverhampton","E08000031","Unitary Authority","All Ages",264407
-2020,"Wolverhampton","E08000031","Unitary Authority","Aged 65+",43806
-2020,"Worcestershire","E10000034","Upper Tier Local Authority","All Ages",598070
-2020,"Worcestershire","E10000034","Upper Tier Local Authority","Aged 65+",137439
-2020,"Bedford","E06000055","Unitary Authority","All Ages",174687
-2020,"Bedford","E06000055","Unitary Authority","Aged 65+",31422
-2020,"Central Bedfordshire","E06000056","Unitary Authority","All Ages",294096
-2020,"Central Bedfordshire","E06000056","Unitary Authority","Aged 65+",52632
-2020,"Luton","E06000032","Unitary Authority","All Ages",213528
-2020,"Luton","E06000032","Unitary Authority","Aged 65+",26972
-2020,"Peterborough","E06000031","Unitary Authority","All Ages",202626
-2020,"Peterborough","E06000031","Unitary Authority","Aged 65+",30493
-2020,"Southend-on-Sea","E06000033","Unitary Authority","All Ages",182773
-2020,"Southend-on-Sea","E06000033","Unitary Authority","Aged 65+",35661
-2020,"Thurrock","E06000034","Unitary Authority","All Ages",175531
-2020,"Thurrock","E06000034","Unitary Authority","Aged 65+",24098
-2020,"Cambridgeshire","E10000003","Upper Tier Local Authority","All Ages",657204
-2020,"Cambridgeshire","E10000003","Upper Tier Local Authority","Aged 65+",127322
-2020,"Essex","E10000012","Upper Tier Local Authority","All Ages",1497759
-2020,"Essex","E10000012","Upper Tier Local Authority","Aged 65+",309912
-2020,"Hertfordshire","E10000015","Upper Tier Local Authority","All Ages",1195672
-2020,"Hertfordshire","E10000015","Upper Tier Local Authority","Aged 65+",205909
-2020,"Norfolk","E10000020","Upper Tier Local Authority","All Ages",914039
-2020,"Norfolk","E10000020","Upper Tier Local Authority","Aged 65+",225343
-2020,"Suffolk","E10000029","Upper Tier Local Authority","All Ages",761246
-2020,"Suffolk","E10000029","Upper Tier Local Authority","Aged 65+",181498
-2020,"Camden","E09000007","Unitary Authority","All Ages",279516
-2020,"Camden","E09000007","Unitary Authority","Aged 65+",33599
-2020,"City of London","E09000001","Unitary Authority","All Ages",10938
-2020,"City of London","E09000001","Unitary Authority","Aged 65+",1731
-2020,"Hackney","E09000012","Unitary Authority","All Ages",280941
-2020,"Hackney","E09000012","Unitary Authority","Aged 65+",22316
-2020,"Hammersmith and Fulham","E09000013","Unitary Authority","All Ages",183544
-2020,"Hammersmith and Fulham","E09000013","Unitary Authority","Aged 65+",20687
-2020,"Haringey","E09000014","Unitary Authority","All Ages",266357
-2020,"Haringey","E09000014","Unitary Authority","Aged 65+",28618
-2020,"Islington","E09000019","Unitary Authority","All Ages",248115
-2020,"Islington","E09000019","Unitary Authority","Aged 65+",21844
-2020,"Kensington and Chelsea","E09000020","Unitary Authority","All Ages",156864
-2020,"Kensington and Chelsea","E09000020","Unitary Authority","Aged 65+",25596
-2020,"Lambeth","E09000022","Unitary Authority","All Ages",321813
-2020,"Lambeth","E09000022","Unitary Authority","Aged 65+",28050
-2020,"Lewisham","E09000023","Unitary Authority","All Ages",305309
-2020,"Lewisham","E09000023","Unitary Authority","Aged 65+",29354
-2020,"Newham","E09000025","Unitary Authority","All Ages",355266
-2020,"Newham","E09000025","Unitary Authority","Aged 65+",27964
-2020,"Southwark","E09000028","Unitary Authority","All Ages",320017
-2020,"Southwark","E09000028","Unitary Authority","Aged 65+",27938
-2020,"Tower Hamlets","E09000030","Unitary Authority","All Ages",331969
-2020,"Tower Hamlets","E09000030","Unitary Authority","Aged 65+",21771
-2020,"Wandsworth","E09000032","Unitary Authority","All Ages",329735
-2020,"Wandsworth","E09000032","Unitary Authority","Aged 65+",32000
-2020,"Westminster","E09000033","Unitary Authority","All Ages",269848
-2020,"Westminster","E09000033","Unitary Authority","Aged 65+",33900
-2020,"Barking and Dagenham","E09000002","Unitary Authority","All Ages",214107
-2020,"Barking and Dagenham","E09000002","Unitary Authority","Aged 65+",19807
-2020,"Barnet","E09000003","Unitary Authority","All Ages",399007
-2020,"Barnet","E09000003","Unitary Authority","Aged 65+",58170
-2020,"Bexley","E09000004","Unitary Authority","All Ages",249301
-2020,"Bexley","E09000004","Unitary Authority","Aged 65+",41033
-2020,"Brent","E09000005","Unitary Authority","All Ages",327753
-2020,"Brent","E09000005","Unitary Authority","Aged 65+",42023
-2020,"Bromley","E09000006","Unitary Authority","All Ages",332752
-2020,"Bromley","E09000006","Unitary Authority","Aged 65+",58115
-2020,"Croydon","E09000008","Unitary Authority","All Ages",388563
-2020,"Croydon","E09000008","Unitary Authority","Aged 65+",54048
-2020,"Ealing","E09000009","Unitary Authority","All Ages",340341
-2020,"Ealing","E09000009","Unitary Authority","Aged 65+",45661
-2020,"Enfield","E09000010","Unitary Authority","All Ages",333587
-2020,"Enfield","E09000010","Unitary Authority","Aged 65+",44837
-2020,"Greenwich","E09000011","Unitary Authority","All Ages",289034
-2020,"Greenwich","E09000011","Unitary Authority","Aged 65+",30693
-2020,"Harrow","E09000015","Unitary Authority","All Ages",252338
-2020,"Harrow","E09000015","Unitary Authority","Aged 65+",40634
-2020,"Havering","E09000016","Unitary Authority","All Ages",260651
-2020,"Havering","E09000016","Unitary Authority","Aged 65+",46518
-2020,"Hillingdon","E09000017","Unitary Authority","All Ages",309014
-2020,"Hillingdon","E09000017","Unitary Authority","Aged 65+",42033
-2020,"Hounslow","E09000018","Unitary Authority","All Ages",271767
-2020,"Hounslow","E09000018","Unitary Authority","Aged 65+",34119
-2020,"Kingston upon Thames","E09000021","Unitary Authority","All Ages",179142
-2020,"Kingston upon Thames","E09000021","Unitary Authority","Aged 65+",25082
-2020,"Merton","E09000024","Unitary Authority","All Ages",206453
-2020,"Merton","E09000024","Unitary Authority","Aged 65+",26634
-2020,"Redbridge","E09000026","Unitary Authority","All Ages",305658
-2020,"Redbridge","E09000026","Unitary Authority","Aged 65+",39273
-2020,"Richmond upon Thames","E09000027","Unitary Authority","All Ages",198141
-2020,"Richmond upon Thames","E09000027","Unitary Authority","Aged 65+",31982
-2020,"Sutton","E09000029","Unitary Authority","All Ages",207707
-2020,"Sutton","E09000029","Unitary Authority","Aged 65+",31916
-2020,"Waltham Forest","E09000031","Unitary Authority","All Ages",276940
-2020,"Waltham Forest","E09000031","Unitary Authority","Aged 65+",30507
-2020,"Bracknell Forest","E06000036","Unitary Authority","All Ages",124165
-2020,"Bracknell Forest","E06000036","Unitary Authority","Aged 65+",18616
-2020,"Brighton and Hove","E06000043","Unitary Authority","All Ages",291738
-2020,"Brighton and Hove","E06000043","Unitary Authority","Aged 65+",39017
-2020,"Isle of Wight","E06000046","Unitary Authority","All Ages",142296
-2020,"Isle of Wight","E06000046","Unitary Authority","Aged 65+",40858
-2020,"Medway","E06000035","Unitary Authority","All Ages",279142
-2020,"Medway","E06000035","Unitary Authority","Aged 65+",45273
-2020,"Milton Keynes","E06000042","Unitary Authority","All Ages",270203
-2020,"Milton Keynes","E06000042","Unitary Authority","Aged 65+",39017
-2020,"Portsmouth","E06000044","Unitary Authority","All Ages",214692
-2020,"Portsmouth","E06000044","Unitary Authority","Aged 65+",30568
-2020,"Reading","E06000038","Unitary Authority","All Ages",160337
-2020,"Reading","E06000038","Unitary Authority","Aged 65+",20335
-2020,"Slough","E06000039","Unitary Authority","All Ages",149577
-2020,"Slough","E06000039","Unitary Authority","Aged 65+",15557
-2020,"Southampton","E06000045","Unitary Authority","All Ages",252872
-2020,"Southampton","E06000045","Unitary Authority","Aged 65+",33978
-2020,"West Berkshire","E06000037","Unitary Authority","All Ages",158465
-2020,"West Berkshire","E06000037","Unitary Authority","Aged 65+",31106
-2020,"Windsor and Maidenhead","E06000040","Unitary Authority","All Ages",151273
-2020,"Windsor and Maidenhead","E06000040","Unitary Authority","Aged 65+",28514
-2020,"Wokingham","E06000041","Unitary Authority","All Ages",173945
-2020,"Wokingham","E06000041","Unitary Authority","Aged 65+",30571
-2020,"Buckinghamshire","E10000002","Upper Tier Local Authority","All Ages",547060
-2020,"Buckinghamshire","E10000002","Upper Tier Local Authority","Aged 65+",104114
-2020,"East Sussex","E10000011","Upper Tier Local Authority","All Ages",558852
-2020,"East Sussex","E10000011","Upper Tier Local Authority","Aged 65+",146088
-2020,"Hampshire","E10000014","Upper Tier Local Authority","All Ages",1389206
-2020,"Hampshire","E10000014","Upper Tier Local Authority","Aged 65+",304560
-2020,"Kent","E10000016","Upper Tier Local Authority","All Ages",1589057
-2020,"Kent","E10000016","Upper Tier Local Authority","Aged 65+",322775
-2020,"Oxfordshire","E10000025","Upper Tier Local Authority","All Ages",696880
-2020,"Oxfordshire","E10000025","Upper Tier Local Authority","Aged 65+",130189
-2020,"Surrey","E10000030","Upper Tier Local Authority","All Ages",1199870
-2020,"Surrey","E10000030","Upper Tier Local Authority","Aged 65+",229900
-2020,"West Sussex","E10000032","Upper Tier Local Authority","All Ages",867635
-2020,"West Sussex","E10000032","Upper Tier Local Authority","Aged 65+",200968
-2020,"Bath and North East Somerset","E06000022","Unitary Authority","All Ages",196357
-2020,"Bath and North East Somerset","E06000022","Unitary Authority","Aged 65+",36991
-2020,"Bournemouth, Christchurch and Poole","E06000058","Unitary Authority","All Ages",396989
-2020,"Bournemouth, Christchurch and Poole","E06000058","Unitary Authority","Aged 65+",86843
-2020,"Bristol, City of","E06000023","Unitary Authority","All Ages",465866
-2020,"Bristol, City of","E06000023","Unitary Authority","Aged 65+",60274
-2020,"Cornwall","E06000052","Unitary Authority","All Ages",573299
-2020,"Cornwall","E06000052","Unitary Authority","Aged 65+",144840
-2020,"Isles of Scilly","E06000053","Unitary Authority","All Ages",2226
-2020,"Isles of Scilly","E06000053","Unitary Authority","Aged 65+",617
-2020,"North Somerset","E06000024","Unitary Authority","All Ages",215574
-2020,"North Somerset","E06000024","Unitary Authority","Aged 65+",52003
-2020,"Plymouth","E06000026","Unitary Authority","All Ages",262839
-2020,"Plymouth","E06000026","Unitary Authority","Aged 65+",48960
-2020,"South Gloucestershire","E06000025","Unitary Authority","All Ages",287816
-2020,"South Gloucestershire","E06000025","Unitary Authority","Aged 65+",54409
-2020,"Swindon","E06000030","Unitary Authority","All Ages",222881
-2020,"Swindon","E06000030","Unitary Authority","Aged 65+",36873
-2020,"Torbay","E06000027","Unitary Authority","All Ages",136218
-2020,"Torbay","E06000027","Unitary Authority","Aged 65+",37143
-2020,"Wiltshire","E06000054","Unitary Authority","All Ages",504070
-2020,"Wiltshire","E06000054","Unitary Authority","Aged 65+",110358
-2020,"Devon","E10000008","Upper Tier Local Authority","All Ages",810716
-2020,"Devon","E10000008","Upper Tier Local Authority","Aged 65+",207836
-2020,"Dorset","E06000059","Unitary Authority","All Ages",379791
-2020,"Dorset","E06000059","Unitary Authority","Aged 65+",111765
-2020,"Gloucestershire","E10000013","Upper Tier Local Authority","All Ages",640650
-2020,"Gloucestershire","E10000013","Upper Tier Local Authority","Aged 65+",139420
-2020,"Somerset","E10000027","Upper Tier Local Authority","All Ages",563851
-2020,"Somerset","E10000027","Upper Tier Local Authority","Aged 65+",141969
-2020,"Isle of Anglesey","W06000001","Unitary Authority","All Ages",70440
-2020,"Isle of Anglesey","W06000001","Unitary Authority","Aged 65+",18639
-2020,"Gwynedd","W06000002","Unitary Authority","All Ages",125171
-2020,"Gwynedd","W06000002","Unitary Authority","Aged 65+",28562
-2020,"Conwy","W06000003","Unitary Authority","All Ages",118184
-2020,"Conwy","W06000003","Unitary Authority","Aged 65+",32938
-2020,"Denbighshire","W06000004","Unitary Authority","All Ages",96664
-2020,"Denbighshire","W06000004","Unitary Authority","Aged 65+",23517
-2020,"Flintshire","W06000005","Unitary Authority","All Ages",156847
-2020,"Flintshire","W06000005","Unitary Authority","Aged 65+",33294
-2020,"Wrexham","W06000006","Unitary Authority","All Ages",136055
-2020,"Wrexham","W06000006","Unitary Authority","Aged 65+",27749
-2020,"Powys","W06000023","Unitary Authority","All Ages",133030
-2020,"Powys","W06000023","Unitary Authority","Aged 65+",36801
-2020,"Ceredigion","W06000008","Unitary Authority","All Ages",72895
-2020,"Ceredigion","W06000008","Unitary Authority","Aged 65+",18668
-2020,"Pembrokeshire","W06000009","Unitary Authority","All Ages",126751
-2020,"Pembrokeshire","W06000009","Unitary Authority","Aged 65+",33169
-2020,"Carmarthenshire","W06000010","Unitary Authority","All Ages",190073
-2020,"Carmarthenshire","W06000010","Unitary Authority","Aged 65+",45693
-2020,"Swansea","W06000011","Unitary Authority","All Ages",246563
-2020,"Swansea","W06000011","Unitary Authority","Aged 65+",48958
-2020,"Neath Port Talbot","W06000012","Unitary Authority","All Ages",144386
-2020,"Neath Port Talbot","W06000012","Unitary Authority","Aged 65+",30254
-2020,"Bridgend","W06000013","Unitary Authority","All Ages",147539
-2020,"Bridgend","W06000013","Unitary Authority","Aged 65+",30168
-2020,"Vale of Glamorgan","W06000014","Unitary Authority","All Ages",135295
-2020,"Vale of Glamorgan","W06000014","Unitary Authority","Aged 65+",28838
-2020,"Cardiff","W06000015","Unitary Authority","All Ages",369202
-2020,"Cardiff","W06000015","Unitary Authority","Aged 65+",52807
-2020,"Rhondda Cynon Taff","W06000016","Unitary Authority","All Ages",241873
-2020,"Rhondda Cynon Taff","W06000016","Unitary Authority","Aged 65+",46755
-2020,"Merthyr Tydfil","W06000024","Unitary Authority","All Ages",60424
-2020,"Merthyr Tydfil","W06000024","Unitary Authority","Aged 65+",11394
-2020,"Caerphilly","W06000018","Unitary Authority","All Ages",181731
-2020,"Caerphilly","W06000018","Unitary Authority","Aged 65+",35672
-2020,"Blaenau Gwent","W06000019","Unitary Authority","All Ages",70020
-2020,"Blaenau Gwent","W06000019","Unitary Authority","Aged 65+",14177
-2020,"Torfaen","W06000020","Unitary Authority","All Ages",94832
-2020,"Torfaen","W06000020","Unitary Authority","Aged 65+",19543
-2020,"Monmouthshire","W06000021","Unitary Authority","All Ages",95164
-2020,"Monmouthshire","W06000021","Unitary Authority","Aged 65+",24340
-2020,"Newport","W06000022","Unitary Authority","All Ages",156447
-2020,"Newport","W06000022","Unitary Authority","Aged 65+",26654
-2020,"Aberdeen City","S12000033","Unitary Authority","All Ages",229060
-2020,"Aberdeen City","S12000033","Unitary Authority","Aged 65+",36611
-2020,"Aberdeenshire","S12000034","Unitary Authority","All Ages",260780
-2020,"Aberdeenshire","S12000034","Unitary Authority","Aged 65+",52106
-2020,"Angus","S12000041","Unitary Authority","All Ages",115820
-2020,"Angus","S12000041","Unitary Authority","Aged 65+",28041
-2020,"Argyll and Bute","S12000035","Unitary Authority","All Ages",85430
-2020,"Argyll and Bute","S12000035","Unitary Authority","Aged 65+",22342
-2020,"Clackmannanshire","S12000005","Unitary Authority","All Ages",51290
-2020,"Clackmannanshire","S12000005","Unitary Authority","Aged 65+",10576
-2020,"Dumfries and Galloway","S12000006","Unitary Authority","All Ages",148290
-2020,"Dumfries and Galloway","S12000006","Unitary Authority","Aged 65+",39058
-2020,"Dundee City","S12000042","Unitary Authority","All Ages",148820
-2020,"Dundee City","S12000042","Unitary Authority","Aged 65+",26040
-2020,"East Ayrshire","S12000008","Unitary Authority","All Ages",121600
-2020,"East Ayrshire","S12000008","Unitary Authority","Aged 65+",25220
-2020,"East Dunbartonshire","S12000045","Unitary Authority","All Ages",108750
-2020,"East Dunbartonshire","S12000045","Unitary Authority","Aged 65+",24733
-2020,"East Lothian","S12000010","Unitary Authority","All Ages",107900
-2020,"East Lothian","S12000010","Unitary Authority","Aged 65+",22192
-2020,"East Renfrewshire","S12000011","Unitary Authority","All Ages",96060
-2020,"East Renfrewshire","S12000011","Unitary Authority","Aged 65+",19441
-2020,"City of Edinburgh","S12000036","Unitary Authority","All Ages",527620
-2020,"City of Edinburgh","S12000036","Unitary Authority","Aged 65+",79979
-2020,"Na h-Eileanan Siar","S12000013","Unitary Authority","All Ages",26500
-2020,"Na h-Eileanan Siar","S12000013","Unitary Authority","Aged 65+",6973
-2020,"Falkirk","S12000014","Unitary Authority","All Ages",160560
-2020,"Falkirk","S12000014","Unitary Authority","Aged 65+",30655
-2020,"Fife","S12000047","Unitary Authority","All Ages",374130
-2020,"Fife","S12000047","Unitary Authority","Aged 65+",78169
-2020,"Glasgow City","S12000049","Unitary Authority","All Ages",635640
-2020,"Glasgow City","S12000049","Unitary Authority","Aged 65+",85623
-2020,"Highland","S12000017","Unitary Authority","All Ages",235430
-2020,"Highland","S12000017","Unitary Authority","Aged 65+",54001
-2020,"Inverclyde","S12000018","Unitary Authority","All Ages",77060
-2020,"Inverclyde","S12000018","Unitary Authority","Aged 65+",16495
-2020,"Midlothian","S12000019","Unitary Authority","All Ages",93150
-2020,"Midlothian","S12000019","Unitary Authority","Aged 65+",17570
-2020,"Moray","S12000020","Unitary Authority","All Ages",95710
-2020,"Moray","S12000020","Unitary Authority","Aged 65+",21071
-2020,"North Ayrshire","S12000021","Unitary Authority","All Ages",134250
-2020,"North Ayrshire","S12000021","Unitary Authority","Aged 65+",30847
-2020,"North Lanarkshire","S12000050","Unitary Authority","All Ages",341140
-2020,"North Lanarkshire","S12000050","Unitary Authority","Aged 65+",59811
-2020,"Orkney Islands","S12000023","Unitary Authority","All Ages",22400
-2020,"Orkney Islands","S12000023","Unitary Authority","Aged 65+",5443
-2020,"Perth and Kinross","S12000048","Unitary Authority","All Ages",151910
-2020,"Perth and Kinross","S12000048","Unitary Authority","Aged 65+",36317
-2020,"Renfrewshire","S12000038","Unitary Authority","All Ages",179390
-2020,"Renfrewshire","S12000038","Unitary Authority","Aged 65+",34153
-2020,"Scottish Borders","S12000026","Unitary Authority","All Ages",115240
-2020,"Scottish Borders","S12000026","Unitary Authority","Aged 65+",29084
-2020,"Shetland Islands","S12000027","Unitary Authority","All Ages",22870
-2020,"Shetland Islands","S12000027","Unitary Authority","Aged 65+",4807
-2020,"South Ayrshire","S12000028","Unitary Authority","All Ages",112140
-2020,"South Ayrshire","S12000028","Unitary Authority","Aged 65+",28955
-2020,"South Lanarkshire","S12000029","Unitary Authority","All Ages",320820
-2020,"South Lanarkshire","S12000029","Unitary Authority","Aged 65+",63480
-2020,"Stirling","S12000030","Unitary Authority","All Ages",94080
-2020,"Stirling","S12000030","Unitary Authority","Aged 65+",18516
-2020,"West Dunbartonshire","S12000039","Unitary Authority","All Ages",88340
-2020,"West Dunbartonshire","S12000039","Unitary Authority","Aged 65+",16868
-2020,"West Lothian","S12000040","Unitary Authority","All Ages",183820
-2020,"West Lothian","S12000040","Unitary Authority","Aged 65+",30903
-2020,"Antrim and Newtownabbey","N09000001","Unitary Authority","All Ages",143756
-2020,"Antrim and Newtownabbey","N09000001","Unitary Authority","Aged 65+",24521
-2020,"Armagh City, Banbridge and Craigavon","N09000002","Unitary Authority","All Ages",217232
-2020,"Armagh City, Banbridge and Craigavon","N09000002","Unitary Authority","Aged 65+",34167
-2020,"Belfast","N09000003","Unitary Authority","All Ages",342560
-2020,"Belfast","N09000003","Unitary Authority","Aged 65+",51250
-2020,"Causeway Coast and Glens","N09000004","Unitary Authority","All Ages",144943
-2020,"Causeway Coast and Glens","N09000004","Unitary Authority","Aged 65+",27090
-2020,"Derry City and Strabane","N09000005","Unitary Authority","All Ages",151109
-2020,"Derry City and Strabane","N09000005","Unitary Authority","Aged 65+",23428
-2020,"Fermanagh and Omagh","N09000006","Unitary Authority","All Ages",117337
-2020,"Fermanagh and Omagh","N09000006","Unitary Authority","Aged 65+",20509
-2020,"Lisburn and Castlereagh","N09000007","Unitary Authority","All Ages",146452
-2020,"Lisburn and Castlereagh","N09000007","Unitary Authority","Aged 65+",25847
-2020,"Mid and East Antrim","N09000008","Unitary Authority","All Ages",139443
-2020,"Mid and East Antrim","N09000008","Unitary Authority","Aged 65+",26924
-2020,"Mid Ulster","N09000009","Unitary Authority","All Ages",148953
-2020,"Mid Ulster","N09000009","Unitary Authority","Aged 65+",21992
-2020,"Newry, Mourne and Down","N09000010","Unitary Authority","All Ages",181669
-2020,"Newry, Mourne and Down","N09000010","Unitary Authority","Aged 65+",29124
-2020,"Ards and North Down","N09000011","Unitary Authority","All Ages",162056
-2020,"Ards and North Down","N09000011","Unitary Authority","Aged 65+",35097
-2020,"Allerdale","E07000026","Lower Tier Local Authority","All Ages",97831
-2020,"Allerdale","E07000026","Lower Tier Local Authority","Aged 65+",24393
-2020,"Barrow-in-Furness","E07000027","Lower Tier Local Authority","All Ages",66726
-2020,"Barrow-in-Furness","E07000027","Lower Tier Local Authority","Aged 65+",14609
-2020,"Carlisle","E07000028","Lower Tier Local Authority","All Ages",108524
-2020,"Carlisle","E07000028","Lower Tier Local Authority","Aged 65+",24053
-2020,"Copeland","E07000029","Lower Tier Local Authority","All Ages",68041
-2020,"Copeland","E07000029","Lower Tier Local Authority","Aged 65+",15623
-2020,"Eden","E07000030","Lower Tier Local Authority","All Ages",53754
-2020,"Eden","E07000030","Lower Tier Local Authority","Aged 65+",14649
-2020,"South Lakeland","E07000031","Lower Tier Local Authority","All Ages",104905
-2020,"South Lakeland","E07000031","Lower Tier Local Authority","Aged 65+",30095
-2020,"Burnley","E07000117","Lower Tier Local Authority","All Ages",89344
-2020,"Burnley","E07000117","Lower Tier Local Authority","Aged 65+",16798
-2020,"Chorley","E07000118","Lower Tier Local Authority","All Ages",118870
-2020,"Chorley","E07000118","Lower Tier Local Authority","Aged 65+",23863
-2020,"Fylde","E07000119","Lower Tier Local Authority","All Ages",81211
-2020,"Fylde","E07000119","Lower Tier Local Authority","Aged 65+",22622
-2020,"Hyndburn","E07000120","Lower Tier Local Authority","All Ages",81133
-2020,"Hyndburn","E07000120","Lower Tier Local Authority","Aged 65+",15004
-2020,"Lancaster","E07000121","Lower Tier Local Authority","All Ages",148119
-2020,"Lancaster","E07000121","Lower Tier Local Authority","Aged 65+",29435
-2020,"Pendle","E07000122","Lower Tier Local Authority","All Ages",92145
-2020,"Pendle","E07000122","Lower Tier Local Authority","Aged 65+",17392
-2020,"Preston","E07000123","Lower Tier Local Authority","All Ages",144147
-2020,"Preston","E07000123","Lower Tier Local Authority","Aged 65+",21270
-2020,"Ribble Valley","E07000124","Lower Tier Local Authority","All Ages",62026
-2020,"Ribble Valley","E07000124","Lower Tier Local Authority","Aged 65+",14712
-2020,"Rossendale","E07000125","Lower Tier Local Authority","All Ages",71432
-2020,"Rossendale","E07000125","Lower Tier Local Authority","Aged 65+",13549
-2020,"South Ribble","E07000126","Lower Tier Local Authority","All Ages",111086
-2020,"South Ribble","E07000126","Lower Tier Local Authority","Aged 65+",23965
-2020,"West Lancashire","E07000127","Lower Tier Local Authority","All Ages",114496
-2020,"West Lancashire","E07000127","Lower Tier Local Authority","Aged 65+",25496
-2020,"Wyre","E07000128","Lower Tier Local Authority","All Ages",113067
-2020,"Wyre","E07000128","Lower Tier Local Authority","Aged 65+",31531
-2020,"Craven","E07000163","Lower Tier Local Authority","All Ages",57338
-2020,"Craven","E07000163","Lower Tier Local Authority","Aged 65+",15918
-2020,"Hambleton","E07000164","Lower Tier Local Authority","All Ages",91932
-2020,"Hambleton","E07000164","Lower Tier Local Authority","Aged 65+",24588
-2020,"Harrogate","E07000165","Lower Tier Local Authority","All Ages",161545
-2020,"Harrogate","E07000165","Lower Tier Local Authority","Aged 65+",38457
-2020,"Richmondshire","E07000166","Lower Tier Local Authority","All Ages",53732
-2020,"Richmondshire","E07000166","Lower Tier Local Authority","Aged 65+",11690
-2020,"Ryedale","E07000167","Lower Tier Local Authority","All Ages",55629
-2020,"Ryedale","E07000167","Lower Tier Local Authority","Aged 65+",15235
-2020,"Scarborough","E07000168","Lower Tier Local Authority","All Ages",108737
-2020,"Scarborough","E07000168","Lower Tier Local Authority","Aged 65+",30204
-2020,"Selby","E07000169","Lower Tier Local Authority","All Ages",91697
-2020,"Selby","E07000169","Lower Tier Local Authority","Aged 65+",18866
-2020,"Amber Valley","E07000032","Lower Tier Local Authority","All Ages",128829
-2020,"Amber Valley","E07000032","Lower Tier Local Authority","Aged 65+",28847
-2020,"Bolsover","E07000033","Lower Tier Local Authority","All Ages",81305
-2020,"Bolsover","E07000033","Lower Tier Local Authority","Aged 65+",16417
-2020,"Chesterfield","E07000034","Lower Tier Local Authority","All Ages",104930
-2020,"Chesterfield","E07000034","Lower Tier Local Authority","Aged 65+",22511
-2020,"Derbyshire Dales","E07000035","Lower Tier Local Authority","All Ages",72422
-2020,"Derbyshire Dales","E07000035","Lower Tier Local Authority","Aged 65+",19926
-2020,"Erewash","E07000036","Lower Tier Local Authority","All Ages",115332
-2020,"Erewash","E07000036","Lower Tier Local Authority","Aged 65+",23809
-2020,"High Peak","E07000037","Lower Tier Local Authority","All Ages",92633
-2020,"High Peak","E07000037","Lower Tier Local Authority","Aged 65+",19973
-2020,"North East Derbyshire","E07000038","Lower Tier Local Authority","All Ages",102216
-2020,"North East Derbyshire","E07000038","Lower Tier Local Authority","Aged 65+",25398
-2020,"South Derbyshire","E07000039","Lower Tier Local Authority","All Ages",109516
-2020,"South Derbyshire","E07000039","Lower Tier Local Authority","Aged 65+",20088
-2020,"Blaby","E07000129","Lower Tier Local Authority","All Ages",101950
-2020,"Blaby","E07000129","Lower Tier Local Authority","Aged 65+",20797
-2020,"Charnwood","E07000130","Lower Tier Local Authority","All Ages",188416
-2020,"Charnwood","E07000130","Lower Tier Local Authority","Aged 65+",34182
-2020,"Harborough","E07000131","Lower Tier Local Authority","All Ages",95537
-2020,"Harborough","E07000131","Lower Tier Local Authority","Aged 65+",20998
-2020,"Hinckley and Bosworth","E07000132","Lower Tier Local Authority","All Ages",113666
-2020,"Hinckley and Bosworth","E07000132","Lower Tier Local Authority","Aged 65+",25166
-2020,"Melton","E07000133","Lower Tier Local Authority","All Ages",51394
-2020,"Melton","E07000133","Lower Tier Local Authority","Aged 65+",12049
-2020,"North West Leicestershire","E07000134","Lower Tier Local Authority","All Ages",104809
-2020,"North West Leicestershire","E07000134","Lower Tier Local Authority","Aged 65+",21109
-2020,"Oadby and Wigston","E07000135","Lower Tier Local Authority","All Ages",57313
-2020,"Oadby and Wigston","E07000135","Lower Tier Local Authority","Aged 65+",12374
-2020,"Boston","E07000136","Lower Tier Local Authority","All Ages",70837
-2020,"Boston","E07000136","Lower Tier Local Authority","Aged 65+",14847
-2020,"East Lindsey","E07000137","Lower Tier Local Authority","All Ages",142030
-2020,"East Lindsey","E07000137","Lower Tier Local Authority","Aged 65+",43159
-2020,"Lincoln","E07000138","Lower Tier Local Authority","All Ages",100049
-2020,"Lincoln","E07000138","Lower Tier Local Authority","Aged 65+",15316
-2020,"North Kesteven","E07000139","Lower Tier Local Authority","All Ages",118149
-2020,"North Kesteven","E07000139","Lower Tier Local Authority","Aged 65+",27868
-2020,"South Holland","E07000140","Lower Tier Local Authority","All Ages",95857
-2020,"South Holland","E07000140","Lower Tier Local Authority","Aged 65+",23292
-2020,"South Kesteven","E07000141","Lower Tier Local Authority","All Ages",143225
-2020,"South Kesteven","E07000141","Lower Tier Local Authority","Aged 65+",33556
-2020,"West Lindsey","E07000142","Lower Tier Local Authority","All Ages",96186
-2020,"West Lindsey","E07000142","Lower Tier Local Authority","Aged 65+",24240
-2020,"Corby","E07000150","Lower Tier Local Authority","All Ages",73053
-2020,"Corby","E07000150","Lower Tier Local Authority","Aged 65+",10479
-2020,"Daventry","E07000151","Lower Tier Local Authority","All Ages",86951
-2020,"Daventry","E07000151","Lower Tier Local Authority","Aged 65+",17984
-2020,"East Northamptonshire","E07000152","Lower Tier Local Authority","All Ages",95103
-2020,"East Northamptonshire","E07000152","Lower Tier Local Authority","Aged 65+",20233
-2020,"Kettering","E07000153","Lower Tier Local Authority","All Ages",102211
-2020,"Kettering","E07000153","Lower Tier Local Authority","Aged 65+",19206
-2020,"Northampton","E07000154","Lower Tier Local Authority","All Ages",224290
-2020,"Northampton","E07000154","Lower Tier Local Authority","Aged 65+",35022
-2020,"South Northamptonshire","E07000155","Lower Tier Local Authority","All Ages",95492
-2020,"South Northamptonshire","E07000155","Lower Tier Local Authority","Aged 65+",19603
-2020,"Wellingborough","E07000156","Lower Tier Local Authority","All Ages",80081
-2020,"Wellingborough","E07000156","Lower Tier Local Authority","Aged 65+",15689
-2020,"Ashfield","E07000170","Lower Tier Local Authority","All Ages",128337
-2020,"Ashfield","E07000170","Lower Tier Local Authority","Aged 65+",24919
-2020,"Bassetlaw","E07000171","Lower Tier Local Authority","All Ages",118280
-2020,"Bassetlaw","E07000171","Lower Tier Local Authority","Aged 65+",26416
-2020,"Broxtowe","E07000172","Lower Tier Local Authority","All Ages",114627
-2020,"Broxtowe","E07000172","Lower Tier Local Authority","Aged 65+",24261
-2020,"Gedling","E07000173","Lower Tier Local Authority","All Ages",118239
-2020,"Gedling","E07000173","Lower Tier Local Authority","Aged 65+",24956
-2020,"Mansfield","E07000174","Lower Tier Local Authority","All Ages",109351
-2020,"Mansfield","E07000174","Lower Tier Local Authority","Aged 65+",21415
-2020,"Newark and Sherwood","E07000175","Lower Tier Local Authority","All Ages",123127
-2020,"Newark and Sherwood","E07000175","Lower Tier Local Authority","Aged 65+",27580
-2020,"Rushcliffe","E07000176","Lower Tier Local Authority","All Ages",121416
-2020,"Rushcliffe","E07000176","Lower Tier Local Authority","Aged 65+",25539
-2020,"Cannock Chase","E07000192","Lower Tier Local Authority","All Ages",101484
-2020,"Cannock Chase","E07000192","Lower Tier Local Authority","Aged 65+",19626
-2020,"East Staffordshire","E07000193","Lower Tier Local Authority","All Ages",120923
-2020,"East Staffordshire","E07000193","Lower Tier Local Authority","Aged 65+",23403
-2020,"Lichfield","E07000194","Lower Tier Local Authority","All Ages",105637
-2020,"Lichfield","E07000194","Lower Tier Local Authority","Aged 65+",25362
-2020,"Newcastle-under-Lyme","E07000195","Lower Tier Local Authority","All Ages",129610
-2020,"Newcastle-under-Lyme","E07000195","Lower Tier Local Authority","Aged 65+",26947
-2020,"South Staffordshire","E07000196","Lower Tier Local Authority","All Ages",112369
-2020,"South Staffordshire","E07000196","Lower Tier Local Authority","Aged 65+",27810
-2020,"Stafford","E07000197","Lower Tier Local Authority","All Ages",137858
-2020,"Stafford","E07000197","Lower Tier Local Authority","Aged 65+",31150
-2020,"Staffordshire Moorlands","E07000198","Lower Tier Local Authority","All Ages",98427
-2020,"Staffordshire Moorlands","E07000198","Lower Tier Local Authority","Aged 65+",25050
-2020,"Tamworth","E07000199","Lower Tier Local Authority","All Ages",76864
-2020,"Tamworth","E07000199","Lower Tier Local Authority","Aged 65+",14843
-2020,"North Warwickshire","E07000218","Lower Tier Local Authority","All Ages",65452
-2020,"North Warwickshire","E07000218","Lower Tier Local Authority","Aged 65+",14286
-2020,"Nuneaton and Bedworth","E07000219","Lower Tier Local Authority","All Ages",130373
-2020,"Nuneaton and Bedworth","E07000219","Lower Tier Local Authority","Aged 65+",25170
-2020,"Rugby","E07000220","Lower Tier Local Authority","All Ages",110650
-2020,"Rugby","E07000220","Lower Tier Local Authority","Aged 65+",20884
-2020,"Stratford-on-Avon","E07000221","Lower Tier Local Authority","All Ages",132402
-2020,"Stratford-on-Avon","E07000221","Lower Tier Local Authority","Aged 65+",33620
-2020,"Warwick","E07000222","Lower Tier Local Authority","All Ages",144909
-2020,"Warwick","E07000222","Lower Tier Local Authority","Aged 65+",27275
-2020,"Bromsgrove","E07000234","Lower Tier Local Authority","All Ages",100569
-2020,"Bromsgrove","E07000234","Lower Tier Local Authority","Aged 65+",22848
-2020,"Malvern Hills","E07000235","Lower Tier Local Authority","All Ages",79445
-2020,"Malvern Hills","E07000235","Lower Tier Local Authority","Aged 65+",22407
-2020,"Redditch","E07000236","Lower Tier Local Authority","All Ages",85568
-2020,"Redditch","E07000236","Lower Tier Local Authority","Aged 65+",16006
-2020,"Worcester","E07000237","Lower Tier Local Authority","All Ages",100265
-2020,"Worcester","E07000237","Lower Tier Local Authority","Aged 65+",17686
-2020,"Wychavon","E07000238","Lower Tier Local Authority","All Ages",131084
-2020,"Wychavon","E07000238","Lower Tier Local Authority","Aged 65+",33242
-2020,"Wyre Forest","E07000239","Lower Tier Local Authority","All Ages",101139
-2020,"Wyre Forest","E07000239","Lower Tier Local Authority","Aged 65+",25250
-2020,"Cambridge","E07000008","Lower Tier Local Authority","All Ages",125063
-2020,"Cambridge","E07000008","Lower Tier Local Authority","Aged 65+",16648
-2020,"East Cambridgeshire","E07000009","Lower Tier Local Authority","All Ages",90172
-2020,"East Cambridgeshire","E07000009","Lower Tier Local Authority","Aged 65+",18656
-2020,"Fenland","E07000010","Lower Tier Local Authority","All Ages",102080
-2020,"Fenland","E07000010","Lower Tier Local Authority","Aged 65+",23757
-2020,"Huntingdonshire","E07000011","Lower Tier Local Authority","All Ages",178985
-2020,"Huntingdonshire","E07000011","Lower Tier Local Authority","Aged 65+",36476
-2020,"South Cambridgeshire","E07000012","Lower Tier Local Authority","All Ages",160904
-2020,"South Cambridgeshire","E07000012","Lower Tier Local Authority","Aged 65+",31785
-2020,"Basildon","E07000066","Lower Tier Local Authority","All Ages",187558
-2020,"Basildon","E07000066","Lower Tier Local Authority","Aged 65+",32247
-2020,"Braintree","E07000067","Lower Tier Local Authority","All Ages",153091
-2020,"Braintree","E07000067","Lower Tier Local Authority","Aged 65+",31496
-2020,"Brentwood","E07000068","Lower Tier Local Authority","All Ages",77242
-2020,"Brentwood","E07000068","Lower Tier Local Authority","Aged 65+",15641
-2020,"Castle Point","E07000069","Lower Tier Local Authority","All Ages",90524
-2020,"Castle Point","E07000069","Lower Tier Local Authority","Aged 65+",23093
-2020,"Chelmsford","E07000070","Lower Tier Local Authority","All Ages",179549
-2020,"Chelmsford","E07000070","Lower Tier Local Authority","Aged 65+",34729
-2020,"Colchester","E07000071","Lower Tier Local Authority","All Ages",197200
-2020,"Colchester","E07000071","Lower Tier Local Authority","Aged 65+",34056
-2020,"Epping Forest","E07000072","Lower Tier Local Authority","All Ages",132175
-2020,"Epping Forest","E07000072","Lower Tier Local Authority","Aged 65+",25922
-2020,"Harlow","E07000073","Lower Tier Local Authority","All Ages",87280
-2020,"Harlow","E07000073","Lower Tier Local Authority","Aged 65+",13416
-2020,"Maldon","E07000074","Lower Tier Local Authority","All Ages",65401
-2020,"Maldon","E07000074","Lower Tier Local Authority","Aged 65+",16644
-2020,"Rochford","E07000075","Lower Tier Local Authority","All Ages",87627
-2020,"Rochford","E07000075","Lower Tier Local Authority","Aged 65+",20377
-2020,"Tendring","E07000076","Lower Tier Local Authority","All Ages",147353
-2020,"Tendring","E07000076","Lower Tier Local Authority","Aged 65+",44051
-2020,"Uttlesford","E07000077","Lower Tier Local Authority","All Ages",92759
-2020,"Uttlesford","E07000077","Lower Tier Local Authority","Aged 65+",18240
-2020,"Broxbourne","E07000095","Lower Tier Local Authority","All Ages",97592
-2020,"Broxbourne","E07000095","Lower Tier Local Authority","Aged 65+",17363
-2020,"Dacorum","E07000096","Lower Tier Local Authority","All Ages",155457
-2020,"Dacorum","E07000096","Lower Tier Local Authority","Aged 65+",27150
-2020,"East Hertfordshire","E07000242","Lower Tier Local Authority","All Ages",151786
-2020,"East Hertfordshire","E07000242","Lower Tier Local Authority","Aged 65+",27679
-2020,"Hertsmere","E07000098","Lower Tier Local Authority","All Ages",105471
-2020,"Hertsmere","E07000098","Lower Tier Local Authority","Aged 65+",19352
-2020,"North Hertfordshire","E07000099","Lower Tier Local Authority","All Ages",133463
-2020,"North Hertfordshire","E07000099","Lower Tier Local Authority","Aged 65+",25856
-2020,"St Albans","E07000240","Lower Tier Local Authority","All Ages",149317
-2020,"St Albans","E07000240","Lower Tier Local Authority","Aged 65+",25620
-2020,"Stevenage","E07000243","Lower Tier Local Authority","All Ages",88104
-2020,"Stevenage","E07000243","Lower Tier Local Authority","Aged 65+",13670
-2020,"Three Rivers","E07000102","Lower Tier Local Authority","All Ages",93966
-2020,"Three Rivers","E07000102","Lower Tier Local Authority","Aged 65+",17222
-2020,"Watford","E07000103","Lower Tier Local Authority","All Ages",96623
-2020,"Watford","E07000103","Lower Tier Local Authority","Aged 65+",12858
-2020,"Welwyn Hatfield","E07000241","Lower Tier Local Authority","All Ages",123893
-2020,"Welwyn Hatfield","E07000241","Lower Tier Local Authority","Aged 65+",19139
-2020,"Breckland","E07000143","Lower Tier Local Authority","All Ages",141255
-2020,"Breckland","E07000143","Lower Tier Local Authority","Aged 65+",35743
-2020,"Broadland","E07000144","Lower Tier Local Authority","All Ages",131931
-2020,"Broadland","E07000144","Lower Tier Local Authority","Aged 65+",34093
-2020,"Great Yarmouth","E07000145","Lower Tier Local Authority","All Ages",99198
-2020,"Great Yarmouth","E07000145","Lower Tier Local Authority","Aged 65+",24552
-2020,"King's Lynn and West Norfolk","E07000146","Lower Tier Local Authority","All Ages",151245
-2020,"King's Lynn and West Norfolk","E07000146","Lower Tier Local Authority","Aged 65+",39927
-2020,"North Norfolk","E07000147","Lower Tier Local Authority","All Ages",105167
-2020,"North Norfolk","E07000147","Lower Tier Local Authority","Aged 65+",35250
-2020,"Norwich","E07000148","Lower Tier Local Authority","All Ages",142177
-2020,"Norwich","E07000148","Lower Tier Local Authority","Aged 65+",21369
-2020,"South Norfolk","E07000149","Lower Tier Local Authority","All Ages",143066
-2020,"South Norfolk","E07000149","Lower Tier Local Authority","Aged 65+",34409
-2020,"Babergh","E07000200","Lower Tier Local Authority","All Ages",92735
-2020,"Babergh","E07000200","Lower Tier Local Authority","Aged 65+",24549
-2020,"Ipswich","E07000202","Lower Tier Local Authority","All Ages",135979
-2020,"Ipswich","E07000202","Lower Tier Local Authority","Aged 65+",23179
-2020,"East Suffolk","E07000244","Lower Tier Local Authority","All Ages",250373
-2020,"East Suffolk","E07000244","Lower Tier Local Authority","Aged 65+",69367
-2020,"Mid Suffolk","E07000203","Lower Tier Local Authority","All Ages",104857
-2020,"Mid Suffolk","E07000203","Lower Tier Local Authority","Aged 65+",26039
-2020,"West Suffolk","E07000245","Lower Tier Local Authority","All Ages",177302
-2020,"West Suffolk","E07000245","Lower Tier Local Authority","Aged 65+",38364
-2020,"Aylesbury Vale","E07000004","Lower Tier Local Authority","All Ages",206851
-2020,"Aylesbury Vale","E07000004","Lower Tier Local Authority","Aged 65+",34981
-2020,"Chiltern","E07000005","Lower Tier Local Authority","All Ages",96219
-2020,"Chiltern","E07000005","Lower Tier Local Authority","Aged 65+",20811
-2020,"South Bucks","E07000006","Lower Tier Local Authority","All Ages",70473
-2020,"South Bucks","E07000006","Lower Tier Local Authority","Aged 65+",15020
-2020,"Wycombe","E07000007","Lower Tier Local Authority","All Ages",173517
-2020,"Wycombe","E07000007","Lower Tier Local Authority","Aged 65+",33302
-2020,"Eastbourne","E07000061","Lower Tier Local Authority","All Ages",103324
-2020,"Eastbourne","E07000061","Lower Tier Local Authority","Aged 65+",26162
-2020,"Hastings","E07000062","Lower Tier Local Authority","All Ages",92554
-2020,"Hastings","E07000062","Lower Tier Local Authority","Aged 65+",19119
-2020,"Lewes","E07000063","Lower Tier Local Authority","All Ages",103525
-2020,"Lewes","E07000063","Lower Tier Local Authority","Aged 65+",26881
-2020,"Rother","E07000064","Lower Tier Local Authority","All Ages",96716
-2020,"Rother","E07000064","Lower Tier Local Authority","Aged 65+",31246
-2020,"Wealden","E07000065","Lower Tier Local Authority","All Ages",162733
-2020,"Wealden","E07000065","Lower Tier Local Authority","Aged 65+",42680
-2020,"Basingstoke and Deane","E07000084","Lower Tier Local Authority","All Ages",177760
-2020,"Basingstoke and Deane","E07000084","Lower Tier Local Authority","Aged 65+",31320
-2020,"East Hampshire","E07000085","Lower Tier Local Authority","All Ages",123838
-2020,"East Hampshire","E07000085","Lower Tier Local Authority","Aged 65+",29300
-2020,"Eastleigh","E07000086","Lower Tier Local Authority","All Ages",135520
-2020,"Eastleigh","E07000086","Lower Tier Local Authority","Aged 65+",26764
-2020,"Fareham","E07000087","Lower Tier Local Authority","All Ages",116338
-2020,"Fareham","E07000087","Lower Tier Local Authority","Aged 65+",27827
-2020,"Gosport","E07000088","Lower Tier Local Authority","All Ages",84679
-2020,"Gosport","E07000088","Lower Tier Local Authority","Aged 65+",17455
-2020,"Hart","E07000089","Lower Tier Local Authority","All Ages",97608
-2020,"Hart","E07000089","Lower Tier Local Authority","Aged 65+",19544
-2020,"Havant","E07000090","Lower Tier Local Authority","All Ages",126339
-2020,"Havant","E07000090","Lower Tier Local Authority","Aged 65+",29979
-2020,"New Forest","E07000091","Lower Tier Local Authority","All Ages",179649
-2020,"New Forest","E07000091","Lower Tier Local Authority","Aged 65+",53170
-2020,"Rushmoor","E07000092","Lower Tier Local Authority","All Ages",94387
-2020,"Rushmoor","E07000092","Lower Tier Local Authority","Aged 65+",14224
-2020,"Test Valley","E07000093","Lower Tier Local Authority","All Ages",127163
-2020,"Test Valley","E07000093","Lower Tier Local Authority","Aged 65+",27878
-2020,"Winchester","E07000094","Lower Tier Local Authority","All Ages",125925
-2020,"Winchester","E07000094","Lower Tier Local Authority","Aged 65+",27099
-2020,"Ashford","E07000105","Lower Tier Local Authority","All Ages",131018
-2020,"Ashford","E07000105","Lower Tier Local Authority","Aged 65+",25773
-2020,"Canterbury","E07000106","Lower Tier Local Authority","All Ages",166762
-2020,"Canterbury","E07000106","Lower Tier Local Authority","Aged 65+",34625
-2020,"Dartford","E07000107","Lower Tier Local Authority","All Ages",114051
-2020,"Dartford","E07000107","Lower Tier Local Authority","Aged 65+",15865
-2020,"Dover","E07000108","Lower Tier Local Authority","All Ages",118514
-2020,"Dover","E07000108","Lower Tier Local Authority","Aged 65+",28201
-2020,"Gravesham","E07000109","Lower Tier Local Authority","All Ages",106890
-2020,"Gravesham","E07000109","Lower Tier Local Authority","Aged 65+",18603
-2020,"Maidstone","E07000110","Lower Tier Local Authority","All Ages",173132
-2020,"Maidstone","E07000110","Lower Tier Local Authority","Aged 65+",33395
-2020,"Sevenoaks","E07000111","Lower Tier Local Authority","All Ages",121387
-2020,"Sevenoaks","E07000111","Lower Tier Local Authority","Aged 65+",26276
-2020,"Folkestone and Hythe","E07000112","Lower Tier Local Authority","All Ages",113320
-2020,"Folkestone and Hythe","E07000112","Lower Tier Local Authority","Aged 65+",28298
-2020,"Swale","E07000113","Lower Tier Local Authority","All Ages",151015
-2020,"Swale","E07000113","Lower Tier Local Authority","Aged 65+",29110
-2020,"Thanet","E07000114","Lower Tier Local Authority","All Ages",141458
-2020,"Thanet","E07000114","Lower Tier Local Authority","Aged 65+",34032
-2020,"Tonbridge and Malling","E07000115","Lower Tier Local Authority","All Ages",132571
-2020,"Tonbridge and Malling","E07000115","Lower Tier Local Authority","Aged 65+",25187
-2020,"Tunbridge Wells","E07000116","Lower Tier Local Authority","All Ages",118939
-2020,"Tunbridge Wells","E07000116","Lower Tier Local Authority","Aged 65+",23410
-2020,"Cherwell","E07000177","Lower Tier Local Authority","All Ages",151846
-2020,"Cherwell","E07000177","Lower Tier Local Authority","Aged 65+",28058
-2020,"Oxford","E07000178","Lower Tier Local Authority","All Ages",151584
-2020,"Oxford","E07000178","Lower Tier Local Authority","Aged 65+",19152
-2020,"South Oxfordshire","E07000179","Lower Tier Local Authority","All Ages",143782
-2020,"South Oxfordshire","E07000179","Lower Tier Local Authority","Aged 65+",30461
-2020,"Vale of White Horse","E07000180","Lower Tier Local Authority","All Ages",137910
-2020,"Vale of White Horse","E07000180","Lower Tier Local Authority","Aged 65+",27911
-2020,"West Oxfordshire","E07000181","Lower Tier Local Authority","All Ages",111758
-2020,"West Oxfordshire","E07000181","Lower Tier Local Authority","Aged 65+",24607
-2020,"Elmbridge","E07000207","Lower Tier Local Authority","All Ages",137215
-2020,"Elmbridge","E07000207","Lower Tier Local Authority","Aged 65+",25585
-2020,"Epsom and Ewell","E07000208","Lower Tier Local Authority","All Ages",81003
-2020,"Epsom and Ewell","E07000208","Lower Tier Local Authority","Aged 65+",14843
-2020,"Guildford","E07000209","Lower Tier Local Authority","All Ages",150352
-2020,"Guildford","E07000209","Lower Tier Local Authority","Aged 65+",25169
-2020,"Mole Valley","E07000210","Lower Tier Local Authority","All Ages",87547
-2020,"Mole Valley","E07000210","Lower Tier Local Authority","Aged 65+",20882
-2020,"Reigate and Banstead","E07000211","Lower Tier Local Authority","All Ages",149243
-2020,"Reigate and Banstead","E07000211","Lower Tier Local Authority","Aged 65+",27296
-2020,"Runnymede","E07000212","Lower Tier Local Authority","All Ages",90327
-2020,"Runnymede","E07000212","Lower Tier Local Authority","Aged 65+",15274
-2020,"Spelthorne","E07000213","Lower Tier Local Authority","All Ages",99873
-2020,"Spelthorne","E07000213","Lower Tier Local Authority","Aged 65+",18702
-2020,"Surrey Heath","E07000214","Lower Tier Local Authority","All Ages",89204
-2020,"Surrey Heath","E07000214","Lower Tier Local Authority","Aged 65+",17786
-2020,"Tandridge","E07000215","Lower Tier Local Authority","All Ages",88542
-2020,"Tandridge","E07000215","Lower Tier Local Authority","Aged 65+",18507
-2020,"Waverley","E07000216","Lower Tier Local Authority","All Ages",126556
-2020,"Waverley","E07000216","Lower Tier Local Authority","Aged 65+",28295
-2020,"Woking","E07000217","Lower Tier Local Authority","All Ages",100008
-2020,"Woking","E07000217","Lower Tier Local Authority","Aged 65+",17561
-2020,"Adur","E07000223","Lower Tier Local Authority","All Ages",64187
-2020,"Adur","E07000223","Lower Tier Local Authority","Aged 65+",15186
-2020,"Arun","E07000224","Lower Tier Local Authority","All Ages",161123
-2020,"Arun","E07000224","Lower Tier Local Authority","Aged 65+",46898
-2020,"Chichester","E07000225","Lower Tier Local Authority","All Ages",121508
-2020,"Chichester","E07000225","Lower Tier Local Authority","Aged 65+",33634
-2020,"Crawley","E07000226","Lower Tier Local Authority","All Ages",112474
-2020,"Crawley","E07000226","Lower Tier Local Authority","Aged 65+",15499
-2020,"Horsham","E07000227","Lower Tier Local Authority","All Ages",145474
-2020,"Horsham","E07000227","Lower Tier Local Authority","Aged 65+",33327
-2020,"Mid Sussex","E07000228","Lower Tier Local Authority","All Ages",152142
-2020,"Mid Sussex","E07000228","Lower Tier Local Authority","Aged 65+",31279
-2020,"Worthing","E07000229","Lower Tier Local Authority","All Ages",110727
-2020,"Worthing","E07000229","Lower Tier Local Authority","Aged 65+",25145
-2020,"East Devon","E07000040","Lower Tier Local Authority","All Ages",148080
-2020,"East Devon","E07000040","Lower Tier Local Authority","Aged 65+",45104
-2020,"Exeter","E07000041","Lower Tier Local Authority","All Ages",133333
-2020,"Exeter","E07000041","Lower Tier Local Authority","Aged 65+",21303
-2020,"Mid Devon","E07000042","Lower Tier Local Authority","All Ages",83290
-2020,"Mid Devon","E07000042","Lower Tier Local Authority","Aged 65+",19760
-2020,"North Devon","E07000043","Lower Tier Local Authority","All Ages",98170
-2020,"North Devon","E07000043","Lower Tier Local Authority","Aged 65+",25121
-2020,"South Hams","E07000044","Lower Tier Local Authority","All Ages",87946
-2020,"South Hams","E07000044","Lower Tier Local Authority","Aged 65+",25120
-2020,"Teignbridge","E07000045","Lower Tier Local Authority","All Ages",135039
-2020,"Teignbridge","E07000045","Lower Tier Local Authority","Aged 65+",36263
-2020,"Torridge","E07000046","Lower Tier Local Authority","All Ages",68719
-2020,"Torridge","E07000046","Lower Tier Local Authority","Aged 65+",19250
-2020,"West Devon","E07000047","Lower Tier Local Authority","All Ages",56139
-2020,"West Devon","E07000047","Lower Tier Local Authority","Aged 65+",15915
-2020,"Cheltenham","E07000078","Lower Tier Local Authority","All Ages",116043
-2020,"Cheltenham","E07000078","Lower Tier Local Authority","Aged 65+",23118
-2020,"Cotswold","E07000079","Lower Tier Local Authority","All Ages",90264
-2020,"Cotswold","E07000079","Lower Tier Local Authority","Aged 65+",23658
-2020,"Forest of Dean","E07000080","Lower Tier Local Authority","All Ages",87107
-2020,"Forest of Dean","E07000080","Lower Tier Local Authority","Aged 65+",21695
-2020,"Gloucester","E07000081","Lower Tier Local Authority","All Ages",129709
-2020,"Gloucester","E07000081","Lower Tier Local Authority","Aged 65+",22126
-2020,"Stroud","E07000082","Lower Tier Local Authority","All Ages",120903
-2020,"Stroud","E07000082","Lower Tier Local Authority","Aged 65+",27487
-2020,"Tewkesbury","E07000083","Lower Tier Local Authority","All Ages",96624
-2020,"Tewkesbury","E07000083","Lower Tier Local Authority","Aged 65+",21336
-2020,"Mendip","E07000187","Lower Tier Local Authority","All Ages",116288
-2020,"Mendip","E07000187","Lower Tier Local Authority","Aged 65+",27765
-2020,"Sedgemoor","E07000188","Lower Tier Local Authority","All Ages",123446
-2020,"Sedgemoor","E07000188","Lower Tier Local Authority","Aged 65+",29738
-2020,"South Somerset","E07000189","Lower Tier Local Authority","All Ages",168696
-2020,"South Somerset","E07000189","Lower Tier Local Authority","Aged 65+",43786
-2020,"Somerset West and Taunton","E07000246","Lower Tier Local Authority","All Ages",155421
-2020,"Somerset West and Taunton","E07000246","Lower Tier Local Authority","Aged 65+",40680
-2020,"United Kingdom","K02000001","Country","All Ages",67081234
-2020,"United Kingdom","K02000001","Country","Aged 65+",12508638
-2020,"Great Britain","K03000001","Country","All Ages",65185724
-2020,"Great Britain","K03000001","Country","Aged 65+",12188689
-2020,"England","E92000001","Country","All Ages",56550138
-2020,"England","E92000001","Country","Aged 65+",10464019
-2020,"Wales","W92000004","Unitary Authority","All Ages",3169586
-2020,"Wales","W92000004","Unitary Authority","Aged 65+",668590
-2020,"Scotland","S92000003","Unitary Authority","All Ages",5466000
-2020,"Scotland","S92000003","Unitary Authority","Aged 65+",1056080
-2020,"Northern Ireland","N92000002","Unitary Authority","All Ages",1895510
-2020,"Northern Ireland","N92000002","Unitary Authority","Aged 65+",319949
-2020,"England and Wales","K04000001","Country","All Ages",59719724
-2020,"England and Wales","K04000001","Country","Aged 65+",11132609
-2020,"North East","E12000001","Region","All Ages",2680763
-2020,"North East","E12000001","Region","Aged 65+",537631
-2020,"North West","E12000002","Region","All Ages",7367456
-2020,"North West","E12000002","Region","Aged 65+",1384396
-2020,"Yorkshire and The Humber","E12000003","Region","All Ages",5526350
-2020,"Yorkshire and The Humber","E12000003","Region","Aged 65+",1042314
-2020,"East Midlands","E12000004","Region","All Ages",4865583
-2020,"East Midlands","E12000004","Region","Aged 65+",954657
-2020,"West Midlands","E12000005","Region","All Ages",5961929
-2020,"West Midlands","E12000005","Region","Aged 65+",1113001
-2020,"East","E12000006","Region","All Ages",6269161
-2020,"East","E12000006","Region","Aged 65+",1251262
-2020,"London","E12000007","Region","All Ages",9002488
-2020,"London","E12000007","Region","Aged 65+",1098453
-2020,"South East","E12000008","Region","All Ages",9217265
-2020,"South East","E12000008","Region","Aged 65+",1812004
-2020,"South West","E12000009","Region","All Ages",5659143
-2020,"South West","E12000009","Region","Aged 65+",1270301
+2019,"Darlington","E06000005","Unitary Authority","All Ages",106803
+2019,"Darlington","E06000005","Unitary Authority","Aged 65+",21937
+2019,"County Durham","E06000047","Unitary Authority","All Ages",530094
+2019,"County Durham","E06000047","Unitary Authority","Aged 65+",110452
+2019,"Hartlepool","E06000001","Unitary Authority","All Ages",93663
+2019,"Hartlepool","E06000001","Unitary Authority","Aged 65+",18198
+2019,"Middlesbrough","E06000002","Unitary Authority","All Ages",140980
+2019,"Middlesbrough","E06000002","Unitary Authority","Aged 65+",23098
+2019,"Northumberland","E06000057","Unitary Authority","All Ages",322434
+2019,"Northumberland","E06000057","Unitary Authority","Aged 65+",79783
+2019,"Redcar and Cleveland","E06000003","Unitary Authority","All Ages",137150
+2019,"Redcar and Cleveland","E06000003","Unitary Authority","Aged 65+",31034
+2019,"Stockton-on-Tees","E06000004","Unitary Authority","All Ages",197348
+2019,"Stockton-on-Tees","E06000004","Unitary Authority","Aged 65+",36423
+2019,"Gateshead","E08000037","Unitary Authority","All Ages",202055
+2019,"Gateshead","E08000037","Unitary Authority","Aged 65+",39704
+2019,"Newcastle upon Tyne","E08000021","Unitary Authority","All Ages",302820
+2019,"Newcastle upon Tyne","E08000021","Unitary Authority","Aged 65+",43840
+2019,"North Tyneside","E08000022","Unitary Authority","All Ages",207913
+2019,"North Tyneside","E08000022","Unitary Authority","Aged 65+",42103
+2019,"South Tyneside","E08000023","Unitary Authority","All Ages",150976
+2019,"South Tyneside","E08000023","Unitary Authority","Aged 65+",30593
+2019,"Sunderland","E08000024","Unitary Authority","All Ages",277705
+2019,"Sunderland","E08000024","Unitary Authority","Aged 65+",54843
+2019,"Blackburn with Darwen","E06000008","Unitary Authority","All Ages",149696
+2019,"Blackburn with Darwen","E06000008","Unitary Authority","Aged 65+",21774
+2019,"Blackpool","E06000009","Unitary Authority","All Ages",139446
+2019,"Blackpool","E06000009","Unitary Authority","Aged 65+",28495
+2019,"Cheshire East","E06000049","Unitary Authority","All Ages",384152
+2019,"Cheshire East","E06000049","Unitary Authority","Aged 65+",88280
+2019,"Cheshire West and Chester","E06000050","Unitary Authority","All Ages",343071
+2019,"Cheshire West and Chester","E06000050","Unitary Authority","Aged 65+",74192
+2019,"Halton","E06000006","Unitary Authority","All Ages",129410
+2019,"Halton","E06000006","Unitary Authority","Aged 65+",23812
+2019,"Warrington","E06000007","Unitary Authority","All Ages",210014
+2019,"Warrington","E06000007","Unitary Authority","Aged 65+",39645
+2019,"Cumbria","E10000006","Upper Tier Local Authority","All Ages",500012
+2019,"Cumbria","E10000006","Upper Tier Local Authority","Aged 65+",122360
+2019,"Bolton","E08000001","Unitary Authority","All Ages",287550
+2019,"Bolton","E08000001","Unitary Authority","Aged 65+",49822
+2019,"Bury","E08000002","Unitary Authority","All Ages",190990
+2019,"Bury","E08000002","Unitary Authority","Aged 65+",35025
+2019,"Manchester","E08000003","Unitary Authority","All Ages",552858
+2019,"Manchester","E08000003","Unitary Authority","Aged 65+",51441
+2019,"Oldham","E08000004","Unitary Authority","All Ages",237110
+2019,"Oldham","E08000004","Unitary Authority","Aged 65+",38312
+2019,"Rochdale","E08000005","Unitary Authority","All Ages",222412
+2019,"Rochdale","E08000005","Unitary Authority","Aged 65+",36615
+2019,"Salford","E08000006","Unitary Authority","All Ages",258834
+2019,"Salford","E08000006","Unitary Authority","Aged 65+",36729
+2019,"Stockport","E08000007","Unitary Authority","All Ages",293423
+2019,"Stockport","E08000007","Unitary Authority","Aged 65+",58726
+2019,"Tameside","E08000008","Unitary Authority","All Ages",226493
+2019,"Tameside","E08000008","Unitary Authority","Aged 65+",40026
+2019,"Trafford","E08000009","Unitary Authority","All Ages",237354
+2019,"Trafford","E08000009","Unitary Authority","Aged 65+",41183
+2019,"Wigan","E08000010","Unitary Authority","All Ages",328662
+2019,"Wigan","E08000010","Unitary Authority","Aged 65+",62908
+2019,"Lancashire","E10000017","Upper Tier Local Authority","All Ages",1219799
+2019,"Lancashire","E10000017","Upper Tier Local Authority","Aged 65+",253027
+2019,"Knowsley","E08000011","Unitary Authority","All Ages",150862
+2019,"Knowsley","E08000011","Unitary Authority","Aged 65+",26033
+2019,"Liverpool","E08000012","Unitary Authority","All Ages",498042
+2019,"Liverpool","E08000012","Unitary Authority","Aged 65+",73514
+2019,"Sefton","E08000014","Unitary Authority","All Ages",276410
+2019,"Sefton","E08000014","Unitary Authority","Aged 65+",65126
+2019,"St. Helens","E08000013","Unitary Authority","All Ages",180585
+2019,"St. Helens","E08000013","Unitary Authority","Aged 65+",37203
+2019,"Wirral","E08000015","Unitary Authority","All Ages",324011
+2019,"Wirral","E08000015","Unitary Authority","Aged 65+",70863
+2019,"East Riding of Yorkshire","E06000011","Unitary Authority","All Ages",341173
+2019,"East Riding of Yorkshire","E06000011","Unitary Authority","Aged 65+",89346
+2019,"Kingston upon Hull, City of","E06000010","Unitary Authority","All Ages",259778
+2019,"Kingston upon Hull, City of","E06000010","Unitary Authority","Aged 65+",39323
+2019,"North East Lincolnshire","E06000012","Unitary Authority","All Ages",159563
+2019,"North East Lincolnshire","E06000012","Unitary Authority","Aged 65+",32871
+2019,"North Lincolnshire","E06000013","Unitary Authority","All Ages",172292
+2019,"North Lincolnshire","E06000013","Unitary Authority","Aged 65+",36656
+2019,"York","E06000014","Unitary Authority","All Ages",210618
+2019,"York","E06000014","Unitary Authority","Aged 65+",38735
+2019,"North Yorkshire","E10000023","Upper Tier Local Authority","All Ages",618054
+2019,"North Yorkshire","E10000023","Upper Tier Local Authority","Aged 65+",152657
+2019,"Barnsley","E08000016","Unitary Authority","All Ages",246866
+2019,"Barnsley","E08000016","Unitary Authority","Aged 65+",48162
+2019,"Doncaster","E08000017","Unitary Authority","All Ages",311890
+2019,"Doncaster","E08000017","Unitary Authority","Aged 65+",59745
+2019,"Rotherham","E08000018","Unitary Authority","All Ages",265411
+2019,"Rotherham","E08000018","Unitary Authority","Aged 65+",52299
+2019,"Sheffield","E08000019","Unitary Authority","All Ages",584853
+2019,"Sheffield","E08000019","Unitary Authority","Aged 65+",94440
+2019,"Bradford","E08000032","Unitary Authority","All Ages",539776
+2019,"Bradford","E08000032","Unitary Authority","Aged 65+",80899
+2019,"Calderdale","E08000033","Unitary Authority","All Ages",211455
+2019,"Calderdale","E08000033","Unitary Authority","Aged 65+",39755
+2019,"Kirklees","E08000034","Unitary Authority","All Ages",439787
+2019,"Kirklees","E08000034","Unitary Authority","Aged 65+",78097
+2019,"Leeds","E08000035","Unitary Authority","All Ages",793139
+2019,"Leeds","E08000035","Unitary Authority","Aged 65+",123516
+2019,"Wakefield","E08000036","Unitary Authority","All Ages",348312
+2019,"Wakefield","E08000036","Unitary Authority","Aged 65+",66276
+2019,"Derby","E06000015","Unitary Authority","All Ages",257302
+2019,"Derby","E06000015","Unitary Authority","Aged 65+",42383
+2019,"Leicester","E06000016","Unitary Authority","All Ages",354224
+2019,"Leicester","E06000016","Unitary Authority","Aged 65+",43121
+2019,"Nottingham","E06000018","Unitary Authority","All Ages",332900
+2019,"Nottingham","E06000018","Unitary Authority","Aged 65+",38779
+2019,"Rutland","E06000017","Unitary Authority","All Ages",39927
+2019,"Rutland","E06000017","Unitary Authority","Aged 65+",10163
+2019,"Derbyshire","E10000007","Upper Tier Local Authority","All Ages",802694
+2019,"Derbyshire","E10000007","Upper Tier Local Authority","Aged 65+",174956
+2019,"Leicestershire","E10000018","Upper Tier Local Authority","All Ages",706155
+2019,"Leicestershire","E10000018","Upper Tier Local Authority","Aged 65+",144892
+2019,"Lincolnshire","E10000019","Upper Tier Local Authority","All Ages",761224
+2019,"Lincolnshire","E10000019","Upper Tier Local Authority","Aged 65+",179805
+2019,"Northamptonshire","E10000021","Upper Tier Local Authority","All Ages",753278
+2019,"Northamptonshire","E10000021","Upper Tier Local Authority","Aged 65+",136682
+2019,"Nottinghamshire","E10000024","Upper Tier Local Authority","All Ages",828224
+2019,"Nottinghamshire","E10000024","Upper Tier Local Authority","Aged 65+",173311
+2019,"Herefordshire, County of","E06000019","Unitary Authority","All Ages",192801
+2019,"Herefordshire, County of","E06000019","Unitary Authority","Aged 65+",47666
+2019,"Shropshire","E06000051","Unitary Authority","All Ages",323136
+2019,"Shropshire","E06000051","Unitary Authority","Aged 65+",79762
+2019,"Stoke-on-Trent","E06000021","Unitary Authority","All Ages",256375
+2019,"Stoke-on-Trent","E06000021","Unitary Authority","Aged 65+",44056
+2019,"Telford and Wrekin","E06000020","Unitary Authority","All Ages",179854
+2019,"Telford and Wrekin","E06000020","Unitary Authority","Aged 65+",31087
+2019,"Staffordshire","E10000028","Upper Tier Local Authority","All Ages",879560
+2019,"Staffordshire","E10000028","Upper Tier Local Authority","Aged 65+",192379
+2019,"Warwickshire","E10000031","Upper Tier Local Authority","All Ages",577933
+2019,"Warwickshire","E10000031","Upper Tier Local Authority","Aged 65+",120273
+2019,"Birmingham","E08000025","Unitary Authority","All Ages",1141816
+2019,"Birmingham","E08000025","Unitary Authority","Aged 65+",149418
+2019,"Coventry","E08000026","Unitary Authority","All Ages",371521
+2019,"Coventry","E08000026","Unitary Authority","Aged 65+",50231
+2019,"Dudley","E08000027","Unitary Authority","All Ages",321596
+2019,"Dudley","E08000027","Unitary Authority","Aged 65+",65602
+2019,"Sandwell","E08000028","Unitary Authority","All Ages",328450
+2019,"Sandwell","E08000028","Unitary Authority","Aged 65+",49369
+2019,"Solihull","E08000029","Unitary Authority","All Ages",216374
+2019,"Solihull","E08000029","Unitary Authority","Aged 65+",45630
+2019,"Walsall","E08000030","Unitary Authority","All Ages",285478
+2019,"Walsall","E08000030","Unitary Authority","Aged 65+",50121
+2019,"Wolverhampton","E08000031","Unitary Authority","All Ages",263357
+2019,"Wolverhampton","E08000031","Unitary Authority","Aged 65+",43862
+2019,"Worcestershire","E10000034","Upper Tier Local Authority","All Ages",595786
+2019,"Worcestershire","E10000034","Upper Tier Local Authority","Aged 65+",135906
+2019,"Bedford","E06000055","Unitary Authority","All Ages",173292
+2019,"Bedford","E06000055","Unitary Authority","Aged 65+",30925
+2019,"Central Bedfordshire","E06000056","Unitary Authority","All Ages",288648
+2019,"Central Bedfordshire","E06000056","Unitary Authority","Aged 65+",51773
+2019,"Luton","E06000032","Unitary Authority","All Ages",213052
+2019,"Luton","E06000032","Unitary Authority","Aged 65+",26941
+2019,"Peterborough","E06000031","Unitary Authority","All Ages",202259
+2019,"Peterborough","E06000031","Unitary Authority","Aged 65+",30051
+2019,"Southend-on-Sea","E06000033","Unitary Authority","All Ages",183125
+2019,"Southend-on-Sea","E06000033","Unitary Authority","Aged 65+",35625
+2019,"Thurrock","E06000034","Unitary Authority","All Ages",174341
+2019,"Thurrock","E06000034","Unitary Authority","Aged 65+",24063
+2019,"Cambridgeshire","E10000003","Upper Tier Local Authority","All Ages",653537
+2019,"Cambridgeshire","E10000003","Upper Tier Local Authority","Aged 65+",125275
+2019,"Essex","E10000012","Upper Tier Local Authority","All Ages",1489189
+2019,"Essex","E10000012","Upper Tier Local Authority","Aged 65+",307567
+2019,"Hertfordshire","E10000015","Upper Tier Local Authority","All Ages",1189519
+2019,"Hertfordshire","E10000015","Upper Tier Local Authority","Aged 65+",204227
+2019,"Norfolk","E10000020","Upper Tier Local Authority","All Ages",907760
+2019,"Norfolk","E10000020","Upper Tier Local Authority","Aged 65+",222666
+2019,"Suffolk","E10000029","Upper Tier Local Authority","All Ages",761350
+2019,"Suffolk","E10000029","Upper Tier Local Authority","Aged 65+",179393
+2019,"Camden","E09000007","Unitary Authority","All Ages",270029
+2019,"Camden","E09000007","Unitary Authority","Aged 65+",32463
+2019,"City of London","E09000001","Unitary Authority","All Ages",9721
+2019,"City of London","E09000001","Unitary Authority","Aged 65+",1642
+2019,"Hackney","E09000012","Unitary Authority","All Ages",281120
+2019,"Hackney","E09000012","Unitary Authority","Aged 65+",21692
+2019,"Hammersmith and Fulham","E09000013","Unitary Authority","All Ages",185143
+2019,"Hammersmith and Fulham","E09000013","Unitary Authority","Aged 65+",20369
+2019,"Haringey","E09000014","Unitary Authority","All Ages",268647
+2019,"Haringey","E09000014","Unitary Authority","Aged 65+",27993
+2019,"Islington","E09000019","Unitary Authority","All Ages",242467
+2019,"Islington","E09000019","Unitary Authority","Aged 65+",21484
+2019,"Kensington and Chelsea","E09000020","Unitary Authority","All Ages",156129
+2019,"Kensington and Chelsea","E09000020","Unitary Authority","Aged 65+",25049
+2019,"Lambeth","E09000022","Unitary Authority","All Ages",326034
+2019,"Lambeth","E09000022","Unitary Authority","Aged 65+",27500
+2019,"Lewisham","E09000023","Unitary Authority","All Ages",305842
+2019,"Lewisham","E09000023","Unitary Authority","Aged 65+",28988
+2019,"Newham","E09000025","Unitary Authority","All Ages",353134
+2019,"Newham","E09000025","Unitary Authority","Aged 65+",27228
+2019,"Southwark","E09000028","Unitary Authority","All Ages",318830
+2019,"Southwark","E09000028","Unitary Authority","Aged 65+",27130
+2019,"Tower Hamlets","E09000030","Unitary Authority","All Ages",324745
+2019,"Tower Hamlets","E09000030","Unitary Authority","Aged 65+",20859
+2019,"Wandsworth","E09000032","Unitary Authority","All Ages",329677
+2019,"Wandsworth","E09000032","Unitary Authority","Aged 65+",31626
+2019,"Westminster","E09000033","Unitary Authority","All Ages",261317
+2019,"Westminster","E09000033","Unitary Authority","Aged 65+",32628
+2019,"Barking and Dagenham","E09000002","Unitary Authority","All Ages",212906
+2019,"Barking and Dagenham","E09000002","Unitary Authority","Aged 65+",19780
+2019,"Barnet","E09000003","Unitary Authority","All Ages",395869
+2019,"Barnet","E09000003","Unitary Authority","Aged 65+",57304
+2019,"Bexley","E09000004","Unitary Authority","All Ages",248287
+2019,"Bexley","E09000004","Unitary Authority","Aged 65+",40968
+2019,"Brent","E09000005","Unitary Authority","All Ages",329771
+2019,"Brent","E09000005","Unitary Authority","Aged 65+",41088
+2019,"Bromley","E09000006","Unitary Authority","All Ages",332336
+2019,"Bromley","E09000006","Unitary Authority","Aged 65+",58177
+2019,"Croydon","E09000008","Unitary Authority","All Ages",386710
+2019,"Croydon","E09000008","Unitary Authority","Aged 65+",53197
+2019,"Ealing","E09000009","Unitary Authority","All Ages",341806
+2019,"Ealing","E09000009","Unitary Authority","Aged 65+",44846
+2019,"Enfield","E09000010","Unitary Authority","All Ages",333794
+2019,"Enfield","E09000010","Unitary Authority","Aged 65+",44564
+2019,"Greenwich","E09000011","Unitary Authority","All Ages",287942
+2019,"Greenwich","E09000011","Unitary Authority","Aged 65+",30359
+2019,"Harrow","E09000015","Unitary Authority","All Ages",251160
+2019,"Harrow","E09000015","Unitary Authority","Aged 65+",39988
+2019,"Havering","E09000016","Unitary Authority","All Ages",259552
+2019,"Havering","E09000016","Unitary Authority","Aged 65+",46709
+2019,"Hillingdon","E09000017","Unitary Authority","All Ages",306870
+2019,"Hillingdon","E09000017","Unitary Authority","Aged 65+",41395
+2019,"Hounslow","E09000018","Unitary Authority","All Ages",271523
+2019,"Hounslow","E09000018","Unitary Authority","Aged 65+",33431
+2019,"Kingston upon Thames","E09000021","Unitary Authority","All Ages",177507
+2019,"Kingston upon Thames","E09000021","Unitary Authority","Aged 65+",24745
+2019,"Merton","E09000024","Unitary Authority","All Ages",206548
+2019,"Merton","E09000024","Unitary Authority","Aged 65+",26467
+2019,"Redbridge","E09000026","Unitary Authority","All Ages",305222
+2019,"Redbridge","E09000026","Unitary Authority","Aged 65+",38852
+2019,"Richmond upon Thames","E09000027","Unitary Authority","All Ages",198019
+2019,"Richmond upon Thames","E09000027","Unitary Authority","Aged 65+",31392
+2019,"Sutton","E09000029","Unitary Authority","All Ages",206349
+2019,"Sutton","E09000029","Unitary Authority","Aged 65+",31622
+2019,"Waltham Forest","E09000031","Unitary Authority","All Ages",276983
+2019,"Waltham Forest","E09000031","Unitary Authority","Aged 65+",29980
+2019,"Bracknell Forest","E06000036","Unitary Authority","All Ages",122549
+2019,"Bracknell Forest","E06000036","Unitary Authority","Aged 65+",18011
+2019,"Brighton and Hove","E06000043","Unitary Authority","All Ages",290885
+2019,"Brighton and Hove","E06000043","Unitary Authority","Aged 65+",38839
+2019,"Isle of Wight","E06000046","Unitary Authority","All Ages",141771
+2019,"Isle of Wight","E06000046","Unitary Authority","Aged 65+",40186
+2019,"Medway","E06000035","Unitary Authority","All Ages",278556
+2019,"Medway","E06000035","Unitary Authority","Aged 65+",44859
+2019,"Milton Keynes","E06000042","Unitary Authority","All Ages",269457
+2019,"Milton Keynes","E06000042","Unitary Authority","Aged 65+",38182
+2019,"Portsmouth","E06000044","Unitary Authority","All Ages",214905
+2019,"Portsmouth","E06000044","Unitary Authority","Aged 65+",30433
+2019,"Reading","E06000038","Unitary Authority","All Ages",161780
+2019,"Reading","E06000038","Unitary Authority","Aged 65+",20270
+2019,"Slough","E06000039","Unitary Authority","All Ages",149539
+2019,"Slough","E06000039","Unitary Authority","Aged 65+",15204
+2019,"Southampton","E06000045","Unitary Authority","All Ages",252520
+2019,"Southampton","E06000045","Unitary Authority","Aged 65+",33873
+2019,"West Berkshire","E06000037","Unitary Authority","All Ages",158450
+2019,"West Berkshire","E06000037","Unitary Authority","Aged 65+",30568
+2019,"Windsor and Maidenhead","E06000040","Unitary Authority","All Ages",151422
+2019,"Windsor and Maidenhead","E06000040","Unitary Authority","Aged 65+",28454
+2019,"Wokingham","E06000041","Unitary Authority","All Ages",171119
+2019,"Wokingham","E06000041","Unitary Authority","Aged 65+",30147
+2019,"Buckinghamshire","E10000002","Upper Tier Local Authority","All Ages",543973
+2019,"Buckinghamshire","E10000002","Upper Tier Local Authority","Aged 65+",102860
+2019,"East Sussex","E10000011","Upper Tier Local Authority","All Ages",557229
+2019,"East Sussex","E10000011","Upper Tier Local Authority","Aged 65+",144592
+2019,"Hampshire","E10000014","Upper Tier Local Authority","All Ages",1382542
+2019,"Hampshire","E10000014","Upper Tier Local Authority","Aged 65+",300537
+2019,"Kent","E10000016","Upper Tier Local Authority","All Ages",1581555
+2019,"Kent","E10000016","Upper Tier Local Authority","Aged 65+",319396
+2019,"Oxfordshire","E10000025","Upper Tier Local Authority","All Ages",691667
+2019,"Oxfordshire","E10000025","Upper Tier Local Authority","Aged 65+",128126
+2019,"Surrey","E10000030","Upper Tier Local Authority","All Ages",1196236
+2019,"Surrey","E10000030","Upper Tier Local Authority","Aged 65+",227896
+2019,"West Sussex","E10000032","Upper Tier Local Authority","All Ages",863980
+2019,"West Sussex","E10000032","Upper Tier Local Authority","Aged 65+",198783
+2019,"Bath and North East Somerset","E06000022","Unitary Authority","All Ages",193282
+2019,"Bath and North East Somerset","E06000022","Unitary Authority","Aged 65+",36682
+2019,"Bournemouth, Christchurch and Poole","E06000058","Unitary Authority","All Ages",395331
+2019,"Bournemouth, Christchurch and Poole","E06000058","Unitary Authority","Aged 65+",86297
+2019,"Bristol, City of","E06000023","Unitary Authority","All Ages",463377
+2019,"Bristol, City of","E06000023","Unitary Authority","Aged 65+",60345
+2019,"Cornwall","E06000052","Unitary Authority","All Ages",569578
+2019,"Cornwall","E06000052","Unitary Authority","Aged 65+",142466
+2019,"Isles of Scilly","E06000053","Unitary Authority","All Ages",2224
+2019,"Isles of Scilly","E06000053","Unitary Authority","Aged 65+",580
+2019,"North Somerset","E06000024","Unitary Authority","All Ages",215052
+2019,"North Somerset","E06000024","Unitary Authority","Aged 65+",51641
+2019,"Plymouth","E06000026","Unitary Authority","All Ages",262100
+2019,"Plymouth","E06000026","Unitary Authority","Aged 65+",48530
+2019,"South Gloucestershire","E06000025","Unitary Authority","All Ages",285093
+2019,"South Gloucestershire","E06000025","Unitary Authority","Aged 65+",53697
+2019,"Swindon","E06000030","Unitary Authority","All Ages",222193
+2019,"Swindon","E06000030","Unitary Authority","Aged 65+",36159
+2019,"Torbay","E06000027","Unitary Authority","All Ages",136264
+2019,"Torbay","E06000027","Unitary Authority","Aged 65+",36612
+2019,"Wiltshire","E06000054","Unitary Authority","All Ages",500024
+2019,"Wiltshire","E06000054","Unitary Authority","Aged 65+",108447
+2019,"Devon","E10000008","Upper Tier Local Authority","All Ages",802375
+2019,"Devon","E10000008","Upper Tier Local Authority","Aged 65+",204201
+2019,"Dorset","E06000059","Unitary Authority","All Ages",378508
+2019,"Dorset","E06000059","Unitary Authority","Aged 65+",110049
+2019,"Gloucestershire","E10000013","Upper Tier Local Authority","All Ages",637070
+2019,"Gloucestershire","E10000013","Upper Tier Local Authority","Aged 65+",137510
+2019,"Somerset","E10000027","Upper Tier Local Authority","All Ages",562225
+2019,"Somerset","E10000027","Upper Tier Local Authority","Aged 65+",139913
+2019,"Isle of Anglesey","W06000001","Unitary Authority","All Ages",70043
+2019,"Isle of Anglesey","W06000001","Unitary Authority","Aged 65+",18358
+2019,"Gwynedd","W06000002","Unitary Authority","All Ages",124560
+2019,"Gwynedd","W06000002","Unitary Authority","Aged 65+",28380
+2019,"Conwy","W06000003","Unitary Authority","All Ages",117203
+2019,"Conwy","W06000003","Unitary Authority","Aged 65+",32732
+2019,"Denbighshire","W06000004","Unitary Authority","All Ages",95696
+2019,"Denbighshire","W06000004","Unitary Authority","Aged 65+",23237
+2019,"Flintshire","W06000005","Unitary Authority","All Ages",156100
+2019,"Flintshire","W06000005","Unitary Authority","Aged 65+",33068
+2019,"Wrexham","W06000006","Unitary Authority","All Ages",135957
+2019,"Wrexham","W06000006","Unitary Authority","Aged 65+",27438
+2019,"Powys","W06000023","Unitary Authority","All Ages",132435
+2019,"Powys","W06000023","Unitary Authority","Aged 65+",36376
+2019,"Ceredigion","W06000008","Unitary Authority","All Ages",72695
+2019,"Ceredigion","W06000008","Unitary Authority","Aged 65+",18434
+2019,"Pembrokeshire","W06000009","Unitary Authority","All Ages",125818
+2019,"Pembrokeshire","W06000009","Unitary Authority","Aged 65+",32738
+2019,"Carmarthenshire","W06000010","Unitary Authority","All Ages",188771
+2019,"Carmarthenshire","W06000010","Unitary Authority","Aged 65+",44843
+2019,"Swansea","W06000011","Unitary Authority","All Ages",246993
+2019,"Swansea","W06000011","Unitary Authority","Aged 65+",48720
+2019,"Neath Port Talbot","W06000012","Unitary Authority","All Ages",143315
+2019,"Neath Port Talbot","W06000012","Unitary Authority","Aged 65+",29981
+2019,"Bridgend","W06000013","Unitary Authority","All Ages",147049
+2019,"Bridgend","W06000013","Unitary Authority","Aged 65+",29880
+2019,"Vale of Glamorgan","W06000014","Unitary Authority","All Ages",133587
+2019,"Vale of Glamorgan","W06000014","Unitary Authority","Aged 65+",28347
+2019,"Cardiff","W06000015","Unitary Authority","All Ages",366903
+2019,"Cardiff","W06000015","Unitary Authority","Aged 65+",52192
+2019,"Rhondda Cynon Taff","W06000016","Unitary Authority","All Ages",241264
+2019,"Rhondda Cynon Taff","W06000016","Unitary Authority","Aged 65+",46628
+2019,"Merthyr Tydfil","W06000024","Unitary Authority","All Ages",60326
+2019,"Merthyr Tydfil","W06000024","Unitary Authority","Aged 65+",11386
+2019,"Caerphilly","W06000018","Unitary Authority","All Ages",181075
+2019,"Caerphilly","W06000018","Unitary Authority","Aged 65+",35549
+2019,"Blaenau Gwent","W06000019","Unitary Authority","All Ages",69862
+2019,"Blaenau Gwent","W06000019","Unitary Authority","Aged 65+",14192
+2019,"Torfaen","W06000020","Unitary Authority","All Ages",93961
+2019,"Torfaen","W06000020","Unitary Authority","Aged 65+",19336
+2019,"Monmouthshire","W06000021","Unitary Authority","All Ages",94590
+2019,"Monmouthshire","W06000021","Unitary Authority","Aged 65+",23891
+2019,"Newport","W06000022","Unitary Authority","All Ages",154676
+2019,"Newport","W06000022","Unitary Authority","Aged 65+",26670
+2019,"Aberdeen City","S12000033","Unitary Authority","All Ages",228670
+2019,"Aberdeen City","S12000033","Unitary Authority","Aged 65+",36157
+2019,"Aberdeenshire","S12000034","Unitary Authority","All Ages",261210
+2019,"Aberdeenshire","S12000034","Unitary Authority","Aged 65+",51073
+2019,"Angus","S12000041","Unitary Authority","All Ages",116200
+2019,"Angus","S12000041","Unitary Authority","Aged 65+",27790
+2019,"Argyll and Bute","S12000035","Unitary Authority","All Ages",85870
+2019,"Argyll and Bute","S12000035","Unitary Authority","Aged 65+",22210
+2019,"Clackmannanshire","S12000005","Unitary Authority","All Ages",51540
+2019,"Clackmannanshire","S12000005","Unitary Authority","Aged 65+",10461
+2019,"Dumfries and Galloway","S12000006","Unitary Authority","All Ages",148860
+2019,"Dumfries and Galloway","S12000006","Unitary Authority","Aged 65+",38570
+2019,"Dundee City","S12000042","Unitary Authority","All Ages",149320
+2019,"Dundee City","S12000042","Unitary Authority","Aged 65+",26067
+2019,"East Ayrshire","S12000008","Unitary Authority","All Ages",122010
+2019,"East Ayrshire","S12000008","Unitary Authority","Aged 65+",24952
+2019,"East Dunbartonshire","S12000045","Unitary Authority","All Ages",108640
+2019,"East Dunbartonshire","S12000045","Unitary Authority","Aged 65+",24476
+2019,"East Lothian","S12000010","Unitary Authority","All Ages",107090
+2019,"East Lothian","S12000010","Unitary Authority","Aged 65+",21731
+2019,"East Renfrewshire","S12000011","Unitary Authority","All Ages",95530
+2019,"East Renfrewshire","S12000011","Unitary Authority","Aged 65+",19186
+2019,"City of Edinburgh","S12000036","Unitary Authority","All Ages",524930
+2019,"City of Edinburgh","S12000036","Unitary Authority","Aged 65+",79355
+2019,"Na h-Eileanan Siar","S12000013","Unitary Authority","All Ages",26720
+2019,"Na h-Eileanan Siar","S12000013","Unitary Authority","Aged 65+",6895
+2019,"Falkirk","S12000014","Unitary Authority","All Ages",160890
+2019,"Falkirk","S12000014","Unitary Authority","Aged 65+",30449
+2019,"Fife","S12000047","Unitary Authority","All Ages",373550
+2019,"Fife","S12000047","Unitary Authority","Aged 65+",77024
+2019,"Glasgow City","S12000049","Unitary Authority","All Ages",633120
+2019,"Glasgow City","S12000049","Unitary Authority","Aged 65+",85164
+2019,"Highland","S12000017","Unitary Authority","All Ages",235830
+2019,"Highland","S12000017","Unitary Authority","Aged 65+",53088
+2019,"Inverclyde","S12000018","Unitary Authority","All Ages",77800
+2019,"Inverclyde","S12000018","Unitary Authority","Aged 65+",16508
+2019,"Midlothian","S12000019","Unitary Authority","All Ages",92460
+2019,"Midlothian","S12000019","Unitary Authority","Aged 65+",17383
+2019,"Moray","S12000020","Unitary Authority","All Ages",95820
+2019,"Moray","S12000020","Unitary Authority","Aged 65+",20716
+2019,"North Ayrshire","S12000021","Unitary Authority","All Ages",134740
+2019,"North Ayrshire","S12000021","Unitary Authority","Aged 65+",30532
+2019,"North Lanarkshire","S12000050","Unitary Authority","All Ages",341370
+2019,"North Lanarkshire","S12000050","Unitary Authority","Aged 65+",59099
+2019,"Orkney Islands","S12000023","Unitary Authority","All Ages",22270
+2019,"Orkney Islands","S12000023","Unitary Authority","Aged 65+",5306
+2019,"Perth and Kinross","S12000048","Unitary Authority","All Ages",151950
+2019,"Perth and Kinross","S12000048","Unitary Authority","Aged 65+",35834
+2019,"Renfrewshire","S12000038","Unitary Authority","All Ages",179100
+2019,"Renfrewshire","S12000038","Unitary Authority","Aged 65+",33887
+2019,"Scottish Borders","S12000026","Unitary Authority","All Ages",115510
+2019,"Scottish Borders","S12000026","Unitary Authority","Aged 65+",28616
+2019,"Shetland Islands","S12000027","Unitary Authority","All Ages",22920
+2019,"Shetland Islands","S12000027","Unitary Authority","Aged 65+",4686
+2019,"South Ayrshire","S12000028","Unitary Authority","All Ages",112610
+2019,"South Ayrshire","S12000028","Unitary Authority","Aged 65+",28744
+2019,"South Lanarkshire","S12000029","Unitary Authority","All Ages",320530
+2019,"South Lanarkshire","S12000029","Unitary Authority","Aged 65+",62706
+2019,"Stirling","S12000030","Unitary Authority","All Ages",94210
+2019,"Stirling","S12000030","Unitary Authority","Aged 65+",18264
+2019,"West Dunbartonshire","S12000039","Unitary Authority","All Ages",88930
+2019,"West Dunbartonshire","S12000039","Unitary Authority","Aged 65+",16731
+2019,"West Lothian","S12000040","Unitary Authority","All Ages",183100
+2019,"West Lothian","S12000040","Unitary Authority","Aged 65+",30485
+2019,"Antrim and Newtownabbey","N09000001","Unitary Authority","All Ages",143504
+2019,"Antrim and Newtownabbey","N09000001","Unitary Authority","Aged 65+",24123
+2019,"Armagh City, Banbridge and Craigavon","N09000002","Unitary Authority","All Ages",216205
+2019,"Armagh City, Banbridge and Craigavon","N09000002","Unitary Authority","Aged 65+",33530
+2019,"Belfast","N09000003","Unitary Authority","All Ages",343542
+2019,"Belfast","N09000003","Unitary Authority","Aged 65+",50825
+2019,"Causeway Coast and Glens","N09000004","Unitary Authority","All Ages",144838
+2019,"Causeway Coast and Glens","N09000004","Unitary Authority","Aged 65+",26654
+2019,"Derry City and Strabane","N09000005","Unitary Authority","All Ages",151284
+2019,"Derry City and Strabane","N09000005","Unitary Authority","Aged 65+",22914
+2019,"Fermanagh and Omagh","N09000006","Unitary Authority","All Ages",117397
+2019,"Fermanagh and Omagh","N09000006","Unitary Authority","Aged 65+",20050
+2019,"Lisburn and Castlereagh","N09000007","Unitary Authority","All Ages",146002
+2019,"Lisburn and Castlereagh","N09000007","Unitary Authority","Aged 65+",25439
+2019,"Mid and East Antrim","N09000008","Unitary Authority","All Ages",139274
+2019,"Mid and East Antrim","N09000008","Unitary Authority","Aged 65+",26526
+2019,"Mid Ulster","N09000009","Unitary Authority","All Ages",148528
+2019,"Mid Ulster","N09000009","Unitary Authority","Aged 65+",21590
+2019,"Newry, Mourne and Down","N09000010","Unitary Authority","All Ages",181368
+2019,"Newry, Mourne and Down","N09000010","Unitary Authority","Aged 65+",28532
+2019,"Ards and North Down","N09000011","Unitary Authority","All Ages",161725
+2019,"Ards and North Down","N09000011","Unitary Authority","Aged 65+",34541
+2019,"Allerdale","E07000026","Lower Tier Local Authority","All Ages",97761
+2019,"Allerdale","E07000026","Lower Tier Local Authority","Aged 65+",24154
+2019,"Barrow-in-Furness","E07000027","Lower Tier Local Authority","All Ages",67049
+2019,"Barrow-in-Furness","E07000027","Lower Tier Local Authority","Aged 65+",14597
+2019,"Carlisle","E07000028","Lower Tier Local Authority","All Ages",108678
+2019,"Carlisle","E07000028","Lower Tier Local Authority","Aged 65+",23818
+2019,"Copeland","E07000029","Lower Tier Local Authority","All Ages",68183
+2019,"Copeland","E07000029","Lower Tier Local Authority","Aged 65+",15502
+2019,"Eden","E07000030","Lower Tier Local Authority","All Ages",53253
+2019,"Eden","E07000030","Lower Tier Local Authority","Aged 65+",14353
+2019,"South Lakeland","E07000031","Lower Tier Local Authority","All Ages",105088
+2019,"South Lakeland","E07000031","Lower Tier Local Authority","Aged 65+",29936
+2019,"Burnley","E07000117","Lower Tier Local Authority","All Ages",88920
+2019,"Burnley","E07000117","Lower Tier Local Authority","Aged 65+",16669
+2019,"Chorley","E07000118","Lower Tier Local Authority","All Ages",118216
+2019,"Chorley","E07000118","Lower Tier Local Authority","Aged 65+",23600
+2019,"Fylde","E07000119","Lower Tier Local Authority","All Ages",80780
+2019,"Fylde","E07000119","Lower Tier Local Authority","Aged 65+",22282
+2019,"Hyndburn","E07000120","Lower Tier Local Authority","All Ages",81043
+2019,"Hyndburn","E07000120","Lower Tier Local Authority","Aged 65+",14986
+2019,"Lancaster","E07000121","Lower Tier Local Authority","All Ages",146038
+2019,"Lancaster","E07000121","Lower Tier Local Authority","Aged 65+",29106
+2019,"Pendle","E07000122","Lower Tier Local Authority","All Ages",92112
+2019,"Pendle","E07000122","Lower Tier Local Authority","Aged 65+",17210
+2019,"Preston","E07000123","Lower Tier Local Authority","All Ages",143135
+2019,"Preston","E07000123","Lower Tier Local Authority","Aged 65+",21099
+2019,"Ribble Valley","E07000124","Lower Tier Local Authority","All Ages",60888
+2019,"Ribble Valley","E07000124","Lower Tier Local Authority","Aged 65+",14437
+2019,"Rossendale","E07000125","Lower Tier Local Authority","All Ages",71482
+2019,"Rossendale","E07000125","Lower Tier Local Authority","Aged 65+",13393
+2019,"South Ribble","E07000126","Lower Tier Local Authority","All Ages",110788
+2019,"South Ribble","E07000126","Lower Tier Local Authority","Aged 65+",23801
+2019,"West Lancashire","E07000127","Lower Tier Local Authority","All Ages",114306
+2019,"West Lancashire","E07000127","Lower Tier Local Authority","Aged 65+",25313
+2019,"Wyre","E07000128","Lower Tier Local Authority","All Ages",112091
+2019,"Wyre","E07000128","Lower Tier Local Authority","Aged 65+",31131
+2019,"Craven","E07000163","Lower Tier Local Authority","All Ages",57142
+2019,"Craven","E07000163","Lower Tier Local Authority","Aged 65+",15615
+2019,"Hambleton","E07000164","Lower Tier Local Authority","All Ages",91594
+2019,"Hambleton","E07000164","Lower Tier Local Authority","Aged 65+",24233
+2019,"Harrogate","E07000165","Lower Tier Local Authority","All Ages",160831
+2019,"Harrogate","E07000165","Lower Tier Local Authority","Aged 65+",37919
+2019,"Richmondshire","E07000166","Lower Tier Local Authority","All Ages",53730
+2019,"Richmondshire","E07000166","Lower Tier Local Authority","Aged 65+",11481
+2019,"Ryedale","E07000167","Lower Tier Local Authority","All Ages",55380
+2019,"Ryedale","E07000167","Lower Tier Local Authority","Aged 65+",14955
+2019,"Scarborough","E07000168","Lower Tier Local Authority","All Ages",108757
+2019,"Scarborough","E07000168","Lower Tier Local Authority","Aged 65+",29940
+2019,"Selby","E07000169","Lower Tier Local Authority","All Ages",90620
+2019,"Selby","E07000169","Lower Tier Local Authority","Aged 65+",18514
+2019,"Amber Valley","E07000032","Lower Tier Local Authority","All Ages",128147
+2019,"Amber Valley","E07000032","Lower Tier Local Authority","Aged 65+",28476
+2019,"Bolsover","E07000033","Lower Tier Local Authority","All Ages",80562
+2019,"Bolsover","E07000033","Lower Tier Local Authority","Aged 65+",16192
+2019,"Chesterfield","E07000034","Lower Tier Local Authority","All Ages",104900
+2019,"Chesterfield","E07000034","Lower Tier Local Authority","Aged 65+",22253
+2019,"Derbyshire Dales","E07000035","Lower Tier Local Authority","All Ages",72325
+2019,"Derbyshire Dales","E07000035","Lower Tier Local Authority","Aged 65+",19680
+2019,"Erewash","E07000036","Lower Tier Local Authority","All Ages",115371
+2019,"Erewash","E07000036","Lower Tier Local Authority","Aged 65+",23719
+2019,"High Peak","E07000037","Lower Tier Local Authority","All Ages",92666
+2019,"High Peak","E07000037","Lower Tier Local Authority","Aged 65+",19764
+2019,"North East Derbyshire","E07000038","Lower Tier Local Authority","All Ages",101462
+2019,"North East Derbyshire","E07000038","Lower Tier Local Authority","Aged 65+",25183
+2019,"South Derbyshire","E07000039","Lower Tier Local Authority","All Ages",107261
+2019,"South Derbyshire","E07000039","Lower Tier Local Authority","Aged 65+",19689
+2019,"Blaby","E07000129","Lower Tier Local Authority","All Ages",101526
+2019,"Blaby","E07000129","Lower Tier Local Authority","Aged 65+",20649
+2019,"Charnwood","E07000130","Lower Tier Local Authority","All Ages",185851
+2019,"Charnwood","E07000130","Lower Tier Local Authority","Aged 65+",33730
+2019,"Harborough","E07000131","Lower Tier Local Authority","All Ages",93807
+2019,"Harborough","E07000131","Lower Tier Local Authority","Aged 65+",20579
+2019,"Hinckley and Bosworth","E07000132","Lower Tier Local Authority","All Ages",113136
+2019,"Hinckley and Bosworth","E07000132","Lower Tier Local Authority","Aged 65+",24990
+2019,"Melton","E07000133","Lower Tier Local Authority","All Ages",51209
+2019,"Melton","E07000133","Lower Tier Local Authority","Aged 65+",11805
+2019,"North West Leicestershire","E07000134","Lower Tier Local Authority","All Ages",103611
+2019,"North West Leicestershire","E07000134","Lower Tier Local Authority","Aged 65+",20777
+2019,"Oadby and Wigston","E07000135","Lower Tier Local Authority","All Ages",57015
+2019,"Oadby and Wigston","E07000135","Lower Tier Local Authority","Aged 65+",12362
+2019,"Boston","E07000136","Lower Tier Local Authority","All Ages",70173
+2019,"Boston","E07000136","Lower Tier Local Authority","Aged 65+",14688
+2019,"East Lindsey","E07000137","Lower Tier Local Authority","All Ages",141727
+2019,"East Lindsey","E07000137","Lower Tier Local Authority","Aged 65+",42539
+2019,"Lincoln","E07000138","Lower Tier Local Authority","All Ages",99299
+2019,"Lincoln","E07000138","Lower Tier Local Authority","Aged 65+",15272
+2019,"North Kesteven","E07000139","Lower Tier Local Authority","All Ages",116915
+2019,"North Kesteven","E07000139","Lower Tier Local Authority","Aged 65+",27580
+2019,"South Holland","E07000140","Lower Tier Local Authority","All Ages",95019
+2019,"South Holland","E07000140","Lower Tier Local Authority","Aged 65+",23021
+2019,"South Kesteven","E07000141","Lower Tier Local Authority","All Ages",142424
+2019,"South Kesteven","E07000141","Lower Tier Local Authority","Aged 65+",32988
+2019,"West Lindsey","E07000142","Lower Tier Local Authority","All Ages",95667
+2019,"West Lindsey","E07000142","Lower Tier Local Authority","Aged 65+",23717
+2019,"Corby","E07000150","Lower Tier Local Authority","All Ages",72218
+2019,"Corby","E07000150","Lower Tier Local Authority","Aged 65+",10249
+2019,"Daventry","E07000151","Lower Tier Local Authority","All Ages",85950
+2019,"Daventry","E07000151","Lower Tier Local Authority","Aged 65+",17684
+2019,"East Northamptonshire","E07000152","Lower Tier Local Authority","All Ages",94527
+2019,"East Northamptonshire","E07000152","Lower Tier Local Authority","Aged 65+",20029
+2019,"Kettering","E07000153","Lower Tier Local Authority","All Ages",101776
+2019,"Kettering","E07000153","Lower Tier Local Authority","Aged 65+",19010
+2019,"Northampton","E07000154","Lower Tier Local Authority","All Ages",224610
+2019,"Northampton","E07000154","Lower Tier Local Authority","Aged 65+",34867
+2019,"South Northamptonshire","E07000155","Lower Tier Local Authority","All Ages",94490
+2019,"South Northamptonshire","E07000155","Lower Tier Local Authority","Aged 65+",19309
+2019,"Wellingborough","E07000156","Lower Tier Local Authority","All Ages",79707
+2019,"Wellingborough","E07000156","Lower Tier Local Authority","Aged 65+",15534
+2019,"Ashfield","E07000170","Lower Tier Local Authority","All Ages",127918
+2019,"Ashfield","E07000170","Lower Tier Local Authority","Aged 65+",24786
+2019,"Bassetlaw","E07000171","Lower Tier Local Authority","All Ages",117459
+2019,"Bassetlaw","E07000171","Lower Tier Local Authority","Aged 65+",26035
+2019,"Broxtowe","E07000172","Lower Tier Local Authority","All Ages",114033
+2019,"Broxtowe","E07000172","Lower Tier Local Authority","Aged 65+",24097
+2019,"Gedling","E07000173","Lower Tier Local Authority","All Ages",117896
+2019,"Gedling","E07000173","Lower Tier Local Authority","Aged 65+",24846
+2019,"Mansfield","E07000174","Lower Tier Local Authority","All Ages",109313
+2019,"Mansfield","E07000174","Lower Tier Local Authority","Aged 65+",21253
+2019,"Newark and Sherwood","E07000175","Lower Tier Local Authority","All Ages",122421
+2019,"Newark and Sherwood","E07000175","Lower Tier Local Authority","Aged 65+",27086
+2019,"Rushcliffe","E07000176","Lower Tier Local Authority","All Ages",119184
+2019,"Rushcliffe","E07000176","Lower Tier Local Authority","Aged 65+",25208
+2019,"Cannock Chase","E07000192","Lower Tier Local Authority","All Ages",100762
+2019,"Cannock Chase","E07000192","Lower Tier Local Authority","Aged 65+",19339
+2019,"East Staffordshire","E07000193","Lower Tier Local Authority","All Ages",119754
+2019,"East Staffordshire","E07000193","Lower Tier Local Authority","Aged 65+",23081
+2019,"Lichfield","E07000194","Lower Tier Local Authority","All Ages",104756
+2019,"Lichfield","E07000194","Lower Tier Local Authority","Aged 65+",25192
+2019,"Newcastle-under-Lyme","E07000195","Lower Tier Local Authority","All Ages",129441
+2019,"Newcastle-under-Lyme","E07000195","Lower Tier Local Authority","Aged 65+",26762
+2019,"South Staffordshire","E07000196","Lower Tier Local Authority","All Ages",112436
+2019,"South Staffordshire","E07000196","Lower Tier Local Authority","Aged 65+",27721
+2019,"Stafford","E07000197","Lower Tier Local Authority","All Ages",137280
+2019,"Stafford","E07000197","Lower Tier Local Authority","Aged 65+",30838
+2019,"Staffordshire Moorlands","E07000198","Lower Tier Local Authority","All Ages",98435
+2019,"Staffordshire Moorlands","E07000198","Lower Tier Local Authority","Aged 65+",24815
+2019,"Tamworth","E07000199","Lower Tier Local Authority","All Ages",76696
+2019,"Tamworth","E07000199","Lower Tier Local Authority","Aged 65+",14631
+2019,"North Warwickshire","E07000218","Lower Tier Local Authority","All Ages",65264
+2019,"North Warwickshire","E07000218","Lower Tier Local Authority","Aged 65+",14273
+2019,"Nuneaton and Bedworth","E07000219","Lower Tier Local Authority","All Ages",129883
+2019,"Nuneaton and Bedworth","E07000219","Lower Tier Local Authority","Aged 65+",25057
+2019,"Rugby","E07000220","Lower Tier Local Authority","All Ages",108935
+2019,"Rugby","E07000220","Lower Tier Local Authority","Aged 65+",20735
+2019,"Stratford-on-Avon","E07000221","Lower Tier Local Authority","All Ages",130098
+2019,"Stratford-on-Avon","E07000221","Lower Tier Local Authority","Aged 65+",33141
+2019,"Warwick","E07000222","Lower Tier Local Authority","All Ages",143753
+2019,"Warwick","E07000222","Lower Tier Local Authority","Aged 65+",27067
+2019,"Bromsgrove","E07000234","Lower Tier Local Authority","All Ages",99881
+2019,"Bromsgrove","E07000234","Lower Tier Local Authority","Aged 65+",22624
+2019,"Malvern Hills","E07000235","Lower Tier Local Authority","All Ages",78698
+2019,"Malvern Hills","E07000235","Lower Tier Local Authority","Aged 65+",22176
+2019,"Redditch","E07000236","Lower Tier Local Authority","All Ages",85261
+2019,"Redditch","E07000236","Lower Tier Local Authority","Aged 65+",15751
+2019,"Worcester","E07000237","Lower Tier Local Authority","All Ages",101222
+2019,"Worcester","E07000237","Lower Tier Local Authority","Aged 65+",17547
+2019,"Wychavon","E07000238","Lower Tier Local Authority","All Ages",129433
+2019,"Wychavon","E07000238","Lower Tier Local Authority","Aged 65+",32551
+2019,"Wyre Forest","E07000239","Lower Tier Local Authority","All Ages",101291
+2019,"Wyre Forest","E07000239","Lower Tier Local Authority","Aged 65+",25257
+2019,"Cambridge","E07000008","Lower Tier Local Authority","All Ages",124798
+2019,"Cambridge","E07000008","Lower Tier Local Authority","Aged 65+",16364
+2019,"East Cambridgeshire","E07000009","Lower Tier Local Authority","All Ages",89840
+2019,"East Cambridgeshire","E07000009","Lower Tier Local Authority","Aged 65+",18340
+2019,"Fenland","E07000010","Lower Tier Local Authority","All Ages",101850
+2019,"Fenland","E07000010","Lower Tier Local Authority","Aged 65+",23446
+2019,"Huntingdonshire","E07000011","Lower Tier Local Authority","All Ages",177963
+2019,"Huntingdonshire","E07000011","Lower Tier Local Authority","Aged 65+",35941
+2019,"South Cambridgeshire","E07000012","Lower Tier Local Authority","All Ages",159086
+2019,"South Cambridgeshire","E07000012","Lower Tier Local Authority","Aged 65+",31184
+2019,"Basildon","E07000066","Lower Tier Local Authority","All Ages",187199
+2019,"Basildon","E07000066","Lower Tier Local Authority","Aged 65+",32240
+2019,"Braintree","E07000067","Lower Tier Local Authority","All Ages",152604
+2019,"Braintree","E07000067","Lower Tier Local Authority","Aged 65+",31099
+2019,"Brentwood","E07000068","Lower Tier Local Authority","All Ages",77021
+2019,"Brentwood","E07000068","Lower Tier Local Authority","Aged 65+",15685
+2019,"Castle Point","E07000069","Lower Tier Local Authority","All Ages",90376
+2019,"Castle Point","E07000069","Lower Tier Local Authority","Aged 65+",22924
+2019,"Chelmsford","E07000070","Lower Tier Local Authority","All Ages",178388
+2019,"Chelmsford","E07000070","Lower Tier Local Authority","Aged 65+",34304
+2019,"Colchester","E07000071","Lower Tier Local Authority","All Ages",194706
+2019,"Colchester","E07000071","Lower Tier Local Authority","Aged 65+",33618
+2019,"Epping Forest","E07000072","Lower Tier Local Authority","All Ages",131689
+2019,"Epping Forest","E07000072","Lower Tier Local Authority","Aged 65+",25939
+2019,"Harlow","E07000073","Lower Tier Local Authority","All Ages",87067
+2019,"Harlow","E07000073","Lower Tier Local Authority","Aged 65+",13401
+2019,"Maldon","E07000074","Lower Tier Local Authority","All Ages",64926
+2019,"Maldon","E07000074","Lower Tier Local Authority","Aged 65+",16452
+2019,"Rochford","E07000075","Lower Tier Local Authority","All Ages",87368
+2019,"Rochford","E07000075","Lower Tier Local Authority","Aged 65+",20273
+2019,"Tendring","E07000076","Lower Tier Local Authority","All Ages",146561
+2019,"Tendring","E07000076","Lower Tier Local Authority","Aged 65+",43702
+2019,"Uttlesford","E07000077","Lower Tier Local Authority","All Ages",91284
+2019,"Uttlesford","E07000077","Lower Tier Local Authority","Aged 65+",17930
+2019,"Broxbourne","E07000095","Lower Tier Local Authority","All Ages",97279
+2019,"Broxbourne","E07000095","Lower Tier Local Authority","Aged 65+",17365
+2019,"Dacorum","E07000096","Lower Tier Local Authority","All Ages",154763
+2019,"Dacorum","E07000096","Lower Tier Local Authority","Aged 65+",26844
+2019,"East Hertfordshire","E07000242","Lower Tier Local Authority","All Ages",149748
+2019,"East Hertfordshire","E07000242","Lower Tier Local Authority","Aged 65+",27155
+2019,"Hertsmere","E07000098","Lower Tier Local Authority","All Ages",104919
+2019,"Hertsmere","E07000098","Lower Tier Local Authority","Aged 65+",19263
+2019,"North Hertfordshire","E07000099","Lower Tier Local Authority","All Ages",133570
+2019,"North Hertfordshire","E07000099","Lower Tier Local Authority","Aged 65+",25661
+2019,"St Albans","E07000240","Lower Tier Local Authority","All Ages",148452
+2019,"St Albans","E07000240","Lower Tier Local Authority","Aged 65+",25435
+2019,"Stevenage","E07000243","Lower Tier Local Authority","All Ages",87845
+2019,"Stevenage","E07000243","Lower Tier Local Authority","Aged 65+",13521
+2019,"Three Rivers","E07000102","Lower Tier Local Authority","All Ages",93323
+2019,"Three Rivers","E07000102","Lower Tier Local Authority","Aged 65+",17002
+2019,"Watford","E07000103","Lower Tier Local Authority","All Ages",96577
+2019,"Watford","E07000103","Lower Tier Local Authority","Aged 65+",12856
+2019,"Welwyn Hatfield","E07000241","Lower Tier Local Authority","All Ages",123043
+2019,"Welwyn Hatfield","E07000241","Lower Tier Local Authority","Aged 65+",19125
+2019,"Breckland","E07000143","Lower Tier Local Authority","All Ages",139968
+2019,"Breckland","E07000143","Lower Tier Local Authority","Aged 65+",35131
+2019,"Broadland","E07000144","Lower Tier Local Authority","All Ages",130783
+2019,"Broadland","E07000144","Lower Tier Local Authority","Aged 65+",33770
+2019,"Great Yarmouth","E07000145","Lower Tier Local Authority","All Ages",99336
+2019,"Great Yarmouth","E07000145","Lower Tier Local Authority","Aged 65+",24265
+2019,"King's Lynn and West Norfolk","E07000146","Lower Tier Local Authority","All Ages",151383
+2019,"King's Lynn and West Norfolk","E07000146","Lower Tier Local Authority","Aged 65+",39669
+2019,"North Norfolk","E07000147","Lower Tier Local Authority","All Ages",104837
+2019,"North Norfolk","E07000147","Lower Tier Local Authority","Aged 65+",34772
+2019,"Norwich","E07000148","Lower Tier Local Authority","All Ages",140573
+2019,"Norwich","E07000148","Lower Tier Local Authority","Aged 65+",21245
+2019,"South Norfolk","E07000149","Lower Tier Local Authority","All Ages",140880
+2019,"South Norfolk","E07000149","Lower Tier Local Authority","Aged 65+",33814
+2019,"Babergh","E07000200","Lower Tier Local Authority","All Ages",92036
+2019,"Babergh","E07000200","Lower Tier Local Authority","Aged 65+",24224
+2019,"Ipswich","E07000202","Lower Tier Local Authority","All Ages",136913
+2019,"Ipswich","E07000202","Lower Tier Local Authority","Aged 65+",23032
+2019,"East Suffolk","E07000244","Lower Tier Local Authority","All Ages",249461
+2019,"East Suffolk","E07000244","Lower Tier Local Authority","Aged 65+",68549
+2019,"Mid Suffolk","E07000203","Lower Tier Local Authority","All Ages",103895
+2019,"Mid Suffolk","E07000203","Lower Tier Local Authority","Aged 65+",25570
+2019,"West Suffolk","E07000245","Lower Tier Local Authority","All Ages",179045
+2019,"West Suffolk","E07000245","Lower Tier Local Authority","Aged 65+",38018
+2019,"Aylesbury Vale","E07000004","Lower Tier Local Authority","All Ages",203219
+2019,"Aylesbury Vale","E07000004","Lower Tier Local Authority","Aged 65+",34354
+2019,"Chiltern","E07000005","Lower Tier Local Authority","All Ages",96046
+2019,"Chiltern","E07000005","Lower Tier Local Authority","Aged 65+",20698
+2019,"South Bucks","E07000006","Lower Tier Local Authority","All Ages",70440
+2019,"South Bucks","E07000006","Lower Tier Local Authority","Aged 65+",14900
+2019,"Wycombe","E07000007","Lower Tier Local Authority","All Ages",174268
+2019,"Wycombe","E07000007","Lower Tier Local Authority","Aged 65+",32908
+2019,"Eastbourne","E07000061","Lower Tier Local Authority","All Ages",103745
+2019,"Eastbourne","E07000061","Lower Tier Local Authority","Aged 65+",26021
+2019,"Hastings","E07000062","Lower Tier Local Authority","All Ages",92661
+2019,"Hastings","E07000062","Lower Tier Local Authority","Aged 65+",18843
+2019,"Lewes","E07000063","Lower Tier Local Authority","All Ages",103268
+2019,"Lewes","E07000063","Lower Tier Local Authority","Aged 65+",26685
+2019,"Rother","E07000064","Lower Tier Local Authority","All Ages",96080
+2019,"Rother","E07000064","Lower Tier Local Authority","Aged 65+",30886
+2019,"Wealden","E07000065","Lower Tier Local Authority","All Ages",161475
+2019,"Wealden","E07000065","Lower Tier Local Authority","Aged 65+",42157
+2019,"Basingstoke and Deane","E07000084","Lower Tier Local Authority","All Ages",176582
+2019,"Basingstoke and Deane","E07000084","Lower Tier Local Authority","Aged 65+",30967
+2019,"East Hampshire","E07000085","Lower Tier Local Authority","All Ages",122308
+2019,"East Hampshire","E07000085","Lower Tier Local Authority","Aged 65+",28605
+2019,"Eastleigh","E07000086","Lower Tier Local Authority","All Ages",133584
+2019,"Eastleigh","E07000086","Lower Tier Local Authority","Aged 65+",26227
+2019,"Fareham","E07000087","Lower Tier Local Authority","All Ages",116233
+2019,"Fareham","E07000087","Lower Tier Local Authority","Aged 65+",27537
+2019,"Gosport","E07000088","Lower Tier Local Authority","All Ages",84838
+2019,"Gosport","E07000088","Lower Tier Local Authority","Aged 65+",17320
+2019,"Hart","E07000089","Lower Tier Local Authority","All Ages",97073
+2019,"Hart","E07000089","Lower Tier Local Authority","Aged 65+",19275
+2019,"Havant","E07000090","Lower Tier Local Authority","All Ages",126220
+2019,"Havant","E07000090","Lower Tier Local Authority","Aged 65+",29708
+2019,"New Forest","E07000091","Lower Tier Local Authority","All Ages",180086
+2019,"New Forest","E07000091","Lower Tier Local Authority","Aged 65+",52707
+2019,"Rushmoor","E07000092","Lower Tier Local Authority","All Ages",94599
+2019,"Rushmoor","E07000092","Lower Tier Local Authority","Aged 65+",14087
+2019,"Test Valley","E07000093","Lower Tier Local Authority","All Ages",126160
+2019,"Test Valley","E07000093","Lower Tier Local Authority","Aged 65+",27409
+2019,"Winchester","E07000094","Lower Tier Local Authority","All Ages",124859
+2019,"Winchester","E07000094","Lower Tier Local Authority","Aged 65+",26695
+2019,"Ashford","E07000105","Lower Tier Local Authority","All Ages",130032
+2019,"Ashford","E07000105","Lower Tier Local Authority","Aged 65+",25278
+2019,"Canterbury","E07000106","Lower Tier Local Authority","All Ages",165394
+2019,"Canterbury","E07000106","Lower Tier Local Authority","Aged 65+",34140
+2019,"Dartford","E07000107","Lower Tier Local Authority","All Ages",112606
+2019,"Dartford","E07000107","Lower Tier Local Authority","Aged 65+",15874
+2019,"Dover","E07000108","Lower Tier Local Authority","All Ages",118131
+2019,"Dover","E07000108","Lower Tier Local Authority","Aged 65+",27789
+2019,"Gravesham","E07000109","Lower Tier Local Authority","All Ages",106939
+2019,"Gravesham","E07000109","Lower Tier Local Authority","Aged 65+",18555
+2019,"Maidstone","E07000110","Lower Tier Local Authority","All Ages",171826
+2019,"Maidstone","E07000110","Lower Tier Local Authority","Aged 65+",33008
+2019,"Sevenoaks","E07000111","Lower Tier Local Authority","All Ages",120750
+2019,"Sevenoaks","E07000111","Lower Tier Local Authority","Aged 65+",26098
+2019,"Folkestone and Hythe","E07000112","Lower Tier Local Authority","All Ages",112996
+2019,"Folkestone and Hythe","E07000112","Lower Tier Local Authority","Aged 65+",28031
+2019,"Swale","E07000113","Lower Tier Local Authority","All Ages",150082
+2019,"Swale","E07000113","Lower Tier Local Authority","Aged 65+",28844
+2019,"Thanet","E07000114","Lower Tier Local Authority","All Ages",141922
+2019,"Thanet","E07000114","Lower Tier Local Authority","Aged 65+",33820
+2019,"Tonbridge and Malling","E07000115","Lower Tier Local Authority","All Ages",132153
+2019,"Tonbridge and Malling","E07000115","Lower Tier Local Authority","Aged 65+",24903
+2019,"Tunbridge Wells","E07000116","Lower Tier Local Authority","All Ages",118724
+2019,"Tunbridge Wells","E07000116","Lower Tier Local Authority","Aged 65+",23056
+2019,"Cherwell","E07000177","Lower Tier Local Authority","All Ages",150503
+2019,"Cherwell","E07000177","Lower Tier Local Authority","Aged 65+",27493
+2019,"Oxford","E07000178","Lower Tier Local Authority","All Ages",152457
+2019,"Oxford","E07000178","Lower Tier Local Authority","Aged 65+",19042
+2019,"South Oxfordshire","E07000179","Lower Tier Local Authority","All Ages",142057
+2019,"South Oxfordshire","E07000179","Lower Tier Local Authority","Aged 65+",29986
+2019,"Vale of White Horse","E07000180","Lower Tier Local Authority","All Ages",136007
+2019,"Vale of White Horse","E07000180","Lower Tier Local Authority","Aged 65+",27454
+2019,"West Oxfordshire","E07000181","Lower Tier Local Authority","All Ages",110643
+2019,"West Oxfordshire","E07000181","Lower Tier Local Authority","Aged 65+",24151
+2019,"Elmbridge","E07000207","Lower Tier Local Authority","All Ages",136795
+2019,"Elmbridge","E07000207","Lower Tier Local Authority","Aged 65+",25360
+2019,"Epsom and Ewell","E07000208","Lower Tier Local Authority","All Ages",80627
+2019,"Epsom and Ewell","E07000208","Lower Tier Local Authority","Aged 65+",14730
+2019,"Guildford","E07000209","Lower Tier Local Authority","All Ages",148998
+2019,"Guildford","E07000209","Lower Tier Local Authority","Aged 65+",24781
+2019,"Mole Valley","E07000210","Lower Tier Local Authority","All Ages",87245
+2019,"Mole Valley","E07000210","Lower Tier Local Authority","Aged 65+",20641
+2019,"Reigate and Banstead","E07000211","Lower Tier Local Authority","All Ages",148748
+2019,"Reigate and Banstead","E07000211","Lower Tier Local Authority","Aged 65+",27068
+2019,"Runnymede","E07000212","Lower Tier Local Authority","All Ages",89424
+2019,"Runnymede","E07000212","Lower Tier Local Authority","Aged 65+",15131
+2019,"Spelthorne","E07000213","Lower Tier Local Authority","All Ages",99844
+2019,"Spelthorne","E07000213","Lower Tier Local Authority","Aged 65+",18545
+2019,"Surrey Heath","E07000214","Lower Tier Local Authority","All Ages",89305
+2019,"Surrey Heath","E07000214","Lower Tier Local Authority","Aged 65+",17572
+2019,"Tandridge","E07000215","Lower Tier Local Authority","All Ages",88129
+2019,"Tandridge","E07000215","Lower Tier Local Authority","Aged 65+",18451
+2019,"Waverley","E07000216","Lower Tier Local Authority","All Ages",126328
+2019,"Waverley","E07000216","Lower Tier Local Authority","Aged 65+",28135
+2019,"Woking","E07000217","Lower Tier Local Authority","All Ages",100793
+2019,"Woking","E07000217","Lower Tier Local Authority","Aged 65+",17482
+2019,"Adur","E07000223","Lower Tier Local Authority","All Ages",64301
+2019,"Adur","E07000223","Lower Tier Local Authority","Aged 65+",15136
+2019,"Arun","E07000224","Lower Tier Local Authority","All Ages",160758
+2019,"Arun","E07000224","Lower Tier Local Authority","Aged 65+",46384
+2019,"Chichester","E07000225","Lower Tier Local Authority","All Ages",121129
+2019,"Chichester","E07000225","Lower Tier Local Authority","Aged 65+",33201
+2019,"Crawley","E07000226","Lower Tier Local Authority","All Ages",112409
+2019,"Crawley","E07000226","Lower Tier Local Authority","Aged 65+",15275
+2019,"Horsham","E07000227","Lower Tier Local Authority","All Ages",143791
+2019,"Horsham","E07000227","Lower Tier Local Authority","Aged 65+",32782
+2019,"Mid Sussex","E07000228","Lower Tier Local Authority","All Ages",151022
+2019,"Mid Sussex","E07000228","Lower Tier Local Authority","Aged 65+",31041
+2019,"Worthing","E07000229","Lower Tier Local Authority","All Ages",110570
+2019,"Worthing","E07000229","Lower Tier Local Authority","Aged 65+",24964
+2019,"East Devon","E07000040","Lower Tier Local Authority","All Ages",146284
+2019,"East Devon","E07000040","Lower Tier Local Authority","Aged 65+",44415
+2019,"Exeter","E07000041","Lower Tier Local Authority","All Ages",131405
+2019,"Exeter","E07000041","Lower Tier Local Authority","Aged 65+",21049
+2019,"Mid Devon","E07000042","Lower Tier Local Authority","All Ages",82311
+2019,"Mid Devon","E07000042","Lower Tier Local Authority","Aged 65+",19383
+2019,"North Devon","E07000043","Lower Tier Local Authority","All Ages",97145
+2019,"North Devon","E07000043","Lower Tier Local Authority","Aged 65+",24540
+2019,"South Hams","E07000044","Lower Tier Local Authority","All Ages",87004
+2019,"South Hams","E07000044","Lower Tier Local Authority","Aged 65+",24584
+2019,"Teignbridge","E07000045","Lower Tier Local Authority","All Ages",134163
+2019,"Teignbridge","E07000045","Lower Tier Local Authority","Aged 65+",35687
+2019,"Torridge","E07000046","Lower Tier Local Authority","All Ages",68267
+2019,"Torridge","E07000046","Lower Tier Local Authority","Aged 65+",18934
+2019,"West Devon","E07000047","Lower Tier Local Authority","All Ages",55796
+2019,"West Devon","E07000047","Lower Tier Local Authority","Aged 65+",15609
+2019,"Cheltenham","E07000078","Lower Tier Local Authority","All Ages",116306
+2019,"Cheltenham","E07000078","Lower Tier Local Authority","Aged 65+",22910
+2019,"Cotswold","E07000079","Lower Tier Local Authority","All Ages",89862
+2019,"Cotswold","E07000079","Lower Tier Local Authority","Aged 65+",23231
+2019,"Forest of Dean","E07000080","Lower Tier Local Authority","All Ages",86791
+2019,"Forest of Dean","E07000080","Lower Tier Local Authority","Aged 65+",21454
+2019,"Gloucester","E07000081","Lower Tier Local Authority","All Ages",129128
+2019,"Gloucester","E07000081","Lower Tier Local Authority","Aged 65+",21824
+2019,"Stroud","E07000082","Lower Tier Local Authority","All Ages",119964
+2019,"Stroud","E07000082","Lower Tier Local Authority","Aged 65+",27112
+2019,"Tewkesbury","E07000083","Lower Tier Local Authority","All Ages",95019
+2019,"Tewkesbury","E07000083","Lower Tier Local Authority","Aged 65+",20979
+2019,"Mendip","E07000187","Lower Tier Local Authority","All Ages",115587
+2019,"Mendip","E07000187","Lower Tier Local Authority","Aged 65+",27200
+2019,"Sedgemoor","E07000188","Lower Tier Local Authority","All Ages",123178
+2019,"Sedgemoor","E07000188","Lower Tier Local Authority","Aged 65+",29473
+2019,"South Somerset","E07000189","Lower Tier Local Authority","All Ages",168345
+2019,"South Somerset","E07000189","Lower Tier Local Authority","Aged 65+",43102
+2019,"Somerset West and Taunton","E07000246","Lower Tier Local Authority","All Ages",155115
+2019,"Somerset West and Taunton","E07000246","Lower Tier Local Authority","Aged 65+",40138
+2019,"United Kingdom","K02000001","Country","All Ages",66796807
+2019,"United Kingdom","K02000001","Country","Aged 65+",12374961
+2019,"Great Britain","K03000001","Country","All Ages",64903140
+2019,"Great Britain","K03000001","Country","Aged 65+",12060237
+2019,"England","E92000001","Country","All Ages",56286961
+2019,"England","E92000001","Country","Aged 65+",10353716
+2019,"Wales","W92000004","Unitary Authority","All Ages",3152879
+2019,"Wales","W92000004","Unitary Authority","Aged 65+",662376
+2019,"Scotland","S92000003","Unitary Authority","All Ages",5463300
+2019,"Scotland","S92000003","Unitary Authority","Aged 65+",1044145
+2019,"Northern Ireland","N92000002","Unitary Authority","All Ages",1893667
+2019,"Northern Ireland","N92000002","Unitary Authority","Aged 65+",314724
+2019,"England and Wales","K04000001","Country","All Ages",59439840
+2019,"England and Wales","K04000001","Country","Aged 65+",11016092
+2019,"North East","E12000001","Region","All Ages",2669941
+2019,"North East","E12000001","Region","Aged 65+",532008
+2019,"North West","E12000002","Region","All Ages",7341196
+2019,"North West","E12000002","Region","Aged 65+",1375111
+2019,"Yorkshire and The Humber","E12000003","Region","All Ages",5502967
+2019,"Yorkshire and The Humber","E12000003","Region","Aged 65+",1032777
+2019,"East Midlands","E12000004","Region","All Ages",4835928
+2019,"East Midlands","E12000004","Region","Aged 65+",944092
+2019,"West Midlands","E12000005","Region","All Ages",5934037
+2019,"West Midlands","E12000005","Region","Aged 65+",1105362
+2019,"East","E12000006","Region","All Ages",6236072
+2019,"East","E12000006","Region","Aged 65+",1238506
+2019,"London","E12000007","Region","All Ages",8961989
+2019,"London","E12000007","Region","Aged 65+",1081515
+2019,"South East","E12000008","Region","All Ages",9180135
+2019,"South East","E12000008","Region","Aged 65+",1791216
+2019,"South West","E12000009","Region","All Ages",5624696
+2019,"South West","E12000009","Region","Aged 65+",1253129
