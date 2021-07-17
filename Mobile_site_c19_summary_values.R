@@ -1627,6 +1627,32 @@ wsx_18_plus_denominator <- as.numeric(vac_info_df_wsx_18_plus$Denominator)
 wsx_18_plus_first_doses_proportion <- as.numeric(vac_info_df_wsx_18_plus$Dose_1 / vac_info_df_wsx_18_plus$Denominator)
 wsx_18_plus_second_doses_proportion <- as.numeric(vac_info_df_wsx_18_plus$Dose_2 / vac_info_df_wsx_18_plus$Denominator)
 
+vaccine_doses_over_time <- vaccine_age_df %>% 
+  group_by(Name, Date) %>% 
+  summarise(Seven_day_sum_dose_1 = sum(Seven_day_sum_dose_1, na.rm = TRUE),
+            Seven_day_sum_dose_2 = sum(Seven_day_sum_dose_2, na.rm = TRUE)) %>% 
+  filter(Date %in% c(max(Date) - 7, max(Date))) %>% 
+  select(Date, Name, Seven_day_sum_dose_1, Seven_day_sum_dose_2) %>% 
+  ungroup() %>% 
+  pivot_longer(cols = c(Seven_day_sum_dose_1, Seven_day_sum_dose_2),
+               names_to = 'Dose',
+               values_to = 'Vaccinations') %>% 
+  arrange(Date) %>% 
+  pivot_wider(names_from = Date,
+              values_from = Vaccinations) %>% 
+  mutate(Dose = gsub('Seven_day_sum_d', 'D', Dose)) %>% 
+  rename_at(3, ~'Last_week') %>% 
+  rename_at(4, ~'This_week') 
+
+Last_week_vac_date <- paste0(ordinal(as.numeric(format(max(vaccine_age_df$Date) - 7, '%d'))), format(max(vaccine_age_df$Date) - 7, ' %B'))
+This_week_vac_date <- paste0(ordinal(as.numeric(format(max(vaccine_age_df$Date), '%d'))), format(max(vaccine_age_df$Date), ' %B'))
+
+wsx_first_doses_seven_days <- vaccine_doses_over_time %>% 
+  filter(Name == 'West Sussex' & Dose == 'Dose_1')
+
+wsx_second_doses_seven_days <- vaccine_doses_over_time %>% 
+  filter(Name == 'West Sussex' & Dose == 'Dose_2')
+
 vac_info_df <- vaccine_df_ltla %>% 
   mutate(`Not vaccinated` = Denominator - Dose_1) %>% 
   mutate(`Received first dose only` = Dose_1 - Dose_2) %>% 
@@ -2138,8 +2164,9 @@ grid.raster(wscc_logo,
 
 dev.off()
 
+# Vaccine plus cases ####
 
-jpeg(paste0(output_directory_x, '/Daily_infographic_socials_vaccine.jpg'), 
+jpeg(paste0(output_directory_x, '/Daily_infographic_socials_vaccine_cases.jpg'), 
      width = 9, 
      height = 9, 
      units = "in",
@@ -2367,7 +2394,7 @@ grid.text(paste0(format(total_so_far$Cumulative_cases, big.mark = ','), ' confir
                     fontfamily = 'Verdana',
                     fontface = 'bold'))
 
-# Table ####
+# Table #
 
 text_colour <- '#ffffff'
 
@@ -2628,10 +2655,10 @@ grid.text(paste0('Since the 8th December 2020, there have been a total of '),
 
 grid.text(paste0(format(wsx_18_plus_first_doses, big.mark = ',')),
           just = "left",
-          x = unit(0.83, "npc"),
+          x = unit(0.775, "npc"),
           y = unit(0.4, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "12",
+                    fontsize = "17",
                     fontfamily = 'Verdana',
                     fontface = 'bold'))
 
@@ -2645,16 +2672,16 @@ grid.text(paste0('first doses received among West Sussex residents. This is '),
 
 grid.text(paste0(round(wsx_18_plus_first_doses_proportion * 100, 0), '%'),
           just = "left",
-          x = unit(0.83, "npc"),
+          x = unit(0.78, "npc"),
           y = unit(0.38, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "12",
+                    fontsize = "14",
                     fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0('of the '),
           just = "left",
-          x = unit(0.89, "npc"),
+          x = unit(0.825, "npc"),
           y = unit(0.38, "npc"),
           gp = gpar(col = "#000000",
                     fontsize = "10",
@@ -2668,7 +2695,7 @@ grid.text(paste0(format(wsx_18_plus_denominator, big.mark = ','), ' estimated po
                     fontsize = "10",
                     fontfamily = 'Verdana'))
 
-grid.text(paste0('Of the ', format(wsx_18_plus_first_doses, big.mark = ','), ' people who have started their vaccination course, '),
+grid.text(paste0('Of the ', format(wsx_18_plus_first_doses, big.mark = ','), ' people who have started their'),
           just = "left",
           x = unit(0.37, "npc"),
           y = unit(0.33, "npc"),
@@ -2676,22 +2703,73 @@ grid.text(paste0('Of the ', format(wsx_18_plus_first_doses, big.mark = ','), ' p
                     fontsize = "10",
                     fontfamily = 'Verdana'))
 
-grid.text(paste0(format(wsx_18_plus_second_doses, big.mark = ',')),
-          just = "left",
-          x = unit(0.885, "npc"),
-          y = unit(0.33, "npc"),
-          gp = gpar(col = "#000000",
-                    fontsize = "12",
-                    fontfamily = 'Verdana',
-                    fontface = 'bold'))
-
-grid.text(paste0('have had both doses (', round((wsx_18_plus_second_doses/ wsx_18_plus_first_doses) * 100,0), '%).'),
+grid.text(paste0('vaccination course, have had both doses (', round((wsx_18_plus_second_doses/ wsx_18_plus_first_doses) * 100,0), '%).'),
           just = "left",
           x = unit(0.37, "npc"),
           y = unit(0.31, "npc"),
           gp = gpar(col = "#000000",
                     fontsize = "10",
                     fontfamily = 'Verdana'))
+
+
+grid.text(format(wsx_first_doses_seven_days$This_week, big.mark = ','),
+          just = "left",
+          x = unit(0.76, "npc"),
+          y = unit(0.31, "npc"),
+          gp = gpar(col = "#000000",
+                    fontsize = "22",
+                    fontfamily = 'Verdana',
+                    fontface = 'bold'))
+
+grid.text(paste0('1st doses in the'),
+          just = "left",
+          x = unit(0.74, "npc"),
+          y = unit(0.28, "npc"),
+          gp = gpar(col = "#000000",
+                    fontsize = "10",
+                    fontfamily = 'Verdana'))
+
+grid.text(paste0('seven days'),
+          just = "left",
+          x = unit(0.76, "npc"),
+          y = unit(0.265, "npc"),
+          gp = gpar(col = "#000000",
+                    fontsize = "10",
+                    fontfamily = 'Verdana'))
+
+grid.text(paste0('to ', This_week_vac_date),
+          just = "left",
+          x = unit(0.76, "npc"),
+          y = unit(0.25, "npc"),
+          gp = gpar(col = "#000000",
+                    fontsize = "10",
+                    fontfamily = 'Verdana'))
+
+grid.text(format(wsx_second_doses_seven_days$This_week, big.mark = ','),
+          just = "left",
+          x = unit(0.865, "npc"),
+          y = unit(0.31, "npc"),
+          gp = gpar(col = "#000000",
+                    fontsize = "22",
+                    fontfamily = 'Verdana',
+                    fontface = 'bold'))
+
+grid.text(paste0('2nd doses'),
+          just = "left",
+          x = unit(0.875, "npc"),
+          y = unit(0.28, "npc"),
+          gp = gpar(col = "#000000",
+                    fontsize = "10",
+                    fontfamily = 'Verdana'))
+
+grid.text(paste0('this week'),
+          just = "left",
+          x = unit(0.875, "npc"),
+          y = unit(0.265, "npc"),
+          gp = gpar(col = "#000000",
+                    fontsize = "10",
+                    fontfamily = 'Verdana'))
+
 
 grid.text(paste0('To find out more on the COVID-19 vaccination programme go to'),
           just = "right",
@@ -2716,7 +2794,7 @@ grid.text(paste0('coronavirus-covid-19-advice-and-information/covid-19-vaccinati
           gp = gpar(col = "#000000",
                     fontsize = "10",
                     fontfamily = 'Verdana'))
-# Banner bottom ####
+# Banner bottom #
 
 grid.rect(x = unit(0.5, "npc"),
           y = unit(0.04, "npc"),
@@ -2740,7 +2818,7 @@ grid.text('PUBLICATION DATE:',
 
 grid.text(format(last_date + 1 , '%d %B %Y'),
           just = "left",
-          x = unit(0.3, "npc"),
+          x = unit(0.35, "npc"),
           y = unit(0.05, "npc"),
           gp = gpar(col = "#0071B6",
                     fontsize = "20",
@@ -2787,6 +2865,5 @@ grid.raster(wscc_logo,
             width = .12)
 
 dev.off()
-
 
 
