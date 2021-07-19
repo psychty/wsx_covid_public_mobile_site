@@ -1634,8 +1634,6 @@ vaccine_df_ltla %>%
   toJSON() %>% 
   write_lines(paste0(output_directory_x, '/vaccine_at_a_glance.json'))  
 
-# Vaccine figure infographic ####
-
 vac_info_df_wsx_18_plus <- vaccine_df_ltla %>% 
   filter(Name == 'West Sussex') %>% 
   filter(Age_group == '18 and over')
@@ -1662,7 +1660,6 @@ wsx_18_64_second_doses_proportion <- as.numeric(vac_info_df_wsx_18_64$Dose_2 / v
 
 wsx_18_64_first_dose_only <- wsx_18_64_first_doses - wsx_18_64_second_doses
 wsx_18_64_unvaccinated <- wsx_18_64_denominator - wsx_18_64_first_doses 
-
 
 vaccine_doses_over_time <- vaccine_age_df %>% 
   group_by(Name, Date) %>% 
@@ -1867,10 +1864,10 @@ if(change_direction_between_weeks == 'DOWN'){
   
   grid.text(format(change_between_weeks, big.mark = ','),
             just = "left",  
-            x = unit(0.34, "npc"), 
+            x = unit(0.335, "npc"), 
             y = unit(0.58, "npc"), 
             gp = gpar(col = "#000000", 
-                      fontsize = "33", 
+                      fontsize = "32", 
                       fontfamily = 'Bahnschrift',
                       fontface = 'bold'))  
   
@@ -1893,10 +1890,10 @@ if(change_direction_between_weeks == 'UP'){
   
   grid.text(paste0('+',format(change_between_weeks, big.mark = ',')),
             just = "left",  
-            x = unit(0.34, "npc"), 
+            x = unit(0.335, "npc"), 
             y = unit(0.58, "npc"), 
             gp = gpar(col = "#000000", 
-                      fontsize = "33", 
+                      fontsize = "32", 
                       fontfamily = 'Bahnschrift',
                       fontface = 'bold'))
   
@@ -2326,7 +2323,7 @@ grid.text('last week',
 
 if(change_direction_between_weeks == 'DOWN'){
   grid.raster(down_img,
-              x = unit(0.29, "npc"),
+              x = unit(0.285, "npc"),
               y = unit(0.76, "npc"),
               just = 'left',
               width = .04)
@@ -2336,13 +2333,13 @@ if(change_direction_between_weeks == 'DOWN'){
             x = unit(0.34, "npc"),
             y = unit(0.76, "npc"),
             gp = gpar(col = "#000000",
-                      fontsize = "33",
+                      fontsize = "32",
                       fontfamily = 'Bahnschrift',
                       fontface = 'bold'))
   
   grid.text('Falling',
             just = "left",
-            x = unit(0.29, "npc"),
+            x = unit(0.285, "npc"),
             y = unit(0.73, "npc"),
             gp = gpar(col = "#000000",
                       fontsize = "8",
@@ -2352,23 +2349,23 @@ if(change_direction_between_weeks == 'DOWN'){
 
 if(change_direction_between_weeks == 'UP'){
   grid.raster(up_img,
-              x = unit(0.29, "npc"),
+              x = unit(0.285, "npc"),
               y = unit(0.76, "npc"),
               just = 'left',
               width = .04)
   
   grid.text(paste0('+',format(change_between_weeks, big.mark = ',')),
             just = "left",
-            x = unit(0.34, "npc"),
+            x = unit(0.335, "npc"),
             y = unit(0.76, "npc"),
             gp = gpar(col = "#000000",
-                      fontsize = "33",
+                      fontsize = "32",
                       fontfamily = 'Bahnschrift',
                       fontface = 'bold'))
   
   grid.text('Rising',
             just = "left",
-            x = unit(0.29, "npc"),
+            x = unit(0.285, "npc"),
             y = unit(0.73, "npc"),
             gp = gpar(col = "#000000",
                       fontsize = "8",
@@ -2378,14 +2375,14 @@ if(change_direction_between_weeks == 'UP'){
 
 if(change_direction_between_weeks == 'SAME'){
   grid.raster(same_img,
-              x = unit(0.29, "npc"),
+              x = unit(0.285, "npc"),
               y = unit(0.76, "npc"),
               just = 'left',
               width = .04)
   
   grid.text('No change\nin cases',
             just = "left",
-            x = unit(0.34, "npc"),
+            x = unit(0.335, "npc"),
             y = unit(0.76, "npc"),
             gp = gpar(col = "#000000",
                       fontsize = "16",
@@ -3119,7 +3116,7 @@ grid.text(paste0(format(se_hospital_df$Patients_occupying_beds, big.mark = ','),
                     fontface = 'bold'))
 
 
-grid.text(paste0('The number of people in hospital bedss with COVID-19'),
+grid.text(paste0('The number of people in hospital beds with COVID-19'),
           just = "left",
           x = unit(0.56, "npc"),
           y = unit(0.22, "npc"),
