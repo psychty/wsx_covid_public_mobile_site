@@ -665,7 +665,7 @@ rm(week_ending_a, week_ending_b)
 
 download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek01to532020datawk232021.xlsx', paste0(github_repo_dir, '/Source_files/ons_mortality_2020.xlsx'), mode = 'wb')
 
-download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2021/lahbtables2021week261.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
+download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2021/lahbtables2021week27.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
 
 # # if the download does fail, it wipes out the old one, which we can use to our advantage
 # if(!file.exists(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'))){
@@ -2158,7 +2158,7 @@ grid.text('PUBLICATION DATE:',
                     fontfamily = 'Bahnschrift',
                     fontface = 'bold'))
 
-grid.text(format(last_date + 1 , '%d %B %Y'),
+grid.text(paste0(ordinal(as.numeric(format(last_date + 1 , '%d'))), format(last_date +1, ' %B %Y')),
           just = "left",  
           x = unit(0.3, "npc"), 
           y = unit(0.07, "npc"), 
@@ -3174,7 +3174,7 @@ grid.text('PUBLICATION DATE:',
                     fontfamily = 'Bahnschrift',
                     fontface = 'bold'))
 
-grid.text(format(last_date + 1 , '%d %B %Y'),
+grid.text(paste0(ordinal(as.numeric(format(last_date + 1 , '%d'))), format(last_date +1, ' %B %Y')),
           just = "left",
           x = unit(0.34, "npc"),
           y = unit(0.04, "npc"),
