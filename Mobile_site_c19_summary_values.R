@@ -2709,7 +2709,7 @@ grid.text(paste0('first doses received among'),
                     fontsize = "10",
                     fontfamily = 'Verdana'))
 
-grid.text(paste0('thosed aged 18 and over.'),
+grid.text(paste0('those aged 18 and over.'),
           just = "left",
           x = unit(0.28, "npc"),
           y = unit(0.42, "npc"),
@@ -2908,7 +2908,7 @@ grid.text(paste0('first doses received among'),
                     fontsize = "10",
                     fontfamily = 'Verdana'))
 
-grid.text(paste0('thosed aged 18-64.'),
+grid.text(paste0('those aged 18-64.'),
           just = "left",
           x = unit(0.28, "npc"),
           y = unit(0.22, "npc"),
