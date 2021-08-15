@@ -3184,7 +3184,7 @@ grid.text(paste0(ordinal(as.numeric(format(last_date + 1 , '%d'))), format(last_
 grid.text(paste0('*We measure change by looking at cases in this week'),
           just = "left",
           x = unit(0.6, "npc"),
-          y = unit(0.069, "npc"),
+          y = unit(0.069, "npc"),  
           gp = gpar(col = "#000000",
                     fontsize = "9",
                     fontfamily = 'Verdana'))
