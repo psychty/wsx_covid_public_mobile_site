@@ -663,7 +663,7 @@ rm(week_ending_a, week_ending_b)
 
 download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek01to532020datawk232021.xlsx', paste0(github_repo_dir, '/Source_files/ons_mortality_2020.xlsx'), mode = 'wb')
 
-download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2021/lahbtables2021week31.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
+download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2021/lahbtables2021week32.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
 
 # # if the download does fail, it wipes out the old one, which we can use to our advantage
 # if(!file.exists(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'))){
