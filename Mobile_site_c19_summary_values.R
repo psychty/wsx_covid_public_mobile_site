@@ -544,7 +544,7 @@ admissions_date <- hospital_admissions_df %>%
 
 occupied_date <- hospital_admissions_df %>%
   filter(!is.na(hospitalCases)) %>%
-  filter(date == max(date, na.rm = TRUE)) %>%
+  filter(date == max(date, na.rm = TRUE) - 3) %>%
   select(date) %>%
   unique() %>%
   mutate(item = 'Patients in hospital')
