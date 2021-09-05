@@ -2988,7 +2988,7 @@ grid.text('First dose vaccinations in',
           x = unit(0.62, "npc"),
           y = unit(0.49, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "10",
+                    fontsize = "9",
                     fontfamily = 'Verdana',
                     fontface = 'bold'))
 
@@ -2997,7 +2997,7 @@ grid.text(paste0('the seven days to ', This_week_vac_date),
           x = unit(0.62, "npc"),
           y = unit(0.47, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "10",
+                    fontsize = "9",
                     fontfamily = 'Verdana',
                     fontface = 'bold'))
 
@@ -3025,7 +3025,7 @@ grid.text('Second dose vaccinations in',
           x = unit(0.87, "npc"),
           y = unit(0.49, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "10",
+                    fontsize = "9",
                     fontfamily = 'Verdana',
                     fontface = 'bold'))
 
@@ -3034,7 +3034,7 @@ grid.text(paste0('the seven days to ', This_week_vac_date),
           x = unit(0.87, "npc"),
           y = unit(0.47, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "10",
+                    fontsize = "9",
                     fontfamily = 'Verdana',
                     fontface = 'bold'))
 
