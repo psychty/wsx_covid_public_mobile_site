@@ -530,7 +530,7 @@ var vaccine_at_a_glance = JSON.parse(request.responseText);
 
 d3.select("#vaccination_text_intro").html(function () {
   return (
-    "The figure below shows three guages showing the proportion of adults aged 18+, those aged 18-64+ (as an approximation for working age population) and those aged 65+ who have received a vaccine dose in " +
+    "The figure below shows three guages showing the proportion of adults aged 16+, those aged 16-64+ (as an approximation for working age population) and those aged 65+ who have received a vaccine dose in " +
     chosen_summary_area +
     "."
   );
@@ -559,7 +559,7 @@ var svg_overall_vaccinated = d3
   .attr("class", "percentage_guage");
 
 overall_cumulative = vaccine_at_a_glance.filter(function (d) {
-  return d.Name === chosen_summary_area && d.Age_group === "18 and over";
+  return d.Name === chosen_summary_area && d.Age_group === "16 and over";
 });
 
 number_vaccinated = overall_cumulative[0].Dose_1;
@@ -606,7 +606,7 @@ svg_overall_vaccinated
   .attr("id", "vaccination_label_2")
   .attr("class", "description")
   .attr("dy", "1.5em")
-  .text("aged 18+ received");
+  .text("aged 16+ received");
 
 svg_overall_vaccinated
   .append("text")
@@ -631,7 +631,7 @@ svg_overall_vaccinated
     };
   });
 
-// 18 to 39
+// 16 to 39
 
 var svg_under_40_age_vaccinated = d3
   .select("#under_40_age_guage")
@@ -646,7 +646,7 @@ var svg_under_40_age_vaccinated = d3
   .attr("class", "percentage_guage");
 
 under_40_age_cumulative = vaccine_at_a_glance.filter(function (d) {
-  return d.Name === chosen_summary_area && d.Age_group === "18-39 years";
+  return d.Name === chosen_summary_area && d.Age_group === "16-39 years";
 });
 
 number_under_40_age_vaccinated = under_40_age_cumulative[0].Dose_1;
@@ -694,7 +694,7 @@ svg_under_40_age_vaccinated
   .attr("id", "vaccination_under_40_age_label_2")
   .attr("class", "description")
   .attr("dy", "1.5em")
-  .text("aged 18-39 received");
+  .text("aged 16-39 received");
 
 svg_under_40_age_vaccinated
   .append("text")
@@ -727,7 +727,7 @@ svg_under_40_age_vaccinated
     };
   });
 
-// 18 to 64
+// 16 to 64
 
 var svg_working_age_vaccinated = d3
   .select("#working_age_guage")
@@ -742,7 +742,7 @@ var svg_working_age_vaccinated = d3
   .attr("class", "percentage_guage");
 
 working_age_cumulative = vaccine_at_a_glance.filter(function (d) {
-  return d.Name === chosen_summary_area && d.Age_group === "18-64 years";
+  return d.Name === chosen_summary_area && d.Age_group === "16-64 years";
 });
 
 number_working_age_vaccinated = working_age_cumulative[0].Dose_1;
@@ -789,7 +789,7 @@ svg_working_age_vaccinated
   .attr("id", "vaccination_working_age_label_2")
   .attr("class", "description")
   .attr("dy", "1.5em")
-  .text("aged 18-64 received");
+  .text("aged 16-64 received");
 
 svg_working_age_vaccinated
   .append("text")
@@ -1647,7 +1647,7 @@ function update_summary() {
 
   d3.select("#vaccination_text_intro").html(function () {
     return (
-      "The figure below shows three guages showing the proportion of adults aged 18+, those aged 18-64 (as an approximation for working age population) and those aged 65+ who have received a vaccine dose in " +
+      "The figure below shows three guages showing the proportion of adults aged 16+, those aged 16-64 (as an approximation for working age population) and those aged 65+ who have received a vaccine dose in " +
       chosen_summary_area +
       "."
     );
@@ -1666,15 +1666,15 @@ function update_summary() {
   }
 
   overall_cumulative = vaccine_at_a_glance.filter(function (d) {
-    return d.Name === chosen_summary_area && d.Age_group === "18 and over";
+    return d.Name === chosen_summary_area && d.Age_group === "16 and over";
   });
 
   under_40_age_cumulative = vaccine_at_a_glance.filter(function (d) {
-    return d.Name === chosen_summary_area && d.Age_group === "18-39 years";
+    return d.Name === chosen_summary_area && d.Age_group === "16-39 years";
   });
 
   working_age_cumulative = vaccine_at_a_glance.filter(function (d) {
-    return d.Name === chosen_summary_area && d.Age_group === "18-64 years";
+    return d.Name === chosen_summary_area && d.Age_group === "16-64 years";
   });
 
   older_age_cumulative = vaccine_at_a_glance.filter(function (d) {
@@ -1710,7 +1710,7 @@ function update_summary() {
       d3.format(",.0f")(overall_cumulative[0]["Dose_1"]) +
       "</b> individuals have received at least one dose of a COVID-19 vaccine. This is " +
       d3.format(".1%")(overall_cumulative[0]["Proportion_dose_1"]) +
-      " of the estimated population aged 18+ (" +
+      " of the estimated population aged 16+ (" +
       d3.format(",.0f")(overall_cumulative[0]["Denominator"]) +
       ") in " +
       chosen_summary_area +
@@ -1779,7 +1779,7 @@ function update_summary() {
     update_summary();
   });
 
-  // 18-39
+  // 16-39
   var old_number_under_40_age_vaccinated = number_under_40_age_vaccinated;
 
   if (number_under_40_age_vaccinated === undefined) {
@@ -1842,7 +1842,7 @@ function update_summary() {
     .duration(500)
     .style("opacity", 1);
 
-  // 18-64
+  // 16-64
   var old_number_working_age_vaccinated = number_working_age_vaccinated;
 
   if (number_working_age_vaccinated === undefined) {
