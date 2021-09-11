@@ -143,7 +143,6 @@ p12_test_df <- daily_cases_ltla %>%
   filter(substr(Code, 1,1) == 'E') %>%
   unique()
 
-#
 # query_filters <- c(
 #   # "areaType=utla"
 #   'areaName=West Sussex'
@@ -2441,7 +2440,6 @@ grid.text(paste0(format(total_so_far$Cumulative_cases, big.mark = ','), ' confir
 # Table ####
 
 text_colour <- '#ffffff'
-
 text_colour <- '#000000'
 
 grid.rect(x = unit(0.5, "npc"),
@@ -2507,7 +2505,6 @@ grid.text('(aged 16+)',
                     fontsize = "9",
                     fontfamily = 'Verdana',
                     fontface = 'bold'))
-
 
 grid.text(paste0('1st dose'),
           just = "right",
@@ -3043,7 +3040,6 @@ grid.text(format(wsx_second_doses_seven_days$This_week, big.mark = ','),
                     fontfamily = 'Bahnschrift',
                     fontface = 'bold'))
 
-
 grid.text('COVID-19 IN HOSPITALS',
           just = "left",
           x = unit(0.53, "npc"),
@@ -3117,7 +3113,6 @@ grid.text(paste0('occupying beds capable of mechanical ventilation.'),
                     fontface = 'bold'))
 
 # Banner bottom #
-
 grid.rect(x = unit(0.5, "npc"),
           y = unit(0.04, "npc"),
           width = unit(1, "npc"),
