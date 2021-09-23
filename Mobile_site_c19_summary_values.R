@@ -529,8 +529,8 @@ hospital_admissions_1 <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?a
 hospital_admissions_2 <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=nation&metric=covidOccupiedMVBeds&metric=hospitalCases&metric=newAdmissions&metric=newAdmissionsRollingSum&format=csv')
 
 hospital_admissions_df <- hospital_admissions_1 %>%
-  bind_rows(hospital_admissions_2)# %>% 
- # filter(date <= max(date) - 1)=
+  bind_rows(hospital_admissions_2) %>% 
+  filter(date <= max(date) - 1)
 
 rm(hospital_admissions_1, hospital_admissions_2)
 
