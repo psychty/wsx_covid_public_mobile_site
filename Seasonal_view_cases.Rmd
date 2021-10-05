@@ -1,0 +1,447 @@
+---
+title: "West Sussex COVID-19 case deep dive - seasonal focus"
+author: "Rich Tyler"
+date: "`r format(Sys.time(), '%A %d %B %Y')`"
+output:
+  html_document:
+    toc: TRUE
+---
+```{r setup, include=FALSE}
+library(easypackages)
+libraries(c("readxl", "readr", 'excel.link', "plyr", "dplyr", "ggplot2", "tidyverse", "reshape2", "scales", 'jsonlite', 'zoo', 'stats', 'lemon', 'epitools', 'aweek','XML', 'rgdal', 'spdplyr', 'geojsonio', 'rmapshaper', 'rgeos', 'sp', 'sf', 'maptools', 'ggpol', 'leaflet', 'leaflet.extras', 'htmlwidgets', 'PostcodesioR', 'rvest', 'officer', 'grid', 'flextable', 'directlabels', 'viridis', 'DT', 'ggiraph'))
+
+# arrows ####
+unicode_down <- '\U2193'
+unicode_up <- '\U2191'
+unicode_up_slant <- '\U2197'
+unicode_down_slant <- '\U2198'
+knitr::opts_chunk$set(echo = TRUE)
+
+ph_theme = function(){
+  theme( 
+    plot.title = element_text(colour = "#000000", face = "bold", size = 10),    
+    plot.subtitle = element_text(colour = "#000000", size = 10),
+    panel.grid.major.x = element_blank(), 
+    panel.grid.minor.x = element_blank(),
+    panel.background = element_rect(fill = "#FFFFFF"), 
+    panel.grid.major.y = element_line(colour = "#E7E7E7", size = .3),
+    panel.grid.minor.y = element_blank(), 
+    strip.text = element_text(colour = "#000000", size = 10, face = "bold"), 
+    strip.background = element_blank(), 
+    axis.ticks = element_line(colour = "#dbdbdb"), 
+    legend.position = "bottom", 
+    legend.title = element_text(colour = "#000000", size = 9, face = "bold"), 
+    legend.background = element_rect(fill = "#ffffff"), 
+    legend.key = element_rect(fill = "#ffffff", colour = "#ffffff"), 
+    legend.text = element_text(colour = "#000000", size = 9), 
+    axis.text.y = element_text(colour = "#000000", size = 8), 
+    axis.text.x = element_text(colour = "#000000", angle = 0, hjust = 1, vjust = .5, size = 8), 
+    axis.title =  element_text(colour = "#000000", size = 9, face = "bold"),   
+    axis.line = element_line(colour = "#dbdbdb")
+  ) 
+}
+
+mye_total <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.csv?geography=1816133633...1816133848,1820327937...1820328318,2092957697...2092957703,2013265921...2013265932&date=2020&gender=0&c_age=200&measures=20100&select=date_name,geography_name,geography_type,geography_code,obs_value') %>%
+  rename(Population = OBS_VALUE,
+         Code = GEOGRAPHY_CODE,
+         Name = GEOGRAPHY_NAME,
+         Type = GEOGRAPHY_TYPE) %>%
+  select(-DATE_NAME) %>%
+  unique() %>%
+  group_by(Name, Code) %>%
+  mutate(Count = n()) %>%
+  mutate(Type = ifelse(Count == 2, 'Unitary Authority', ifelse(Type == 'local authorities: county / unitary (as of April 2019)', 'Upper Tier Local Authority', ifelse(Type == 'local authorities: district / unitary (as of April 2019)', 'Lower Tier Local Authority', ifelse(Type == 'regions', 'Region', ifelse(Type == 'countries', 'Country', Type)))))) %>%
+  ungroup() %>%
+  select(-Count) %>%
+  unique()
+
+area_code_names <- mye_total %>%
+  select(Code, Name)
+
+mye_total <- mye_total %>%
+  select(-Name)
+
+# Cases ####
+daily_cases_ltla <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=ltla&metric=newCasesBySpecimenDate&format=csv') %>%
+  filter(substr(areaCode, 1,1) == 'E') %>%
+  select(-areaType) %>%
+  rename(Name = areaName,
+         Code = areaCode,
+         Date = date,
+         New_cases = newCasesBySpecimenDate) %>%
+  left_join(mye_total, by = 'Code') %>%
+  mutate(New_cases = replace_na(New_cases, 0)) %>%
+  group_by(Name) %>%
+  arrange(Name, Date) %>%
+  mutate(Cumulative_cases = cumsum(New_cases))
+
+daily_cases_utla <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=utla&metric=newCasesBySpecimenDate&format=csv') %>%
+  filter(substr(areaCode, 1,1) == 'E') %>%
+  select(-areaType) %>%
+  rename(Name = areaName,
+         Code = areaCode,
+         Date = date,
+         New_cases = newCasesBySpecimenDate) %>%
+  left_join(mye_total, by = 'Code') %>%
+  mutate(New_cases = replace_na(New_cases, 0)) %>%
+  group_by(Name) %>%
+  arrange(Name, Date) %>%
+  mutate(Cumulative_cases = cumsum(New_cases))
+
+daily_cases_nation <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=nation&metric=newCasesBySpecimenDate&format=csv') %>%
+  filter(substr(areaCode, 1,1) == 'E') %>%
+  select(-areaType) %>%
+  rename(Name = areaName,
+         Code = areaCode,
+         Date = date,
+         New_cases = newCasesBySpecimenDate) %>%
+  left_join(mye_total, by = 'Code') %>%
+  mutate(New_cases = replace_na(New_cases, 0)) %>%
+  group_by(Name) %>%
+  arrange(Name, Date) %>%
+  mutate(Cumulative_cases = cumsum(New_cases))
+
+daily_cases_region <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=region&metric=newCasesBySpecimenDate&format=csv') %>%
+  filter(substr(areaCode, 1,1) == 'E') %>%
+  select(-areaType) %>%
+  rename(Name = areaName,
+         Code = areaCode,
+         Date = date,
+         New_cases = newCasesBySpecimenDate) %>%
+  left_join(mye_total, by = 'Code') %>%
+  mutate(New_cases = replace_na(New_cases, 0)) %>%
+  group_by(Name) %>%
+  arrange(Name, Date) %>%
+  mutate(Cumulative_cases = cumsum(New_cases))
+
+p12_test_df <- daily_cases_ltla %>%
+  bind_rows(daily_cases_utla) %>%
+  bind_rows(daily_cases_region) %>%
+  bind_rows(daily_cases_nation) %>%
+  filter(substr(Code, 1,1) == 'E') %>%
+  unique()
+
+last_date <- max(p12_test_df$Date) + 1
+
+# PHE say the last four data points are incomplete (perhaps they should not publish them). Instead, we need to make sure we account for this so that it is not misinterpreted.
+complete_date <- last_date - 5
+
+first_date <- min(p12_test_df$Date)
+last_case_date <- p12_test_df %>%
+  filter(New_cases != 0)
+
+last_case_date <- max(last_case_date$Date)
+
+Areas = p12_test_df %>%
+  select(Name, Code, Type) %>%
+  unique()
+
+Dates = seq.Date(first_date, last_case_date, by = '1 day')
+
+daily_cases_reworked <- data.frame(Name = rep(Areas$Name, length(Dates)), Code = rep(Areas$Code, length(Dates)), Type = rep(Areas$Type, length(Dates)), check.names = FALSE) %>%
+  arrange(Name) %>%
+  group_by(Name) %>%
+  mutate(Date = seq.Date(first_date, last_case_date, by = '1 day'))
+
+p12_test_df <- daily_cases_reworked %>%
+  left_join(p12_test_df, by = c('Name', 'Code', 'Type', 'Date')) %>%
+  mutate(Period = format(Date, '%d %B %Y')) %>%
+  mutate(Data_completeness = ifelse(Date > complete_date, 'Considered incomplete', 'Complete')) %>%
+  mutate(Cumulative_per_100000 = (Cumulative_cases / Population) * 100000) %>%
+  mutate(New_cases_per_100000 = (New_cases / Population) * 100000) %>%
+  ungroup() %>%
+  mutate(Name = ifelse(Name == 'South East', 'South East region', Name))  %>%
+  group_by(Name) %>%
+  arrange(Name, Date) %>%
+  mutate(Rolling_7_day_new_cases = rollapply(New_cases, 7, sum, align = 'right', fill = NA)) %>%
+  mutate(Rolling_7_day_new_cases_per_100000 = ifelse(is.na(Rolling_7_day_new_cases), NA, (Rolling_7_day_new_cases / Population) * 100000)) %>%
+  mutate(Perc_change_on_rolling_7_days_actual = round((Rolling_7_day_new_cases - lag(Rolling_7_day_new_cases, 7))/ lag(Rolling_7_day_new_cases, 7), 2))  %>%
+  mutate(Perc_change_on_rolling_7_days_actual = ifelse(Perc_change_on_rolling_7_days_actual == Inf, 1, Perc_change_on_rolling_7_days_actual)) %>%
+  mutate(Perc_change_on_rolling_7_days_actual = replace_na(Perc_change_on_rolling_7_days_actual, 0)) %>%
+  mutate(Rolling_7_day_average_new_cases = rollapply(New_cases, 7, mean, align = 'right', fill = NA)) %>%
+  mutate(Previous_7_days_sum = lag(Rolling_7_day_new_cases, 7)) %>%
+  ungroup()
+
+rm(daily_cases_ltla, daily_cases_nation, daily_cases_region, daily_cases_utla, daily_cases_reworked)
+
+Areas <- c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex', 'South East region', 'England')
+
+# Age specific cases ####
+mye_ages <- read_csv('https://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.csv?geography=2092957699,2013265921...2013265932,1816133633...1816133848,1820327937...1820328318&date=2020&gender=0&c_age=1,3...18,210&measures=20100&select=geography_name,geography_code,c_age_name,obs_value,geography_type') %>%
+  rename(Population = OBS_VALUE,
+         Code = GEOGRAPHY_CODE,
+         Name = GEOGRAPHY_NAME,
+         Type = GEOGRAPHY_TYPE,
+         Age = C_AGE_NAME) %>%
+  group_by(Code, Name, Age) %>%
+  mutate(Count = n()) %>%
+  unique() %>%
+  mutate(Type = ifelse(Count == 2, 'Unitary Authoritory', ifelse(Type == 'local authorities: county / unitary (as of April 2019)', 'Upper Tier Local Authority', ifelse(Type == 'local authorities: district / unitary (as of April 2019)', 'Lower Tier Local Authority', ifelse(Type == 'regions', 'Region', ifelse(Type == 'countries', 'Country', Type)))))) %>%
+  group_by(Name, Code) %>%
+  ungroup() %>%
+  select(-Count) %>%
+  unique() %>%
+  mutate(Age = gsub('Aged ', '', Age)) %>%
+  mutate(Age = gsub('Age', '', Age)) %>%
+  mutate(Age = gsub(' 0 - ', '0-', Age)) %>%
+  mutate(Age = paste0(Age, ' years')) %>%
+  mutate(Age = ifelse(Age %in% c('80-84 years', '85+ years'), '80+ years', Age)) %>%
+  group_by(Name, Code, Age, Type) %>%
+  summarise(Population = sum(Population, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(Name = ifelse(Name == 'South East', 'South East region', Name))
+
+library(showtext)
+library(httr)
+
+lads <- c("E07000223", "E07000224","E07000225", "E07000226", "E07000227", "E07000228","E07000229")
+
+## build the required structure for the api
+# {"date":"date","areaCode":"areaCode","areaName":"areaName","newCasesBySpecimenDateRollingRate":"newCasesBySpecimenDateRollingRate","newCasesBySpecimenDateRollingSum":"newCasesBySpecimenDateRollingSum","uniqueCasePositivityBySpecimenDateRollingSum":"uniqueCasePositivityBySpecimenDateRollingSum","uniquePeopleTestedBySpecimenDateRollingSum":"uniquePeopleTestedBySpecimenDateRollingSum"}
+
+###### read the daaa
+england <- 'https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=nation;areaName=england&structure={"date":"date","areaCode":"areaCode","areaName":"areaName","newCasesBySpecimenDateAgeDemographics":"newCasesBySpecimenDateAgeDemographics"}'
+
+westsussex <- 'https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=utla;areaCode=E10000032&structure={"date":"date","areaCode":"areaCode","areaName":"areaName","newCasesBySpecimenDateAgeDemographics":"newCasesBySpecimenDateAgeDemographics"}'
+
+southeast <- 'https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=region;areaCode=E12000008&structure={"date":"date","areaCode":"areaCode","areaName":"areaName","newCasesBySpecimenDateAgeDemographics":"newCasesBySpecimenDateAgeDemographics"}'
+
+# create api calls for lads:
+baseurl <- 'https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=ltla;areaCode=HEREPLEASE&structure={"date":"date","areaCode":"areaCode","areaName":"areaName","newCasesBySpecimenDateAgeDemographics":"newCasesBySpecimenDateAgeDemographics"}'
+
+ltlas <- character()
+
+for(i in lads) {
+  new_string <- sub(pattern = "HEREPLEASE", replacement = i, x = baseurl)
+  ltlas <- c(ltlas, new_string)
+}
+
+# list of apis
+urls <- c(england, southeast, westsussex, ltlas)
+
+# empty list
+dflist <- list()
+
+# api calls for each geography into list
+for(i in urls) {
+  response <- httr::GET(url = i)
+
+  if (response$status_code >= 400) {
+    err_msg = httr::http_status(response)
+    stop(err_msg)
+  }
+  json_text <- content(response, "text")
+  data <- jsonlite::fromJSON(json_text)
+
+  df <- as.data.frame(data$data)
+  df$apisource <- i
+
+  dflist[[i]] <- df
+}
+
+# bind together (unnest)
+age_spec <- bind_rows(dflist) %>%
+  unnest(newCasesBySpecimenDateAgeDemographics) %>%
+  mutate(Age = ifelse(age == 'unassigned', 'Unknown', paste0(age, ' years'))) %>%
+  mutate(Age = gsub('_', '-', Age)) %>%
+  mutate(Age = ifelse(Age %in% c('80-84 years', '85-89 years', '90+ years'), '80+ years', Age)) %>%
+  mutate(Age = ifelse(Age == '00-04 years', '0-4 years', ifelse(Age == '05-09 years', '5-9 years', Age))) %>%
+  rename(Name = areaName,
+         Code = areaCode,
+         Cases = cases,
+         Date = date) %>%
+  group_by(Name, Age, Date) %>%
+  summarise(Cases = sum(Cases, na.rm = TRUE)) %>%
+  ungroup() %>%
+  filter(Age != 'Unknown') %>%
+  mutate(Age = factor(Age, levels = c('0-4 years', '5-9 years', '10-14 years', '15-19 years', '20-24 years' , '25-29 years', '30-34 years', '35-39 years', '40-44 years', '45-49 years', '50-54 years' ,'55-59 years', '60-64 years' , '65-69 years', '70-74 years', '75-79 years', '80+ years'))) %>%
+  mutate(Date = as.Date(Date)) %>%
+  mutate(Name = ifelse(Name == 'South East', 'South East region', Name))
+
+Ages <- data.frame(Age = c('0-4 years', '5-9 years', '10-14 years', '15-19 years', '20-24 years' , '25-29 years', '30-34 years', '35-39 years', '40-44 years', '45-49 years', '50-54 years' ,'55-59 years', '60-64 years' , '65-69 years', '70-74 years', '75-79 years', '80+ years'))
+Dates <- seq.Date(min(age_spec$Date), max(age_spec$Date), by = '1 day')
+
+age_df_daily_combined <- data.frame(Name = character(), Age = character(), Date = character())
+
+for(i in 1:length(Areas)){
+
+  area_x = Areas[i]
+
+  df_x <- data.frame(Age = rep(Ages$Age, length(Dates))) %>%
+    arrange(Age) %>%
+    group_by(Age) %>%
+    mutate(Date = seq.Date(min(age_spec$Date), max(age_spec$Date), by = '1 day')) %>%
+    mutate(Name = area_x) %>%
+    mutate(Date = as.character(Date)) %>%
+    ungroup()
+
+  age_df_daily_combined <- age_df_daily_combined %>%
+    bind_rows(df_x)
+
+}
+
+case_age_df_daily <- age_df_daily_combined %>%
+  mutate(Date = as.Date(Date)) %>%
+  left_join(age_spec, by = c('Name', 'Date', 'Age')) %>%
+  mutate(Cases = replace_na(Cases, 0)) %>%
+  group_by(Name, Age) %>%
+  arrange(Name, Age, Date) %>%
+  ungroup() %>%
+  left_join(mye_ages, by = c('Name', 'Age')) %>%
+  group_by(Name, Age) %>%
+  arrange(Name, Age, Date) %>%
+  mutate(Cumulative_cases = cumsum(Cases)) %>%
+  mutate(Rolling_7_day_new_cases = rollapply(Cases, 7, sum, align = 'right', fill = NA, partial = TRUE)) %>%
+  mutate(Rolling_7_day_new_cases = replace_na(Rolling_7_day_new_cases, 0)) %>%
+  mutate(Perc_change_on_rolling_7_days_actual = round((Rolling_7_day_new_cases - lag(Rolling_7_day_new_cases, 7))/ lag(Rolling_7_day_new_cases, 7), 2)) %>%
+  mutate(Perc_change_on_rolling_7_days_actual = ifelse(Perc_change_on_rolling_7_days_actual == Inf, 1, Perc_change_on_rolling_7_days_actual)) %>%
+  mutate(Perc_change_on_rolling_7_days_actual = replace_na(Perc_change_on_rolling_7_days_actual, 0)) %>%
+  mutate(Rolling_7_day_average_new_cases = rollapply(Cases, 7, mean, align = 'right', fill = NA)) %>%
+  ungroup() %>%
+  mutate(ASR = pois.exact(Rolling_7_day_new_cases, Population)[[3]]*100000)
+
+age_spec_10 <- case_age_df_daily %>%
+  mutate(Age = ifelse(Age %in% c('0-4 years', '5-9 years'), '0-9 years', ifelse(Age %in% c('10-14 years', '15-19 years'), '10-19 years',ifelse(Age %in% c('20-24 years', '25-29 years'), '20-29 years',ifelse(Age %in% c('30-34 years', '35-39 years'), '30-39 years',ifelse(Age %in% c('40-44 years', '45-49 years'), '40-49 years',ifelse(Age %in% c('50-54 years', '55-59 years'), '50-59 years',ifelse(Age %in% c('60-64 years', '65-69 years'), '60-69 years',ifelse(Age %in% c('70-74 years', '75-79 years'), '70-79 years', '80+ years'))))))))) %>%
+  group_by(Name, Age, Date) %>%
+  summarise(Cases = sum(Cases, na.rm = TRUE),
+            Population = sum(Population, na.rm = TRUE)) %>%
+  group_by(Name, Age) %>%
+  arrange(Name, Age, Date) %>%
+  mutate(Cumulative_cases = cumsum(Cases)) %>%
+  mutate(Rolling_7_day_new_cases = rollapply(Cases, 7, sum, align = 'right', fill = NA, partial = TRUE)) %>%
+  mutate(Rolling_7_day_new_cases = replace_na(Rolling_7_day_new_cases, 0)) %>%
+  mutate(Perc_change_on_rolling_7_days_actual = round((Rolling_7_day_new_cases - lag(Rolling_7_day_new_cases, 7))/ lag(Rolling_7_day_new_cases, 7), 2)) %>%
+  mutate(Perc_change_on_rolling_7_days_actual = ifelse(Perc_change_on_rolling_7_days_actual == Inf, 1, Perc_change_on_rolling_7_days_actual)) %>%
+  mutate(Perc_change_on_rolling_7_days_actual = replace_na(Perc_change_on_rolling_7_days_actual, 0)) %>%   mutate(Rolling_7_day_average_new_cases = rollapply(Cases, 7, mean, align = 'right', fill = NA)) %>%
+  ungroup() %>%
+  mutate(ASR = pois.exact(Rolling_7_day_new_cases, Population)[[3]]*100000) %>%
+  arrange(Date) %>%
+  select(Name, Age, Date, Cases, Rolling_7_day_new_cases, Rolling_7_day_average_new_cases, ASR, Perc_change_on_rolling_7_days_actual, Population)
+
+rm(age_spec, data, df, dflist, response)
+
+daily_cases_df <- p12_test_df %>%
+  filter(Name %in% Areas) %>%
+  mutate(Age = 'All ages') %>%
+  select(Name, Age, Date, New_cases, Rolling_7_day_new_cases, Perc_change_on_rolling_7_days_actual, Rolling_7_day_new_cases_per_100000, Rolling_7_day_average_new_cases) %>%
+  rename(Cases = New_cases,
+         ASR = Rolling_7_day_new_cases_per_100000) %>%
+  bind_rows(age_spec_10) %>%
+  mutate(Period = format(Date, '%d %B %Y')) %>%
+  rename(Rolling_7_day_new_cases_per_100000 = ASR) %>%
+  select(!Population) %>%
+  mutate(Rolling_7_day_average_new_cases = ifelse(Date > complete_date, NA, Rolling_7_day_average_new_cases)) %>%
+  mutate(Data_completeness = ifelse(Date > complete_date, 'Considered incomplete', 'Complete'))
+
+
+```
+
+
+#### Things to consider:
+
+* This data includes confirmed COVID-19 cases, via lab confirmed or self-reported test result.
+* Confirmed cases somewhat reflect tesing behaviours and rely on those with symptoms or those who have been in contact with confirmed cases coming forward.
+* At the start of the pandemic in early 2020, testing also reflected those eligible for testing, which was restricted to begin with as capacity for testing and processing results was increased. Over the course of 2020, a rapid test, called a lateral flow device test, became available initially to priority groups and later more widely to the general population.
+* The COVID-19 Vaccination Programme started in December 2020, which also prioritised the most vulnerable groups first before offering doses to other groups. 
+
+## Some key testing changes
+** It was only from the 27th May 2020, that anyone with COVID-19 symptoms was able to get a test.
+** In July 2020, care homes begun to receive routine testing among those without symptoms.
+** Whole area testing begun for areas with high infection rates and as new variants of concern were detected in small areas towards the end of 2020.
+** In December 2020, targeted testing was established for some education settings with rising infection rates.
+
+It is important to consider all of these factors when comparing confirmed cases in one month compared to the previous year. 
+
+
+```{r seasonality, echo = FALSE}
+
+monthly_table <- daily_cases_df %>%
+  ungroup() %>% 
+  mutate(Month_year = format(Date, '%B %Y')) %>% 
+  group_by(Name, Age, Month_year) %>% 
+  summarise(Cases = sum(Cases)) %>% 
+  ungroup() %>% 
+  mutate(Name = factor(Name, levels = c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex', 'South East region', 'England'))) %>%   mutate(Month_year = factor(Month_year, levels = c('January 2020','February 2020', 'March 2020', 'April 2020', 'May 2020', 'June 2020', 'July 2020', 'August 2020', 'September 2020', 'October 2020', 'November 2020', 'December 2020', 'January 2021', 'February 2021', 'March 2021', 'April 2021', 'May 2021', 'June 2021', 'July 2021', 'August 2021', 'September 2021', 'October 2021', 'November 2021', 'December 2021'))) %>%
+  arrange(Name, Month_year) %>% 
+  mutate(Cases = format(Cases, big.mark = ',', trim = FALSE)) %>% 
+  pivot_wider(values_from = 'Cases',
+              names_from = 'Month_year')
+
+monthly_all_age_table <- monthly_table %>% 
+  filter(Age == 'All ages')
+
+datatable(monthly_all_age_table,
+          class = 'cell-border stripe',
+          rownames = FALSE,
+          caption = htmltools::tags$caption(style = 'caption-side:top; text-align: left;',
+                                            paste0('Table 1: Number of confirmed COVID-19 cases; by month; as at ', format(last_date, '%A %d %B'), ';')),
+          extensions = 'Buttons',
+          options = list(dom = 'Bftip',
+                         columnDefs = list(list(className = 'dt-left', targets = 0:1),
+                                           list(className = 'dt-right', targets = 2),
+                                           list(width = '100px', targets = c(0))),
+                         buttons = c('copy', 'csv','excel','pdf','print'),
+                         autoWidth = TRUE
+          )
+)
+
+```
+
+
+```{r lines, echo = FALSE}
+
+seasonal_cases_daily <- daily_cases_df %>%
+  ungroup() %>% 
+  mutate(Month = format(Date, '%B'),
+         year_day = format(Date, '%j'),
+         Year = format(Date, '%Y'))
+
+seasonal_cases_daily_x <- seasonal_cases_daily %>% 
+  filter(Name == 'West Sussex')
+
+
+ggplot(data = seasonal_cases_daily_x,
+                                aes(x = Date,
+                                    y = Rolling_7_day_new_cases,
+                                    group = Year,
+                                    colour = Year)) +
+  geom_line()
+
+
+  # girafe(ggobj = ggplot(data = seasonal_cases_daily_x,
+  #                               aes(x = year_day,
+  #                                   y = Rolling_7_day_new_cases,
+  #                                   group = Year,
+  #                                   colour = Year)) +
+  #   geom_line_interactive(aes(tooltip = Rolling_7_day_new_cases,
+  #                           data_id = Rolling_7_day_new_cases),
+  #                       size = .9) +
+  #   # geom_point(data = subset(cases_line_df_summary_daily_x, Administered_date == max(vaccination_area_ts_df_wsx$Administered_date)),
+  #   #            aes(x = Administered_date,
+  #   #                y = Seven_day_rolling_vaccinations,
+  #   #                group = Dose_number,
+  #   #                colour = Dose_number),
+  #   #            size = 2) +
+  #   ph_theme() +
+  #   theme(axis.text.x = element_text(angle = 90, size = 6)) +
+  #   scale_y_continuous(labels = label_comma(accuracy = 1)) +
+  #   scale_x_discrete(labels = months_to_label) +
+  #   # scale_x_date(date_labels = "%b %d",
+  #   #              breaks = seq.Date(max(vaccination_area_ts_df_wsx$Administered_date) -(52*14), max(vaccination_area_ts_df_wsx$Administered_date), by = 7),
+  #   #              limits = c(min(vaccination_area_ts_df_wsx$Administered_date), max(vaccination_area_ts_df_wsx$Administered_date) +24),
+  #   #              expand = c(0.01,1)) +
+  #   scale_colour_manual(values = c('#fa8800','#00563f'),
+  #                       name = 'Year',
+  #                       labels = c('2020', '2021')) +
+  #   labs(x = 'Specimen date',
+  #        y = 'Number of confirmed cases\nin previous 7 days',
+  #        title = paste0('Rolling 7 day number of Covid-19 cases; West Sussex'))  +
+  #   theme(axis.text.x = element_text(size = 8)), 
+  #   # geom_dl(data = DATA_SET_ENDS_doses_ts,
+  #   #         aes(label = label), 
+  #   #        method = list(cex = .6, face = 'bold',hjust = 0)),
+  #   width_svg = 10,
+  #   height_svg = 6,
+  #   options = list(opts_hover_inv(css = 'opacity:0.1;'),
+  #                  opts_hover(css = 'stroke-width:2;')))
+```
