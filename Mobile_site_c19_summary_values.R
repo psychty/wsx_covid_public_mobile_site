@@ -1410,7 +1410,7 @@ vaccine_age_df <- bind_rows(dflist) %>%
          Dose_2 = newPeopleVaccinatedSecondDoseByVaccinationDate) %>%
   select(!c(apisource, Code)) %>%
   mutate(Date = as.Date(Date)) %>%
-  mutate(Age_group = factor(paste0(gsub('_', '-', Age_group), ' years'), levels = c('16-17 years',"18-24 years", "25-29 years", "30-34 years", "35-39 years", "40-44 years", "45-49 years", "50-54 years", "55-59 years", "60-64 years", "65-69 years", "70-74 years", "75-79 years", "80-84 years", "85-89 years", "90+ years"))) %>%
+  mutate(Age_group = factor(paste0(gsub('_', '-', Age_group), ' years'), levels = c('12-15 years','16-17 years',"18-24 years", "25-29 years", "30-34 years", "35-39 years", "40-44 years", "45-49 years", "50-54 years", "55-59 years", "60-64 years", "65-69 years", "70-74 years", "75-79 years", "80-84 years", "85-89 years", "90+ years"))) %>%
   group_by(Name, Age_group) %>%
   arrange(Date) %>%
   mutate(Seven_day_sum_dose_1 = round(rollapplyr(Dose_1, 7, sum, align = 'right', partial = TRUE),0)) %>%
@@ -1456,7 +1456,7 @@ week_start_vac <- week_starting_a %>%
 rm(week_starting_a, week_starting_b)
 
 all_age_vac <- vaccine_ts_df %>%
-  mutate(Age_group = '16 and over') %>%
+  mutate(Age_group = '12 and over') %>%
   bind_rows(vaccine_age_df) %>%
   select(!c(cumVaccinationFirstDoseUptakeByVaccinationDatePercentage,cumVaccinationCompleteCoverageByVaccinationDatePercentage,cumVaccinationSecondDoseUptakeByVaccinationDatePercentage)) %>%
   mutate(Week_number = paste0(date2week(Date, numeric = TRUE), ifelse(Date < '2021-01-04', ' - 2020', ' - 2021' ))) %>%
@@ -1551,7 +1551,7 @@ latest_denominators_4 <-  vaccine_age_df %>%
 latest_denominators <- latest_denominators_1 %>%
   group_by(Name) %>%
   summarise(Denominator = sum(Denominator, na.rm = TRUE)) %>%
-  mutate(Age_group = '16 and over') %>%
+  mutate(Age_group = '12 and over') %>%
   ungroup() %>%
   bind_rows(latest_denominators_1) %>%
   bind_rows(latest_denominators_2) %>%
@@ -1584,7 +1584,7 @@ vaccine_df_ltla_4 <- vaccine_age_df %>%
   group_by(Name) %>%
   summarise(Dose_1 = sum(Dose_1, na.rm = TRUE),
             Dose_2 = sum(Dose_2, na.rm = TRUE)) %>%
-  mutate(Age_group = '16 and over') %>%
+  mutate(Age_group = '12 and over') %>%
   left_join(latest_denominators, by = c('Name', 'Age_group'))
 
 vaccine_df_ltla_5 <- vaccine_age_df %>%
@@ -1632,18 +1632,18 @@ vaccine_df_ltla %>%
   toJSON() %>%
   write_lines(paste0(output_directory_x, '/vaccine_at_a_glance.json'))
 
-vac_info_df_wsx_16_plus <- vaccine_df_ltla %>%
+vac_info_df_wsx_12_plus <- vaccine_df_ltla %>%
   filter(Name == 'West Sussex') %>%
-  filter(Age_group == '16 and over')
+  filter(Age_group == '12 and over')
 
-wsx_16_plus_first_doses <- as.numeric(vac_info_df_wsx_16_plus$Dose_1)
-wsx_16_plus_second_doses <- as.numeric(vac_info_df_wsx_16_plus$Dose_2)
-wsx_16_plus_denominator <- as.numeric(vac_info_df_wsx_16_plus$Denominator)
-wsx_16_plus_first_doses_proportion <- as.numeric(vac_info_df_wsx_16_plus$Dose_1 / vac_info_df_wsx_16_plus$Denominator)
-wsx_16_plus_second_doses_proportion <- as.numeric(vac_info_df_wsx_16_plus$Dose_2 / vac_info_df_wsx_16_plus$Denominator)
+wsx_12_plus_first_doses <- as.numeric(vac_info_df_wsx_12_plus$Dose_1)
+wsx_12_plus_second_doses <- as.numeric(vac_info_df_wsx_12_plus$Dose_2)
+wsx_12_plus_denominator <- as.numeric(vac_info_df_wsx_12_plus$Denominator)
+wsx_12_plus_first_doses_proportion <- as.numeric(vac_info_df_wsx_12_plus$Dose_1 / vac_info_df_wsx_12_plus$Denominator)
+wsx_12_plus_second_doses_proportion <- as.numeric(vac_info_df_wsx_12_plus$Dose_2 / vac_info_df_wsx_12_plus$Denominator)
 
-wsx_16_plus_first_dose_only <- wsx_16_plus_first_doses - wsx_16_plus_second_doses
-wsx_16_plus_unvaccinated <- wsx_16_plus_denominator - wsx_16_plus_first_doses
+wsx_12_plus_first_dose_only <- wsx_12_plus_first_doses - wsx_12_plus_second_doses
+wsx_12_plus_unvaccinated <- wsx_12_plus_denominator - wsx_12_plus_first_doses
 
 vac_info_df_wsx_16_64 <- vaccine_df_ltla %>%
   filter(Name == 'West Sussex') %>%
@@ -1705,7 +1705,7 @@ vac_info_df <- vac_info_df %>%
 
 vac_info_df_x <- vac_info_df %>%
   filter(Name == 'West Sussex') %>%
-  filter(Age_group == '16 and over') %>%
+  filter(Age_group == '12 and over') %>%
   mutate(Status_label = factor(Status_label, levels = unique(Status_label)))
 
 vac_info_df_x_16_64 <- vac_info_df %>%
@@ -1718,7 +1718,7 @@ cumulative_vaccine_df_ltla <- vaccine_df_ltla %>%
   # mutate(second_label = paste0(format(Dose_2, big.mark = ',', trim = TRUE), ' (', round((Dose_2 / Denominator)*100, 1), '%)')) %>%
   mutate(first_label = paste0(round((Dose_1 / Denominator)*100, 1), '%')) %>%
   mutate(second_label = paste0(round((Dose_2 / Denominator)*100, 1), '%')) %>%
-  filter(Age_group == '16 and over') %>%
+  filter(Age_group == '12 and over') %>%
   mutate(Name = ifelse(Name == 'South East', 'South East region', Name)) %>%
   select(Name, first_label, second_label)
 
@@ -2499,7 +2499,7 @@ grid.text('Vaccinations so far',
                     fontfamily = 'Verdana',
                     fontface = 'bold'))
 
-grid.text('(aged 16+)',
+grid.text('(aged 12+)',
           just = "centre",
           x = unit(0.87, "npc"),
           y = unit(0.815, "npc"),
@@ -2650,7 +2650,7 @@ grid.roundrect(x = unit(0.04, "npc"),
                vp = NULL)
 
 
-vac_uptake_16_plus_gg <- ggplot(vac_info_df_x, aes(x = 1.9,
+vac_uptake_12_plus_gg <- ggplot(vac_info_df_x, aes(x = 1.9,
                                                    y = People,
                                                    fill = Status_label)) +
   geom_bar(stat="identity") +
@@ -2675,7 +2675,7 @@ vac_uptake_16_plus_gg <- ggplot(vac_info_df_x, aes(x = 1.9,
         plot.background = element_rect(fill = "transparent",colour = NA),
         legend.position = 'none')
 
-print(vac_uptake_16_plus_gg,
+print(vac_uptake_12_plus_gg,
       vp = vplayout(15:22, 1:10))
 
 grid.text(paste0('In West Sussex, there have'),
@@ -2686,7 +2686,7 @@ grid.text(paste0('In West Sussex, there have'),
                     fontsize = "10",
                     fontfamily = 'Verdana'))
 
-grid.text(paste0('been a total of ', format(wsx_16_plus_first_doses, big.mark = ',')),
+grid.text(paste0('been a total of ', format(wsx_12_plus_first_doses, big.mark = ',')),
           just = "left",
           x = unit(0.28, "npc"),
           y = unit(0.46, "npc"),
@@ -2702,7 +2702,7 @@ grid.text(paste0('first doses received among'),
                     fontsize = "10",
                     fontfamily = 'Verdana'))
 
-grid.text(paste0('those aged 16 and over.'),
+grid.text(paste0('those aged 12 and over.'),
           just = "left",
           x = unit(0.28, "npc"),
           y = unit(0.42, "npc"),
@@ -2710,7 +2710,7 @@ grid.text(paste0('those aged 16 and over.'),
                     fontsize = "10",
                     fontfamily = 'Verdana'))
 
-grid.text(paste0(round(wsx_16_plus_first_doses_proportion * 100, 0), '%'),
+grid.text(paste0(round(wsx_12_plus_first_doses_proportion * 100, 0), '%'),
           just = "centre",
           x = unit(0.1725, "npc"),
           y = unit(0.43, "npc"),
@@ -2727,7 +2727,7 @@ grid.text(paste0('of those aged'),
                     fontsize = "9",
                     fontfamily = 'Verdana'))
 
-grid.text(paste0('16+ have received'),
+grid.text(paste0('12+ have received'),
           just = "centre",
           x = unit(0.1675, "npc"),
           y = unit(0.395, "npc"),
@@ -2762,7 +2762,7 @@ grid.rect(x = unit(0.29, "npc"),
           draw = TRUE,
           vp = NULL)
 
-grid.text(paste0(format(wsx_16_plus_second_doses, big.mark = ','),' received two doses'),
+grid.text(paste0(format(wsx_12_plus_second_doses, big.mark = ','),' received two doses'),
           just = "left",
           x = unit(0.305, "npc"),
           y = unit(0.38, "npc"),
@@ -2781,7 +2781,7 @@ grid.rect(x = unit(0.29, "npc"),
           draw = TRUE,
           vp = NULL)
 
-grid.text(paste0(format(wsx_16_plus_first_dose_only, big.mark = ','),' first dose only'),
+grid.text(paste0(format(wsx_12_plus_first_dose_only, big.mark = ','),' first dose only'),
           just = "left",
           x = unit(0.305, "npc"),
           y = unit(0.355, "npc"),
@@ -2800,7 +2800,7 @@ grid.rect(x = unit(0.29, "npc"),
           draw = TRUE,
           vp = NULL)
 
-grid.text(paste0(format(wsx_16_plus_unvaccinated, big.mark = ','),' not vaccinated'),
+grid.text(paste0(format(wsx_12_plus_unvaccinated, big.mark = ','),' not vaccinated'),
           just = "left",
           x = unit(0.305, "npc"),
           y = unit(0.33, "npc"),

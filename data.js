@@ -530,7 +530,7 @@ var vaccine_at_a_glance = JSON.parse(request.responseText);
 
 d3.select("#vaccination_text_intro").html(function () {
   return (
-    "The figure below shows three guages showing the proportion of adults aged 16+, those aged 16-64+ (as an approximation for working age population) and those aged 65+ who have received a vaccine dose in " +
+    "The figure below shows three guages showing the proportion of adults aged 12+, those aged 16-64+ (as an approximation for working age population) and those aged 65+ who have received a vaccine dose in " +
     chosen_summary_area +
     "."
   );
@@ -559,7 +559,7 @@ var svg_overall_vaccinated = d3
   .attr("class", "percentage_guage");
 
 overall_cumulative = vaccine_at_a_glance.filter(function (d) {
-  return d.Name === chosen_summary_area && d.Age_group === "16 and over";
+  return d.Name === chosen_summary_area && d.Age_group === "12 and over";
 });
 
 number_vaccinated = overall_cumulative[0].Dose_1;
@@ -606,7 +606,7 @@ svg_overall_vaccinated
   .attr("id", "vaccination_label_2")
   .attr("class", "description")
   .attr("dy", "1.5em")
-  .text("aged 16+ received");
+  .text("aged 12+ received");
 
 svg_overall_vaccinated
   .append("text")
@@ -1647,7 +1647,7 @@ function update_summary() {
 
   d3.select("#vaccination_text_intro").html(function () {
     return (
-      "The figure below shows three guages showing the proportion of adults aged 16+, those aged 16-64 (as an approximation for working age population) and those aged 65+ who have received a vaccine dose in " +
+      "The figure below shows three guages showing the proportion of adults aged 12+, those aged 16-64 (as an approximation for working age population) and those aged 65+ who have received a vaccine dose in " +
       chosen_summary_area +
       "."
     );
@@ -1666,7 +1666,7 @@ function update_summary() {
   }
 
   overall_cumulative = vaccine_at_a_glance.filter(function (d) {
-    return d.Name === chosen_summary_area && d.Age_group === "16 and over";
+    return d.Name === chosen_summary_area && d.Age_group === "12 and over";
   });
 
   under_40_age_cumulative = vaccine_at_a_glance.filter(function (d) {
