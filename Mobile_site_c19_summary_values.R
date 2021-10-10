@@ -280,7 +280,7 @@ lads <- c("E07000223", "E07000224","E07000225", "E07000226", "E07000227", "E0700
 ## build the required structure for the api
 # {"date":"date","areaCode":"areaCode","areaName":"areaName","newCasesBySpecimenDateRollingRate":"newCasesBySpecimenDateRollingRate","newCasesBySpecimenDateRollingSum":"newCasesBySpecimenDateRollingSum","uniqueCasePositivityBySpecimenDateRollingSum":"uniqueCasePositivityBySpecimenDateRollingSum","uniquePeopleTestedBySpecimenDateRollingSum":"uniquePeopleTestedBySpecimenDateRollingSum"}
 
-###### read the daaa
+###### read the data
 england <- 'https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=nation;areaName=england&structure={"date":"date","areaCode":"areaCode","areaName":"areaName","newCasesBySpecimenDateAgeDemographics":"newCasesBySpecimenDateAgeDemographics"}'
 
 westsussex <- 'https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=utla;areaCode=E10000032&structure={"date":"date","areaCode":"areaCode","areaName":"areaName","newCasesBySpecimenDateAgeDemographics":"newCasesBySpecimenDateAgeDemographics"}'
