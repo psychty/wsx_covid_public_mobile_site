@@ -1248,7 +1248,7 @@ positivity_df <- positivity_ltla %>%
   mutate(LFD_7_day_tests = rollapplyr(newLFDTests, 7, sum, align = 'right', partial = TRUE))
 
 positivity_at_a_glance <- positivity_df %>%
-  filter(Date == complete_date) %>%
+  filter(Date == complete_date -1) %>%
   select(Name, uniquePeopleTestedBySpecimenDateRollingSum, uniqueCasePositivityBySpecimenDateRollingSum, LFD_7_day_tests) %>%
   rename(`Number of people receiving a PCR (Polymerase chain reaction) test` = uniquePeopleTestedBySpecimenDateRollingSum,
          `Positivity rate (weekly percentage of individuals tested who test positive for COVID-19)` = uniqueCasePositivityBySpecimenDateRollingSum,
