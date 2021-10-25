@@ -1775,8 +1775,8 @@ grid.text('CORONAVIRUS',
           y = unit(.9, "npc"),
           gp = gpar(col = "#0071B6",
                     fontsize = "12",
-                    fontface = "bold",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontface = "bold"))
 
 grid.text('COVID-19 CASE UPDATE',
           just = "left",
@@ -1803,7 +1803,7 @@ grid.text('New confirmed cases',
           y = unit(0.7, "npc"),
           gp = gpar(col = "#000000",
                     fontsize = "10",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text('this week*',
@@ -1812,7 +1812,7 @@ grid.text('this week*',
           y = unit(0.66, "npc"),
           gp = gpar(col = "#000000",
                     fontsize = "10",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(format(cases_this_week$Rolling_7_day_new_cases, big.mark = ','),
@@ -1840,7 +1840,7 @@ grid.text('Change since',
           y = unit(0.7, "npc"),
           gp = gpar(col = "#000000",
                     fontsize = "10",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text('last week',
@@ -1849,7 +1849,7 @@ grid.text('last week',
           y = unit(0.66, "npc"),
           gp = gpar(col = "#000000",
                     fontsize = "10",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 if(change_direction_between_weeks == 'DOWN'){
@@ -1927,7 +1927,7 @@ grid.text(paste0('In the seven days to ', format(complete_date, '%A '), ordinal(
           y = unit(0.45, "npc"),
           gp = gpar(col = "#ffffff",
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0(format(cases_this_week$Rolling_7_day_new_cases, big.mark = ','), ' new confirmed COVID-19 cases in West Sussex.'),
@@ -1936,7 +1936,7 @@ grid.text(paste0(format(cases_this_week$Rolling_7_day_new_cases, big.mark = ',')
           y = unit(0.41, "npc"),
           gp = gpar(col = "#ffffff",
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(ifelse(change_direction_between_weeks == 'SAME', 'Confirmed cases are the same as in the previous week', ifelse(change_direction_between_weeks == 'DOWN', 'Confirmed cases are falling compared to the previous week', ifelse(change_direction_between_weeks == 'UP', 'Confirmed cases are rising compared to the previous week', NA))),
@@ -1945,7 +1945,7 @@ grid.text(ifelse(change_direction_between_weeks == 'SAME', 'Confirmed cases are 
           y = unit(0.34, "npc"),
           gp = gpar(col = "#ffffff",
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0('(', format(cases_last_week$Rolling_7_day_new_cases, big.mark = ','), ' cases in the seven days to the ', ordinal(as.numeric(format(complete_date - 7, '%d'))), format(complete_date - 7, ' %B %Y'), ').'),
@@ -1954,7 +1954,7 @@ grid.text(paste0('(', format(cases_last_week$Rolling_7_day_new_cases, big.mark =
           y = unit(0.3, "npc"),
           gp = gpar(col = "#ffffff",
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0('Since the start of the COVID-19 pandemic, there have been'),
@@ -1963,7 +1963,7 @@ grid.text(paste0('Since the start of the COVID-19 pandemic, there have been'),
           y = unit(0.22, "npc"),
           gp = gpar(col = "#ffffff",
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0(format(total_so_far$Cumulative_cases, big.mark = ','), ' confirmed cases in West Sussex (as of ', ordinal(as.numeric(format(last_date, '%d'))), format(last_date, ' %B'),').'),
@@ -1972,7 +1972,7 @@ grid.text(paste0(format(total_so_far$Cumulative_cases, big.mark = ','), ' confir
           y = unit(0.18, "npc"),
           gp = gpar(col = "#ffffff",
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 # Table ####
@@ -2003,7 +2003,7 @@ grid.text('Area',
           y = unit(0.71, "npc"),
           gp = gpar(col = text_colour,
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 
@@ -2013,7 +2013,7 @@ grid.text('Cases in the seven',
           y = unit(0.71, "npc"),
           gp = gpar(col = text_colour,
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0('days to ', format(complete_date, '%d/%m/%y')),
@@ -2022,7 +2022,7 @@ grid.text(paste0('days to ', format(complete_date, '%d/%m/%y')),
           y = unit(0.67, "npc"),
           gp = gpar(col = text_colour,
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text('Rate per 100,000',
@@ -2031,7 +2031,7 @@ grid.text('Rate per 100,000',
           y = unit(0.71, "npc"),
           gp = gpar(col = text_colour,
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text('population (all ages)',
@@ -2040,7 +2040,7 @@ grid.text('population (all ages)',
           y = unit(0.67, "npc"),
           gp = gpar(col = text_colour,
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 areas_to_loop <- c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex')
@@ -2059,16 +2059,16 @@ for(i in 1:length(areas_to_loop)){
             x = unit(0.55, "npc"),
             y = unit(0.66 - interval_pos * i, "npc"),
             gp = gpar(col = text_colour,
-                      fontsize = "9",
-                      fontfamily = 'Verdana'))
+                      # fontfamily = 'Verdana',
+                      fontsize = "9"))
 
   grid.text(format(seven_day_area_x$Rolling_7_day_new_cases, big.mark = ',', trim = TRUE),
             just = "right",
             x = unit(0.79 - .03, "npc"),
             y = unit(0.66 - interval_pos * i, "npc"),
             gp = gpar(col = text_colour,
-                      fontsize = "9",
-                      fontfamily = 'Verdana'))
+                      # fontfamily = 'Verdana',
+                      fontsize = "9"))
 
 
   if(seven_day_area_x$Change_direction == 'Up'){
@@ -2101,8 +2101,8 @@ for(i in 1:length(areas_to_loop)){
             x = unit(0.98, "npc"),
             y = unit(0.66 - interval_pos * i, "npc"),
             gp = gpar(col = text_colour,
-                      fontsize = "9",
-                      fontfamily = 'Verdana'))
+                      # fontfamily = 'Verdana',
+                      fontsize = "9"))
 
 }
 
@@ -2161,7 +2161,7 @@ grid.text(paste0(ordinal(as.numeric(format(last_date + 1 , '%d'))), format(last_
           y = unit(0.07, "npc"),
           gp = gpar(col = "#0071B6",
                     fontsize = "16",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0('*We measure change by looking at cases in this week'),
@@ -2169,32 +2169,32 @@ grid.text(paste0('*We measure change by looking at cases in this week'),
           x = unit(0.65, "npc"),
           y = unit(0.098, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "7",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "7"))
 
 grid.text(paste0('(seven days to ', format(complete_date, '%A '), ordinal(as.numeric(format(complete_date, '%d'))), format(complete_date, ' %B %Y'), ') compared'),
           just = "left",
           x = unit(0.65, "npc"),
           y = unit(0.073, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "7",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "7"))
 
 grid.text(paste0('to the last week (seven days to ', ordinal(as.numeric(format(complete_date - 7, '%d'))), format(complete_date - 7, ' %B %Y'), '). This is '),
           just = "left",
           x = unit(0.65, "npc"),
           y = unit(0.048, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "7",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "7"))
 
 grid.text(paste0('because data for more recent days are considered incomplete.'),
           just = "left",
           x = unit(0.65, "npc"),
           y = unit(0.025, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "7",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "7"))
 
 grid.raster(wscc_logo,
             y = unit(0.96, "npc"),
@@ -2239,8 +2239,8 @@ grid.text('CORONAVIRUS',
           y = unit(.94, "npc"),
           gp = gpar(col = "#0071B6",
                     fontsize = "12",
-                    fontface = "bold",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontface = "bold"))
 
 grid.text('COVID-19 UPDATE',
           just = "left",
@@ -2267,7 +2267,7 @@ grid.text('New confirmed cases',
           y = unit(0.82, "npc"),
           gp = gpar(col = "#000000",
                     fontsize = "10",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text('this week*',
@@ -2276,7 +2276,7 @@ grid.text('this week*',
           y = unit(0.8, "npc"),
           gp = gpar(col = "#000000",
                     fontsize = "10",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(format(cases_this_week$Rolling_7_day_new_cases, big.mark = ','),
@@ -2304,7 +2304,7 @@ grid.text('Change since',
           y = unit(0.82, "npc"),
           gp = gpar(col = "#000000",
                     fontsize = "10",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text('last week',
@@ -2313,7 +2313,7 @@ grid.text('last week',
           y = unit(0.8, "npc"),
           gp = gpar(col = "#000000",
                     fontsize = "10",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 if(change_direction_between_weeks == 'DOWN'){
@@ -2391,7 +2391,7 @@ grid.text(paste0('In the seven days to ', format(complete_date, '%A '), ordinal(
           y = unit(0.69, "npc"),
           gp = gpar(col = "#ffffff",
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0(format(cases_this_week$Rolling_7_day_new_cases, big.mark = ','), ' new confirmed COVID-19 cases in West Sussex.'),
@@ -2400,7 +2400,7 @@ grid.text(paste0(format(cases_this_week$Rolling_7_day_new_cases, big.mark = ',')
           y = unit(0.67, "npc"),
           gp = gpar(col = "#ffffff",
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(ifelse(change_direction_between_weeks == 'SAME', 'Confirmed cases are the same as in the previous week', ifelse(change_direction_between_weeks == 'DOWN', 'Confirmed cases are falling compared to the previous week', ifelse(change_direction_between_weeks == 'UP', 'Confirmed cases are rising compared to the previous week', NA))),
@@ -2409,7 +2409,7 @@ grid.text(ifelse(change_direction_between_weeks == 'SAME', 'Confirmed cases are 
           y = unit(0.64, "npc"),
           gp = gpar(col = "#ffffff",
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0('(', format(cases_last_week$Rolling_7_day_new_cases, big.mark = ','), ' cases in the seven days to the ', ordinal(as.numeric(format(complete_date - 7, '%d'))), format(complete_date - 7, ' %B %Y'), ').'),
@@ -2418,7 +2418,7 @@ grid.text(paste0('(', format(cases_last_week$Rolling_7_day_new_cases, big.mark =
           y = unit(0.62, "npc"),
           gp = gpar(col = "#ffffff",
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0('Since the start of the COVID-19 pandemic, there have been'),
@@ -2427,7 +2427,7 @@ grid.text(paste0('Since the start of the COVID-19 pandemic, there have been'),
           y = unit(0.58, "npc"),
           gp = gpar(col = "#ffffff",
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0(format(total_so_far$Cumulative_cases, big.mark = ','), ' confirmed cases in West Sussex (as of ', ordinal(as.numeric(format(last_date, '%d'))), format(last_date, ' %B'),').'),
@@ -2436,7 +2436,7 @@ grid.text(paste0(format(total_so_far$Cumulative_cases, big.mark = ','), ' confir
           y = unit(0.56, "npc"),
           gp = gpar(col = "#ffffff",
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 # Table ####
@@ -2469,7 +2469,7 @@ grid.text('Area',
           y = unit(0.825, "npc"),
           gp = gpar(col = text_colour,
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text('Cases in the seven',
@@ -2478,7 +2478,7 @@ grid.text('Cases in the seven',
           y = unit(0.825, "npc"),
           gp = gpar(col = text_colour,
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0('days to ', format(complete_date, '%d/%m/%y'), '**'),
@@ -2487,7 +2487,7 @@ grid.text(paste0('days to ', format(complete_date, '%d/%m/%y'), '**'),
           y = unit(0.805, "npc"),
           gp = gpar(col = text_colour,
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text('Vaccinations so far',
@@ -2496,7 +2496,7 @@ grid.text('Vaccinations so far',
           y = unit(0.83, "npc"),
           gp = gpar(col = text_colour,
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text('(aged 12+)',
@@ -2505,7 +2505,7 @@ grid.text('(aged 12+)',
           y = unit(0.815, "npc"),
           gp = gpar(col = text_colour,
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0('1st dose'),
@@ -2514,7 +2514,7 @@ grid.text(paste0('1st dose'),
           y = unit(0.795, "npc"),
           gp = gpar(col = text_colour,
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0('2nd dose'),
@@ -2523,7 +2523,7 @@ grid.text(paste0('2nd dose'),
           y = unit(0.795, "npc"),
           gp = gpar(col = text_colour,
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0('** rates per 100,000 population are given in brackets.'),
@@ -2531,8 +2531,8 @@ grid.text(paste0('** rates per 100,000 population are given in brackets.'),
           x = unit(0.52, "npc"),
           y = unit(0.55, "npc"),
           gp = gpar(col = text_colour,
-                    fontsize = "9",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "9"))
 
 areas_to_loop <- c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex', 'South East region', 'England')
 
@@ -2550,16 +2550,16 @@ for(i in 1:length(areas_to_loop)){
             x = unit(0.52, "npc"),
             y = unit(0.79 - interval_pos * i, "npc"),
             gp = gpar(col = text_colour,
-                      fontsize = "9",
-                      fontfamily = 'Verdana'))
+                      # fontfamily = 'Verdana',
+                      fontsize = "9"))
 
   grid.text(format(seven_day_area_x$case_label, big.mark = ',', trim = TRUE),
             just = "right",
             x = unit(0.75 - .03, "npc"),
             y = unit(0.79 - interval_pos * i, "npc"),
             gp = gpar(col = text_colour,
-                      fontsize = "9",
-                      fontfamily = 'Verdana'))
+                      # fontfamily = 'Verdana',
+                      fontsize = "9"))
 
   if(seven_day_area_x$Change_direction == 'Up'){
     grid.raster(up_img,
@@ -2590,16 +2590,16 @@ for(i in 1:length(areas_to_loop)){
             x = unit(0.85, "npc"),
             y = unit(0.79 - interval_pos * i, "npc"),
             gp = gpar(col = text_colour,
-                      fontsize = "9",
-                      fontfamily = 'Verdana'))
+                      # fontfamily = 'Verdana',
+                      fontsize = "9"))
 
   grid.text(seven_day_area_x$second_label,
             just = "right",
             x = unit(0.95, "npc"),
             y = unit(0.79 - interval_pos * i, "npc"),
             gp = gpar(col = text_colour,
-                      fontsize = "9",
-                      fontfamily = 'Verdana'))
+                      # fontfamily = 'Verdana',
+                      fontsize = "9"))
 
 }
 
@@ -2683,32 +2683,32 @@ grid.text(paste0('In West Sussex, there have'),
           x = unit(0.28, "npc"),
           y = unit(0.48, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "10",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "10"))
 
 grid.text(paste0('been a total of ', format(wsx_12_plus_first_doses, big.mark = ',')),
           just = "left",
           x = unit(0.28, "npc"),
           y = unit(0.46, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "10",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "10"))
 
 grid.text(paste0('first doses received among'),
           just = "left",
           x = unit(0.28, "npc"),
           y = unit(0.44, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "10",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "10"))
 
 grid.text(paste0('those aged 12 and over.'),
           just = "left",
           x = unit(0.28, "npc"),
           y = unit(0.42, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "10",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "10"))
 
 grid.text(paste0(round(wsx_12_plus_first_doses_proportion * 100, 0), '%'),
           just = "centre",
@@ -2716,7 +2716,7 @@ grid.text(paste0(round(wsx_12_plus_first_doses_proportion * 100, 0), '%'),
           y = unit(0.43, "npc"),
           gp = gpar(col = "#000000",
                     fontsize = "18",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0('of those aged'),
@@ -2724,32 +2724,32 @@ grid.text(paste0('of those aged'),
           x = unit(0.172, "npc"),
           y = unit(0.41, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "9",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "9"))
 
 grid.text(paste0('12+ have received'),
           just = "centre",
           x = unit(0.1675, "npc"),
           y = unit(0.395, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "9",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "9"))
 
 grid.text(paste0('at least one'),
           just = "centre",
           x = unit(0.172, "npc"),
           y = unit(0.38, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "9",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "9"))
 
 grid.text(paste0('dose'),
           just = "centre",
           x = unit(0.172, "npc"),
           y = unit(0.365, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "9",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "9"))
 
 grid.rect(x = unit(0.29, "npc"),
           y = unit(0.38, "npc"),
@@ -2767,8 +2767,8 @@ grid.text(paste0(format(wsx_12_plus_second_doses, big.mark = ','),' received two
           x = unit(0.305, "npc"),
           y = unit(0.38, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "9",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "9"))
 
 grid.rect(x = unit(0.29, "npc"),
           y = unit(0.355, "npc"),
@@ -2786,8 +2786,8 @@ grid.text(paste0(format(wsx_12_plus_first_dose_only, big.mark = ','),' first dos
           x = unit(0.305, "npc"),
           y = unit(0.355, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "9",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "9"))
 
 grid.rect(x = unit(0.29, "npc"),
           y = unit(0.33, "npc"),
@@ -2805,8 +2805,8 @@ grid.text(paste0(format(wsx_12_plus_unvaccinated, big.mark = ','),' not vaccinat
           x = unit(0.305, "npc"),
           y = unit(0.33, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "9",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "9"))
 
 vac_uptake_16_64_gg <- ggplot(vac_info_df_x_16_64, aes(x = 1.9,
                                                        y = People,
@@ -2842,7 +2842,7 @@ grid.text(paste0(round(wsx_16_64_first_doses_proportion * 100, 0), '%'),
           y = unit(0.23, "npc"),
           gp = gpar(col = "#000000",
                     fontsize = "18",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0('of those aged'),
@@ -2850,64 +2850,64 @@ grid.text(paste0('of those aged'),
           x = unit(0.172, "npc"),
           y = unit(0.21, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "9",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "9"))
 
 grid.text(paste0('16-64 received'),
           just = "centre",
           x = unit(0.1675, "npc"),
           y = unit(0.195, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "9",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "9"))
 
 grid.text(paste0('at least one'),
           just = "centre",
           x = unit(0.172, "npc"),
           y = unit(0.18, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "9",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "9"))
 
 grid.text(paste0('dose'),
           just = "centre",
           x = unit(0.172, "npc"),
           y = unit(0.165, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "9",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "9"))
 
 grid.text(paste0('In West Sussex, there have'),
           just = "left",
           x = unit(0.28, "npc"),
           y = unit(0.28, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "10",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "10"))
 
 grid.text(paste0('been a total of ', format(wsx_16_64_first_doses, big.mark = ',')),
           just = "left",
           x = unit(0.28, "npc"),
           y = unit(0.26, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "10",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "10"))
 
 grid.text(paste0('first doses received among'),
           just = "left",
           x = unit(0.28, "npc"),
           y = unit(0.24, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "10",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "10"))
 
 grid.text(paste0('those aged 16-64.'),
           just = "left",
           x = unit(0.28, "npc"),
           y = unit(0.22, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "10",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "10"))
 
 grid.rect(x = unit(0.29, "npc"),
           y = unit(0.18, "npc"),
@@ -2925,8 +2925,8 @@ grid.text(paste0(format(wsx_16_64_second_doses, big.mark = ','),' received two d
           x = unit(0.305, "npc"),
           y = unit(0.18, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "9",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "9"))
 
 grid.rect(x = unit(0.29, "npc"),
           y = unit(0.155, "npc"),
@@ -2944,8 +2944,8 @@ grid.text(paste0(format(wsx_16_64_first_dose_only, big.mark = ','),' first dose 
           x = unit(0.305, "npc"),
           y = unit(0.155, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "9",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "9"))
 
 grid.rect(x = unit(0.29, "npc"),
           y = unit(0.13, "npc"),
@@ -2963,8 +2963,8 @@ grid.text(paste0(format(wsx_16_64_unvaccinated, big.mark = ','),' not vaccinated
           x = unit(0.305, "npc"),
           y = unit(0.13, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "9",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "9"))
 
 # Over time ####
 
@@ -2984,7 +2984,7 @@ grid.text('First dose vaccinations in',
           y = unit(0.49, "npc"),
           gp = gpar(col = "#000000",
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0('the seven days to ', This_week_vac_date),
@@ -2993,7 +2993,7 @@ grid.text(paste0('the seven days to ', This_week_vac_date),
           y = unit(0.47, "npc"),
           gp = gpar(col = "#000000",
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(format(wsx_first_doses_seven_days$This_week, big.mark = ','),
@@ -3021,7 +3021,7 @@ grid.text('Second dose vaccinations in',
           y = unit(0.49, "npc"),
           gp = gpar(col = "#000000",
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0('the seven days to ', This_week_vac_date),
@@ -3030,7 +3030,7 @@ grid.text(paste0('the seven days to ', This_week_vac_date),
           y = unit(0.47, "npc"),
           gp = gpar(col = "#000000",
                     fontsize = "9",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(format(wsx_second_doses_seven_days$This_week, big.mark = ','),
@@ -3066,7 +3066,7 @@ grid.text(paste0('In the South East region on ', format(se_hospital_df$Date, '%A
           y = unit(0.28, "npc"),
           gp = gpar(col = "#ffffff",
                     fontsize = "10",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0('were ', format(se_hospital_df$Patients_occupying_beds, big.mark = ','), ' COVID-19 positive patients in hospital beds.'),
@@ -3075,7 +3075,7 @@ grid.text(paste0('were ', format(se_hospital_df$Patients_occupying_beds, big.mar
           y = unit(0.26, "npc"),
           gp = gpar(col = "#ffffff",
                     fontsize = "10",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0('The number of people in hospital beds with COVID-19'),
@@ -3084,7 +3084,7 @@ grid.text(paste0('The number of people in hospital beds with COVID-19'),
           y = unit(0.22, "npc"),
           gp = gpar(col = "#ffffff",
                     fontsize = "10",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0('has ', se_hospital_df$Change_direction, ' compared to the 7 days before (', format(se_hospital_df$Previous_occupying_beds, big.mark = ','), ')'),
@@ -3093,7 +3093,7 @@ grid.text(paste0('has ', se_hospital_df$Change_direction, ' compared to the 7 da
           y = unit(0.2, "npc"),
           gp = gpar(col = "#ffffff",
                     fontsize = "10",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0('Of those patients currently in hospital, ', format(se_hospital_df$Patients_occupying_mv_beds, big.mark = ','), ' were'),
@@ -3102,7 +3102,7 @@ grid.text(paste0('Of those patients currently in hospital, ', format(se_hospital
           y = unit(0.16, "npc"),
           gp = gpar(col = "#ffffff",
                     fontsize = "10",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0('occupying beds capable of mechanical ventilation.'),
@@ -3111,7 +3111,7 @@ grid.text(paste0('occupying beds capable of mechanical ventilation.'),
           y = unit(0.14, "npc"),
           gp = gpar(col = "#ffffff",
                     fontsize = "10",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 # Banner bottom #
@@ -3141,7 +3141,7 @@ grid.text(paste0(ordinal(as.numeric(format(last_date + 1 , '%d'))), format(last_
           y = unit(0.04, "npc"),
           gp = gpar(col = "#0071B6",
                     fontsize = "18",
-                    fontfamily = 'Verdana',
+                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(paste0('*We measure change by looking at cases in this week'),
@@ -3149,32 +3149,32 @@ grid.text(paste0('*We measure change by looking at cases in this week'),
           x = unit(0.6, "npc"),
           y = unit(0.069, "npc"),  
           gp = gpar(col = "#000000",
-                    fontsize = "9",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "9"))
 
 grid.text(paste0('(seven days to ', format(complete_date, '%A '), ordinal(as.numeric(format(complete_date, '%d'))), format(complete_date, ' %B %Y'), ') compared'),
           just = "left",
           x = unit(0.6, "npc"),
           y = unit(0.055, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "9",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "9"))
 
 grid.text(paste0('to the last week (seven days to ', ordinal(as.numeric(format(complete_date - 7, '%d'))), format(complete_date - 7, ' %B %Y'), '). This is '),
           just = "left",
           x = unit(0.6, "npc"),
           y = unit(0.04, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "9",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "9"))
 
 grid.text(paste0('because data for more recent days are considered incomplete.'),
           just = "left",
           x = unit(0.6, "npc"),
           y = unit(0.025, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "9",
-                    fontfamily = 'Verdana'))
+                    # fontfamily = 'Verdana',
+                    fontsize = "9"))
 
 grid.raster(wscc_logo,
             y = unit(0.96, "npc"),
