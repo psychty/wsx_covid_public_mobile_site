@@ -3994,23 +3994,6 @@
 "Newark and Sherwood","E07000175","70-74 years","Lower Tier Local Authority",7734
 "Newark and Sherwood","E07000175","75-79 years","Lower Tier Local Authority",5502
 "Newark and Sherwood","E07000175","80+ years","Lower Tier Local Authority",7064
-"Newcastle-under-Lyme","E07000195","0-4 years","Lower Tier Local Authority",5872
-"Newcastle-under-Lyme","E07000195","10-14 years","Lower Tier Local Authority",6876
-"Newcastle-under-Lyme","E07000195","15-19 years","Lower Tier Local Authority",7642
-"Newcastle-under-Lyme","E07000195","20-24 years","Lower Tier Local Authority",10200
-"Newcastle-under-Lyme","E07000195","25-29 years","Lower Tier Local Authority",9070
-"Newcastle-under-Lyme","E07000195","30-34 years","Lower Tier Local Authority",8367
-"Newcastle-under-Lyme","E07000195","35-39 years","Lower Tier Local Authority",7373
-"Newcastle-under-Lyme","E07000195","40-44 years","Lower Tier Local Authority",7092
-"Newcastle-under-Lyme","E07000195","45-49 years","Lower Tier Local Authority",7922
-"Newcastle-under-Lyme","E07000195","5-9 years","Lower Tier Local Authority",6726
-"Newcastle-under-Lyme","E07000195","50-54 years","Lower Tier Local Authority",9072
-"Newcastle-under-Lyme","E07000195","55-59 years","Lower Tier Local Authority",8778
-"Newcastle-under-Lyme","E07000195","60-64 years","Lower Tier Local Authority",7673
-"Newcastle-under-Lyme","E07000195","65-69 years","Lower Tier Local Authority",6996
-"Newcastle-under-Lyme","E07000195","70-74 years","Lower Tier Local Authority",7276
-"Newcastle-under-Lyme","E07000195","75-79 years","Lower Tier Local Authority",5369
-"Newcastle-under-Lyme","E07000195","80+ years","Lower Tier Local Authority",7306
 "Newcastle upon Tyne","E08000021","0-4 years","Unitary Authoritory",16383
 "Newcastle upon Tyne","E08000021","10-14 years","Unitary Authoritory",16469
 "Newcastle upon Tyne","E08000021","15-19 years","Unitary Authoritory",21041
@@ -4028,6 +4011,23 @@
 "Newcastle upon Tyne","E08000021","70-74 years","Unitary Authoritory",11759
 "Newcastle upon Tyne","E08000021","75-79 years","Unitary Authoritory",7639
 "Newcastle upon Tyne","E08000021","80+ years","Unitary Authoritory",12599
+"Newcastle-under-Lyme","E07000195","0-4 years","Lower Tier Local Authority",5872
+"Newcastle-under-Lyme","E07000195","10-14 years","Lower Tier Local Authority",6876
+"Newcastle-under-Lyme","E07000195","15-19 years","Lower Tier Local Authority",7642
+"Newcastle-under-Lyme","E07000195","20-24 years","Lower Tier Local Authority",10200
+"Newcastle-under-Lyme","E07000195","25-29 years","Lower Tier Local Authority",9070
+"Newcastle-under-Lyme","E07000195","30-34 years","Lower Tier Local Authority",8367
+"Newcastle-under-Lyme","E07000195","35-39 years","Lower Tier Local Authority",7373
+"Newcastle-under-Lyme","E07000195","40-44 years","Lower Tier Local Authority",7092
+"Newcastle-under-Lyme","E07000195","45-49 years","Lower Tier Local Authority",7922
+"Newcastle-under-Lyme","E07000195","5-9 years","Lower Tier Local Authority",6726
+"Newcastle-under-Lyme","E07000195","50-54 years","Lower Tier Local Authority",9072
+"Newcastle-under-Lyme","E07000195","55-59 years","Lower Tier Local Authority",8778
+"Newcastle-under-Lyme","E07000195","60-64 years","Lower Tier Local Authority",7673
+"Newcastle-under-Lyme","E07000195","65-69 years","Lower Tier Local Authority",6996
+"Newcastle-under-Lyme","E07000195","70-74 years","Lower Tier Local Authority",7276
+"Newcastle-under-Lyme","E07000195","75-79 years","Lower Tier Local Authority",5369
+"Newcastle-under-Lyme","E07000195","80+ years","Lower Tier Local Authority",7306
 "Newham","E09000025","0-4 years","Unitary Authoritory",26893
 "Newham","E09000025","10-14 years","Unitary Authoritory",21287
 "Newham","E09000025","15-19 years","Unitary Authoritory",20196
