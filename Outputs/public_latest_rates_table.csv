@@ -1,11 +1,11 @@
 "Name","Cases","Rate per 100,000","Positivity rate (weekly percentage of individuals tested who test positive for COVID-19)","Number of people receiving a PCR (Polymerase chain reaction) test","Rate of cases per 100,000 for people aged 60 and over","Date"
-"Adur",224,349,8.6,2940,115.6,2021-11-05
-"Arun",847,525.7,11,8258,258.1,2021-11-05
-"Chichester",498,409.8,9.4,5968,219.7,2021-11-05
-"Crawley",549,488.1,11.8,5265,322.4,2021-11-05
-"Horsham",661,454.4,11.5,6842,161.4,2021-11-05
-"Mid Sussex",761,500.2,11.4,7601,201.5,2021-11-05
-"Worthing",450,406.4,9.5,5332,198.3,2021-11-05
-"West Sussex",3990,459.9,10.7,42206,213.9,2021-11-05
-"South East region",34949,379.2,9.3,411820,186.1,2021-11-05
-"England",201367,356.1,9.2,2386284,202.2,2021-11-05
+"Adur",214,333.4,NA,NA,99.8,2021-11-06
+"Arun",810,502.7,NA,NA,247.7,2021-11-06
+"Chichester",470,386.8,NA,NA,224.4,2021-11-06
+"Crawley",517,459.7,NA,NA,299.1,2021-11-06
+"Horsham",649,446.1,NA,NA,142.7,2021-11-06
+"Mid Sussex",729,479.2,NA,NA,196.5,2021-11-06
+"Worthing",421,380.2,NA,NA,198.3,2021-11-06
+"West Sussex",3810,439.1,NA,NA,205.3,2021-11-06
+"South East region",33750,366.2,NA,NA,179.8,2021-11-06
+"England",195942,346.5,NA,NA,197.3,2021-11-06
