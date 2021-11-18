@@ -1393,6 +1393,8 @@ for(i in urls) {
   dflist[[i]] <- df
 }
 
+
+
 # bind together (unnest)
 vaccine_age_df <- bind_rows(dflist) %>%
   unnest(vaccinationsAgeDemographics) %>%
@@ -1401,8 +1403,6 @@ vaccine_age_df <- bind_rows(dflist) %>%
          Name = areaName,
          Age_group = age,
          Denominator = VaccineRegisterPopulationByVaccinationDate,
-         Cumulative_complete = cumPeopleVaccinatedCompleteByVaccinationDate,
-         Complete_dose = newPeopleVaccinatedCompleteByVaccinationDate,
          Cumulative_dose_1 = cumPeopleVaccinatedFirstDoseByVaccinationDate,
          Dose_1 = newPeopleVaccinatedFirstDoseByVaccinationDate,
          Cumulative_dose_2 = cumPeopleVaccinatedSecondDoseByVaccinationDate,
@@ -1423,13 +1423,11 @@ vaccine_ts_df <- vaccine_age_df %>%
   group_by(Date, Name) %>%
   summarise(Dose_1 = sum(Dose_1, na.rm = TRUE),
             Dose_2 = sum(Dose_2, na.rm = TRUE),
-            Denominator = sum(Denominator, na.rm = TRUE),
-            Complete_dose = sum(Complete_dose, na.rm = TRUE)) %>%
+            Denominator = sum(Denominator, na.rm = TRUE)) %>%
   group_by(Name) %>%
   arrange(Date) %>%
   mutate(Cumulative_dose_1 = cumsum(Dose_1),
-         Cumulative_dose_2 = cumsum(Dose_2),
-         Cumulative_complete = cumsum(Complete_dose)) %>%
+         Cumulative_dose_2 = cumsum(Dose_2)) %>%
   mutate(Seven_day_sum_dose_1 = round(rollapplyr(Dose_1, 7, sum, align = 'right', partial = TRUE),0)) %>%
   mutate(Seven_day_sum_dose_2 = round(rollapplyr(Dose_2, 7, sum, align = 'right', partial = TRUE),0)) %>%
   mutate(Rolling_age_specific_first_dose_rate_per_100000 = pois.exact(Seven_day_sum_dose_1, Denominator)[[3]]*100000) %>%
@@ -1457,7 +1455,7 @@ rm(week_starting_a, week_starting_b)
 all_age_vac <- vaccine_ts_df %>%
   mutate(Age_group = '12 and over') %>%
   bind_rows(vaccine_age_df) %>%
-  select(!c(cumVaccinationFirstDoseUptakeByVaccinationDatePercentage,cumVaccinationCompleteCoverageByVaccinationDatePercentage,cumVaccinationSecondDoseUptakeByVaccinationDatePercentage)) %>%
+  select(!c(cumVaccinationFirstDoseUptakeByVaccinationDatePercentage,cumVaccinationSecondDoseUptakeByVaccinationDatePercentage)) %>%
   mutate(Week_number = paste0(date2week(Date, numeric = TRUE), ifelse(Date < '2021-01-04', ' - 2020', ' - 2021' ))) %>%
   left_join(week_start_vac, by = 'Week_number') %>%
   mutate(Week_number = factor(Week_number, levels = c("1 - 2020", "2 - 2020",  "3 - 2020", "4 - 2020",  "5 - 2020",  "6 - 2020",  "7 - 2020",  "8 - 2020",  "9 - 2020",  "10 - 2020", "11 - 2020", "12 - 2020", "13 - 2020", "14 - 2020", "15 - 2020", "16 - 2020", "17 - 2020", "18 - 2020", "19 - 2020", "20 - 2020", "21 - 2020", "22 - 2020", "23 - 2020", "24 - 2020", "25 - 2020", "26 - 2020", "27 - 2020", "28 - 2020", "29 - 2020", "30 - 2020", "31 - 2020", "32 - 2020", "33 - 2020", "34 - 2020", "35 - 2020", "36 - 2020", "37 - 2020", "38 - 2020", "39 - 2020", "40 - 2020", "41 - 2020", "42 - 2020", "43 - 2020", "44 - 2020", "45 - 2020", "46 - 2020", "47 - 2020", "48 - 2020", "49 - 2020", "50 - 2020", "51 - 2020", "52 - 2020", "53 - 2020", "1 - 2021", "2 - 2021", "3 - 2021", "4 - 2021",  "5 - 2021",  "6 - 2021",  "7 - 2021", "8 - 2021",  "9 - 2021",  "10 - 2021", "11 - 2021", "12 - 2021", "13 - 2021", "14 - 2021", "15 - 2021", "16 - 2021", "17 - 2021", "18 - 2021", "19 - 2021", "20 - 2021", "21 - 2021", "22 - 2021", "23 - 2021", "24 - 2021", "25 - 2021", "26 - 2021", "27 - 2021", "28 - 2021", "29 - 2021", "30 - 2021", "31 - 2021", "32 - 2021", "33 - 2021", "34 - 2021", "35 - 2021", "36 - 2021", "37 - 2021", "38 - 2021", "39 - 2021", "40 - 2021", "41 - 2021", "42 - 2021", "43 - 2021", "44 - 2021", "45 - 2021", "46 - 2021", "47 - 2021", "48 - 2021", "49 - 2021", "50 - 2021", "51 - 2021", "52 - 2021"))) %>%
