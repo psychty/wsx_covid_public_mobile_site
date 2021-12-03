@@ -1,425 +1,425 @@
-"Name","Type","Code","Population"
-"Darlington","Unitary Authority","E06000005",107402
-"County Durham","Unitary Authority","E06000047",533149
-"Hartlepool","Unitary Authority","E06000001",93836
-"Middlesbrough","Unitary Authority","E06000002",141285
-"Northumberland","Unitary Authority","E06000057",323820
-"Redcar and Cleveland","Unitary Authority","E06000003",137228
-"Stockton-on-Tees","Unitary Authority","E06000004",197419
-"Gateshead","Unitary Authority","E08000037",201950
-"Newcastle upon Tyne","Unitary Authority","E08000021",306824
-"North Tyneside","Unitary Authority","E08000022",208871
-"South Tyneside","Unitary Authority","E08000023",151133
-"Sunderland","Unitary Authority","E08000024",277846
-"Blackburn with Darwen","Unitary Authority","E06000008",150030
-"Blackpool","Unitary Authority","E06000009",138381
-"Cheshire East","Unitary Authority","E06000049",386667
-"Cheshire West and Chester","Unitary Authority","E06000050",343823
-"Halton","Unitary Authority","E06000006",129759
-"Warrington","Unitary Authority","E06000007",209397
-"Cumbria","Upper Tier Local Authority","E10000006",499781
-"Bolton","Unitary Authority","E08000001",288248
-"Bury","Unitary Authority","E08000002",190708
-"Manchester","Unitary Authority","E08000003",555741
-"Oldham","Unitary Authority","E08000004",237628
-"Rochdale","Unitary Authority","E08000005",223659
-"Salford","Unitary Authority","E08000006",262697
-"Stockport","Unitary Authority","E08000007",294197
-"Tameside","Unitary Authority","E08000008",227117
-"Trafford","Unitary Authority","E08000009",237579
-"Wigan","Unitary Authority","E08000010",330712
-"Lancashire","Upper Tier Local Authority","E10000017",1227076
-"Knowsley","Unitary Authority","E08000011",152452
-"Liverpool","Unitary Authority","E08000012",500474
-"Sefton","Unitary Authority","E08000014",275899
-"St. Helens","Unitary Authority","E08000013",181095
-"Wirral","Unitary Authority","E08000015",324336
-"East Riding of Yorkshire","Unitary Authority","E06000011",343201
-"Kingston upon Hull, City of","Unitary Authority","E06000010",259126
-"North East Lincolnshire","Unitary Authority","E06000012",159364
-"North Lincolnshire","Unitary Authority","E06000013",172748
-"York","Unitary Authority","E06000014",211012
-"North Yorkshire","Upper Tier Local Authority","E10000023",620610
-"Barnsley","Unitary Authority","E08000016",248071
-"Doncaster","Unitary Authority","E08000017",312785
-"Rotherham","Unitary Authority","E08000018",264984
-"Sheffield","Unitary Authority","E08000019",589214
-"Bradford","Unitary Authority","E08000032",542128
-"Calderdale","Unitary Authority","E08000033",211439
-"Kirklees","Unitary Authority","E08000034",441290
-"Leeds","Unitary Authority","E08000035",798786
-"Wakefield","Unitary Authority","E08000036",351592
-"Derby","Unitary Authority","E06000015",256814
-"Leicester","Unitary Authority","E06000016",354036
-"Nottingham","Unitary Authority","E06000018",337098
-"Rutland","Unitary Authority","E06000017",40476
-"Derbyshire","Upper Tier Local Authority","E10000007",807183
-"Leicestershire","Upper Tier Local Authority","E10000018",713085
-"Lincolnshire","Upper Tier Local Authority","E10000019",766333
-"Northamptonshire","Upper Tier Local Authority","E10000021",757181
-"Nottinghamshire","Upper Tier Local Authority","E10000024",833377
-"Herefordshire, County of","Unitary Authority","E06000019",193615
-"Shropshire","Unitary Authority","E06000051",325415
-"Stoke-on-Trent","Unitary Authority","E06000021",256622
-"Telford and Wrekin","Unitary Authority","E06000020",181322
-"Staffordshire","Upper Tier Local Authority","E10000028",883172
-"Warwickshire","Upper Tier Local Authority","E10000031",583786
-"Birmingham","Unitary Authority","E08000025",1140525
-"Coventry","Unitary Authority","E08000026",379387
-"Dudley","Unitary Authority","E08000027",322363
-"Sandwell","Unitary Authority","E08000028",329042
-"Solihull","Unitary Authority","E08000029",217487
-"Walsall","Unitary Authority","E08000030",286716
-"Wolverhampton","Unitary Authority","E08000031",264407
-"Worcestershire","Upper Tier Local Authority","E10000034",598070
-"Bedford","Unitary Authority","E06000055",174687
-"Central Bedfordshire","Unitary Authority","E06000056",294096
-"Luton","Unitary Authority","E06000032",213528
-"Peterborough","Unitary Authority","E06000031",202626
-"Southend-on-Sea","Unitary Authority","E06000033",182773
-"Thurrock","Unitary Authority","E06000034",175531
-"Cambridgeshire","Upper Tier Local Authority","E10000003",657204
-"Essex","Upper Tier Local Authority","E10000012",1497759
-"Hertfordshire","Upper Tier Local Authority","E10000015",1195672
-"Norfolk","Upper Tier Local Authority","E10000020",914039
-"Suffolk","Upper Tier Local Authority","E10000029",761246
-"Camden","Unitary Authority","E09000007",279516
-"City of London","Unitary Authority","E09000001",10938
-"Hackney","Unitary Authority","E09000012",280941
-"Hammersmith and Fulham","Unitary Authority","E09000013",183544
-"Haringey","Unitary Authority","E09000014",266357
-"Islington","Unitary Authority","E09000019",248115
-"Kensington and Chelsea","Unitary Authority","E09000020",156864
-"Lambeth","Unitary Authority","E09000022",321813
-"Lewisham","Unitary Authority","E09000023",305309
-"Newham","Unitary Authority","E09000025",355266
-"Southwark","Unitary Authority","E09000028",320017
-"Tower Hamlets","Unitary Authority","E09000030",331969
-"Wandsworth","Unitary Authority","E09000032",329735
-"Westminster","Unitary Authority","E09000033",269848
-"Barking and Dagenham","Unitary Authority","E09000002",214107
-"Barnet","Unitary Authority","E09000003",399007
-"Bexley","Unitary Authority","E09000004",249301
-"Brent","Unitary Authority","E09000005",327753
-"Bromley","Unitary Authority","E09000006",332752
-"Croydon","Unitary Authority","E09000008",388563
-"Ealing","Unitary Authority","E09000009",340341
-"Enfield","Unitary Authority","E09000010",333587
-"Greenwich","Unitary Authority","E09000011",289034
-"Harrow","Unitary Authority","E09000015",252338
-"Havering","Unitary Authority","E09000016",260651
-"Hillingdon","Unitary Authority","E09000017",309014
-"Hounslow","Unitary Authority","E09000018",271767
-"Kingston upon Thames","Unitary Authority","E09000021",179142
-"Merton","Unitary Authority","E09000024",206453
-"Redbridge","Unitary Authority","E09000026",305658
-"Richmond upon Thames","Unitary Authority","E09000027",198141
-"Sutton","Unitary Authority","E09000029",207707
-"Waltham Forest","Unitary Authority","E09000031",276940
-"Bracknell Forest","Unitary Authority","E06000036",124165
-"Brighton and Hove","Unitary Authority","E06000043",291738
-"Isle of Wight","Unitary Authority","E06000046",142296
-"Medway","Unitary Authority","E06000035",279142
-"Milton Keynes","Unitary Authority","E06000042",270203
-"Portsmouth","Unitary Authority","E06000044",214692
-"Reading","Unitary Authority","E06000038",160337
-"Slough","Unitary Authority","E06000039",149577
-"Southampton","Unitary Authority","E06000045",252872
-"West Berkshire","Unitary Authority","E06000037",158465
-"Windsor and Maidenhead","Unitary Authority","E06000040",151273
-"Wokingham","Unitary Authority","E06000041",173945
-"Buckinghamshire","Upper Tier Local Authority","E10000002",547060
-"East Sussex","Upper Tier Local Authority","E10000011",558852
-"Hampshire","Upper Tier Local Authority","E10000014",1389206
-"Kent","Upper Tier Local Authority","E10000016",1589057
-"Oxfordshire","Upper Tier Local Authority","E10000025",696880
-"Surrey","Upper Tier Local Authority","E10000030",1199870
-"West Sussex","Upper Tier Local Authority","E10000032",867635
-"Bath and North East Somerset","Unitary Authority","E06000022",196357
-"Bournemouth, Christchurch and Poole","Unitary Authority","E06000058",396989
-"Bristol, City of","Unitary Authority","E06000023",465866
-"Cornwall","Unitary Authority","E06000052",573299
-"Isles of Scilly","Unitary Authority","E06000053",2226
-"North Somerset","Unitary Authority","E06000024",215574
-"Plymouth","Unitary Authority","E06000026",262839
-"South Gloucestershire","Unitary Authority","E06000025",287816
-"Swindon","Unitary Authority","E06000030",222881
-"Torbay","Unitary Authority","E06000027",136218
-"Wiltshire","Unitary Authority","E06000054",504070
-"Devon","Upper Tier Local Authority","E10000008",810716
-"Dorset","Unitary Authority","E06000059",379791
-"Gloucestershire","Upper Tier Local Authority","E10000013",640650
-"Somerset","Upper Tier Local Authority","E10000027",563851
-"Isle of Anglesey","Unitary Authority","W06000001",70440
-"Gwynedd","Unitary Authority","W06000002",125171
-"Conwy","Unitary Authority","W06000003",118184
-"Denbighshire","Unitary Authority","W06000004",96664
-"Flintshire","Unitary Authority","W06000005",156847
-"Wrexham","Unitary Authority","W06000006",136055
-"Powys","Unitary Authority","W06000023",133030
-"Ceredigion","Unitary Authority","W06000008",72895
-"Pembrokeshire","Unitary Authority","W06000009",126751
-"Carmarthenshire","Unitary Authority","W06000010",190073
-"Swansea","Unitary Authority","W06000011",246563
-"Neath Port Talbot","Unitary Authority","W06000012",144386
-"Bridgend","Unitary Authority","W06000013",147539
-"Vale of Glamorgan","Unitary Authority","W06000014",135295
-"Cardiff","Unitary Authority","W06000015",369202
-"Rhondda Cynon Taff","Unitary Authority","W06000016",241873
-"Merthyr Tydfil","Unitary Authority","W06000024",60424
-"Caerphilly","Unitary Authority","W06000018",181731
-"Blaenau Gwent","Unitary Authority","W06000019",70020
-"Torfaen","Unitary Authority","W06000020",94832
-"Monmouthshire","Unitary Authority","W06000021",95164
-"Newport","Unitary Authority","W06000022",156447
-"Aberdeen City","Unitary Authority","S12000033",229060
-"Aberdeenshire","Unitary Authority","S12000034",260780
-"Angus","Unitary Authority","S12000041",115820
-"Argyll and Bute","Unitary Authority","S12000035",85430
-"Clackmannanshire","Unitary Authority","S12000005",51290
-"Dumfries and Galloway","Unitary Authority","S12000006",148290
-"Dundee City","Unitary Authority","S12000042",148820
-"East Ayrshire","Unitary Authority","S12000008",121600
-"East Dunbartonshire","Unitary Authority","S12000045",108750
-"East Lothian","Unitary Authority","S12000010",107900
-"East Renfrewshire","Unitary Authority","S12000011",96060
-"City of Edinburgh","Unitary Authority","S12000036",527620
-"Na h-Eileanan Siar","Unitary Authority","S12000013",26500
-"Falkirk","Unitary Authority","S12000014",160560
-"Fife","Unitary Authority","S12000047",374130
-"Glasgow City","Unitary Authority","S12000049",635640
-"Highland","Unitary Authority","S12000017",235430
-"Inverclyde","Unitary Authority","S12000018",77060
-"Midlothian","Unitary Authority","S12000019",93150
-"Moray","Unitary Authority","S12000020",95710
-"North Ayrshire","Unitary Authority","S12000021",134250
-"North Lanarkshire","Unitary Authority","S12000050",341140
-"Orkney Islands","Unitary Authority","S12000023",22400
-"Perth and Kinross","Unitary Authority","S12000048",151910
-"Renfrewshire","Unitary Authority","S12000038",179390
-"Scottish Borders","Unitary Authority","S12000026",115240
-"Shetland Islands","Unitary Authority","S12000027",22870
-"South Ayrshire","Unitary Authority","S12000028",112140
-"South Lanarkshire","Unitary Authority","S12000029",320820
-"Stirling","Unitary Authority","S12000030",94080
-"West Dunbartonshire","Unitary Authority","S12000039",88340
-"West Lothian","Unitary Authority","S12000040",183820
-"Antrim and Newtownabbey","Unitary Authority","N09000001",143756
-"Armagh City, Banbridge and Craigavon","Unitary Authority","N09000002",217232
-"Belfast","Unitary Authority","N09000003",342560
-"Causeway Coast and Glens","Unitary Authority","N09000004",144943
-"Derry City and Strabane","Unitary Authority","N09000005",151109
-"Fermanagh and Omagh","Unitary Authority","N09000006",117337
-"Lisburn and Castlereagh","Unitary Authority","N09000007",146452
-"Mid and East Antrim","Unitary Authority","N09000008",139443
-"Mid Ulster","Unitary Authority","N09000009",148953
-"Newry, Mourne and Down","Unitary Authority","N09000010",181669
-"Ards and North Down","Unitary Authority","N09000011",162056
-"Allerdale","Lower Tier Local Authority","E07000026",97831
-"Barrow-in-Furness","Lower Tier Local Authority","E07000027",66726
-"Carlisle","Lower Tier Local Authority","E07000028",108524
-"Copeland","Lower Tier Local Authority","E07000029",68041
-"Eden","Lower Tier Local Authority","E07000030",53754
-"South Lakeland","Lower Tier Local Authority","E07000031",104905
-"Burnley","Lower Tier Local Authority","E07000117",89344
-"Chorley","Lower Tier Local Authority","E07000118",118870
-"Fylde","Lower Tier Local Authority","E07000119",81211
-"Hyndburn","Lower Tier Local Authority","E07000120",81133
-"Lancaster","Lower Tier Local Authority","E07000121",148119
-"Pendle","Lower Tier Local Authority","E07000122",92145
-"Preston","Lower Tier Local Authority","E07000123",144147
-"Ribble Valley","Lower Tier Local Authority","E07000124",62026
-"Rossendale","Lower Tier Local Authority","E07000125",71432
-"South Ribble","Lower Tier Local Authority","E07000126",111086
-"West Lancashire","Lower Tier Local Authority","E07000127",114496
-"Wyre","Lower Tier Local Authority","E07000128",113067
-"Craven","Lower Tier Local Authority","E07000163",57338
-"Hambleton","Lower Tier Local Authority","E07000164",91932
-"Harrogate","Lower Tier Local Authority","E07000165",161545
-"Richmondshire","Lower Tier Local Authority","E07000166",53732
-"Ryedale","Lower Tier Local Authority","E07000167",55629
-"Scarborough","Lower Tier Local Authority","E07000168",108737
-"Selby","Lower Tier Local Authority","E07000169",91697
-"Amber Valley","Lower Tier Local Authority","E07000032",128829
-"Bolsover","Lower Tier Local Authority","E07000033",81305
-"Chesterfield","Lower Tier Local Authority","E07000034",104930
-"Derbyshire Dales","Lower Tier Local Authority","E07000035",72422
-"Erewash","Lower Tier Local Authority","E07000036",115332
-"High Peak","Lower Tier Local Authority","E07000037",92633
-"North East Derbyshire","Lower Tier Local Authority","E07000038",102216
-"South Derbyshire","Lower Tier Local Authority","E07000039",109516
-"Blaby","Lower Tier Local Authority","E07000129",101950
-"Charnwood","Lower Tier Local Authority","E07000130",188416
-"Harborough","Lower Tier Local Authority","E07000131",95537
-"Hinckley and Bosworth","Lower Tier Local Authority","E07000132",113666
-"Melton","Lower Tier Local Authority","E07000133",51394
-"North West Leicestershire","Lower Tier Local Authority","E07000134",104809
-"Oadby and Wigston","Lower Tier Local Authority","E07000135",57313
-"Boston","Lower Tier Local Authority","E07000136",70837
-"East Lindsey","Lower Tier Local Authority","E07000137",142030
-"Lincoln","Lower Tier Local Authority","E07000138",100049
-"North Kesteven","Lower Tier Local Authority","E07000139",118149
-"South Holland","Lower Tier Local Authority","E07000140",95857
-"South Kesteven","Lower Tier Local Authority","E07000141",143225
-"West Lindsey","Lower Tier Local Authority","E07000142",96186
-"Corby","Lower Tier Local Authority","E07000150",73053
-"Daventry","Lower Tier Local Authority","E07000151",86951
-"East Northamptonshire","Lower Tier Local Authority","E07000152",95103
-"Kettering","Lower Tier Local Authority","E07000153",102211
-"Northampton","Lower Tier Local Authority","E07000154",224290
-"South Northamptonshire","Lower Tier Local Authority","E07000155",95492
-"Wellingborough","Lower Tier Local Authority","E07000156",80081
-"Ashfield","Lower Tier Local Authority","E07000170",128337
-"Bassetlaw","Lower Tier Local Authority","E07000171",118280
-"Broxtowe","Lower Tier Local Authority","E07000172",114627
-"Gedling","Lower Tier Local Authority","E07000173",118239
-"Mansfield","Lower Tier Local Authority","E07000174",109351
-"Newark and Sherwood","Lower Tier Local Authority","E07000175",123127
-"Rushcliffe","Lower Tier Local Authority","E07000176",121416
-"Cannock Chase","Lower Tier Local Authority","E07000192",101484
-"East Staffordshire","Lower Tier Local Authority","E07000193",120923
-"Lichfield","Lower Tier Local Authority","E07000194",105637
-"Newcastle-under-Lyme","Lower Tier Local Authority","E07000195",129610
-"South Staffordshire","Lower Tier Local Authority","E07000196",112369
-"Stafford","Lower Tier Local Authority","E07000197",137858
-"Staffordshire Moorlands","Lower Tier Local Authority","E07000198",98427
-"Tamworth","Lower Tier Local Authority","E07000199",76864
-"North Warwickshire","Lower Tier Local Authority","E07000218",65452
-"Nuneaton and Bedworth","Lower Tier Local Authority","E07000219",130373
-"Rugby","Lower Tier Local Authority","E07000220",110650
-"Stratford-on-Avon","Lower Tier Local Authority","E07000221",132402
-"Warwick","Lower Tier Local Authority","E07000222",144909
-"Bromsgrove","Lower Tier Local Authority","E07000234",100569
-"Malvern Hills","Lower Tier Local Authority","E07000235",79445
-"Redditch","Lower Tier Local Authority","E07000236",85568
-"Worcester","Lower Tier Local Authority","E07000237",100265
-"Wychavon","Lower Tier Local Authority","E07000238",131084
-"Wyre Forest","Lower Tier Local Authority","E07000239",101139
-"Cambridge","Lower Tier Local Authority","E07000008",125063
-"East Cambridgeshire","Lower Tier Local Authority","E07000009",90172
-"Fenland","Lower Tier Local Authority","E07000010",102080
-"Huntingdonshire","Lower Tier Local Authority","E07000011",178985
-"South Cambridgeshire","Lower Tier Local Authority","E07000012",160904
-"Basildon","Lower Tier Local Authority","E07000066",187558
-"Braintree","Lower Tier Local Authority","E07000067",153091
-"Brentwood","Lower Tier Local Authority","E07000068",77242
-"Castle Point","Lower Tier Local Authority","E07000069",90524
-"Chelmsford","Lower Tier Local Authority","E07000070",179549
-"Colchester","Lower Tier Local Authority","E07000071",197200
-"Epping Forest","Lower Tier Local Authority","E07000072",132175
-"Harlow","Lower Tier Local Authority","E07000073",87280
-"Maldon","Lower Tier Local Authority","E07000074",65401
-"Rochford","Lower Tier Local Authority","E07000075",87627
-"Tendring","Lower Tier Local Authority","E07000076",147353
-"Uttlesford","Lower Tier Local Authority","E07000077",92759
-"Broxbourne","Lower Tier Local Authority","E07000095",97592
-"Dacorum","Lower Tier Local Authority","E07000096",155457
-"East Hertfordshire","Lower Tier Local Authority","E07000242",151786
-"Hertsmere","Lower Tier Local Authority","E07000098",105471
-"North Hertfordshire","Lower Tier Local Authority","E07000099",133463
-"St Albans","Lower Tier Local Authority","E07000240",149317
-"Stevenage","Lower Tier Local Authority","E07000243",88104
-"Three Rivers","Lower Tier Local Authority","E07000102",93966
-"Watford","Lower Tier Local Authority","E07000103",96623
-"Welwyn Hatfield","Lower Tier Local Authority","E07000241",123893
-"Breckland","Lower Tier Local Authority","E07000143",141255
-"Broadland","Lower Tier Local Authority","E07000144",131931
-"Great Yarmouth","Lower Tier Local Authority","E07000145",99198
-"King's Lynn and West Norfolk","Lower Tier Local Authority","E07000146",151245
-"North Norfolk","Lower Tier Local Authority","E07000147",105167
-"Norwich","Lower Tier Local Authority","E07000148",142177
-"South Norfolk","Lower Tier Local Authority","E07000149",143066
-"Babergh","Lower Tier Local Authority","E07000200",92735
-"Ipswich","Lower Tier Local Authority","E07000202",135979
-"East Suffolk","Lower Tier Local Authority","E07000244",250373
-"Mid Suffolk","Lower Tier Local Authority","E07000203",104857
-"West Suffolk","Lower Tier Local Authority","E07000245",177302
-"Aylesbury Vale","Lower Tier Local Authority","E07000004",206851
-"Chiltern","Lower Tier Local Authority","E07000005",96219
-"South Bucks","Lower Tier Local Authority","E07000006",70473
-"Wycombe","Lower Tier Local Authority","E07000007",173517
-"Eastbourne","Lower Tier Local Authority","E07000061",103324
-"Hastings","Lower Tier Local Authority","E07000062",92554
-"Lewes","Lower Tier Local Authority","E07000063",103525
-"Rother","Lower Tier Local Authority","E07000064",96716
-"Wealden","Lower Tier Local Authority","E07000065",162733
-"Basingstoke and Deane","Lower Tier Local Authority","E07000084",177760
-"East Hampshire","Lower Tier Local Authority","E07000085",123838
-"Eastleigh","Lower Tier Local Authority","E07000086",135520
-"Fareham","Lower Tier Local Authority","E07000087",116338
-"Gosport","Lower Tier Local Authority","E07000088",84679
-"Hart","Lower Tier Local Authority","E07000089",97608
-"Havant","Lower Tier Local Authority","E07000090",126339
-"New Forest","Lower Tier Local Authority","E07000091",179649
-"Rushmoor","Lower Tier Local Authority","E07000092",94387
-"Test Valley","Lower Tier Local Authority","E07000093",127163
-"Winchester","Lower Tier Local Authority","E07000094",125925
-"Ashford","Lower Tier Local Authority","E07000105",131018
-"Canterbury","Lower Tier Local Authority","E07000106",166762
-"Dartford","Lower Tier Local Authority","E07000107",114051
-"Dover","Lower Tier Local Authority","E07000108",118514
-"Gravesham","Lower Tier Local Authority","E07000109",106890
-"Maidstone","Lower Tier Local Authority","E07000110",173132
-"Sevenoaks","Lower Tier Local Authority","E07000111",121387
-"Folkestone and Hythe","Lower Tier Local Authority","E07000112",113320
-"Swale","Lower Tier Local Authority","E07000113",151015
-"Thanet","Lower Tier Local Authority","E07000114",141458
-"Tonbridge and Malling","Lower Tier Local Authority","E07000115",132571
-"Tunbridge Wells","Lower Tier Local Authority","E07000116",118939
-"Cherwell","Lower Tier Local Authority","E07000177",151846
-"Oxford","Lower Tier Local Authority","E07000178",151584
-"South Oxfordshire","Lower Tier Local Authority","E07000179",143782
-"Vale of White Horse","Lower Tier Local Authority","E07000180",137910
-"West Oxfordshire","Lower Tier Local Authority","E07000181",111758
-"Elmbridge","Lower Tier Local Authority","E07000207",137215
-"Epsom and Ewell","Lower Tier Local Authority","E07000208",81003
-"Guildford","Lower Tier Local Authority","E07000209",150352
-"Mole Valley","Lower Tier Local Authority","E07000210",87547
-"Reigate and Banstead","Lower Tier Local Authority","E07000211",149243
-"Runnymede","Lower Tier Local Authority","E07000212",90327
-"Spelthorne","Lower Tier Local Authority","E07000213",99873
-"Surrey Heath","Lower Tier Local Authority","E07000214",89204
-"Tandridge","Lower Tier Local Authority","E07000215",88542
-"Waverley","Lower Tier Local Authority","E07000216",126556
-"Woking","Lower Tier Local Authority","E07000217",100008
-"Adur","Lower Tier Local Authority","E07000223",64187
-"Arun","Lower Tier Local Authority","E07000224",161123
-"Chichester","Lower Tier Local Authority","E07000225",121508
-"Crawley","Lower Tier Local Authority","E07000226",112474
-"Horsham","Lower Tier Local Authority","E07000227",145474
-"Mid Sussex","Lower Tier Local Authority","E07000228",152142
-"Worthing","Lower Tier Local Authority","E07000229",110727
-"East Devon","Lower Tier Local Authority","E07000040",148080
-"Exeter","Lower Tier Local Authority","E07000041",133333
-"Mid Devon","Lower Tier Local Authority","E07000042",83290
-"North Devon","Lower Tier Local Authority","E07000043",98170
-"South Hams","Lower Tier Local Authority","E07000044",87946
-"Teignbridge","Lower Tier Local Authority","E07000045",135039
-"Torridge","Lower Tier Local Authority","E07000046",68719
-"West Devon","Lower Tier Local Authority","E07000047",56139
-"Cheltenham","Lower Tier Local Authority","E07000078",116043
-"Cotswold","Lower Tier Local Authority","E07000079",90264
-"Forest of Dean","Lower Tier Local Authority","E07000080",87107
-"Gloucester","Lower Tier Local Authority","E07000081",129709
-"Stroud","Lower Tier Local Authority","E07000082",120903
-"Tewkesbury","Lower Tier Local Authority","E07000083",96624
-"Mendip","Lower Tier Local Authority","E07000187",116288
-"Sedgemoor","Lower Tier Local Authority","E07000188",123446
-"South Somerset","Lower Tier Local Authority","E07000189",168696
-"Somerset West and Taunton","Lower Tier Local Authority","E07000246",155421
-"United Kingdom","Country","K02000001",67081234
-"Great Britain","Country","K03000001",65185724
-"England","Country","E92000001",56550138
-"Wales","Unitary Authority","W92000004",3169586
-"Scotland","Unitary Authority","S92000003",5466000
-"Northern Ireland","Unitary Authority","N92000002",1895510
-"England and Wales","Country","K04000001",59719724
-"North East","Region","E12000001",2680763
-"North West","Region","E12000002",7367456
-"Yorkshire and The Humber","Region","E12000003",5526350
-"East Midlands","Region","E12000004",4865583
-"West Midlands","Region","E12000005",5961929
-"East","Region","E12000006",6269161
-"London","Region","E12000007",9002488
-"South East","Region","E12000008",9217265
-"South West","Region","E12000009",5659143
+"Type","Code","Population"
+"Unitary Authority","E06000005",107402
+"Unitary Authority","E06000047",533149
+"Unitary Authority","E06000001",93836
+"Unitary Authority","E06000002",141285
+"Unitary Authority","E06000057",323820
+"Unitary Authority","E06000003",137228
+"Unitary Authority","E06000004",197419
+"Unitary Authority","E08000037",201950
+"Unitary Authority","E08000021",306824
+"Unitary Authority","E08000022",208871
+"Unitary Authority","E08000023",151133
+"Unitary Authority","E08000024",277846
+"Unitary Authority","E06000008",150030
+"Unitary Authority","E06000009",138381
+"Unitary Authority","E06000049",386667
+"Unitary Authority","E06000050",343823
+"Unitary Authority","E06000006",129759
+"Unitary Authority","E06000007",209397
+"Upper Tier Local Authority","E10000006",499781
+"Unitary Authority","E08000001",288248
+"Unitary Authority","E08000002",190708
+"Unitary Authority","E08000003",555741
+"Unitary Authority","E08000004",237628
+"Unitary Authority","E08000005",223659
+"Unitary Authority","E08000006",262697
+"Unitary Authority","E08000007",294197
+"Unitary Authority","E08000008",227117
+"Unitary Authority","E08000009",237579
+"Unitary Authority","E08000010",330712
+"Upper Tier Local Authority","E10000017",1227076
+"Unitary Authority","E08000011",152452
+"Unitary Authority","E08000012",500474
+"Unitary Authority","E08000014",275899
+"Unitary Authority","E08000013",181095
+"Unitary Authority","E08000015",324336
+"Unitary Authority","E06000011",343201
+"Unitary Authority","E06000010",259126
+"Unitary Authority","E06000012",159364
+"Unitary Authority","E06000013",172748
+"Unitary Authority","E06000014",211012
+"Upper Tier Local Authority","E10000023",620610
+"Unitary Authority","E08000016",248071
+"Unitary Authority","E08000017",312785
+"Unitary Authority","E08000018",264984
+"Unitary Authority","E08000019",589214
+"Unitary Authority","E08000032",542128
+"Unitary Authority","E08000033",211439
+"Unitary Authority","E08000034",441290
+"Unitary Authority","E08000035",798786
+"Unitary Authority","E08000036",351592
+"Unitary Authority","E06000015",256814
+"Unitary Authority","E06000016",354036
+"Unitary Authority","E06000018",337098
+"Unitary Authority","E06000017",40476
+"Upper Tier Local Authority","E10000007",807183
+"Upper Tier Local Authority","E10000018",713085
+"Upper Tier Local Authority","E10000019",766333
+"Upper Tier Local Authority","E10000021",757181
+"Upper Tier Local Authority","E10000024",833377
+"Unitary Authority","E06000019",193615
+"Unitary Authority","E06000051",325415
+"Unitary Authority","E06000021",256622
+"Unitary Authority","E06000020",181322
+"Upper Tier Local Authority","E10000028",883172
+"Upper Tier Local Authority","E10000031",583786
+"Unitary Authority","E08000025",1140525
+"Unitary Authority","E08000026",379387
+"Unitary Authority","E08000027",322363
+"Unitary Authority","E08000028",329042
+"Unitary Authority","E08000029",217487
+"Unitary Authority","E08000030",286716
+"Unitary Authority","E08000031",264407
+"Upper Tier Local Authority","E10000034",598070
+"Unitary Authority","E06000055",174687
+"Unitary Authority","E06000056",294096
+"Unitary Authority","E06000032",213528
+"Unitary Authority","E06000031",202626
+"Unitary Authority","E06000033",182773
+"Unitary Authority","E06000034",175531
+"Upper Tier Local Authority","E10000003",657204
+"Upper Tier Local Authority","E10000012",1497759
+"Upper Tier Local Authority","E10000015",1195672
+"Upper Tier Local Authority","E10000020",914039
+"Upper Tier Local Authority","E10000029",761246
+"Unitary Authority","E09000007",279516
+"Unitary Authority","E09000001",10938
+"Unitary Authority","E09000012",280941
+"Unitary Authority","E09000013",183544
+"Unitary Authority","E09000014",266357
+"Unitary Authority","E09000019",248115
+"Unitary Authority","E09000020",156864
+"Unitary Authority","E09000022",321813
+"Unitary Authority","E09000023",305309
+"Unitary Authority","E09000025",355266
+"Unitary Authority","E09000028",320017
+"Unitary Authority","E09000030",331969
+"Unitary Authority","E09000032",329735
+"Unitary Authority","E09000033",269848
+"Unitary Authority","E09000002",214107
+"Unitary Authority","E09000003",399007
+"Unitary Authority","E09000004",249301
+"Unitary Authority","E09000005",327753
+"Unitary Authority","E09000006",332752
+"Unitary Authority","E09000008",388563
+"Unitary Authority","E09000009",340341
+"Unitary Authority","E09000010",333587
+"Unitary Authority","E09000011",289034
+"Unitary Authority","E09000015",252338
+"Unitary Authority","E09000016",260651
+"Unitary Authority","E09000017",309014
+"Unitary Authority","E09000018",271767
+"Unitary Authority","E09000021",179142
+"Unitary Authority","E09000024",206453
+"Unitary Authority","E09000026",305658
+"Unitary Authority","E09000027",198141
+"Unitary Authority","E09000029",207707
+"Unitary Authority","E09000031",276940
+"Unitary Authority","E06000036",124165
+"Unitary Authority","E06000043",291738
+"Unitary Authority","E06000046",142296
+"Unitary Authority","E06000035",279142
+"Unitary Authority","E06000042",270203
+"Unitary Authority","E06000044",214692
+"Unitary Authority","E06000038",160337
+"Unitary Authority","E06000039",149577
+"Unitary Authority","E06000045",252872
+"Unitary Authority","E06000037",158465
+"Unitary Authority","E06000040",151273
+"Unitary Authority","E06000041",173945
+"Upper Tier Local Authority","E10000002",547060
+"Upper Tier Local Authority","E10000011",558852
+"Upper Tier Local Authority","E10000014",1389206
+"Upper Tier Local Authority","E10000016",1589057
+"Upper Tier Local Authority","E10000025",696880
+"Upper Tier Local Authority","E10000030",1199870
+"Upper Tier Local Authority","E10000032",867635
+"Unitary Authority","E06000022",196357
+"Unitary Authority","E06000058",396989
+"Unitary Authority","E06000023",465866
+"Unitary Authority","E06000052",573299
+"Unitary Authority","E06000053",2226
+"Unitary Authority","E06000024",215574
+"Unitary Authority","E06000026",262839
+"Unitary Authority","E06000025",287816
+"Unitary Authority","E06000030",222881
+"Unitary Authority","E06000027",136218
+"Unitary Authority","E06000054",504070
+"Upper Tier Local Authority","E10000008",810716
+"Unitary Authority","E06000059",379791
+"Upper Tier Local Authority","E10000013",640650
+"Upper Tier Local Authority","E10000027",563851
+"Unitary Authority","W06000001",70440
+"Unitary Authority","W06000002",125171
+"Unitary Authority","W06000003",118184
+"Unitary Authority","W06000004",96664
+"Unitary Authority","W06000005",156847
+"Unitary Authority","W06000006",136055
+"Unitary Authority","W06000023",133030
+"Unitary Authority","W06000008",72895
+"Unitary Authority","W06000009",126751
+"Unitary Authority","W06000010",190073
+"Unitary Authority","W06000011",246563
+"Unitary Authority","W06000012",144386
+"Unitary Authority","W06000013",147539
+"Unitary Authority","W06000014",135295
+"Unitary Authority","W06000015",369202
+"Unitary Authority","W06000016",241873
+"Unitary Authority","W06000024",60424
+"Unitary Authority","W06000018",181731
+"Unitary Authority","W06000019",70020
+"Unitary Authority","W06000020",94832
+"Unitary Authority","W06000021",95164
+"Unitary Authority","W06000022",156447
+"Unitary Authority","S12000033",229060
+"Unitary Authority","S12000034",260780
+"Unitary Authority","S12000041",115820
+"Unitary Authority","S12000035",85430
+"Unitary Authority","S12000005",51290
+"Unitary Authority","S12000006",148290
+"Unitary Authority","S12000042",148820
+"Unitary Authority","S12000008",121600
+"Unitary Authority","S12000045",108750
+"Unitary Authority","S12000010",107900
+"Unitary Authority","S12000011",96060
+"Unitary Authority","S12000036",527620
+"Unitary Authority","S12000013",26500
+"Unitary Authority","S12000014",160560
+"Unitary Authority","S12000047",374130
+"Unitary Authority","S12000049",635640
+"Unitary Authority","S12000017",235430
+"Unitary Authority","S12000018",77060
+"Unitary Authority","S12000019",93150
+"Unitary Authority","S12000020",95710
+"Unitary Authority","S12000021",134250
+"Unitary Authority","S12000050",341140
+"Unitary Authority","S12000023",22400
+"Unitary Authority","S12000048",151910
+"Unitary Authority","S12000038",179390
+"Unitary Authority","S12000026",115240
+"Unitary Authority","S12000027",22870
+"Unitary Authority","S12000028",112140
+"Unitary Authority","S12000029",320820
+"Unitary Authority","S12000030",94080
+"Unitary Authority","S12000039",88340
+"Unitary Authority","S12000040",183820
+"Unitary Authority","N09000001",143756
+"Unitary Authority","N09000002",217232
+"Unitary Authority","N09000003",342560
+"Unitary Authority","N09000004",144943
+"Unitary Authority","N09000005",151109
+"Unitary Authority","N09000006",117337
+"Unitary Authority","N09000007",146452
+"Unitary Authority","N09000008",139443
+"Unitary Authority","N09000009",148953
+"Unitary Authority","N09000010",181669
+"Unitary Authority","N09000011",162056
+"Lower Tier Local Authority","E07000026",97831
+"Lower Tier Local Authority","E07000027",66726
+"Lower Tier Local Authority","E07000028",108524
+"Lower Tier Local Authority","E07000029",68041
+"Lower Tier Local Authority","E07000030",53754
+"Lower Tier Local Authority","E07000031",104905
+"Lower Tier Local Authority","E07000117",89344
+"Lower Tier Local Authority","E07000118",118870
+"Lower Tier Local Authority","E07000119",81211
+"Lower Tier Local Authority","E07000120",81133
+"Lower Tier Local Authority","E07000121",148119
+"Lower Tier Local Authority","E07000122",92145
+"Lower Tier Local Authority","E07000123",144147
+"Lower Tier Local Authority","E07000124",62026
+"Lower Tier Local Authority","E07000125",71432
+"Lower Tier Local Authority","E07000126",111086
+"Lower Tier Local Authority","E07000127",114496
+"Lower Tier Local Authority","E07000128",113067
+"Lower Tier Local Authority","E07000163",57338
+"Lower Tier Local Authority","E07000164",91932
+"Lower Tier Local Authority","E07000165",161545
+"Lower Tier Local Authority","E07000166",53732
+"Lower Tier Local Authority","E07000167",55629
+"Lower Tier Local Authority","E07000168",108737
+"Lower Tier Local Authority","E07000169",91697
+"Lower Tier Local Authority","E07000032",128829
+"Lower Tier Local Authority","E07000033",81305
+"Lower Tier Local Authority","E07000034",104930
+"Lower Tier Local Authority","E07000035",72422
+"Lower Tier Local Authority","E07000036",115332
+"Lower Tier Local Authority","E07000037",92633
+"Lower Tier Local Authority","E07000038",102216
+"Lower Tier Local Authority","E07000039",109516
+"Lower Tier Local Authority","E07000129",101950
+"Lower Tier Local Authority","E07000130",188416
+"Lower Tier Local Authority","E07000131",95537
+"Lower Tier Local Authority","E07000132",113666
+"Lower Tier Local Authority","E07000133",51394
+"Lower Tier Local Authority","E07000134",104809
+"Lower Tier Local Authority","E07000135",57313
+"Lower Tier Local Authority","E07000136",70837
+"Lower Tier Local Authority","E07000137",142030
+"Lower Tier Local Authority","E07000138",100049
+"Lower Tier Local Authority","E07000139",118149
+"Lower Tier Local Authority","E07000140",95857
+"Lower Tier Local Authority","E07000141",143225
+"Lower Tier Local Authority","E07000142",96186
+"Lower Tier Local Authority","E07000150",73053
+"Lower Tier Local Authority","E07000151",86951
+"Lower Tier Local Authority","E07000152",95103
+"Lower Tier Local Authority","E07000153",102211
+"Lower Tier Local Authority","E07000154",224290
+"Lower Tier Local Authority","E07000155",95492
+"Lower Tier Local Authority","E07000156",80081
+"Lower Tier Local Authority","E07000170",128337
+"Lower Tier Local Authority","E07000171",118280
+"Lower Tier Local Authority","E07000172",114627
+"Lower Tier Local Authority","E07000173",118239
+"Lower Tier Local Authority","E07000174",109351
+"Lower Tier Local Authority","E07000175",123127
+"Lower Tier Local Authority","E07000176",121416
+"Lower Tier Local Authority","E07000192",101484
+"Lower Tier Local Authority","E07000193",120923
+"Lower Tier Local Authority","E07000194",105637
+"Lower Tier Local Authority","E07000195",129610
+"Lower Tier Local Authority","E07000196",112369
+"Lower Tier Local Authority","E07000197",137858
+"Lower Tier Local Authority","E07000198",98427
+"Lower Tier Local Authority","E07000199",76864
+"Lower Tier Local Authority","E07000218",65452
+"Lower Tier Local Authority","E07000219",130373
+"Lower Tier Local Authority","E07000220",110650
+"Lower Tier Local Authority","E07000221",132402
+"Lower Tier Local Authority","E07000222",144909
+"Lower Tier Local Authority","E07000234",100569
+"Lower Tier Local Authority","E07000235",79445
+"Lower Tier Local Authority","E07000236",85568
+"Lower Tier Local Authority","E07000237",100265
+"Lower Tier Local Authority","E07000238",131084
+"Lower Tier Local Authority","E07000239",101139
+"Lower Tier Local Authority","E07000008",125063
+"Lower Tier Local Authority","E07000009",90172
+"Lower Tier Local Authority","E07000010",102080
+"Lower Tier Local Authority","E07000011",178985
+"Lower Tier Local Authority","E07000012",160904
+"Lower Tier Local Authority","E07000066",187558
+"Lower Tier Local Authority","E07000067",153091
+"Lower Tier Local Authority","E07000068",77242
+"Lower Tier Local Authority","E07000069",90524
+"Lower Tier Local Authority","E07000070",179549
+"Lower Tier Local Authority","E07000071",197200
+"Lower Tier Local Authority","E07000072",132175
+"Lower Tier Local Authority","E07000073",87280
+"Lower Tier Local Authority","E07000074",65401
+"Lower Tier Local Authority","E07000075",87627
+"Lower Tier Local Authority","E07000076",147353
+"Lower Tier Local Authority","E07000077",92759
+"Lower Tier Local Authority","E07000095",97592
+"Lower Tier Local Authority","E07000096",155457
+"Lower Tier Local Authority","E07000242",151786
+"Lower Tier Local Authority","E07000098",105471
+"Lower Tier Local Authority","E07000099",133463
+"Lower Tier Local Authority","E07000240",149317
+"Lower Tier Local Authority","E07000243",88104
+"Lower Tier Local Authority","E07000102",93966
+"Lower Tier Local Authority","E07000103",96623
+"Lower Tier Local Authority","E07000241",123893
+"Lower Tier Local Authority","E07000143",141255
+"Lower Tier Local Authority","E07000144",131931
+"Lower Tier Local Authority","E07000145",99198
+"Lower Tier Local Authority","E07000146",151245
+"Lower Tier Local Authority","E07000147",105167
+"Lower Tier Local Authority","E07000148",142177
+"Lower Tier Local Authority","E07000149",143066
+"Lower Tier Local Authority","E07000200",92735
+"Lower Tier Local Authority","E07000202",135979
+"Lower Tier Local Authority","E07000244",250373
+"Lower Tier Local Authority","E07000203",104857
+"Lower Tier Local Authority","E07000245",177302
+"Lower Tier Local Authority","E07000004",206851
+"Lower Tier Local Authority","E07000005",96219
+"Lower Tier Local Authority","E07000006",70473
+"Lower Tier Local Authority","E07000007",173517
+"Lower Tier Local Authority","E07000061",103324
+"Lower Tier Local Authority","E07000062",92554
+"Lower Tier Local Authority","E07000063",103525
+"Lower Tier Local Authority","E07000064",96716
+"Lower Tier Local Authority","E07000065",162733
+"Lower Tier Local Authority","E07000084",177760
+"Lower Tier Local Authority","E07000085",123838
+"Lower Tier Local Authority","E07000086",135520
+"Lower Tier Local Authority","E07000087",116338
+"Lower Tier Local Authority","E07000088",84679
+"Lower Tier Local Authority","E07000089",97608
+"Lower Tier Local Authority","E07000090",126339
+"Lower Tier Local Authority","E07000091",179649
+"Lower Tier Local Authority","E07000092",94387
+"Lower Tier Local Authority","E07000093",127163
+"Lower Tier Local Authority","E07000094",125925
+"Lower Tier Local Authority","E07000105",131018
+"Lower Tier Local Authority","E07000106",166762
+"Lower Tier Local Authority","E07000107",114051
+"Lower Tier Local Authority","E07000108",118514
+"Lower Tier Local Authority","E07000109",106890
+"Lower Tier Local Authority","E07000110",173132
+"Lower Tier Local Authority","E07000111",121387
+"Lower Tier Local Authority","E07000112",113320
+"Lower Tier Local Authority","E07000113",151015
+"Lower Tier Local Authority","E07000114",141458
+"Lower Tier Local Authority","E07000115",132571
+"Lower Tier Local Authority","E07000116",118939
+"Lower Tier Local Authority","E07000177",151846
+"Lower Tier Local Authority","E07000178",151584
+"Lower Tier Local Authority","E07000179",143782
+"Lower Tier Local Authority","E07000180",137910
+"Lower Tier Local Authority","E07000181",111758
+"Lower Tier Local Authority","E07000207",137215
+"Lower Tier Local Authority","E07000208",81003
+"Lower Tier Local Authority","E07000209",150352
+"Lower Tier Local Authority","E07000210",87547
+"Lower Tier Local Authority","E07000211",149243
+"Lower Tier Local Authority","E07000212",90327
+"Lower Tier Local Authority","E07000213",99873
+"Lower Tier Local Authority","E07000214",89204
+"Lower Tier Local Authority","E07000215",88542
+"Lower Tier Local Authority","E07000216",126556
+"Lower Tier Local Authority","E07000217",100008
+"Lower Tier Local Authority","E07000223",64187
+"Lower Tier Local Authority","E07000224",161123
+"Lower Tier Local Authority","E07000225",121508
+"Lower Tier Local Authority","E07000226",112474
+"Lower Tier Local Authority","E07000227",145474
+"Lower Tier Local Authority","E07000228",152142
+"Lower Tier Local Authority","E07000229",110727
+"Lower Tier Local Authority","E07000040",148080
+"Lower Tier Local Authority","E07000041",133333
+"Lower Tier Local Authority","E07000042",83290
+"Lower Tier Local Authority","E07000043",98170
+"Lower Tier Local Authority","E07000044",87946
+"Lower Tier Local Authority","E07000045",135039
+"Lower Tier Local Authority","E07000046",68719
+"Lower Tier Local Authority","E07000047",56139
+"Lower Tier Local Authority","E07000078",116043
+"Lower Tier Local Authority","E07000079",90264
+"Lower Tier Local Authority","E07000080",87107
+"Lower Tier Local Authority","E07000081",129709
+"Lower Tier Local Authority","E07000082",120903
+"Lower Tier Local Authority","E07000083",96624
+"Lower Tier Local Authority","E07000187",116288
+"Lower Tier Local Authority","E07000188",123446
+"Lower Tier Local Authority","E07000189",168696
+"Lower Tier Local Authority","E07000246",155421
+"Country","K02000001",67081234
+"Country","K03000001",65185724
+"Country","E92000001",56550138
+"Unitary Authority","W92000004",3169586
+"Unitary Authority","S92000003",5466000
+"Unitary Authority","N92000002",1895510
+"Country","K04000001",59719724
+"Region","E12000001",2680763
+"Region","E12000002",7367456
+"Region","E12000003",5526350
+"Region","E12000004",4865583
+"Region","E12000005",5961929
+"Region","E12000006",6269161
+"Region","E12000007",9002488
+"Region","E12000008",9217265
+"Region","E12000009",5659143
