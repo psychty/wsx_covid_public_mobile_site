@@ -1,1 +1,292 @@
-[{"Name":"Adur","Dose_1":14782,"Dose_2":14706,"Age_group":"65 and over","Denominator":15310,"Proportion_dose_1":0.9655},{"Name":"Arun","Dose_1":45618,"Dose_2":45318,"Age_group":"65 and over","Denominator":47187,"Proportion_dose_1":0.9667},{"Name":"Chichester","Dose_1":33007,"Dose_2":32783,"Age_group":"65 and over","Denominator":34145,"Proportion_dose_1":0.9667},{"Name":"Crawley","Dose_1":15163,"Dose_2":15017,"Age_group":"65 and over","Denominator":16085,"Proportion_dose_1":0.9427},{"Name":"England","Dose_1":10146343,"Dose_2":10054393,"Age_group":"65 and over","Denominator":10733032,"Proportion_dose_1":0.9453},{"Name":"Horsham","Dose_1":33122,"Dose_2":32946,"Age_group":"65 and over","Denominator":34093,"Proportion_dose_1":0.9715},{"Name":"Mid Sussex","Dose_1":30825,"Dose_2":30659,"Age_group":"65 and over","Denominator":31958,"Proportion_dose_1":0.9645},{"Name":"South East region","Dose_1":1764484,"Dose_2":1751083,"Age_group":"65 and over","Denominator":1840198,"Proportion_dose_1":0.9589},{"Name":"West Sussex","Dose_1":196707,"Dose_2":195449,"Age_group":"65 and over","Denominator":203910,"Proportion_dose_1":0.9647},{"Name":"Worthing","Dose_1":24190,"Dose_2":24020,"Age_group":"65 and over","Denominator":25132,"Proportion_dose_1":0.9625},{"Name":"Adur","Dose_1":34500,"Dose_2":32892,"Age_group":"16-64 years","Denominator":39864,"Proportion_dose_1":0.8654},{"Name":"Arun","Dose_1":80914,"Dose_2":76251,"Age_group":"16-64 years","Denominator":99176,"Proportion_dose_1":0.8159},{"Name":"Chichester","Dose_1":65538,"Dose_2":62073,"Age_group":"16-64 years","Denominator":77670,"Proportion_dose_1":0.8438},{"Name":"Crawley","Dose_1":66152,"Dose_2":61899,"Age_group":"16-64 years","Denominator":84049,"Proportion_dose_1":0.7871},{"Name":"England","Dose_1":31222972,"Dose_2":29148791,"Age_group":"16-64 years","Denominator":40732275,"Proportion_dose_1":0.7665},{"Name":"Horsham","Dose_1":81927,"Dose_2":78255,"Age_group":"16-64 years","Denominator":93640,"Proportion_dose_1":0.8749},{"Name":"Mid Sussex","Dose_1":84536,"Dose_2":80756,"Age_group":"16-64 years","Denominator":97146,"Proportion_dose_1":0.8702},{"Name":"South East region","Dose_1":5156151,"Dose_2":4863603,"Age_group":"16-64 years","Denominator":6315740,"Proportion_dose_1":0.8164},{"Name":"West Sussex","Dose_1":474403,"Dose_2":449583,"Age_group":"16-64 years","Denominator":562912,"Proportion_dose_1":0.8428},{"Name":"Worthing","Dose_1":60836,"Dose_2":57457,"Age_group":"16-64 years","Denominator":71367,"Proportion_dose_1":0.8524},{"Name":"Adur","Dose_1":51058,"Dose_2":47664,"Age_group":"12 and over","Denominator":58254,"Proportion_dose_1":0.8765},{"Name":"Arun","Dose_1":129772,"Dose_2":121613,"Age_group":"12 and over","Denominator":153210,"Proportion_dose_1":0.847},{"Name":"Chichester","Dose_1":101556,"Dose_2":94921,"Age_group":"12 and over","Denominator":117176,"Proportion_dose_1":0.8667},{"Name":"Crawley","Dose_1":84260,"Dose_2":76945,"Age_group":"12 and over","Denominator":106286,"Proportion_dose_1":0.7928},{"Name":"England","Dose_1":42704590,"Dose_2":39233920,"Age_group":"12 and over","Denominator":54347191,"Proportion_dose_1":0.7858},{"Name":"Horsham","Dose_1":119303,"Dose_2":111275,"Age_group":"12 and over","Denominator":135380,"Proportion_dose_1":0.8812},{"Name":"Mid Sussex","Dose_1":119786,"Dose_2":111493,"Age_group":"12 and over","Denominator":137051,"Proportion_dose_1":0.874},{"Name":"South East region","Dose_1":7179440,"Dose_2":6620426,"Age_group":"12 and over","Denominator":8629073,"Proportion_dose_1":0.832},{"Name":"West Sussex","Dose_1":693451,"Dose_2":645429,"Age_group":"12 and over","Denominator":808918,"Proportion_dose_1":0.8573},{"Name":"Worthing","Dose_1":87716,"Dose_2":81518,"Age_group":"12 and over","Denominator":101561,"Proportion_dose_1":0.8637},{"Name":"Adur","Dose_1":13947,"Dose_2":12667,"Age_group":"16-39 years","Denominator":17213,"Proportion_dose_1":0.8103},{"Name":"Arun","Dose_1":31852,"Dose_2":28294,"Age_group":"16-39 years","Denominator":43575,"Proportion_dose_1":0.731},{"Name":"Chichester","Dose_1":26587,"Dose_2":23840,"Age_group":"16-39 years","Denominator":34583,"Proportion_dose_1":0.7688},{"Name":"Crawley","Dose_1":31145,"Dose_2":27803,"Age_group":"16-39 years","Denominator":43311,"Proportion_dose_1":0.7191},{"Name":"England","Dose_1":14153309,"Dose_2":12550316,"Age_group":"16-39 years","Denominator":20658347,"Proportion_dose_1":0.6851},{"Name":"Horsham","Dose_1":33223,"Dose_2":30263,"Age_group":"16-39 years","Denominator":40480,"Proportion_dose_1":0.8207},{"Name":"Mid Sussex","Dose_1":34902,"Dose_2":31875,"Age_group":"16-39 years","Denominator":42722,"Proportion_dose_1":0.817},{"Name":"South East region","Dose_1":2256073,"Dose_2":2024750,"Age_group":"16-39 years","Denominator":3038858,"Proportion_dose_1":0.7424},{"Name":"West Sussex","Dose_1":197065,"Dose_2":177511,"Age_group":"16-39 years","Denominator":254028,"Proportion_dose_1":0.7758},{"Name":"Worthing","Dose_1":25409,"Dose_2":22769,"Age_group":"16-39 years","Denominator":32144,"Proportion_dose_1":0.7905}]
+[
+  {
+    "Name": "Adur",
+    "Age_group": "12-17 years",
+    "Cumulative_dose_1": 2887,
+    "Cumulative_dose_2": 748,
+    "Denominator": 4543,
+    "Proportion_first_dose": 0.6355,
+    "Proportion_second_dose": 0.1646
+  },
+  {
+    "Name": "Arun",
+    "Age_group": "12-17 years",
+    "Cumulative_dose_1": 5469,
+    "Cumulative_dose_2": 1119,
+    "Denominator": 10036,
+    "Proportion_first_dose": 0.5449,
+    "Proportion_second_dose": 0.1115
+  },
+  {
+    "Name": "Chichester",
+    "Age_group": "12-17 years",
+    "Cumulative_dose_1": 4875,
+    "Cumulative_dose_2": 1089,
+    "Denominator": 7884,
+    "Proportion_first_dose": 0.6183,
+    "Proportion_second_dose": 0.1381
+  },
+  {
+    "Name": "Crawley",
+    "Age_group": "12-17 years",
+    "Cumulative_dose_1": 4845,
+    "Cumulative_dose_2": 1034,
+    "Denominator": 8989,
+    "Proportion_first_dose": 0.539,
+    "Proportion_second_dose": 0.115
+  },
+  {
+    "Name": "England",
+    "Age_group": "12-17 years",
+    "Cumulative_dose_1": 2200399,
+    "Cumulative_dose_2": 496766,
+    "Denominator": 4253398,
+    "Proportion_first_dose": 0.5173,
+    "Proportion_second_dose": 0.1168
+  },
+  {
+    "Name": "Horsham",
+    "Age_group": "12-17 years",
+    "Cumulative_dose_1": 7046,
+    "Cumulative_dose_2": 1641,
+    "Denominator": 11417,
+    "Proportion_first_dose": 0.6171,
+    "Proportion_second_dose": 0.1437
+  },
+  {
+    "Name": "Mid Sussex",
+    "Age_group": "12-17 years",
+    "Cumulative_dose_1": 7233,
+    "Cumulative_dose_2": 1591,
+    "Denominator": 11776,
+    "Proportion_first_dose": 0.6142,
+    "Proportion_second_dose": 0.1351
+  },
+  {
+    "Name": "South East region",
+    "Age_group": "12-17 years",
+    "Cumulative_dose_1": 417763,
+    "Cumulative_dose_2": 93235,
+    "Denominator": 699967,
+    "Proportion_first_dose": 0.5968,
+    "Proportion_second_dose": 0.1332
+  },
+  {
+    "Name": "West Sussex",
+    "Age_group": "12-17 years",
+    "Cumulative_dose_1": 36821,
+    "Cumulative_dose_2": 8184,
+    "Denominator": 62139,
+    "Proportion_first_dose": 0.5926,
+    "Proportion_second_dose": 0.1317
+  },
+  {
+    "Name": "Worthing",
+    "Age_group": "12-17 years",
+    "Cumulative_dose_1": 4466,
+    "Cumulative_dose_2": 962,
+    "Denominator": 7494,
+    "Proportion_first_dose": 0.5959,
+    "Proportion_second_dose": 0.1284
+  },
+  {
+    "Name": "Adur",
+    "Age_group": "12 and over",
+    "Cumulative_dose_1": 51086,
+    "Cumulative_dose_2": 47696,
+    "Denominator": 58254,
+    "Proportion_first_dose": 0.877,
+    "Proportion_second_dose": 0.8188
+  },
+  {
+    "Name": "Arun",
+    "Age_group": "12 and over",
+    "Cumulative_dose_1": 129837,
+    "Cumulative_dose_2": 121735,
+    "Denominator": 153208,
+    "Proportion_first_dose": 0.8475,
+    "Proportion_second_dose": 0.7946
+  },
+  {
+    "Name": "Chichester",
+    "Age_group": "12 and over",
+    "Cumulative_dose_1": 101610,
+    "Cumulative_dose_2": 95002,
+    "Denominator": 117175,
+    "Proportion_first_dose": 0.8672,
+    "Proportion_second_dose": 0.8108
+  },
+  {
+    "Name": "Crawley",
+    "Age_group": "12 and over",
+    "Cumulative_dose_1": 84317,
+    "Cumulative_dose_2": 76995,
+    "Denominator": 106285,
+    "Proportion_first_dose": 0.7933,
+    "Proportion_second_dose": 0.7244
+  },
+  {
+    "Name": "England",
+    "Age_group": "12 and over",
+    "Cumulative_dose_1": 42733450,
+    "Cumulative_dose_2": 39269291,
+    "Denominator": 54348761,
+    "Proportion_first_dose": 0.7863,
+    "Proportion_second_dose": 0.7225
+  },
+  {
+    "Name": "Horsham",
+    "Age_group": "12 and over",
+    "Cumulative_dose_1": 119362,
+    "Cumulative_dose_2": 111376,
+    "Denominator": 135377,
+    "Proportion_first_dose": 0.8817,
+    "Proportion_second_dose": 0.8227
+  },
+  {
+    "Name": "Mid Sussex",
+    "Age_group": "12 and over",
+    "Cumulative_dose_1": 119810,
+    "Cumulative_dose_2": 111531,
+    "Denominator": 137049,
+    "Proportion_first_dose": 0.8742,
+    "Proportion_second_dose": 0.8138
+  },
+  {
+    "Name": "South East region",
+    "Age_group": "12 and over",
+    "Cumulative_dose_1": 7183476,
+    "Cumulative_dose_2": 6625876,
+    "Denominator": 8629104,
+    "Proportion_first_dose": 0.8325,
+    "Proportion_second_dose": 0.7679
+  },
+  {
+    "Name": "West Sussex",
+    "Age_group": "12 and over",
+    "Cumulative_dose_1": 693809,
+    "Cumulative_dose_2": 645993,
+    "Denominator": 808897,
+    "Proportion_first_dose": 0.8577,
+    "Proportion_second_dose": 0.7986
+  },
+  {
+    "Name": "Worthing",
+    "Age_group": "12 and over",
+    "Cumulative_dose_1": 87787,
+    "Cumulative_dose_2": 81658,
+    "Denominator": 101549,
+    "Proportion_first_dose": 0.8645,
+    "Proportion_second_dose": 0.8041
+  },
+  {
+    "Name": "Adur",
+    "Age_group": "18 and over",
+    "Cumulative_dose_1": 48199,
+    "Cumulative_dose_2": 46948,
+    "Cumulative_dose_3_or_booster": 33236,
+    "Denominator": 53711,
+    "Proportion_first_dose": 0.8974,
+    "Proportion_second_dose": 0.8741,
+    "Proportion_third_dose": 0.6188
+  },
+  {
+    "Name": "Arun",
+    "Age_group": "18 and over",
+    "Cumulative_dose_1": 124368,
+    "Cumulative_dose_2": 120616,
+    "Cumulative_dose_3_or_booster": 80881,
+    "Denominator": 143172,
+    "Proportion_first_dose": 0.8687,
+    "Proportion_second_dose": 0.8425,
+    "Proportion_third_dose": 0.5649
+  },
+  {
+    "Name": "Chichester",
+    "Age_group": "18 and over",
+    "Cumulative_dose_1": 96735,
+    "Cumulative_dose_2": 93913,
+    "Cumulative_dose_3_or_booster": 66303,
+    "Denominator": 109291,
+    "Proportion_first_dose": 0.8851,
+    "Proportion_second_dose": 0.8593,
+    "Proportion_third_dose": 0.6067
+  },
+  {
+    "Name": "Crawley",
+    "Age_group": "18 and over",
+    "Cumulative_dose_1": 79472,
+    "Cumulative_dose_2": 75961,
+    "Cumulative_dose_3_or_booster": 41528,
+    "Denominator": 97296,
+    "Proportion_first_dose": 0.8168,
+    "Proportion_second_dose": 0.7807,
+    "Proportion_third_dose": 0.4268
+  },
+  {
+    "Name": "England",
+    "Age_group": "18 and over",
+    "Cumulative_dose_1": 40533051,
+    "Cumulative_dose_2": 38772525,
+    "Cumulative_dose_3_or_booster": 24287611,
+    "Denominator": 50095363,
+    "Proportion_first_dose": 0.8091,
+    "Proportion_second_dose": 0.774,
+    "Proportion_third_dose": 0.4848
+  },
+  {
+    "Name": "Horsham",
+    "Age_group": "18 and over",
+    "Cumulative_dose_1": 112316,
+    "Cumulative_dose_2": 109735,
+    "Cumulative_dose_3_or_booster": 79878,
+    "Denominator": 123960,
+    "Proportion_first_dose": 0.9061,
+    "Proportion_second_dose": 0.8852,
+    "Proportion_third_dose": 0.6444
+  },
+  {
+    "Name": "Mid Sussex",
+    "Age_group": "18 and over",
+    "Cumulative_dose_1": 112577,
+    "Cumulative_dose_2": 109940,
+    "Cumulative_dose_3_or_booster": 70670,
+    "Denominator": 125273,
+    "Proportion_first_dose": 0.8987,
+    "Proportion_second_dose": 0.8776,
+    "Proportion_third_dose": 0.5641
+  },
+  {
+    "Name": "South East region",
+    "Age_group": "18 and over",
+    "Cumulative_dose_1": 6765713,
+    "Cumulative_dose_2": 6532641,
+    "Cumulative_dose_3_or_booster": 4176368,
+    "Denominator": 7929137,
+    "Proportion_first_dose": 0.8533,
+    "Proportion_second_dose": 0.8239,
+    "Proportion_third_dose": 0.5267
+  },
+  {
+    "Name": "West Sussex",
+    "Age_group": "18 and over",
+    "Cumulative_dose_1": 656988,
+    "Cumulative_dose_2": 637809,
+    "Cumulative_dose_3_or_booster": 427109,
+    "Denominator": 746758,
+    "Proportion_first_dose": 0.8798,
+    "Proportion_second_dose": 0.8541,
+    "Proportion_third_dose": 0.572
+  },
+  {
+    "Name": "Worthing",
+    "Age_group": "18 and over",
+    "Cumulative_dose_1": 83321,
+    "Cumulative_dose_2": 80696,
+    "Cumulative_dose_3_or_booster": 54613,
+    "Denominator": 94055,
+    "Proportion_first_dose": 0.8859,
+    "Proportion_second_dose": 0.858,
+    "Proportion_third_dose": 0.5806
+  }
+]
