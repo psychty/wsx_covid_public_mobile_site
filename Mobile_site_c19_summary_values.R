@@ -1456,6 +1456,7 @@ vaccine_ts_12_plus_df <- vaccine_age_df %>%
   summarise(Age_group = '12 and over',
             Dose_1 = sum(Dose_1, na.rm = TRUE),
             Dose_2 = sum(Dose_2, na.rm = TRUE),
+            Dose_3_or_booster = sum(Dose_3_or_booster, na.rm = TRUE),
             Denominator = sum(Denominator, na.rm = TRUE)) %>%
   group_by(Name) %>%
   arrange(Date) %>%
@@ -1463,10 +1464,22 @@ vaccine_ts_12_plus_df <- vaccine_age_df %>%
          Cumulative_dose_2 = cumsum(Dose_2)) %>%
   mutate(Seven_day_sum_dose_1 = round(rollapplyr(Dose_1, 7, sum, align = 'right', partial = TRUE),0)) %>%
   mutate(Seven_day_sum_dose_2 = round(rollapplyr(Dose_2, 7, sum, align = 'right', partial = TRUE),0)) %>%
+  mutate(Seven_day_sum_dose_3_or_booster = round(rollapplyr(Dose_3_or_booster, 7, sum, align = 'right', partial = TRUE),0)) %>%
   mutate(Rolling_age_specific_first_dose_rate_per_100000 = pois.exact(Seven_day_sum_dose_1, Denominator)[[3]]*100000) %>%
   mutate(Cumulative_age_specific_first_dose_rate_per_100000 = pois.exact(Cumulative_dose_1, Denominator)[[3]]*100000)  %>%
   mutate(Rolling_age_specific_second_dose_rate_per_100000 = pois.exact(Seven_day_sum_dose_2, Denominator)[[3]]*100000) %>%
   mutate(Cumulative_age_specific_second_dose_rate_per_100000 = pois.exact(Cumulative_dose_2, Denominator)[[3]]*100000)
+
+wsx_doses_seven_days <- vaccine_ts_12_plus_df %>%
+  filter(Name == 'West Sussex') %>% 
+  filter(Date == max(Date))
+
+wsx_first_doses_seven_days <- as.numeric(wsx_doses_seven_days$Seven_day_sum_dose_1)
+wsx_second_doses_seven_days <- as.numeric(wsx_doses_seven_days$Seven_day_sum_dose_2)
+wsx_third_doses_seven_days <- as.numeric(wsx_doses_seven_days$Seven_day_sum_dose_3_or_booster)
+
+vaccine_ts_12_plus_df <- vaccine_ts_12_plus_df %>% 
+  select(!c(Dose_3_or_booster, Seven_day_sum_dose_3_or_booster))
 
 vaccine_ts_12_17_df <- vaccine_age_df %>%
   filter(Age_group %in% c('12-15 years', '16-17 years')) %>% 
@@ -1530,10 +1543,6 @@ wsx_18_plus_unvaccinated <- wsx_18_plus_denominator - wsx_18_plus_first_doses
 
 wsx_18_plus_yet_to_boost <- wsx_18_plus_second_doses - wsx_18_plus_third_doses
 
-wsx_doses_seven_days <- vaccine_ts_12_plus_df %>%
-  filter(Name == 'West Sussex') %>% 
-  filter(Date == max(Date))
-
 vac_info_df_12_plus <- vaccine_df_ltla %>%
   filter(Name == 'West Sussex') %>% 
   filter(Age_group == '12 and over') %>%
@@ -1575,7 +1584,6 @@ vac_info_df_18_plus <- vac_info_df_18_plus %>%
   mutate(pos = ifelse(is.na(pos), cumulative/2, pos)) %>%
   mutate(pos = sum(People) - pos)
 
-
 cumulative_vaccine_df_ltla <- vaccine_df_ltla %>%
   # mutate(first_label = paste0(format(Dose_1, big.mark = ',', trim = TRUE), ' (', round((Dose_1 / Denominator)*100, 1), '%)')) %>%
   # mutate(second_label = paste0(format(Dose_2, big.mark = ',', trim = TRUE), ' (', round((Dose_2 / Denominator)*100, 1), '%)')) %>%
@@ -1584,6 +1592,9 @@ cumulative_vaccine_df_ltla <- vaccine_df_ltla %>%
   filter(Age_group == '12 and over') %>%
   mutate(Name = ifelse(Name == 'South East', 'South East region', Name)) %>%
   select(Name, first_label, second_label)
+
+Last_week_vac_date <- paste0(ordinal(as.numeric(format(max(vaccine_age_df$Date) - 7, '%d'))), format(max(vaccine_age_df$Date) - 7, ' %B'))
+This_week_vac_date <- paste0(ordinal(as.numeric(format(max(vaccine_age_df$Date), '%d'))), format(max(vaccine_age_df$Date), ' %B'))
 
 # Export image file ####
 
@@ -2887,7 +2898,7 @@ grid.text(paste0('the seven days to ', This_week_vac_date),
                     # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
-grid.text(format(wsx_first_doses_seven_days$This_week, big.mark = ','),
+grid.text(format(wsx_first_doses_seven_days, big.mark = ','),
           just = "centre",
           x = unit(0.62, "npc"),
           y = unit(0.43, "npc"),
@@ -2924,7 +2935,7 @@ grid.text(paste0('the seven days to ', This_week_vac_date),
                     # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
-grid.text(format(wsx_second_doses_seven_days$This_week, big.mark = ','),
+grid.text(format(wsx_second_doses_seven_days, big.mark = ','),
           just = "centre",
           x = unit(0.87, "npc"),
           y = unit(0.43, "npc"),
@@ -2932,6 +2943,44 @@ grid.text(format(wsx_second_doses_seven_days$This_week, big.mark = ','),
                     fontsize = "35",
                     fontfamily = 'Bahnschrift',
                     fontface = 'bold'))
+
+# grid.roundrect(x = unit(0.75, "npc"),
+#                y = unit(0.45, "npc"),
+#                width = unit(0.24, "npc"),
+#                height = unit(0.13, "npc"),
+#                just = "left",
+#                default.units = "npc",
+#                gp=gpar(fill = "#ffffff",
+#                        col = "#ffffff"),
+#                vp = NULL)
+
+# grid.text('Second dose vaccinations in',
+#           just = "centre",
+#           x = unit(0.87, "npc"),
+#           y = unit(0.49, "npc"),
+#           gp = gpar(col = "#000000",
+#                     fontsize = "9",
+#                     # fontfamily = 'Verdana',
+#                     fontface = 'bold'))
+# 
+# grid.text(paste0('the seven days to ', This_week_vac_date),
+#           just = "centre",
+#           x = unit(0.87, "npc"),
+#           y = unit(0.47, "npc"),
+#           gp = gpar(col = "#000000",
+#                     fontsize = "9",
+#                     # fontfamily = 'Verdana',
+#                     fontface = 'bold'))
+# 
+# grid.text(format(wsx_second_doses_seven_days, big.mark = ','),
+#           just = "centre",
+#           x = unit(0.87, "npc"),
+#           y = unit(0.43, "npc"),
+#           gp = gpar(col = "#000000",
+#                     fontsize = "35",
+#                     fontfamily = 'Bahnschrift',
+#                     fontface = 'bold'))
+
 
 grid.text('COVID-19 IN HOSPITALS',
           just = "left",
