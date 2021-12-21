@@ -664,7 +664,7 @@ rm(week_ending_a, week_ending_b)
 
 download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek01to532020datawk232021.xlsx', paste0(github_repo_dir, '/Source_files/ons_mortality_2020.xlsx'), mode = 'wb')
 
-download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2021/lahbtables2021week48.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
+download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2021/lahbtables2021week49.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
 
 # # if the download does fail, it wipes out the old one, which we can use to our advantage
 # if(!file.exists(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'))){
@@ -2196,7 +2196,7 @@ if(change_direction_between_weeks == 'DOWN'){
               y = unit(0.76, "npc"),
               just = 'left',
               width = .04)
-
+  
   grid.text(format(change_between_weeks, big.mark = ','),
             just = "left",
             x = unit(0.34, "npc"),
@@ -2205,7 +2205,7 @@ if(change_direction_between_weeks == 'DOWN'){
                       fontsize = "32",
                       fontfamily = 'Bahnschrift',
                       fontface = 'bold'))
-
+  
   grid.text('Falling',
             just = "left",
             x = unit(0.285, "npc"),
@@ -2222,7 +2222,7 @@ if(change_direction_between_weeks == 'UP'){
               y = unit(0.76, "npc"),
               just = 'left',
               width = .04)
-
+  
   grid.text(paste0('+',format(change_between_weeks, big.mark = ',')),
             just = "left",
             x = unit(0.335, "npc"),
@@ -2231,7 +2231,7 @@ if(change_direction_between_weeks == 'UP'){
                       fontsize = "32",
                       fontfamily = 'Bahnschrift',
                       fontface = 'bold'))
-
+  
   grid.text('Rising',
             just = "left",
             x = unit(0.285, "npc"),
@@ -2248,7 +2248,7 @@ if(change_direction_between_weeks == 'SAME'){
               y = unit(0.76, "npc"),
               just = 'left',
               width = .04)
-
+  
   grid.text('No change\nin cases',
             just = "left",
             x = unit(0.335, "npc"),
@@ -2411,14 +2411,14 @@ grid.text(paste0('** rates per 100,000 population are given in brackets.'),
 areas_to_loop <- c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex', 'Worthing', 'West Sussex', 'South East region', 'England')
 
 for(i in 1:length(areas_to_loop)){
-
+  
   area_x <- areas_to_loop[i]
-
+  
   seven_day_area_x <- latest_table %>%
     filter(Name == area_x)
-
+  
   interval_pos <- .022
-
+  
   grid.text(gsub(' region', '', area_x),
             just = "left",
             x = unit(0.52, "npc"),
@@ -2426,7 +2426,7 @@ for(i in 1:length(areas_to_loop)){
             gp = gpar(col = text_colour,
                       # fontfamily = 'Verdana',
                       fontsize = "9"))
-
+  
   grid.text(format(seven_day_area_x$case_label, big.mark = ',', trim = TRUE),
             just = "right",
             x = unit(0.75 - .03, "npc"),
@@ -2434,7 +2434,7 @@ for(i in 1:length(areas_to_loop)){
             gp = gpar(col = text_colour,
                       # fontfamily = 'Verdana',
                       fontsize = "9"))
-
+  
   if(seven_day_area_x$Change_direction == 'Up'){
     grid.raster(up_img,
                 x = unit(0.75, "npc"),
@@ -2442,7 +2442,7 @@ for(i in 1:length(areas_to_loop)){
                 just = 'right',
                 width = .018)
   }
-
+  
   if(seven_day_area_x$Change_direction == 'Down'){
     grid.raster(down_img,
                 x = unit(0.75, "npc"),
@@ -2450,7 +2450,7 @@ for(i in 1:length(areas_to_loop)){
                 just = 'right',
                 width = .018)
   }
-
+  
   if(seven_day_area_x$Change_direction == 'Same'){
     grid.raster(same_img,
                 x = unit(0.75, "npc"),
@@ -2458,7 +2458,7 @@ for(i in 1:length(areas_to_loop)){
                 just = 'right',
                 width = .018)
   }
-
+  
   grid.text(seven_day_area_x$first_label,
             just = "right",
             x = unit(0.85, "npc"),
@@ -2466,7 +2466,7 @@ for(i in 1:length(areas_to_loop)){
             gp = gpar(col = text_colour,
                       # fontfamily = 'Verdana',
                       fontsize = "9"))
-
+  
   grid.text(seven_day_area_x$second_label,
             just = "right",
             x = unit(0.95, "npc"),
@@ -2474,7 +2474,7 @@ for(i in 1:length(areas_to_loop)){
             gp = gpar(col = text_colour,
                       # fontfamily = 'Verdana',
                       fontsize = "9"))
-
+  
 }
 
 grid.lines(x = c(0.5,0.98),
@@ -2525,8 +2525,8 @@ grid.roundrect(x = unit(0.04, "npc"),
 
 
 vac_uptake_12_plus_gg <- ggplot(vac_info_df_12_plus, aes(x = 1.9,
-                                                   y = People,
-                                                   fill = Status_label)) +
+                                                         y = People,
+                                                         fill = Status_label)) +
   geom_bar(stat="identity") +
   xlim(.1, 2.5) +
   coord_polar(theta = "y",
@@ -2683,8 +2683,8 @@ grid.text(paste0(format(wsx_12_plus_unvaccinated, big.mark = ','),' not vaccinat
                     fontsize = "9"))
 
 vac_uptake_18_plus_gg <- ggplot(vac_info_df_18_plus, aes(x = 1.9,
-                                                       y = People,
-                                                       fill = Status)) +
+                                                         y = People,
+                                                         fill = Status)) +
   geom_bar(stat="identity") +
   xlim(.1, 2.5) +
   coord_polar(theta = "y",
@@ -2869,10 +2869,9 @@ grid.text(paste0(format(wsx_18_plus_unvaccinated, big.mark = ','),' not vaccinat
                     fontsize = "9"))
 
 # Over time ####
-
 grid.roundrect(x = unit(0.5, "npc"),
                y = unit(0.45, "npc"),
-               width = unit(0.24, "npc"),
+               width = unit(0.48, "npc"),
                height = unit(0.13, "npc"),
                just = "left",
                default.units = "npc",
@@ -2880,19 +2879,19 @@ grid.roundrect(x = unit(0.5, "npc"),
                        col = "#ffffff"),
                vp = NULL)
 
-grid.text('First dose vaccinations in',
-          just = "centre",
-          x = unit(0.62, "npc"),
-          y = unit(0.49, "npc"),
+grid.text(paste0('The vaccination programme for West Sussex residents,'),
+          just = "left",
+          x = unit(0.51, "npc"),
+          y = unit(0.5, "npc"),
           gp = gpar(col = "#000000",
                     fontsize = "9",
                     # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
-grid.text(paste0('the seven days to ', This_week_vac_date),
-          just = "centre",
-          x = unit(0.62, "npc"),
-          y = unit(0.47, "npc"),
+grid.text(paste0('in the seven days to ', This_week_vac_date, ', has delivered:'),
+          just = "left",
+          x = unit(0.51, "npc"),
+          y = unit(0.48, "npc"),
           gp = gpar(col = "#000000",
                     fontsize = "9",
                     # fontfamily = 'Verdana',
@@ -2900,87 +2899,54 @@ grid.text(paste0('the seven days to ', This_week_vac_date),
 
 grid.text(format(wsx_first_doses_seven_days, big.mark = ','),
           just = "centre",
-          x = unit(0.62, "npc"),
-          y = unit(0.43, "npc"),
+          x = unit(0.57, "npc"),
+          y = unit(0.44, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "35",
+                    fontsize = "30",
                     fontfamily = 'Bahnschrift',
                     fontface = 'bold'))
 
-grid.roundrect(x = unit(0.75, "npc"),
-               y = unit(0.45, "npc"),
-               width = unit(0.24, "npc"),
-               height = unit(0.13, "npc"),
-               just = "left",
-               default.units = "npc",
-               gp=gpar(fill = "#ffffff",
-                       col = "#ffffff"),
-               vp = NULL)
-
-grid.text('Second dose vaccinations in',
+grid.text('first doses',
           just = "centre",
-          x = unit(0.87, "npc"),
-          y = unit(0.49, "npc"),
+          x = unit(0.57, "npc"),
+          y = unit(0.41, "npc"),
           gp = gpar(col = "#000000",
                     fontsize = "9",
-                    # fontfamily = 'Verdana',
-                    fontface = 'bold'))
-
-grid.text(paste0('the seven days to ', This_week_vac_date),
-          just = "centre",
-          x = unit(0.87, "npc"),
-          y = unit(0.47, "npc"),
-          gp = gpar(col = "#000000",
-                    fontsize = "9",
-                    # fontfamily = 'Verdana',
                     fontface = 'bold'))
 
 grid.text(format(wsx_second_doses_seven_days, big.mark = ','),
           just = "centre",
-          x = unit(0.87, "npc"),
-          y = unit(0.43, "npc"),
+          x = unit(0.72, "npc"),
+          y = unit(0.44, "npc"),
           gp = gpar(col = "#000000",
-                    fontsize = "35",
+                    fontsize = "30",
                     fontfamily = 'Bahnschrift',
                     fontface = 'bold'))
 
-# grid.roundrect(x = unit(0.75, "npc"),
-#                y = unit(0.45, "npc"),
-#                width = unit(0.24, "npc"),
-#                height = unit(0.13, "npc"),
-#                just = "left",
-#                default.units = "npc",
-#                gp=gpar(fill = "#ffffff",
-#                        col = "#ffffff"),
-#                vp = NULL)
+grid.text('second doses',
+          just = "centre",
+          x = unit(0.72, "npc"),
+          y = unit(0.41, "npc"),
+          gp = gpar(col = "#000000",
+                    fontsize = "9",
+                    fontface = 'bold'))
 
-# grid.text('Second dose vaccinations in',
-#           just = "centre",
-#           x = unit(0.87, "npc"),
-#           y = unit(0.49, "npc"),
-#           gp = gpar(col = "#000000",
-#                     fontsize = "9",
-#                     # fontfamily = 'Verdana',
-#                     fontface = 'bold'))
-# 
-# grid.text(paste0('the seven days to ', This_week_vac_date),
-#           just = "centre",
-#           x = unit(0.87, "npc"),
-#           y = unit(0.47, "npc"),
-#           gp = gpar(col = "#000000",
-#                     fontsize = "9",
-#                     # fontfamily = 'Verdana',
-#                     fontface = 'bold'))
-# 
-# grid.text(format(wsx_second_doses_seven_days, big.mark = ','),
-#           just = "centre",
-#           x = unit(0.87, "npc"),
-#           y = unit(0.43, "npc"),
-#           gp = gpar(col = "#000000",
-#                     fontsize = "35",
-#                     fontfamily = 'Bahnschrift',
-#                     fontface = 'bold'))
+grid.text(format(wsx_third_doses_seven_days, big.mark = ','),
+          just = "centre",
+          x = unit(0.89, "npc"),
+          y = unit(0.44, "npc"),
+          gp = gpar(col = "#000000",
+                    fontsize = "30",
+                    fontfamily = 'Bahnschrift',
+                    fontface = 'bold'))
 
+grid.text('third/booster doses',
+          just = "centre",
+          x = unit(0.89, "npc"),
+          y = unit(0.41, "npc"),
+          gp = gpar(col = "#000000",
+                    fontsize = "9",
+                    fontface = 'bold'))
 
 grid.text('COVID-19 IN HOSPITALS',
           just = "left",
@@ -3124,6 +3090,7 @@ grid.raster(wscc_logo,
             width = .12)
 
 dev.off()
+
 
 
 
