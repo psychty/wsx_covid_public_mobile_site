@@ -1538,7 +1538,7 @@ wsx_18_plus_first_doses_proportion <- as.numeric(vac_info_df_wsx_18_plus$Cumulat
 wsx_18_plus_second_doses_proportion <- as.numeric(vac_info_df_wsx_18_plus$Cumulative_dose_2 / vac_info_df_wsx_18_plus$Denominator)
 wsx_18_plus_third_doses_proportion <- as.numeric(vac_info_df_wsx_18_plus$Cumulative_dose_3_or_booster / vac_info_df_wsx_18_plus$Denominator)
 
-wsx_18_plus_first_dose_only <- wsx_18_plus_first_doses - wsx_18_plus_second_doses
+wsx_18_plus_first_dose_only <- as.numeric(vac_info_df_wsx_18_plus$Cumulative_dose_1) - as.numeric(vac_info_df_wsx_18_plus$Cumulative_dose_2)
 wsx_18_plus_unvaccinated <- wsx_18_plus_denominator - wsx_18_plus_first_doses
 
 wsx_18_plus_yet_to_boost <- wsx_18_plus_second_doses - wsx_18_plus_third_doses
@@ -2879,7 +2879,7 @@ grid.roundrect(x = unit(0.5, "npc"),
                        col = "#ffffff"),
                vp = NULL)
 
-grid.text(paste0('The vaccination programme for West Sussex residents,'),
+grid.text(paste0('The vaccination programme for West Sussex residents (12+),'),
           just = "left",
           x = unit(0.51, "npc"),
           y = unit(0.5, "npc"),
