@@ -1618,7 +1618,7 @@ vplayout <- function(x,y)
 #
 # #install.packages('extrafont')
 library(extrafont)
-loadfonts( device = 'win')
+loadfonts( device = 'win') # NB - any macs running this code do not like this option
 
 jpeg(paste0(output_directory_x, '/Daily_infographic_socials.jpg'),
      width = 9,
@@ -3090,6 +3090,7 @@ grid.raster(wscc_logo,
             width = .12)
 
 dev.off()
+
 
 
 
