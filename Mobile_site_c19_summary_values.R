@@ -655,28 +655,38 @@ week_ending_a <- data.frame(Week_ending= get_date(week = 1:53, year = 2020)) %>%
 week_ending_b <- data.frame(Week_ending = get_date(week = 2:53, year = 2021)) %>%
   mutate(Week_number = paste0(row_number(), ' - 2021'))
 
+week_ending_c <- data.frame(Week_ending = get_date(week = 2:53, year = 2022)) %>%
+  mutate(Week_number = paste0(row_number(), ' - 2022'))
+
 week_ending <- week_ending_a %>%
   bind_rows(week_ending_b) %>%
-  mutate(Week_number = factor(Week_number, levels = c("1 - 2020", "2 - 2020",  "3 - 2020", "4 - 2020",  "5 - 2020",  "6 - 2020",  "7 - 2020",  "8 - 2020",  "9 - 2020",  "10 - 2020", "11 - 2020", "12 - 2020", "13 - 2020", "14 - 2020", "15 - 2020", "16 - 2020", "17 - 2020", "18 - 2020", "19 - 2020", "20 - 2020", "21 - 2020", "22 - 2020", "23 - 2020", "24 - 2020", "25 - 2020", "26 - 2020", "27 - 2020", "28 - 2020", "29 - 2020", "30 - 2020", "31 - 2020", "32 - 2020", "33 - 2020", "34 - 2020", "35 - 2020", "36 - 2020", "37 - 2020", "38 - 2020", "39 - 2020", "40 - 2020", "41 - 2020", "42 - 2020", "43 - 2020", "44 - 2020", "45 - 2020", "46 - 2020", "47 - 2020", "48 - 2020", "49 - 2020", "50 - 2020", "51 - 2020", "52 - 2020", "53 - 2020", "1 - 2021", "2 - 2021", "3 - 2021", "4 - 2021",  "5 - 2021",  "6 - 2021",  "7 - 2021", "8 - 2021",  "9 - 2021",  "10 - 2021", "11 - 2021", "12 - 2021", "13 - 2021", "14 - 2021", "15 - 2021", "16 - 2021", "17 - 2021", "18 - 2021", "19 - 2021", "20 - 2021", "21 - 2021", "22 - 2021", "23 - 2021", "24 - 2021", "25 - 2021", "26 - 2021", "27 - 2021", "28 - 2021", "29 - 2021", "30 - 2021", "31 - 2021", "32 - 2021", "33 - 2021", "34 - 2021", "35 - 2021", "36 - 2021", "37 - 2021", "38 - 2021", "39 - 2021", "40 - 2021", "41 - 2021", "42 - 2021", "43 - 2021", "44 - 2021", "45 - 2021", "46 - 2021", "47 - 2021", "48 - 2021", "49 - 2021", "50 - 2021", "51 - 2021", "52 - 2021"))) %>%
+  bind_rows(week_ending_c) %>% 
+  mutate(Week_number = factor(Week_number, levels = c("1 - 2020", "2 - 2020",  "3 - 2020", "4 - 2020",  "5 - 2020",  "6 - 2020",  "7 - 2020",  "8 - 2020",  "9 - 2020",  "10 - 2020", "11 - 2020", "12 - 2020", "13 - 2020", "14 - 2020", "15 - 2020", "16 - 2020", "17 - 2020", "18 - 2020", "19 - 2020", "20 - 2020", "21 - 2020", "22 - 2020", "23 - 2020", "24 - 2020", "25 - 2020", "26 - 2020", "27 - 2020", "28 - 2020", "29 - 2020", "30 - 2020", "31 - 2020", "32 - 2020", "33 - 2020", "34 - 2020", "35 - 2020", "36 - 2020", "37 - 2020", "38 - 2020", "39 - 2020", "40 - 2020", "41 - 2020", "42 - 2020", "43 - 2020", "44 - 2020", "45 - 2020", "46 - 2020", "47 - 2020", "48 - 2020", "49 - 2020", "50 - 2020", "51 - 2020", "52 - 2020", "53 - 2020", "1 - 2021", "2 - 2021", "3 - 2021", "4 - 2021",  "5 - 2021",  "6 - 2021",  "7 - 2021", "8 - 2021",  "9 - 2021",  "10 - 2021", "11 - 2021", "12 - 2021", "13 - 2021", "14 - 2021", "15 - 2021", "16 - 2021", "17 - 2021", "18 - 2021", "19 - 2021", "20 - 2021", "21 - 2021", "22 - 2021", "23 - 2021", "24 - 2021", "25 - 2021", "26 - 2021", "27 - 2021", "28 - 2021", "29 - 2021", "30 - 2021", "31 - 2021", "32 - 2021", "33 - 2021", "34 - 2021", "35 - 2021", "36 - 2021", "37 - 2021", "38 - 2021", "39 - 2021", "40 - 2021", "41 - 2021", "42 - 2021", "43 - 2021", "44 - 2021", "45 - 2021", "46 - 2021", "47 - 2021", "48 - 2021", "49 - 2021", "50 - 2021", "51 - 2021", "52 - 2021", "1 - 2022", "2 - 2022", "3 - 2022", "4 - 2022",  "5 - 2022",  "6 - 2022",  "7 - 2022", "8 - 2022",  "9 - 2022",  "10 - 2022", "11 - 2022", "12 - 2022", "13 - 2022", "14 - 2022", "15 - 2022", "16 - 2022", "17 - 2022", "18 - 2022", "19 - 2022", "20 - 2022", "21 - 2022", "22 - 2022", "23 - 2022", "24 - 2022", "25 - 2022", "26 - 2022", "27 - 2022", "28 - 2022", "29 - 2022", "30 - 2022", "31 - 2022", "32 - 2022", "33 - 2022", "34 - 2022", "35 - 2022", "36 - 2022", "37 - 2022", "38 - 2022", "39 - 2022", "40 - 2022", "41 - 2022", "42 - 2022", "43 - 2022", "44 - 2022", "45 - 2022", "46 - 2022", "47 - 2022", "48 - 2022", "49 - 2022", "50 - 2022", "51 - 2022", "52 - 2022"))) %>%
   mutate(week_id = row_number())
 
-rm(week_ending_a, week_ending_b)
+rm(week_ending_a, week_ending_b, week_ending_c)
 
 download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek01to532020datawk232021.xlsx', paste0(github_repo_dir, '/Source_files/ons_mortality_2020.xlsx'), mode = 'wb')
 
-download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2021/lahbtables2021week52.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
+download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2021/lahbtables2021.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2021.xlsx'), mode = 'wb')
+
+download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2022/lahbtables2022week01.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2022.xlsx'), mode = 'wb')
 
 # # if the download does fail, it wipes out the old one, which we can use to our advantage
 # if(!file.exists(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'))){
 #   download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek',substr(as.character(as.aweek(Sys.Date()-12)), 7,8), '.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
 # }
 
-Occurrences_ltla_2021 <- read_excel(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>%
+Occurrences_ltla_2022 <- read_excel(paste0(github_repo_dir, '/Source_files/ons_mortality_2022.xlsx'), sheet = 'Occurrences_all_data', skip = 2) %>%
+  mutate(`Week number` = paste0(`Week number`, ' - 2022'))
+
+Occurrences_ltla_2021 <- read_excel(paste0(github_repo_dir, '/Source_files/ons_mortality_2021.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>%
   mutate(`Week number` = paste0(`Week number`, ' - 2021'))
 
 Occurrences_ltla <- read_excel(paste0(github_repo_dir, '/Source_files/ons_mortality_2020.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>%
   mutate(`Week number` = paste0(`Week number`, ' - 2020')) %>%
   bind_rows(Occurrences_ltla_2021) %>%
+  bind_rows(Occurrences_ltla_2022) %>% 
   rename(Name = `Area name`,
          Cause = `Cause of death`,
          Week_number = `Week number`,
@@ -696,12 +706,10 @@ Occurrences_wsx <- Occurrences_ltla %>%
   left_join(week_ending, by = 'Week_number') %>%
   ungroup()
 
-Occurrences_ltla_2021 <- (read_excel(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2)) %>%
-  mutate(`Week number` = paste0(`Week number`, ' - 2021'))
-
 Occurrences_england <- read_excel(paste0(github_repo_dir, '/Source_files/ons_mortality_2020.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>%
   mutate(`Week number` = paste0(`Week number`, ' - 2020')) %>%
   bind_rows(Occurrences_ltla_2021) %>%
+  bind_rows(Occurrences_ltla_2022) %>% 
   rename(Name = `Area name`,
          Cause = `Cause of death`,
          Week_number = `Week number`,
@@ -718,6 +726,7 @@ Occurrences_england <- read_excel(paste0(github_repo_dir, '/Source_files/ons_mor
 Occurrences_southeast <- read_excel(paste0(github_repo_dir, '/Source_files/ons_mortality_2020.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>%
   mutate(`Week number` = paste0(`Week number`, ' - 2020')) %>%
   bind_rows(Occurrences_ltla_2021) %>%
+  bind_rows(Occurrences_ltla_2022) %>% 
   rename(Name = `Area name`,
          Cause = `Cause of death`,
          Week_number = `Week number`,
@@ -734,6 +743,7 @@ Occurrences_southeast <- read_excel(paste0(github_repo_dir, '/Source_files/ons_m
 Occurrences_southeast_check <- read_excel(paste0(github_repo_dir, '/Source_files/ons_mortality_2020.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>%
   mutate(`Week number` = paste0(`Week number`, ' - 2020')) %>%
   bind_rows(Occurrences_ltla_2021) %>%
+  bind_rows(Occurrences_ltla_2022) %>% 
   rename(Name = `Area name`,
          Cause = `Cause of death`,
          Week_number = `Week number`,
@@ -741,16 +751,12 @@ Occurrences_southeast_check <- read_excel(paste0(github_repo_dir, '/Source_files
          Deaths = `Number of deaths`) %>%
   filter(`Area code` %in% lookup$LTLA19CD)
 
-Occurrences_southeast_check %>%
-  select(Name) %>%
-  unique()
-
 Occurrences<- Occurrences_ltla %>%
   bind_rows(Occurrences_wsx) %>%
   bind_rows(Occurrences_england) %>%
   bind_rows(Occurrences_southeast) %>%
   arrange(week_id) %>%
-  mutate(Week_number = factor(Week_number, levels = c("1 - 2020", "2 - 2020",  "3 - 2020", "4 - 2020",  "5 - 2020",  "6 - 2020",  "7 - 2020",  "8 - 2020",  "9 - 2020",  "10 - 2020", "11 - 2020", "12 - 2020", "13 - 2020", "14 - 2020", "15 - 2020", "16 - 2020", "17 - 2020", "18 - 2020", "19 - 2020", "20 - 2020", "21 - 2020", "22 - 2020", "23 - 2020", "24 - 2020", "25 - 2020", "26 - 2020", "27 - 2020", "28 - 2020", "29 - 2020", "30 - 2020", "31 - 2020", "32 - 2020", "33 - 2020", "34 - 2020", "35 - 2020", "36 - 2020", "37 - 2020", "38 - 2020", "39 - 2020", "40 - 2020", "41 - 2020", "42 - 2020", "43 - 2020", "44 - 2020", "45 - 2020", "46 - 2020", "47 - 2020", "48 - 2020", "49 - 2020", "50 - 2020", "51 - 2020", "52 - 2020", "53 - 2020", "1 - 2021", "2 - 2021", "3 - 2021", "4 - 2021",  "5 - 2021",  "6 - 2021",  "7 - 2021", "8 - 2021",  "9 - 2021",  "10 - 2021", "11 - 2021", "12 - 2021", "13 - 2021", "14 - 2021", "15 - 2021", "16 - 2021", "17 - 2021", "18 - 2021", "19 - 2021", "20 - 2021", "21 - 2021", "22 - 2021", "23 - 2021", "24 - 2021", "25 - 2021", "26 - 2021", "27 - 2021", "28 - 2021", "29 - 2021", "30 - 2021", "31 - 2021", "32 - 2021", "33 - 2021", "34 - 2021", "35 - 2021", "36 - 2021", "37 - 2021", "38 - 2021", "39 - 2021", "40 - 2021", "41 - 2021", "42 - 2021", "43 - 2021", "44 - 2021", "45 - 2021", "46 - 2021", "47 - 2021", "48 - 2021", "49 - 2021", "50 - 2021", "51 - 2021", "52 - 2021")))
+  mutate(Week_number = factor(Week_number, levels = c("1 - 2020", "2 - 2020",  "3 - 2020", "4 - 2020",  "5 - 2020",  "6 - 2020",  "7 - 2020",  "8 - 2020",  "9 - 2020",  "10 - 2020", "11 - 2020", "12 - 2020", "13 - 2020", "14 - 2020", "15 - 2020", "16 - 2020", "17 - 2020", "18 - 2020", "19 - 2020", "20 - 2020", "21 - 2020", "22 - 2020", "23 - 2020", "24 - 2020", "25 - 2020", "26 - 2020", "27 - 2020", "28 - 2020", "29 - 2020", "30 - 2020", "31 - 2020", "32 - 2020", "33 - 2020", "34 - 2020", "35 - 2020", "36 - 2020", "37 - 2020", "38 - 2020", "39 - 2020", "40 - 2020", "41 - 2020", "42 - 2020", "43 - 2020", "44 - 2020", "45 - 2020", "46 - 2020", "47 - 2020", "48 - 2020", "49 - 2020", "50 - 2020", "51 - 2020", "52 - 2020", "53 - 2020", "1 - 2021", "2 - 2021", "3 - 2021", "4 - 2021",  "5 - 2021",  "6 - 2021",  "7 - 2021", "8 - 2021",  "9 - 2021",  "10 - 2021", "11 - 2021", "12 - 2021", "13 - 2021", "14 - 2021", "15 - 2021", "16 - 2021", "17 - 2021", "18 - 2021", "19 - 2021", "20 - 2021", "21 - 2021", "22 - 2021", "23 - 2021", "24 - 2021", "25 - 2021", "26 - 2021", "27 - 2021", "28 - 2021", "29 - 2021", "30 - 2021", "31 - 2021", "32 - 2021", "33 - 2021", "34 - 2021", "35 - 2021", "36 - 2021", "37 - 2021", "38 - 2021", "39 - 2021", "40 - 2021", "41 - 2021", "42 - 2021", "43 - 2021", "44 - 2021", "45 - 2021", "46 - 2021", "47 - 2021", "48 - 2021", "49 - 2021", "50 - 2021", "51 - 2021", "52 - 2021", "1 - 2022", "2 - 2022", "3 - 2022", "4 - 2022",  "5 - 2022",  "6 - 2022",  "7 - 2022", "8 - 2022",  "9 - 2022",  "10 - 2022", "11 - 2022", "12 - 2022", "13 - 2022", "14 - 2022", "15 - 2022", "16 - 2022", "17 - 2022", "18 - 2022", "19 - 2022", "20 - 2022", "21 - 2022", "22 - 2022", "23 - 2022", "24 - 2022", "25 - 2022", "26 - 2022", "27 - 2022", "28 - 2022", "29 - 2022", "30 - 2022", "31 - 2022", "32 - 2022", "33 - 2022", "34 - 2022", "35 - 2022", "36 - 2022", "37 - 2022", "38 - 2022", "39 - 2022", "40 - 2022", "41 - 2022", "42 - 2022", "43 - 2022", "44 - 2022", "45 - 2022", "46 - 2022", "47 - 2022", "48 - 2022", "49 - 2022", "50 - 2022", "51 - 2022", "52 - 2022")))
 
 rm(Occurrences_ltla, Occurrences_wsx, Occurrences_southeast, Occurrences_england)
 
