@@ -1,3 +1,4 @@
+
 library(easypackages)
 
 libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "png", "tidyverse", "reshape2", "scales", 'zoo', 'stats',"rgdal", 'rgeos', "tmaptools", 'sp', 'sf', 'maptools', 'leaflet', 'leaflet.extras', 'spdplyr', 'geojsonio', 'rmapshaper', 'jsonlite', 'grid', 'aweek', 'xml2', 'rvest', 'officer', 'flextable', 'viridis', 'epitools', 'flextable', 'directlabels', 'viridis', 'DT', 'ggiraph'))
@@ -34,11 +35,14 @@ ph_theme = function(){
 }
 
 #github_repo_dir <- "~/Documents/GitHub/wsx_covid_public_mobile_site"
-github_repo_dir <- "~/GitHub/wsx_covid_public_mobile_site"
+github_repo_dir <- "./GitHub/wsx_covid_public_mobile_site"
 output_directory_x <- paste0(github_repo_dir, '/Outputs')
 
 #list.files(output_directory_x)
 # 2020 MYE
+
+
+# Cornwall and Isles of Scilly" "Hackney and City of London"  
 
 mye_total <- read_csv('https://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.csv?geography=2092957699,2013265928,1820327937...1820328318,1816133633...1816133848&date=latest&gender=0&c_age=200&measures=20100&select=date_name,geography_name,geography_type,geography_code,obs_value') %>%
   rename(Population = OBS_VALUE,
@@ -53,6 +57,13 @@ mye_total <- read_csv('https://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data
   ungroup() %>%
   select(-Count) %>%
   unique()
+
+mye_total <- mye_total %>% 
+  mutate(Name = ifelse(Name %in% c('Hackney', 'City of London'), 'Hackney and City of London', Name)) %>% 
+  mutate(Code = ifelse(Code %in% c('E09000012', 'E09000001'), 'E09000012', Code)) %>% 
+  group_by(Type, Name, Code) %>% 
+  summarise(Population = sum(Population, na.rm = TRUE)) %>% 
+  ungroup()
 
 if(exists('mye_total') == FALSE) {
   mye_total <- read_csv(paste0(github_repo_dir,'/Source_files/mye2020_ltla.csv'))
@@ -142,7 +153,6 @@ p12_test_df <- daily_cases_ltla %>%
   bind_rows(daily_cases_nation) %>%
   filter(substr(Code, 1,1) == 'E') %>%
   unique()
-
 
 # query_filters <- c(
 #   # "areaType=utla"
@@ -260,6 +270,13 @@ mye_ages <- read_csv('https://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.
   summarise(Population = sum(Population, na.rm = TRUE)) %>%
   ungroup() %>%
   mutate(Name = ifelse(Name == 'South East', 'South East region', Name))
+
+mye_ages <- mye_ages %>% 
+  mutate(Name = ifelse(Name %in% c('Hackney', 'City of London'), 'Hackney and City of London', Name)) %>% 
+  mutate(Code = ifelse(Code %in% c('E09000012', 'E09000001'), 'E09000012', Code)) %>% 
+  group_by(Type, Name, Code, Age) %>% 
+  summarise(Population = sum(Population, na.rm = TRUE)) %>% 
+  ungroup()
 
 if(exists('mye_ages') == FALSE) {
   mye_ages <- read_csv(paste0(github_repo_dir,'/Source_files/mye_ages.csv'))
@@ -668,9 +685,9 @@ rm(week_ending_a, week_ending_b, week_ending_c)
 
 download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek01to532020datawk232021.xlsx', paste0(github_repo_dir, '/Source_files/ons_mortality_2020.xlsx'), mode = 'wb')
 
-download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2021/lahbtables2021.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2021.xlsx'), mode = 'wb')
+download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2021/lahbtables20211.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2021.xlsx'), mode = 'wb')
 
-download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2022/lahbtables2022week031.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2022.xlsx'), mode = 'wb')
+download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2022/lahbtables2022week04.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2022.xlsx'), mode = 'wb')
 
 # # if the download does fail, it wipes out the old one, which we can use to our advantage
 # if(!file.exists(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'))){
