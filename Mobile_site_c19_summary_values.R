@@ -1,7 +1,6 @@
-
 library(easypackages)
 
-libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "png", "tidyverse", "reshape2", "scales", 'zoo', 'stats',"rgdal", 'rgeos', "tmaptools", 'sp', 'sf', 'maptools', 'leaflet', 'leaflet.extras', 'spdplyr', 'geojsonio', 'rmapshaper', 'jsonlite', 'grid', 'aweek', 'xml2', 'rvest', 'officer', 'flextable', 'viridis', 'epitools', 'flextable', 'directlabels', 'viridis', 'DT', 'ggiraph'))
+libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "png", "tidyverse", "reshape2", "scales", 'zoo', 'stats',"rgdal", 'rgeos', "tmaptools", 'sp', 'sf', 'maptools', 'leaflet', 'leaflet.extras', 'spdplyr', 'geojsonio', 'rmapshaper', 'jsonlite', 'grid', 'aweek', 'xml2', 'rvest', 'officer', 'flextable', 'viridis', 'epitools', 'directlabels', 'viridis', 'DT', 'ggiraph'))
 
 options(scipen = 999)
 
@@ -34,15 +33,13 @@ ph_theme = function(){
   )
 }
 
-#github_repo_dir <- "~/Documents/GitHub/wsx_covid_public_mobile_site"
-#github_repo_dir <- "./GitHub/wsx_covid_public_mobile_site"
-github_repo_dir <- '~/repos/wsx_covid_public_mobile_site'
+# github_repo_dir <- "~/Documents/GitHub/wsx_covid_public_mobile_site"
+github_repo_dir <- "~/GitHub/wsx_covid_public_mobile_site"
+# github_repo_dir <- '~/wsx_covid_public_mobile_site'
 output_directory_x <- paste0(github_repo_dir, '/Outputs')
 
 #list.files(output_directory_x)
 # 2020 MYE
-
-
 # Cornwall and Isles of Scilly" "Hackney and City of London"  
 
 mye_total <- read_csv('https://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.csv?geography=2092957699,2013265928,1820327937...1820328318,1816133633...1816133848&date=latest&gender=0&c_age=200&measures=20100&select=date_name,geography_name,geography_type,geography_code,obs_value') %>%
@@ -289,7 +286,6 @@ mye_ages %>%
 # age_spec_ltla <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=ltla&metric=newCasesBySpecimenDateAgeDemographics&format=csv')
 
 # &metric=newVirusTests&metric=uniqueCasePositivityBySpecimenDateRollingSum
-
 library(showtext)
 library(httr)
 
@@ -1644,7 +1640,7 @@ vplayout <- function(x,y)
 
 # might have to wrap jpeg call arround the newpage
 #
-# #install.packages('extrafont')
+#install.packages('Rttf2pt1')
 library(extrafont)
 loadfonts( device = 'win') # NB - any macs running this code do not like this option
 
