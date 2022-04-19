@@ -9,8 +9,6 @@ capwords = function(s, strict = FALSE) {
                           {s = substring(s, 2); if(strict) tolower(s) else s},sep = "", collapse = " " )
   sapply(strsplit(s, split = " "), cap, USE.NAMES = !is.null(names(s)))}
 
-plasma(10)
-
 ph_theme = function(){
   theme(
     plot.title = element_text(colour = "#000000", face = "bold", size = 10),
