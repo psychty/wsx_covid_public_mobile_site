@@ -688,7 +688,7 @@ download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2
 
 download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2021/lahbtables2021.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2021.xlsx'), mode = 'wb')
 
-download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2022/lahbtables2022week15.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2022.xlsx'), mode = 'wb')
+download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2022/lahbtables2022week16.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2022.xlsx'), mode = 'wb')
 
 # # if the download does fail, it wipes out the old one, which we can use to our advantage
 # if(!file.exists(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'))){
@@ -1157,79 +1157,6 @@ ltla_boundaries <- geojson_read('https://opendata.arcgis.com/datasets/3a4fa2ce68
 if(exists('ltla_boundaries') == FALSE) {
   ltla_boundaries <- geojson_read(paste0(github_repo_dir, '/Source_files/failsafe_ltla_boundary.geojson'),  what = "sp")
 }
-
-# utla_restrictions_geojson <-geojson_read("https://opendata.arcgis.com/datasets/b216b4c8a4e74f6fb692a1785255d777_0.geojson",  what = "sp") %>%
-#   filter(substr(ctyua19cd, 1,1 ) == 'E') %>%
-#   mutate(ctyua19nm = ifelse(ctyua19nm %in% c('Cornwall', 'Isles of Scilly'), 'Cornwall and Isles of Scilly', ifelse(ctyua19nm %in% c('City of London', 'Hackney'), 'Hackney and City of London', ctyua19nm))) %>%
-#   mutate(ctyua19cd = ifelse(ctyua19cd %in% c('E06000053', 'E06000052'), 'E06000052', ifelse(ctyua19cd %in% c('E09000001', 'E09000012'), 'E09000012', ctyua19cd))) %>%
-#   group_by(ctyua19cd, ctyua19nm) %>%
-#   summarise() %>%
-#   arrange(ctyua19cd) %>%
-#   left_join(utla_summary, by = c('ctyua19nm' = 'Name'))
-
-# geojson_write(geojson_json(utla_restrictions_geojson), file = paste0(output_directory_x, '/utla_covid_latest.geojson'))
-
-# ltla_restrictions_geojson <- ltla_boundaries %>%
-#   filter(lad19cd %in% ltla_summary$`Area code`) %>%
-#   arrange(lad19nm)
-#
-# ltla_summary <- ltla_summary %>%
-#   arrange(Name)
-# #left_join(ltla_summary, by = c('lad19nm' = 'Name'))
-#
-# df <- data.frame(ID = character())
-#
-# # Get the IDs of spatial polygon
-# for (i in ltla_restrictions_geojson@polygons ) { df <- rbind(df, data.frame(ID = i@ID, stringsAsFactors = FALSE))  }
-#
-# # and set rowname = ID
-# row.names(ltla_summary) <- df$ID
-#
-# # Then use df as the second argument to the spatial dataframe conversion function:
-# ltla_restrictions_geojson <- SpatialPolygonsDataFrame(ltla_restrictions_geojson, ltla_summary)
-#
-# geojson_write(geojson_json(ltla_restrictions_geojson), file = paste0(output_directory_x, '/ltla_covid_latest.geojson'))
-
-# daily_cases_df %>%
-#   filter(Name == 'West Sussex') %>%
-#   # filter(Date <= '2020-11-05') %>%
-#   arrange(-Rolling_7_day_new_cases_per_100000) %>%
-#   View()
-
-# Growth Rates ####
-
-# growth_rate <- p12_test_df %>%
-#   filter(Data_completeness == 'Complete') %>%
-#   filter(Date >= complete_date -10) %>%
-#   select(Name, Code, Type, Date, Rolling_7_day_new_cases, Perc_change_on_rolling_7_days_actual, Population) %>%
-#   mutate(Rolling_7_day_new_cases = replace_na(Rolling_7_day_new_cases, 0)) %>%
-#   mutate(Rolling_7_day_rate = pois.exact(Rolling_7_day_new_cases, Population)[[3]]*100000) %>%
-#   mutate(Rolling_rate_lcl = pois.exact(Rolling_7_day_new_cases, Population)[[4]]*100000) %>%
-#   mutate(Rolling_rate_ucl = pois.exact(Rolling_7_day_new_cases, Population)[[5]]*100000) %>%
-#   arrange(Name, Date) %>%
-#   group_by(Name) %>%
-#   mutate(Last_week_incidence_rate = lag(Rolling_7_day_rate, 7),
-#          Last_week_date = lag(Date, 7)) %>%
-#   ungroup() %>%
-#   filter(Date == complete_date) %>%
-#   rename(Change_actual_by_week = Perc_change_on_rolling_7_days_actual)
-#
-# growth_rate_england <- growth_rate %>%
-#   filter(Name == 'England') %>%
-#   rename(Eng_rate = Rolling_7_day_rate,
-#          Eng_lcl = Rolling_rate_lcl,
-#          Eng_ucl = Rolling_rate_ucl)
-#
-# growth_rate_ltla <- growth_rate %>%
-#   left_join(growth_rate_england[c('Date', 'Eng_rate', 'Eng_lcl', 'Eng_ucl')], by = 'Date') %>%
-#   filter(Type %in% c('Lower Tier Local Authority', 'Unitary Authority') | Name == 'England')
-#
-# growth_rate_ltla %>%
-#   mutate(Name = factor(Name, levels = c(setdiff(unique(growth_rate_ltla$Name), c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex','Worthing', 'England')), c('Adur', 'Arun', 'Chichester', 'Crawley', 'Horsham', 'Mid Sussex','Worthing', 'England')))) %>%
-#   arrange(Name) %>%
-#   select(Name, Date, Rolling_7_day_rate, Change_actual_by_week) %>%
-#   toJSON() %>%
-#   write_lines(paste0(output_directory_x,'/ltla_growth_complete_date.json'))
 
 # Positivity ####
 positivity_ltla <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=ltla&metric=uniquePeopleTestedBySpecimenDateRollingSum&metric=uniqueCasePositivityBySpecimenDateRollingSum&metric=newLFDTestsBySpecimenDate&format=csv') %>%
@@ -2338,7 +2265,6 @@ grid.text(paste0(format(total_so_far$Cumulative_cases, big.mark = ','), ' confir
                     fontface = 'bold'))
 
 # Table ####
-
 text_colour <- '#ffffff'
 text_colour <- '#000000'
 
@@ -3114,8 +3040,3 @@ grid.raster(wscc_logo,
             width = .12)
 
 dev.off()
-
-
-
-
-
