@@ -684,20 +684,24 @@ rm(week_ending_a, week_ending_b, week_ending_c)
 
 download.file('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2020/lahbtablesweek01to532020datawk232021.xlsx', paste0(github_repo_dir, '/Source_files/ons_mortality_2020.xlsx'), mode = 'wb')
 
-download.file(paste0('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2021/lahbtables2021.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2021.xlsx'), mode = 'wb')
+download.file(paste0('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2021/lahbtables20211.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2021.xlsx'), mode = 'wb')
 
-download.file(paste0('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2022/lahbtables2022week36.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2022.xlsx'), mode = 'wb')
+download.file(paste0('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2022/lahbfileweek382022.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2022.xlsx'), mode = 'wb')
 
 # # if the download does fail, it wipes out the old one, which we can use to our advantage
 # if(!file.exists(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'))){
 #   download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek',substr(as.character(as.aweek(Sys.Date()-12)), 7,8), '.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'), mode = 'wb')
 # }
 
-Occurrences_ltla_2022 <- read_excel(paste0(github_repo_dir, '/Source_files/ons_mortality_2022.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>%
-  mutate(`Week number` = paste0(`Week number`, ' - 2022'))
+# Occurrences_ltla_2022 <- read_excel(paste0(github_repo_dir, '/Source_files/ons_mortality_2022.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>%
+  # mutate(`Week number` = paste0(`Week number`, ' - 2022'))
+
+Occurrences_ltla_2022 <- read_excel(paste0(github_repo_dir, '/Source_files/ons_mortality_2022.xlsx'), sheet = 'Table 2', skip = 5) %>%
+  mutate(`Week number` = paste0(`Week number`, ' - 2022')) %>% 
+  rename('Number of deaths' = Deaths)
 
 Occurrences_ltla_2021 <- read_excel(paste0(github_repo_dir, '/Source_files/ons_mortality_2021.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>%
-  mutate(`Week number` = paste0(`Week number`, ' - 2021'))
+  mutate(`Week number` = paste0(`Week number`, ' - 2021')) 
 
 Occurrences_ltla <- read_excel(paste0(github_repo_dir, '/Source_files/ons_mortality_2020.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>%
   mutate(`Week number` = paste0(`Week number`, ' - 2020')) %>%
@@ -1367,7 +1371,6 @@ vaccine_age_df <- bind_rows(dflist) %>%
   select(Date, Name, Age_group, Denominator, Dose_1, Seven_day_sum_dose_1, Cumulative_dose_1, Dose_2, Seven_day_sum_dose_2, Cumulative_dose_2, Dose_3_or_booster, Seven_day_sum_dose_3_or_booster, Cumulative_dose_3_or_booster)
 
 # create vaccine time series by dose for 18+ by ltla ####
-
 vaccine_ts_18_plus_df <- vaccine_age_df %>%
   filter(Age_group %in% c("18-24 years", "25-29 years", "30-34 years", "35-39 years", "40-44 years", "45-49 years", "50-54 years", "55-59 years", "60-64 years", "65-69 years", "70-74 years", "75-79 years", "80-84 years", "85-89 years", "90+ years")) %>% 
   group_by(Date, Name) %>%
@@ -3038,4 +3041,3 @@ grid.raster(wscc_logo,
             width = .12)
 
 dev.off()
-
