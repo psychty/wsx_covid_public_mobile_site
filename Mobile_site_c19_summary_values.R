@@ -32,7 +32,7 @@ ph_theme = function(){
 }
 
 # github_repo_dir <- "~/Documents/GitHub/wsx_covid_public_mobile_site"
-github_repo_dir <- "~/GitHub/wsx_covid_public_mobile_site"
+github_repo_dir <- "~/Repos/wsx_covid_public_mobile_site"
 # github_repo_dir <- '~/wsx_covid_public_mobile_site'
 output_directory_x <- paste0(github_repo_dir, '/Outputs')
 
@@ -684,7 +684,7 @@ rm(week_ending_a, week_ending_b, week_ending_c)
 
 download.file('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2020/lahbtablesweek01to532020datawk232021.xlsx', paste0(github_repo_dir, '/Source_files/ons_mortality_2020.xlsx'), mode = 'wb')
 
-download.file(paste0('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2021/lahbtables20211.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2021.xlsx'), mode = 'wb')
+download.file(paste0('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2021/lahbtables20212.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2021.xlsx'), mode = 'wb')
 
 download.file(paste0('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2022/lahbfileweek382022.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2022.xlsx'), mode = 'wb')
 
