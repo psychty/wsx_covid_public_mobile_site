@@ -1,4 +1,6 @@
-easypackages::libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "png", "tidyverse", "scales", 'zoo', 'stats',"rgdal", 'rgeos', "tmaptools", 'sp', 'sf', 'maptools', 'leaflet', 'leaflet.extras', 'spdplyr', 'geojsonio', 'rmapshaper', 'jsonlite', 'grid', 'aweek', 'xml2', 'rvest', 'officer', 'flextable', 'viridis', 'epitools', 'directlabels', 'DT'))
+packages <- c("readxl", "readr", "plyr", "dplyr", "ggplot2", "png", "tidyverse", "scales", 'zoo', 'stats',"rgdal", 'rgeos', 'sp', 'sf', 'maptools', 'leaflet', 'leaflet.extras', 'spdplyr', 'geojsonio', 'rmapshaper', 'jsonlite', 'grid', 'aweek', 'xml2', 'rvest', 'officer', 'flextable', 'viridis', 'epitools', 'directlabels', 'DT', 'lemon')
+install.packages(setdiff(packages, rownames(installed.packages())))
+easypackages::libraries(packages)
 
 options(scipen = 999)
 
@@ -32,8 +34,9 @@ ph_theme = function(){
 }
 
 # github_repo_dir <- "~/Documents/GitHub/wsx_covid_public_mobile_site"
-github_repo_dir <- "~/Repos/wsx_covid_public_mobile_site"
+# github_repo_dir <- "~/Repos/wsx_covid_public_mobile_site"
 # github_repo_dir <- '~/wsx_covid_public_mobile_site'
+github_repo_dir <- 'C:/Users/asus/OneDrive/Documents/Repositories/wsx_covid_public_mobile_site'
 output_directory_x <- paste0(github_repo_dir, '/Outputs')
 
 #list.files(output_directory_x)
@@ -684,9 +687,9 @@ rm(week_ending_a, week_ending_b, week_ending_c)
 
 download.file('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2020/lahbtablesweek01to532020datawk232021.xlsx', paste0(github_repo_dir, '/Source_files/ons_mortality_2020.xlsx'), mode = 'wb')
 
-download.file(paste0('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2021/lahbtables20212.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2021.xlsx'), mode = 'wb')
+download.file(paste0('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2021/lahbtables20215.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2021.xlsx'), mode = 'wb')
 
-download.file(paste0('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2022/lahbfileweek392022.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2022.xlsx'), mode = 'wb')
+download.file(paste0('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2022/lahbfileweek4120221.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2022.xlsx'), mode = 'wb')
 
 # # if the download does fail, it wipes out the old one, which we can use to our advantage
 # if(!file.exists(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'))){
@@ -1259,8 +1262,6 @@ positivity_worked %>%
   toJSON() %>%
   write_lines(paste0(output_directory_x, '/positivity_df.json'))
 
-library(lemon)
-
 data_dummy_positivity_worked <- positivity_worked %>%
   rename(dummy_name = Name)
 
@@ -1570,7 +1571,7 @@ vplayout <- function(x,y)
 #
 #install.packages('Rttf2pt1')
 library(extrafont)
-loadfonts( device = 'win') # NB - any macs running this code do not like this option
+loadfonts(device = 'win') # NB - any macs running this code do not like this option
 
 jpeg(paste0(output_directory_x, '/Daily_infographic_socials.jpg'),
      width = 9,
