@@ -652,10 +652,16 @@ mye_total <- mye_total_raw %>%
   rename(All_ages = `All Ages`,
          Age_65_plus = `Aged 65+`)
 
-lookup <- read_csv(url("https://opendata.arcgis.com/datasets/3e4f4af826d343349c13fb7f0aa2a307_0.csv")) %>%
-  select(-c(FID,LTLA19NM)) %>%
-  left_join(read_csv(url('https://opendata.arcgis.com/datasets/3ba3daf9278f47daba0f561889c3521a_0.csv')), by = c('LTLA19CD' = 'LAD19CD')) %>%
-  select(-c(FID, LAD19NM)) %>%
+# lookup
+
+lookup_b <- st_read('https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LAD19_RGN19_EN_LU_948748b0eaa54fe888a604b126f5e672/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson') %>% 
+  st_drop_geometry() %>% 
+  select(LTLA19CD = LAD19CD, LTLA19NM = LAD19NM, RGN19CD, RGN19NM)
+
+lookup <- st_read('https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LTLA19_UTLA19_EW_LUv1_0c9f88509bfb47139e0afb00571e75e1/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson') %>% 
+  st_drop_geometry() %>% 
+  select(LTLA19CD, UTLA19CD, UTLA19NM) %>% 
+  left_join(lookup_b, by = 'LTLA19CD') %>% 
   add_row(LTLA19CD ='E06000060', UTLA19CD = 'E06000060', UTLA19NM = 'Buckinghamshire', RGN19CD = 'E12000008', RGN19NM = 'South East') %>%
   filter(RGN19NM == 'South East')
 
@@ -689,7 +695,7 @@ download.file('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/hea
 
 download.file(paste0('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2021/lahbtables20215.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2021.xlsx'), mode = 'wb')
 
-download.file(paste0('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2022/lahbfileweek452022.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2022.xlsx'), mode = 'wb')
+download.file(paste0('https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard/2022/lahbfileweek472022.xlsx'),  paste0(github_repo_dir, '/Source_files/ons_mortality_2022.xlsx'), mode = 'wb')
 
 # # if the download does fail, it wipes out the old one, which we can use to our advantage
 # if(!file.exists(paste0(github_repo_dir, '/Source_files/ons_mortality.xlsx'))){
@@ -1070,7 +1076,6 @@ msoa_data <- msoa_cases_dummy %>%
 
 msoa_cases_1 <-  msoa_data %>%
   select(areaCode, areaName, date, newCasesBySpecimenDateRollingSum, newCasesBySpecimenDateRollingRate) %>%
-  # filter(areaCode %in% msoa_lookup$MSOA11CD) %>%
   filter(date %in% c(max(date))) %>%
   select(areaCode, date, newCasesBySpecimenDateRollingRate) %>%
   rename(Latest_rate = newCasesBySpecimenDateRollingRate) %>%
@@ -1155,13 +1160,13 @@ ltla_summary %>%
   toJSON() %>%
   write_lines(paste0(output_directory_x,'/ltla_summary.json'))
 
-ltla_boundaries <- geojson_read('https://opendata.arcgis.com/datasets/3a4fa2ce68f642e399b4de07643eeed3_0.geojson',  what = "sp")
+# ltla_boundaries <- geojson_read('https://opendata.arcgis.com/datasets/3a4fa2ce68f642e399b4de07643eeed3_0.geojson',  what = "sp")
 
 #download.file('https://opendata.arcgis.com/datasets/3a4fa2ce68f642e399b4de07643eeed3_0.geojson', paste0(github_repo_dir, '/Source_files/failsafe_ltla_boundary.geojson'), mode = 'wb')
 
-if(exists('ltla_boundaries') == FALSE) {
+# if(exists('ltla_boundaries') == FALSE) {
   ltla_boundaries <- geojson_read(paste0(github_repo_dir, '/Source_files/failsafe_ltla_boundary.geojson'),  what = "sp")
-}
+# }
 
 # Positivity ####
 positivity_ltla <- read_csv('https://api.coronavirus.data.gov.uk/v2/data?areaType=ltla&metric=uniquePeopleTestedBySpecimenDateRollingSum&metric=uniqueCasePositivityBySpecimenDateRollingSum&metric=newLFDTestsBySpecimenDate&format=csv') %>%
